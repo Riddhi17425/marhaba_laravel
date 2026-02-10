@@ -1,0 +1,3 @@
+[07-Jun-2023 12:59:18 UTC] PHP Fatal error:  Cannot use App\Models\Blog as Blog because the name is already in use in /home3/ananytpl/public_html/allwin/app/Http/Controllers/dashboardController.php on line 10
+[11-Oct-2025 11:03:50 UTC] PHP Fatal error:  Cannot redeclare App\Http\Controllers\ProductFrontController::productdetails() in /home3/ananytpl/public_html/marhabafashion_laravel/app/Http/Controllers/ProductFrontController.php on line 92
+[11-Oct-2025 11:04:10 UTC] PHP Fatal error:  Cannot redeclare App\Http\Controllers\ProductFrontController::productdetails() in /home3/ananytpl/public_html/marhabafashion_laravel/app/Http/Controllers/ProductFrontController.php on line 92

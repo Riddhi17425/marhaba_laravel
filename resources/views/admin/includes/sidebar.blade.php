@@ -1,0 +1,126 @@
+<!-- sidebar -->
+<div class="sidebar px-4 py-4 py-md-4 me-0">
+    <div class="d-flex flex-column h-100">
+        <a href="{{ route('admin/dashboard') }}" class="mb-0 brand-icon">
+            <span class="logo-icon">
+                <i class="icofont-bag-alt fs-4"></i>
+            </span>
+            <span class="logo-text">MarhabaFashion</span>
+        </a>
+
+        <!-- Menu: main ul -->
+        <ul class="menu-list flex-grow-1 mt-3">
+
+            <!-- Dashboard -->
+            <li>
+                <a class="m-link{{ Request::routeIs('admin/dashboard') ? ' active' : '' }}"
+                   href="{{ route('admin/dashboard') }}">
+                   <i class="icofont-home fs-5"></i>
+                   <span>Dashboard</span>
+                </a>
+            </li>
+
+            <!-- Product Management -->
+            <li class="collapsed{{ Request::routeIs('category.*') || Request::routeIs('product.*') ||
+            Request::routeIs('brand.*') || Request::routeIs('clothsize.*') || Request::routeIs('clothcolor.*') ? ' active' : '' }}">
+                <a class="m-link" data-bs-toggle="collapse" data-bs-target="#menu-product-management"
+                 href="#">
+                    <i class="icofont-box fs-5"></i> 
+                    <span>Product Management</span>
+                    <span class="arrow icofont-rounded-down ms-auto text-end fs-5"></span>
+                </a>
+                <ul class="sub-menu collapse{{ Request::routeIs('category.*') ||Request::routeIs('product.*') || Request::routeIs('brand.*') || Request::routeIs('clothsize.*') || Request::routeIs('clothcolor.*') ? ' show' : '' }}" id="menu-product-management">
+                    
+                    <!-- Category -->
+                    <li>
+                        <a class="m-link{{ Request::routeIs('category.index') ? ' active' : '' }}" href="{{ route('category.index') }}">
+                           <i class="icofont-tags fs-5"></i>
+                           <span>Category</span>
+                        </a>
+                    </li>
+
+                    <!-- Product -->
+                    <li>
+                        <a class="m-link{{ Request::routeIs('product.index') ? ' active' : '' }}" href="{{ route('product.index') }}">
+                           <i class="icofont-box fs-5"></i>
+                           <span>Product</span>
+                        </a>
+                    </li>
+
+                    <!-- Brand -->
+                    <li>
+                        <a class="m-link{{ Request::routeIs('brand.index') ? ' active' : '' }}" href="{{ route('brand.index') }}">
+                           <i class="icofont-crown fs-5"></i>
+                           <span>Brand</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a class="m-link{{ Request::routeIs('clothsize.index') ? ' active' : '' }}" href="{{ route('clothsize.index') }}">
+                           <i class="icofont-resize fs-5"></i>
+                           <span>Cloth Size</span>
+                        </a>
+                    </li>
+                    {{-- <li>
+                        <a class="m-link{{ Request::routeIs('clothcolor.index') ? ' active' : '' }}" href="{{ route('clothcolor.index') }}">
+                           <i class="icofont-paint fs-5"></i>
+                           <span>Cloth Color</span>
+                        </a>
+                    </li> --}}
+
+                </ul>
+            </li>
+
+            <!-- Global Presence -->
+            <li>
+                <a class="m-link{{ Request::routeIs('globalpresence.*') ? ' active' : '' }}"
+                   href="{{ route('globalpresence.index') }}">
+                   <i class="icofont-globe fs-5"></i>
+                   <span>Global Presence</span>
+                </a>
+            </li>
+            <li>
+                <a class="m-link{{ Request::routeIs('aboutimage.*') ? ' active' : '' }}"
+                   href="{{ route('aboutimage.index') }}">
+                   <i class="icofont-image fs-5"></i>
+                   <span>About Image</span>
+                </a>
+            </li>
+            <li>
+                <a class="m-link{{ Request::routeIs('menuimage.*') ? ' active' : '' }}"
+                   href="{{ route('menuimage.index') }}">
+                    <i class="icofont-ui-image fs-5"></i>
+                    <span>Menu Image</span>
+                </a>
+            </li>
+            
+            <li>
+                <a class="m-link{{ Request::routeIs('catalogue-image.*') ? ' active' : '' }}"
+                   href="{{ route('catalogue-image.index') }}">
+                   <i class="icofont-image fs-5"></i>
+                   <span>Catalogue Image</span>
+                </a>
+            </li>
+            <li>
+                <a class="m-link{{ Request::routeIs('trusted-by.*') ? ' active' : '' }}"
+                   href="{{ route('trusted-by.index') }}">
+                   <i class="icofont-image fs-5"></i>
+                   <span>Trusted By</span>
+                </a>
+            </li>
+            <li>
+                <a class="m-link{{ Request::routeIs('whychoose-us.*') ? ' active' : '' }}"
+                   href="{{ route('whychoose-us.index') }}">
+                   <i class="icofont-image fs-5"></i>
+                   <span>Why Choose Us</span>
+                </a>
+            </li>
+
+
+        </ul>
+
+        <button type="button" class="btn btn-link sidebar-mini-btn text-light">
+            <span class="ms-2"><i class="icofont-bubble-right"></i></span>
+        </button>
+    </div>
+</div>
