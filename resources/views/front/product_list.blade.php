@@ -402,7 +402,7 @@ $subcatVal = preg_replace('/[\#].*$/', '', $subcatVal);
                             @foreach($ageSection as $key => $val)
                             <div class="form-check mb-2">
                                 <input class="form-check-input" type="checkbox" value="{{ $key }}" id="filterAge_{{ $key }}"
-                                     name="ageRange" @if(isset($subcatVal) && strtolower($subcatVal) == strtolower($key)) {{ 'checked' }} @else {{ '' }} @endif>
+                                     name="ageRange[]" data-total="{{ $data[$key] }}" @if(isset($subcatVal) && strtolower($subcatVal) == strtolower($key)) {{ 'checked' }} @else {{ '' }} @endif>
                                 <label class="form-check-label" for="filterAge_{{ $key }}">{{$val['label'] ?? ''}} ({{ $data[$key] }})</label>
                             </div>
                             @endforeach
@@ -425,7 +425,7 @@ $subcatVal = preg_replace('/[\#].*$/', '', $subcatVal);
                         <div class="accordion-body">
                             @foreach($brands as $key => $val)
                             <div class="form-check mb-2">
-                                <input class="form-check-input" type="checkbox" value="{{ $val->id }}" id="filterBrand_{{ $val->id }}" name="brand">
+                                <input class="form-check-input" type="checkbox" value="{{ $val->id }}" id="filterBrand_{{ $val->id }}" name="brand[]" data-total="{{ $val->total_brand_product }}" data-text="{{ $val->name }}">
                                 <label class="form-check-label" for="filterBrand_{{ $val->id }}">{{ $val->name ?? '' }} ({{ $val->total_brand_product }})</label>
                             </div>
                             @endforeach
@@ -449,7 +449,7 @@ $subcatVal = preg_replace('/[\#].*$/', '', $subcatVal);
                             @foreach($categories as $key => $val)
                             <div class="form-check mb-2">
                                 <input class="form-check-input catFilter" type="checkbox" value="{{ $val->id }}"
-                                    id="filterCategory_{{ $val->id }}" @if(isset($categoryId) && $categoryId == $val->id){{ 'checked' }} @else {{ '' }} @endif name="category">
+                                    id="filterCategory_{{ $val->id }}" @if(isset($categoryId) && $categoryId == $val->id){{ 'checked' }} @else {{ '' }} @endif name="category[]" data-total="{{ $val->total_category_product }}" data-text="{{ $val->name }}">
                                 <label class="form-check-label" for="filterCategory_{{ $val->id }}">
                                     {{ $val->name ?? '' }} ({{ $val->total_category_product }})
                                 </label>
@@ -487,13 +487,16 @@ const ageSections = document.querySelectorAll('.age_section');
 const applyFiltersBtn = document.getElementById('applyFilters');
 const clearFiltersBtn = document.getElementById('clearFilters');
 const totalItemsElement = document.getElementById('totalItems');
+var totalProducts = @json($totalProducts);
+var ageRangeLabelArr = @json($ageSection);
 
-// Age Range Data
-const ageRangeLabels = {
-    'baby': '0 to 3 y',
-    'toddler': '2 to 7 y',
-    'kids': '6 to 14 y'
-};
+// Age Range Data FOR FILTER PILLS
+const ageRangeLabels = {};
+Object.keys(ageRangeLabelArr).forEach(key => {
+    const item = ageRangeLabelArr[key];
+    ageRangeLabels[key] = item.label;
+});
+
 
 // Initialize Event Listeners
 function initEventListeners() {
@@ -529,37 +532,38 @@ function updateFilterState() {
     filterState.category = [];
 
     // Get checked values
-    document.querySelectorAll('input[name="ageRange"]:checked').forEach(cb => {
+    document.querySelectorAll('input[name="ageRange[]"]:checked').forEach(cb => {
         filterState.ageRange.push(cb.value);
     });
 
-    document.querySelectorAll('input[name="brand"]:checked').forEach(cb => {
-        filterState.brand.push(cb.value);
+    document.querySelectorAll('input[name="brand[]"]:checked').forEach(cb => {
+        const text = cb.dataset.text; 
+        filterState.brand.push(text);
     });
 
-    document.querySelectorAll('input[name="category"]:checked').forEach(cb => {
-        filterState.category.push(cb.value);
+    document.querySelectorAll('input[name="category[]"]:checked').forEach(cb => {
+        const text = cb.dataset.text; 
+        filterState.category.push(text);
     });
 }
 
-// Update Apply Button Text
 function updateApplyButtonText() {
-    updateFilterState();
-    
-    // Count visible items based on filters
-    let itemCount = 0;
-    
-    if (filterState.ageRange.length > 0) {
-        // If age range is selected, count only those sections
-        itemCount = filterState.ageRange.length * 12; // Assuming 12 items per section
-    } else {
-        // If no age range selected, count all sections
-        //itemCount = 120;
-        itemCount = '';
+    let total = 0;
+    // Count checked checkboxes
+    const checkedBoxes = document.querySelectorAll(
+        'input[name="ageRange[]"]:checked, input[name="brand[]"]:checked, input[name="category[]"]:checked'
+    );
+    checkedBoxes.forEach(cb => {
+        const count = parseInt(cb.getAttribute('data-total')) || 0;
+        total += count;
+    });
+    // If nothing selected → show total products
+    if (checkedBoxes.length === 0) {
+        total = totalProducts;
     }
-    
-    applyFiltersBtn.textContent = `Show ${itemCount} Items`;
+    applyFiltersBtn.textContent = `Show ${total} Items`;
 }
+
 
 // Apply Filters - Main Function
 function applyFilters() {
@@ -685,19 +689,19 @@ function renderFilterPills() {
 
     // Add age range pills
     filterState.ageRange.forEach(ageValue => {
-        const pill = createFilterPill('Age Range', ageRangeLabels[ageValue], 'ageRange', ageValue);
+        const pill = createFilterPill('Age Range', ageRangeLabels[ageValue], 'ageRange[]', ageValue);
         pillsContainer.appendChild(pill);
     });
 
     // Add brand pills
     filterState.brand.forEach(brandValue => {
-        const pill = createFilterPill('Brand', brandValue, 'brand', brandValue);
+        const pill = createFilterPill('Brand', brandValue, 'brand[]', brandValue);
         pillsContainer.appendChild(pill);
     });
 
     // Add category pills
     filterState.category.forEach(categoryValue => {
-        const pill = createFilterPill('Category', categoryValue, 'category', categoryValue);
+        const pill = createFilterPill('Category', categoryValue, 'category[]', categoryValue);
         pillsContainer.appendChild(pill);
     });
 
@@ -771,7 +775,6 @@ function removeFilter(filterType, filterValue) {
     if (checkbox) {
         checkbox.checked = false;
     }
-
     // Re-apply filters
     applyFilters();
 
@@ -794,8 +797,6 @@ function clearAllFilters() {
     document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
         checkbox.checked = false;
     });
-
-    var totalProducts = @json($totalProducts);
     
     // Reset apply button text
     applyFiltersBtn.textContent = 'Show ' + totalProducts + ' Items'; // NEED TO MAKE DYNAMIC
