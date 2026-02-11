@@ -78,300 +78,306 @@ $subcatVal = preg_replace('/[\#].*$/', '', $subcatVal);
             </div>
         </section>
 
-        <!-- Baby Section -->
-        @if(isset($groupedProducts['baby']['products']) && is_countable($groupedProducts['baby']['products']) && count($groupedProducts['baby']['products']) > 0)
-        <section id="baby" class="age_section" data-age="baby">
-            <h2 class="title_48lora mb-0"
-                style="background: linear-gradient(90deg, rgba(243, 242, 231, 0) 0%, #F3F2E7 50%, rgba(243, 242, 231, 0) 100%);">
-                Baby</h2>
-            <div class="products_filter_grid">
-                @foreach($groupedProducts['baby']['products'] as $key => $val)
-                @foreach($val as $vk => $vv)
-                @php 
-                    $productImages = json_decode($vv->product_brand_size); 
-                    $size = \App\Models\Product::getSizeId($vk);
-                    $sizeId = $size->id;
-                    $filteredImages = collect($productImages)->where('size_id', (string)$sizeId)->values();
-                @endphp
-                <div>
-                    <div class="product_wrapper">
-                        <div class="Product_item swiper prod_img_slider">
-                            @if($filteredImages->count() > 0)
-                                <div class="swiper-wrapper">
-                                    @foreach($filteredImages as $v)
+        <div id="withFilterProduct" class="d-none">
+           
+        </div>
+
+        <div id="withoutFilterProducts">
+            <!-- Baby Section -->
+            @if(isset($groupedProducts['baby']['products']) && is_countable($groupedProducts['baby']['products']) && count($groupedProducts['baby']['products']) > 0)
+            <section id="baby" class="age_section" data-age="baby">
+                <h2 class="title_48lora mb-0"
+                    style="background: linear-gradient(90deg, rgba(243, 242, 231, 0) 0%, #F3F2E7 50%, rgba(243, 242, 231, 0) 100%);">
+                    Baby</h2>
+                <div class="products_filter_grid">
+                    @foreach($groupedProducts['baby']['products'] as $key => $val)
+                    @foreach($val as $vk => $vv)
+                    @php 
+                        $productImages = json_decode($vv->product_brand_size); 
+                        $size = \App\Models\Product::getSizeId($vk);
+                        $sizeId = $size->id;
+                        $filteredImages = collect($productImages)->where('size_id', (string)$sizeId)->values();
+                    @endphp
+                    <div>
+                        <div class="product_wrapper">
+                            <div class="Product_item swiper prod_img_slider">
+                                @if($filteredImages->count() > 0)
+                                    <div class="swiper-wrapper">
+                                        @foreach($filteredImages as $v)
+                                            <div class="swiper-slide">
+                                                <a href="{{ url('products-details/' . $vv['url'].'/'. $vv['id']) }}" target="_blank">
+                                                    <img loading="lazy" src="{{ asset('public/product_images/' . $v->product_image) }}"
+                                                        alt="{{ $vv->name }}" class="img-fluid product_img w-100">
+                                                </a>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                @else
+                                    <div class="swiper-wrapper">
                                         <div class="swiper-slide">
-                                            <a href="{{ url('products-details/' . $vv['url'].'/'. $vv['id']) }}" target="_blank">
-                                                <img loading="lazy" src="{{ asset('public/product_images/' . $v->product_image) }}"
-                                                    alt="{{ $vv->name }}" class="img-fluid product_img w-100">
-                                            </a>
+                                            <img loading="lazy" src="{{ asset('public/front/img/product-not-found.png') }}"
+                                                alt="not found" class="img-fluid product_img w-100">
                                         </div>
-                                    @endforeach
-                                </div>
-                            @else
-                                <div class="swiper-wrapper">
-                                    <div class="swiper-slide">
-                                        <img loading="lazy" src="{{ asset('public/front/img/product-not-found.png') }}"
-                                            alt="not found" class="img-fluid product_img w-100">
                                     </div>
-                                </div>
-                            @endif
-                            {{-- <a href="https://www.intelliworkz.co/marhaba_laravel/products-details/shirt-shorts-co-ord-set">
-                                <img src="https://www.intelliworkz.co/marhaba_laravel/public/product_images/Shirt-Shorts-Co-ord-set-2-5Y-1.png" alt="Shirt Shorts Co-ord Set" class="img-fluid product_img w-100" onerror="this.src='https://www.intelliworkz.co/marhaba_laravel/public/front/img/default-product.jpg'">
-                            </a> --}}
+                                @endif
+                                {{-- <a href="https://www.intelliworkz.co/marhaba_laravel/products-details/shirt-shorts-co-ord-set">
+                                    <img src="https://www.intelliworkz.co/marhaba_laravel/public/product_images/Shirt-Shorts-Co-ord-set-2-5Y-1.png" alt="Shirt Shorts Co-ord Set" class="img-fluid product_img w-100" onerror="this.src='https://www.intelliworkz.co/marhaba_laravel/public/front/img/default-product.jpg'">
+                                </a> --}}
+                            </div>
+                            <a href="{{ url('products-details/' . $vv['url'].'/'. $vv['id']) }}" target="_blank"><p class="mb-0" style="font-weight:500;">{{$vv->name ?? ''}}</p></a>
+                            <p class="raleway_14 mb-0">{{$vk ?? ''}}</p>
                         </div>
-                        <a href="{{ url('products-details/' . $vv['url'].'/'. $vv['id']) }}" target="_blank"><p class="mb-0" style="font-weight:500;">{{$vv->name ?? ''}}</p></a>
-                        <p class="raleway_14 mb-0">{{$vk ?? ''}}</p>
                     </div>
+                    @endforeach
+                    @endforeach
+                    {{-- <div>
+                        <div class="product_wrapper">
+                            <div class="Product_item">
+                                <a
+                                    href="https://www.intelliworkz.co/marhaba_laravel/products-details/shirt-shorts-co-ord-set">
+                                    <img src="https://www.intelliworkz.co/marhaba_laravel/public/product_images/Shirt-Shorts-Co-ord-set-2-5Y-1.png"
+                                        alt="Shirt Shorts Co-ord Set" class="img-fluid product_img w-100"
+                                        onerror="this.src='https://www.intelliworkz.co/marhaba_laravel/public/front/img/default-product.jpg'">
+                                </a>
+                            </div>
+                            <p class="mb-0" style="font-weight:500;">Smart Kids Comfort Bodysuit Set</p>
+                            <p class="raleway_14 mb-0">3m-12m</p>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="product_wrapper">
+                            <div class="Product_item">
+                                <a
+                                    href="https://www.intelliworkz.co/marhaba_laravel/products-details/shirt-shorts-co-ord-set">
+                                    <img src="https://www.intelliworkz.co/marhaba_laravel/public/product_images/Shirt-Shorts-Co-ord-set-2-5Y-1.png"
+                                        alt="Shirt Shorts Co-ord Set" class="img-fluid product_img w-100"
+                                        onerror="this.src='https://www.intelliworkz.co/marhaba_laravel/public/front/img/default-product.jpg'">
+                                </a>
+                            </div>
+                            <p class="mb-0" style="font-weight:500;">Smart Kids Comfort Bodysuit Set</p>
+                            <p class="raleway_14 mb-0">3m-12m</p>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="product_wrapper">
+                            <div class="Product_item">
+                                <a
+                                    href="https://www.intelliworkz.co/marhaba_laravel/products-details/shirt-shorts-co-ord-set">
+                                    <img src="https://www.intelliworkz.co/marhaba_laravel/public/product_images/Shirt-Shorts-Co-ord-set-2-5Y-1.png"
+                                        alt="Shirt Shorts Co-ord Set" class="img-fluid product_img w-100"
+                                        onerror="this.src='https://www.intelliworkz.co/marhaba_laravel/public/front/img/default-product.jpg'">
+                                </a>
+                            </div>
+                            <p class="mb-0" style="font-weight:500;">Smart Kids Comfort Bodysuit Set</p>
+                            <p class="raleway_14 mb-0">3m-12m</p>
+                        </div>
+                    </div> --}}
                 </div>
-                @endforeach
-                @endforeach
-                {{-- <div>
-                    <div class="product_wrapper">
-                        <div class="Product_item">
-                            <a
-                                href="https://www.intelliworkz.co/marhaba_laravel/products-details/shirt-shorts-co-ord-set">
-                                <img src="https://www.intelliworkz.co/marhaba_laravel/public/product_images/Shirt-Shorts-Co-ord-set-2-5Y-1.png"
-                                    alt="Shirt Shorts Co-ord Set" class="img-fluid product_img w-100"
-                                    onerror="this.src='https://www.intelliworkz.co/marhaba_laravel/public/front/img/default-product.jpg'">
-                            </a>
-                        </div>
-                        <p class="mb-0" style="font-weight:500;">Smart Kids Comfort Bodysuit Set</p>
-                        <p class="raleway_14 mb-0">3m-12m</p>
-                    </div>
-                </div>
-                <div>
-                    <div class="product_wrapper">
-                        <div class="Product_item">
-                            <a
-                                href="https://www.intelliworkz.co/marhaba_laravel/products-details/shirt-shorts-co-ord-set">
-                                <img src="https://www.intelliworkz.co/marhaba_laravel/public/product_images/Shirt-Shorts-Co-ord-set-2-5Y-1.png"
-                                    alt="Shirt Shorts Co-ord Set" class="img-fluid product_img w-100"
-                                    onerror="this.src='https://www.intelliworkz.co/marhaba_laravel/public/front/img/default-product.jpg'">
-                            </a>
-                        </div>
-                        <p class="mb-0" style="font-weight:500;">Smart Kids Comfort Bodysuit Set</p>
-                        <p class="raleway_14 mb-0">3m-12m</p>
-                    </div>
-                </div>
-                <div>
-                    <div class="product_wrapper">
-                        <div class="Product_item">
-                            <a
-                                href="https://www.intelliworkz.co/marhaba_laravel/products-details/shirt-shorts-co-ord-set">
-                                <img src="https://www.intelliworkz.co/marhaba_laravel/public/product_images/Shirt-Shorts-Co-ord-set-2-5Y-1.png"
-                                    alt="Shirt Shorts Co-ord Set" class="img-fluid product_img w-100"
-                                    onerror="this.src='https://www.intelliworkz.co/marhaba_laravel/public/front/img/default-product.jpg'">
-                            </a>
-                        </div>
-                        <p class="mb-0" style="font-weight:500;">Smart Kids Comfort Bodysuit Set</p>
-                        <p class="raleway_14 mb-0">3m-12m</p>
-                    </div>
-                </div> --}}
-            </div>
-        </section>
-        @endif
+            </section>
+            @endif
 
-        <!-- Toddler & Little Kids Section -->
-        @if(isset($groupedProducts['kids']['products']) && is_countable($groupedProducts['kids']['products']) && count($groupedProducts['kids']['products']) > 0)
-        <section id="toddler" class="age_section" data-age="toddler">
-            <h2 class="title_48lora mb-0"
-                style="background: linear-gradient(90deg, rgba(239, 230, 240, 0) 0%, #EFE6F0 50%, rgba(239, 230, 240, 0) 100%);">
-                Toddler & Little Kids</h2>
-            <div class="products_filter_grid">
-                @foreach($groupedProducts['kids']['products'] as $key => $val)
-                @foreach($val as $vk => $vv)
-                @php 
-                    $productImages = json_decode($vv->product_brand_size);
-                    $size = \App\Models\Product::getSizeId($vk);
-                    $sizeId = $size->id;
-                    $filteredImages = collect($productImages)->where('size_id', (string)$sizeId)->values();
-                @endphp
-                <div>
-                    <div class="product_wrapper">
-                        <div class="Product_item swiper prod_img_slider">
-                            @if($filteredImages->count() > 0)
-                                <div class="swiper-wrapper">
-                                    @foreach($filteredImages as $v)
+            <!-- Toddler & Little Kids Section -->
+            @if(isset($groupedProducts['kids']['products']) && is_countable($groupedProducts['kids']['products']) && count($groupedProducts['kids']['products']) > 0)
+            <section id="toddler" class="age_section" data-age="toddler">
+                <h2 class="title_48lora mb-0"
+                    style="background: linear-gradient(90deg, rgba(239, 230, 240, 0) 0%, #EFE6F0 50%, rgba(239, 230, 240, 0) 100%);">
+                    Toddler & Little Kids</h2>
+                <div class="products_filter_grid">
+                    @foreach($groupedProducts['kids']['products'] as $key => $val)
+                    @foreach($val as $vk => $vv)
+                    @php 
+                        $productImages = json_decode($vv->product_brand_size);
+                        $size = \App\Models\Product::getSizeId($vk);
+                        $sizeId = $size->id;
+                        $filteredImages = collect($productImages)->where('size_id', (string)$sizeId)->values();
+                    @endphp
+                    <div>
+                        <div class="product_wrapper">
+                            <div class="Product_item swiper prod_img_slider">
+                                @if($filteredImages->count() > 0)
+                                    <div class="swiper-wrapper">
+                                        @foreach($filteredImages as $v)
+                                            <div class="swiper-slide">
+                                                <a href="{{ url('products-details/' . $vv['url'].'/'. $vv['id']) }}" target="_blank">
+                                                    <img loading="lazy" src="{{ asset('public/product_images/' . $v->product_image) }}"
+                                                        alt="{{ $vv->name }}" class="img-fluid product_img w-100">
+                                                </a>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                @else
+                                    <div class="swiper-wrapper">
                                         <div class="swiper-slide">
-                                            <a href="{{ url('products-details/' . $vv['url'].'/'. $vv['id']) }}" target="_blank">
-                                                <img loading="lazy" src="{{ asset('public/product_images/' . $v->product_image) }}"
-                                                    alt="{{ $vv->name }}" class="img-fluid product_img w-100">
-                                            </a>
+                                            <img loading="lazy" src="{{ asset('public/front/img/product-not-found.png') }}"
+                                                alt="not found" class="img-fluid product_img w-100">
                                         </div>
-                                    @endforeach
-                                </div>
-                            @else
-                                <div class="swiper-wrapper">
-                                    <div class="swiper-slide">
-                                        <img loading="lazy" src="{{ asset('public/front/img/product-not-found.png') }}"
-                                            alt="not found" class="img-fluid product_img w-100">
                                     </div>
-                                </div>
-                            @endif
-                            {{-- <a href="https://www.intelliworkz.co/marhaba_laravel/products-details/shirt-shorts-co-ord-set">
-                                <img src="https://www.intelliworkz.co/marhaba_laravel/public/product_images/Shirt-Shorts-Co-ord-set-2-5Y-1.png" alt="Shirt Shorts Co-ord Set" class="img-fluid product_img w-100" onerror="this.src='https://www.intelliworkz.co/marhaba_laravel/public/front/img/default-product.jpg'">
-                            </a> --}}
+                                @endif
+                                {{-- <a href="https://www.intelliworkz.co/marhaba_laravel/products-details/shirt-shorts-co-ord-set">
+                                    <img src="https://www.intelliworkz.co/marhaba_laravel/public/product_images/Shirt-Shorts-Co-ord-set-2-5Y-1.png" alt="Shirt Shorts Co-ord Set" class="img-fluid product_img w-100" onerror="this.src='https://www.intelliworkz.co/marhaba_laravel/public/front/img/default-product.jpg'">
+                                </a> --}}
+                            </div>
+                            <a href="{{ url('products-details/' . $vv['url'].'/'. $vv['id']) }}" target="_blank"><p class="mb-0" style="font-weight:500;">{{$vv->name ?? ''}}</p></a>
+                            <p class="raleway_14 mb-0">{{$vk ?? ''}}</p>
                         </div>
-                        <a href="{{ url('products-details/' . $vv['url'].'/'. $vv['id']) }}" target="_blank"><p class="mb-0" style="font-weight:500;">{{$vv->name ?? ''}}</p></a>
-                        <p class="raleway_14 mb-0">{{$vk ?? ''}}</p>
                     </div>
-                </div>
-                @endforeach
-                @endforeach
+                    @endforeach
+                    @endforeach
 
-                {{-- <div>
-                    <div class="product_wrapper">
-                        <div class="Product_item">
-                            <a
-                                href="https://www.intelliworkz.co/marhaba_laravel/products-details/shirt-shorts-co-ord-set">
-                                <img src="https://www.intelliworkz.co/marhaba_laravel/public/product_images/Shirt-Shorts-Co-ord-set-2-5Y-1.png"
-                                    alt="Shirt Shorts Co-ord Set" class="img-fluid product_img w-100"
-                                    onerror="this.src='https://www.intelliworkz.co/marhaba_laravel/public/front/img/default-product.jpg'">
-                            </a>
+                    {{-- <div>
+                        <div class="product_wrapper">
+                            <div class="Product_item">
+                                <a
+                                    href="https://www.intelliworkz.co/marhaba_laravel/products-details/shirt-shorts-co-ord-set">
+                                    <img src="https://www.intelliworkz.co/marhaba_laravel/public/product_images/Shirt-Shorts-Co-ord-set-2-5Y-1.png"
+                                        alt="Shirt Shorts Co-ord Set" class="img-fluid product_img w-100"
+                                        onerror="this.src='https://www.intelliworkz.co/marhaba_laravel/public/front/img/default-product.jpg'">
+                                </a>
+                            </div>
+                            <p class="mb-0" style="font-weight:500;">Smart Kids Comfort Bodysuit Set</p>
+                            <p class="raleway_14 mb-0">3m-12m</p>
                         </div>
-                        <p class="mb-0" style="font-weight:500;">Smart Kids Comfort Bodysuit Set</p>
-                        <p class="raleway_14 mb-0">3m-12m</p>
                     </div>
+                    <div>
+                        <div class="product_wrapper">
+                            <div class="Product_item">
+                                <a
+                                    href="https://www.intelliworkz.co/marhaba_laravel/products-details/shirt-shorts-co-ord-set">
+                                    <img src="https://www.intelliworkz.co/marhaba_laravel/public/product_images/Shirt-Shorts-Co-ord-set-2-5Y-1.png"
+                                        alt="Shirt Shorts Co-ord Set" class="img-fluid product_img w-100"
+                                        onerror="this.src='https://www.intelliworkz.co/marhaba_laravel/public/front/img/default-product.jpg'">
+                                </a>
+                            </div>
+                            <p class="mb-0" style="font-weight:500;">Smart Kids Comfort Bodysuit Set</p>
+                            <p class="raleway_14 mb-0">3m-12m</p>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="product_wrapper">
+                            <div class="Product_item">
+                                <a
+                                    href="https://www.intelliworkz.co/marhaba_laravel/products-details/shirt-shorts-co-ord-set">
+                                    <img src="https://www.intelliworkz.co/marhaba_laravel/public/product_images/Shirt-Shorts-Co-ord-set-2-5Y-1.png"
+                                        alt="Shirt Shorts Co-ord Set" class="img-fluid product_img w-100"
+                                        onerror="this.src='https://www.intelliworkz.co/marhaba_laravel/public/front/img/default-product.jpg'">
+                                </a>
+                            </div>
+                            <p class="mb-0" style="font-weight:500;">Smart Kids Comfort Bodysuit Set</p>
+                            <p class="raleway_14 mb-0">3m-12m</p>
+                        </div>
+                    </div> --}}
                 </div>
-                <div>
-                    <div class="product_wrapper">
-                        <div class="Product_item">
-                            <a
-                                href="https://www.intelliworkz.co/marhaba_laravel/products-details/shirt-shorts-co-ord-set">
-                                <img src="https://www.intelliworkz.co/marhaba_laravel/public/product_images/Shirt-Shorts-Co-ord-set-2-5Y-1.png"
-                                    alt="Shirt Shorts Co-ord Set" class="img-fluid product_img w-100"
-                                    onerror="this.src='https://www.intelliworkz.co/marhaba_laravel/public/front/img/default-product.jpg'">
-                            </a>
-                        </div>
-                        <p class="mb-0" style="font-weight:500;">Smart Kids Comfort Bodysuit Set</p>
-                        <p class="raleway_14 mb-0">3m-12m</p>
-                    </div>
-                </div>
-                <div>
-                    <div class="product_wrapper">
-                        <div class="Product_item">
-                            <a
-                                href="https://www.intelliworkz.co/marhaba_laravel/products-details/shirt-shorts-co-ord-set">
-                                <img src="https://www.intelliworkz.co/marhaba_laravel/public/product_images/Shirt-Shorts-Co-ord-set-2-5Y-1.png"
-                                    alt="Shirt Shorts Co-ord Set" class="img-fluid product_img w-100"
-                                    onerror="this.src='https://www.intelliworkz.co/marhaba_laravel/public/front/img/default-product.jpg'">
-                            </a>
-                        </div>
-                        <p class="mb-0" style="font-weight:500;">Smart Kids Comfort Bodysuit Set</p>
-                        <p class="raleway_14 mb-0">3m-12m</p>
-                    </div>
-                </div> --}}
-            </div>
-        </section>
-        @endif
+            </section>
+            @endif
 
-        <!-- Kids & Youth Section -->
-        @if(isset($groupedProducts['junior']['products']) && is_countable($groupedProducts['junior']['products']) && count($groupedProducts['junior']['products']) > 0)
-        <section id="kids" class="age_section" data-age="kids">
-            <h2 class="title_48lora mb-0" style="background: linear-gradient(90deg, rgba(230, 239, 242, 0) 0%, rgb(230, 239, 242) 50%, rgba(230, 239, 242, 0) 100%);"> Kids & Youth</h2>
-            <div class="products_filter_grid">
-                @foreach($groupedProducts['junior']['products'] as $key => $val)
-                @foreach($val as $vk => $vv)
-                @php 
-                    $productImages = json_decode($vv->product_brand_size); 
-                    $size = \App\Models\Product::getSizeId($vk);
-                    $sizeId = $size->id;
-                    $filteredImages = collect($productImages)->where('size_id', (string)$sizeId)->values();
-                @endphp
-                <div>
-                    <div class="product_wrapper">
-                        <div class="Product_item swiper prod_img_slider">
-                            {{-- @if(isset($productImages) && is_countable($productImages) && count($productImages) > 0) 
-                                <div class="swiper-wrapper">
-                                    @foreach($productImages as $k => $v)
-                                    <div class="swiper-slide">
-                                            <a href="{{ url('products-details/' . $vv['url']) }}"><img loading="lazy" src="{{ asset('public/product_images/' . $v->product_image) }}" alt="{{ $vv->name }}" class="img-fluid product_img w-100"></a>
-                                    </div>
-                                    @endforeach
-                                </div>
-                            @else
-                                <div class="swiper-wrapper">
-                                    <div class="swiper-slide">
-                                        <img loading="lazy" src="{{ asset('public/front/img/product-not-found.png') }}" alt="not found" class="img-fluid product_img w-100">
-                                    </div>
-                                </div>
-                            @endif --}}
-                            @if($filteredImages->count() > 0)
-                                <div class="swiper-wrapper">
-                                    @foreach($filteredImages as $v)
+            <!-- Kids & Youth Section -->
+            @if(isset($groupedProducts['junior']['products']) && is_countable($groupedProducts['junior']['products']) && count($groupedProducts['junior']['products']) > 0)
+            <section id="kids" class="age_section" data-age="kids">
+                <h2 class="title_48lora mb-0" style="background: linear-gradient(90deg, rgba(230, 239, 242, 0) 0%, rgb(230, 239, 242) 50%, rgba(230, 239, 242, 0) 100%);"> Kids & Youth</h2>
+                <div class="products_filter_grid">
+                    @foreach($groupedProducts['junior']['products'] as $key => $val)
+                    @foreach($val as $vk => $vv)
+                    @php 
+                        $productImages = json_decode($vv->product_brand_size); 
+                        $size = \App\Models\Product::getSizeId($vk);
+                        $sizeId = $size->id;
+                        $filteredImages = collect($productImages)->where('size_id', (string)$sizeId)->values();
+                    @endphp
+                    <div>
+                        <div class="product_wrapper">
+                            <div class="Product_item swiper prod_img_slider">
+                                {{-- @if(isset($productImages) && is_countable($productImages) && count($productImages) > 0) 
+                                    <div class="swiper-wrapper">
+                                        @foreach($productImages as $k => $v)
                                         <div class="swiper-slide">
-                                            <a href="{{ url('products-details/' . $vv['url'].'/'. $vv['id']) }}" target="_blank">
-                                                <img loading="lazy" src="{{ asset('public/product_images/' . $v->product_image) }}"
-                                                    alt="{{ $vv->name }}" class="img-fluid product_img w-100">
-                                            </a>
+                                                <a href="{{ url('products-details/' . $vv['url']) }}"><img loading="lazy" src="{{ asset('public/product_images/' . $v->product_image) }}" alt="{{ $vv->name }}" class="img-fluid product_img w-100"></a>
                                         </div>
-                                    @endforeach
-                                </div>
-                            @else
-                                <div class="swiper-wrapper">
-                                    <div class="swiper-slide">
-                                        <img loading="lazy" src="{{ asset('public/front/img/product-not-found.png') }}"
-                                            alt="not found" class="img-fluid product_img w-100">
+                                        @endforeach
                                     </div>
-                                </div>
-                            @endif
+                                @else
+                                    <div class="swiper-wrapper">
+                                        <div class="swiper-slide">
+                                            <img loading="lazy" src="{{ asset('public/front/img/product-not-found.png') }}" alt="not found" class="img-fluid product_img w-100">
+                                        </div>
+                                    </div>
+                                @endif --}}
+                                @if($filteredImages->count() > 0)
+                                    <div class="swiper-wrapper">
+                                        @foreach($filteredImages as $v)
+                                            <div class="swiper-slide">
+                                                <a href="{{ url('products-details/' . $vv['url'].'/'. $vv['id']) }}" target="_blank">
+                                                    <img loading="lazy" src="{{ asset('public/product_images/' . $v->product_image) }}"
+                                                        alt="{{ $vv->name }}" class="img-fluid product_img w-100">
+                                                </a>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                @else
+                                    <div class="swiper-wrapper">
+                                        <div class="swiper-slide">
+                                            <img loading="lazy" src="{{ asset('public/front/img/product-not-found.png') }}"
+                                                alt="not found" class="img-fluid product_img w-100">
+                                        </div>
+                                    </div>
+                                @endif
 
-                            {{-- <a
-                                href="https://www.intelliworkz.co/marhaba_laravel/products-details/shirt-shorts-co-ord-set">
-                                <img src="https://www.intelliworkz.co/marhaba_laravel/public/product_images/Shirt-Shorts-Co-ord-set-2-5Y-1.png" alt="Shirt Shorts Co-ord Set" class="img-fluid product_img w-100" onerror="this.src='https://www.intelliworkz.co/marhaba_laravel/public/front/img/default-product.jpg'">
-                            </a> --}}
+                                {{-- <a
+                                    href="https://www.intelliworkz.co/marhaba_laravel/products-details/shirt-shorts-co-ord-set">
+                                    <img src="https://www.intelliworkz.co/marhaba_laravel/public/product_images/Shirt-Shorts-Co-ord-set-2-5Y-1.png" alt="Shirt Shorts Co-ord Set" class="img-fluid product_img w-100" onerror="this.src='https://www.intelliworkz.co/marhaba_laravel/public/front/img/default-product.jpg'">
+                                </a> --}}
+                            </div>
+                            <a href="{{ url('products-details/' . $vv['url'].'/'. $vv['id']) }}" target="_blank"><p class="mb-0" style="font-weight:500;">{{$vv->name ?? ''}}</p></a>
+                            <p class="raleway_14 mb-0">{{$vk ?? ''}}</p>
                         </div>
-                        <a href="{{ url('products-details/' . $vv['url'].'/'. $vv['id']) }}" target="_blank"><p class="mb-0" style="font-weight:500;">{{$vv->name ?? ''}}</p></a>
-                        <p class="raleway_14 mb-0">{{$vk ?? ''}}</p>
                     </div>
+                    @endforeach
+                    @endforeach
+                    {{-- <div>
+                        <div class="product_wrapper">
+                            <div class="Product_item">
+                                <a
+                                    href="https://www.intelliworkz.co/marhaba_laravel/products-details/shirt-shorts-co-ord-set">
+                                    <img src="https://www.intelliworkz.co/marhaba_laravel/public/product_images/Shirt-Shorts-Co-ord-set-2-5Y-1.png"
+                                        alt="Shirt Shorts Co-ord Set" class="img-fluid product_img w-100"
+                                        onerror="this.src='https://www.intelliworkz.co/marhaba_laravel/public/front/img/default-product.jpg'">
+                                </a>
+                            </div>
+                            <p class="mb-0" style="font-weight:500;">Smart Kids Comfort Bodysuit Set</p>
+                            <p class="raleway_14 mb-0">3m-12m</p>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="product_wrapper">
+                            <div class="Product_item">
+                                <a
+                                    href="https://www.intelliworkz.co/marhaba_laravel/products-details/shirt-shorts-co-ord-set">
+                                    <img src="https://www.intelliworkz.co/marhaba_laravel/public/product_images/Shirt-Shorts-Co-ord-set-2-5Y-1.png"
+                                        alt="Shirt Shorts Co-ord Set" class="img-fluid product_img w-100"
+                                        onerror="this.src='https://www.intelliworkz.co/marhaba_laravel/public/front/img/default-product.jpg'">
+                                </a>
+                            </div>
+                            <p class="mb-0" style="font-weight:500;">Smart Kids Comfort Bodysuit Set</p>
+                            <p class="raleway_14 mb-0">3m-12m</p>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="product_wrapper">
+                            <div class="Product_item">
+                                <a
+                                    href="https://www.intelliworkz.co/marhaba_laravel/products-details/shirt-shorts-co-ord-set">
+                                    <img src="https://www.intelliworkz.co/marhaba_laravel/public/product_images/Shirt-Shorts-Co-ord-set-2-5Y-1.png"
+                                        alt="Shirt Shorts Co-ord Set" class="img-fluid product_img w-100"
+                                        onerror="this.src='https://www.intelliworkz.co/marhaba_laravel/public/front/img/default-product.jpg'">
+                                </a>
+                            </div>
+                            <p class="mb-0" style="font-weight:500;">Smart Kids Comfort Bodysuit Set</p>
+                            <p class="raleway_14 mb-0">3m-12m</p>
+                        </div>
+                    </div> --}}
                 </div>
-                @endforeach
-                @endforeach
-                {{-- <div>
-                    <div class="product_wrapper">
-                        <div class="Product_item">
-                            <a
-                                href="https://www.intelliworkz.co/marhaba_laravel/products-details/shirt-shorts-co-ord-set">
-                                <img src="https://www.intelliworkz.co/marhaba_laravel/public/product_images/Shirt-Shorts-Co-ord-set-2-5Y-1.png"
-                                    alt="Shirt Shorts Co-ord Set" class="img-fluid product_img w-100"
-                                    onerror="this.src='https://www.intelliworkz.co/marhaba_laravel/public/front/img/default-product.jpg'">
-                            </a>
-                        </div>
-                        <p class="mb-0" style="font-weight:500;">Smart Kids Comfort Bodysuit Set</p>
-                        <p class="raleway_14 mb-0">3m-12m</p>
-                    </div>
-                </div>
-                <div>
-                    <div class="product_wrapper">
-                        <div class="Product_item">
-                            <a
-                                href="https://www.intelliworkz.co/marhaba_laravel/products-details/shirt-shorts-co-ord-set">
-                                <img src="https://www.intelliworkz.co/marhaba_laravel/public/product_images/Shirt-Shorts-Co-ord-set-2-5Y-1.png"
-                                    alt="Shirt Shorts Co-ord Set" class="img-fluid product_img w-100"
-                                    onerror="this.src='https://www.intelliworkz.co/marhaba_laravel/public/front/img/default-product.jpg'">
-                            </a>
-                        </div>
-                        <p class="mb-0" style="font-weight:500;">Smart Kids Comfort Bodysuit Set</p>
-                        <p class="raleway_14 mb-0">3m-12m</p>
-                    </div>
-                </div>
-                <div>
-                    <div class="product_wrapper">
-                        <div class="Product_item">
-                            <a
-                                href="https://www.intelliworkz.co/marhaba_laravel/products-details/shirt-shorts-co-ord-set">
-                                <img src="https://www.intelliworkz.co/marhaba_laravel/public/product_images/Shirt-Shorts-Co-ord-set-2-5Y-1.png"
-                                    alt="Shirt Shorts Co-ord Set" class="img-fluid product_img w-100"
-                                    onerror="this.src='https://www.intelliworkz.co/marhaba_laravel/public/front/img/default-product.jpg'">
-                            </a>
-                        </div>
-                        <p class="mb-0" style="font-weight:500;">Smart Kids Comfort Bodysuit Set</p>
-                        <p class="raleway_14 mb-0">3m-12m</p>
-                    </div>
-                </div> --}}
-            </div>
-        </section>
-        @endif
+            </section>
+            @endif
+        </div>
     </div>
 </div>
 
@@ -384,8 +390,6 @@ $subcatVal = preg_replace('/[\#].*$/', '', $subcatVal);
         <p type="button" class="mb-0" id="clearFilters">Clear All</button>
     </div>
     <div class="offcanvas-body filter">
-        <form method="GET" id="filterForm" action="{{ route('get.filter.products') }}">
-        @csrf
         <div class="menu_body">
             <div class="accordion" id="accordionExample">
                 <!--age-->
@@ -466,12 +470,10 @@ $subcatVal = preg_replace('/[\#].*$/', '', $subcatVal);
                 <a type="button" class="apply_btn" id="applyFilters" data-bs-dismiss="offcanvas">Show {{ $totalProducts }} Items</a>
             </div>
         </div>
-        </form>
     </div>
 </div>
-<!--filter js-->
+
 <script>
-    // Product Listing Filter System
 
 // State Management
 const filterState = {
@@ -480,8 +482,16 @@ const filterState = {
     category: []
 };
 
+const filterStateValue = {
+    brand: [],
+    category: []
+};
+
 // DOM Elements
 const ageRangeLinks = document.getElementById('ageRangeLinks');
+const withoutFilterProducts = document.getElementById('withoutFilterProducts');
+const withFilterProduct = document.getElementById('withFilterProduct');
+
 const activeFiltersSection = document.getElementById('activeFilters');
 const ageSections = document.querySelectorAll('.age_section');
 const applyFiltersBtn = document.getElementById('applyFilters');
@@ -497,10 +507,10 @@ Object.keys(ageRangeLabelArr).forEach(key => {
     ageRangeLabels[key] = item.label;
 });
 
-
 // Initialize Event Listeners
 function initEventListeners() {
     // Age card click - scroll to section
+    // Scroll on click card
     document.querySelectorAll('.age-card').forEach(card => {
         card.addEventListener('click', function () {
             const targetSection = this.getAttribute('data-scroll-to');
@@ -531,6 +541,9 @@ function updateFilterState() {
     filterState.brand = [];
     filterState.category = [];
 
+    filterStateValue.brand = [];
+    filterStateValue.category = [];
+
     // Get checked values
     document.querySelectorAll('input[name="ageRange[]"]:checked').forEach(cb => {
         filterState.ageRange.push(cb.value);
@@ -539,11 +552,13 @@ function updateFilterState() {
     document.querySelectorAll('input[name="brand[]"]:checked').forEach(cb => {
         const text = cb.dataset.text; 
         filterState.brand.push(text);
+        filterStateValue.brand.push(cb.value);
     });
 
     document.querySelectorAll('input[name="category[]"]:checked').forEach(cb => {
         const text = cb.dataset.text; 
         filterState.category.push(text);
+        filterStateValue.category.push(cb.value);
     });
 }
 
@@ -564,7 +579,6 @@ function updateApplyButtonText() {
     applyFiltersBtn.textContent = `Show ${total} Items`;
 }
 
-
 // Apply Filters - Main Function
 function applyFilters() {
     updateFilterState();
@@ -577,22 +591,49 @@ function applyFilters() {
     if (hasActiveFilters) {
         // Hide age range links section
         ageRangeLinks.classList.add('d-none');
-
-        // Show active filters section
+        withoutFilterProducts.classList.add('d-none');
+        withFilterProduct.classList.remove('d-none');
+        // Show active filters section Pills
         activeFiltersSection.classList.remove('d-none');
 
         // Render filter pills
         renderFilterPills();
 
+        loadFilterProducts();
+
         // Filter sections
-        filterSections();
+        //filterSections();
 
         // Update item count
-        updateItemCount();
+        //updateItemCount(); commented temporarily
     } else {
         // No filters active - show all sections
         showAllSections();
     }
+}
+
+function loadFilterProducts(){
+    var ageFilter = filterState.ageRange;
+    var brandFilter = filterStateValue.brand;
+    var categoryFilter = filterStateValue.category;
+    var type = @json($type).toLowerCase();
+    $.ajax({
+        url: "{{ route('get.products', ['type' => '__type__']) }}".replace('__type__', type),
+        type: "GET",
+        data: {
+            ageFilter: ageFilter,
+            brandFilter: brandFilter,
+            categoryFilter: categoryFilter,
+            //_token: $('meta[name="csrf-token"]').attr('content')
+        },
+        success: function (response) {
+           // console.log("RESPONSE - " + JSON.stringify(response));
+            withFilterProduct.innerHTML = response;
+        },
+        error: function (error) {
+            console.log(error);
+        }
+    });
 }
 
 // Main Filter Logic
@@ -683,30 +724,64 @@ function checkSectionHasMatchingProducts(section) {
 }
 
 // Render Filter Pills
+// function renderFilterPills() {
+//     const pillsContainer = activeFiltersSection.querySelector('.d-flex');
+//     pillsContainer.innerHTML = '';
+
+//     // Add age range pills
+//     filterState.ageRange.forEach(ageValue => {
+//         const pill = createFilterPill('Age Range', ageRangeLabels[ageValue], 'ageRange[]', ageValue);
+//         pillsContainer.appendChild(pill);
+//     });
+
+//     // Add brand pills
+//     filterState.brand.forEach(brandValue => {
+//         const pill = createFilterPill('Brand', brandValue, 'brand[]', brandValue);
+//         pillsContainer.appendChild(pill);
+//     });
+
+//     // Add category pills
+//     filterState.category.forEach(categoryValue => {
+//         const pill = createFilterPill('Category', categoryValue, 'category[]', categoryValue);
+//         pillsContainer.appendChild(pill);
+//     });
+
+//     // Add Clear All button if there are filters
+//     if (filterState.ageRange.length > 0 || filterState.brand.length > 0 || filterState.category.length > 0) {
+//         const clearAllBtn = document.createElement('a');
+//         clearAllBtn.className = 'clear-all-btn';
+//         clearAllBtn.textContent = 'Clear';
+//         clearAllBtn.href = 'javascript:void(0)';
+//         clearAllBtn.addEventListener('click', clearAllFilters);
+//         pillsContainer.appendChild(clearAllBtn);
+//     }
+// }
 function renderFilterPills() {
     const pillsContainer = activeFiltersSection.querySelector('.d-flex');
     pillsContainer.innerHTML = '';
 
-    // Add age range pills
+    // Age Range Pills
     filterState.ageRange.forEach(ageValue => {
         const pill = createFilterPill('Age Range', ageRangeLabels[ageValue], 'ageRange[]', ageValue);
         pillsContainer.appendChild(pill);
     });
 
-    // Add brand pills
-    filterState.brand.forEach(brandValue => {
-        const pill = createFilterPill('Brand', brandValue, 'brand[]', brandValue);
+    // Brand Pills
+    filterStateValue.brand.forEach((brandId, idx) => {
+        const label = filterState.brand[idx]; // get text label
+        const pill = createFilterPill('Brand', label, 'brand[]', brandId);
         pillsContainer.appendChild(pill);
     });
 
-    // Add category pills
-    filterState.category.forEach(categoryValue => {
-        const pill = createFilterPill('Category', categoryValue, 'category[]', categoryValue);
+    // Category Pills
+    filterStateValue.category.forEach((catId, idx) => {
+        const label = filterState.category[idx];
+        const pill = createFilterPill('Category', label, 'category[]', catId);
         pillsContainer.appendChild(pill);
     });
 
-    // Add Clear All button if there are filters
-    if (filterState.ageRange.length > 0 || filterState.brand.length > 0 || filterState.category.length > 0) {
+    // Add Clear All button
+    if (filterState.ageRange.length || filterState.brand.length || filterState.category.length) {
         const clearAllBtn = document.createElement('a');
         clearAllBtn.className = 'clear-all-btn';
         clearAllBtn.textContent = 'Clear';
@@ -716,44 +791,74 @@ function renderFilterPills() {
     }
 }
 
+
 // Create Filter Pill Element
-function createFilterPill(label, value, filterType, filterValue) {
+// function createFilterPill(label, value, filterType, filterValue) {
+//     const pill = document.createElement('div');
+//     pill.className = 'filter-pill';
+
+//     // Label span
+//     const labelSpan = document.createElement('span');
+//     labelSpan.className = 'filter-label';
+//     labelSpan.textContent = `${label}: `;
+
+//     // Value span
+//     const valueSpan = document.createElement('span');
+//     valueSpan.className = 'filter-value';
+//     valueSpan.textContent = value;
+
+//     // Remove button
+//     const removeBtn = document.createElement('a');
+//     removeBtn.href = 'javascript:void(0)';
+//     removeBtn.className = 'remove-filter';
+
+//     removeBtn.innerHTML = `
+//         <svg width="9" height="9" viewBox="0 0 9 9" fill="none"
+//              xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+//             <path d="M0.5 0.5L8.5 8.5"
+//                   stroke="#4A4A4A"
+//                   stroke-linecap="round"
+//                   stroke-linejoin="round"/>
+//             <path d="M8.5 0.5L0.5 8.5"
+//                   stroke="#4A4A4A"
+//                   stroke-linecap="round"
+//                   stroke-linejoin="round"/>
+//         </svg>
+//     `;
+
+//     removeBtn.addEventListener('click', (e) => {
+//         e.preventDefault();
+//         removeFilter(filterType, filterValue);
+//     });
+
+//     pill.appendChild(labelSpan);
+//     pill.appendChild(valueSpan);
+//     pill.appendChild(removeBtn);
+
+//     return pill;
+// }
+function createFilterPill(label, valueLabel, filterType, filterValue) {
     const pill = document.createElement('div');
     pill.className = 'filter-pill';
 
-    // Label span
     const labelSpan = document.createElement('span');
     labelSpan.className = 'filter-label';
     labelSpan.textContent = `${label}: `;
 
-    // Value span
     const valueSpan = document.createElement('span');
     valueSpan.className = 'filter-value';
-    valueSpan.textContent = value;
+    valueSpan.textContent = valueLabel;
 
-    // Remove button
     const removeBtn = document.createElement('a');
     removeBtn.href = 'javascript:void(0)';
     removeBtn.className = 'remove-filter';
-
     removeBtn.innerHTML = `
-        <svg width="9" height="9" viewBox="0 0 9 9" fill="none"
-             xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <path d="M0.5 0.5L8.5 8.5"
-                  stroke="#4A4A4A"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"/>
-            <path d="M8.5 0.5L0.5 8.5"
-                  stroke="#4A4A4A"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"/>
+        <svg width="9" height="9" viewBox="0 0 9 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0.5 0.5L8.5 8.5" stroke="#4A4A4A" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M8.5 0.5L0.5 8.5" stroke="#4A4A4A" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
     `;
-
-    removeBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        removeFilter(filterType, filterValue);
-    });
+    removeBtn.addEventListener('click', () => removeFilter(filterType, filterValue));
 
     pill.appendChild(labelSpan);
     pill.appendChild(valueSpan);
@@ -762,29 +867,60 @@ function createFilterPill(label, value, filterType, filterValue) {
     return pill;
 }
 
+
 // Remove Single Filter
+// function removeFilter(filterType, filterValue) {
+//     // Update state
+//     const index = filterState[filterType].indexOf(filterValue);
+//     if (index > -1) {
+//         filterState[filterType].splice(index, 1);
+//     }
+//     // Update checkbox
+//     const checkbox = document.querySelector(`input[name="${filterType}"][value="${filterValue}"]`);
+//     console.log("checkbox  - " + JSON.stringify(checkbox));
+
+//     if (checkbox) {
+//         checkbox.checked = false;
+//     }
+//     // Re-apply filters
+//     applyFilters();
+
+//     // If no filters left, show all sections
+//     if (filterState.ageRange.length === 0 &&
+//         filterState.brand.length === 0 &&
+//         filterState.category.length === 0) {
+//         showAllSections();
+//     }
+// }
 function removeFilter(filterType, filterValue) {
-    // Update state
-    const index = filterState[filterType].indexOf(filterValue);
-    if (index > -1) {
-        filterState[filterType].splice(index, 1);
+    // Remove from filterState arrays
+    if(filterType === 'ageRange[]') {
+        const idx = filterState.ageRange.indexOf(filterValue);
+        if(idx > -1) filterState.ageRange.splice(idx,1);
+    }
+    if(filterType === 'brand[]') {
+        const idx = filterStateValue.brand.indexOf(filterValue);
+        if(idx > -1) {
+            filterStateValue.brand.splice(idx,1);
+            filterState.brand.splice(idx,1); // remove text label as well
+        }
+    }
+    if(filterType === 'category[]') {
+        const idx = filterStateValue.category.indexOf(filterValue);
+        if(idx > -1){
+            filterStateValue.category.splice(idx,1);
+            filterState.category.splice(idx,1);
+        }
     }
 
-    // Update checkbox
+    // Uncheck the checkbox
     const checkbox = document.querySelector(`input[name="${filterType}"][value="${filterValue}"]`);
-    if (checkbox) {
-        checkbox.checked = false;
-    }
-    // Re-apply filters
-    applyFilters();
+    if(checkbox) checkbox.checked = false;
 
-    // If no filters left, show all sections
-    if (filterState.ageRange.length === 0 &&
-        filterState.brand.length === 0 &&
-        filterState.category.length === 0) {
-        showAllSections();
-    }
+    // Reapply filters
+    applyFilters();
 }
+
 
 // Clear All Filters
 function clearAllFilters() {
@@ -813,6 +949,9 @@ function showAllSections() {
     // Hide active filters section
     activeFiltersSection.classList.add('d-none');
 
+    withoutFilterProducts.classList.remove('d-none');
+    withFilterProduct.classList.add('d-none');
+
     // Show all age sections
     ageSections.forEach(section => {
         section.classList.remove('hidden');
@@ -826,7 +965,7 @@ function showAllSections() {
     });
 
     // Reset item count
-   // totalItemsElement.textContent = '120 Items';
+    //totalItemsElement.textContent = '120 Items';
 }
 
 // Update Item Count
@@ -851,7 +990,6 @@ function updateItemCount() {
 // Initialize on Page Load
 document.addEventListener('DOMContentLoaded', function () {
     initEventListeners();
-    console.log('Product Listing Page Initialized');
 });
 
 // Optional: Handle browser back button

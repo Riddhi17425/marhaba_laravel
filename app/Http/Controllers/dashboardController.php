@@ -101,6 +101,11 @@ class dashboardController extends Controller
     }
 
     public function getProducts(Request $request, $type, $size_range = null){
+        // AJAX CALL REQUEST
+        $ageFilter = $request->ageFilter ?? null;
+        $brandFilter = $request->brandFilter ?? null;
+        $categoryFilter = $request->categoryFilter ?? null;
+
         $brands = Brand::select('id', 'name')->where('deleted_at', null)->get();
         if(isset($brands) && is_countable($brands) && count($brands)){
             foreach($brands as $key => $val){
@@ -108,7 +113,14 @@ class dashboardController extends Controller
             }
         }
         $type = ucFirst($type);
-        $products = Product::select('id', 'type', 'category_id', 'name', 'url', 'product_brand_size')->where('type', $type)->whereNull('deleted_at')->get();
+        $products = Product::select('id', 'type', 'brand_id', 'category_id', 'name', 'url', 'product_brand_size')->where('type', $type);
+        if(isset($brandFilter) && is_countable($brandFilter) && count($brandFilter) > 0){
+            $products = $products->whereIn('brand_id', $brandFilter);
+        }
+        if(isset($categoryFilter) && is_countable($categoryFilter) && count($categoryFilter) > 0){
+            $products = $products->whereIn('category_id', $categoryFilter);
+        }
+        $products = $products->whereNull('deleted_at')->get();
         
         $categories = Category::select('id', 'name', 'url')->whereNull('deleted_at')->get();
         if(isset($categories) && is_countable($categories) && count($categories)){
@@ -117,16 +129,27 @@ class dashboardController extends Controller
             }
         }
         $clothsizes = Clothsize::all()->keyBy('id');
-        $groupedProducts = [];
+        $groupedProducts = $filterProducts = [];
         $ageSections = config('global_values.age_section');
         // If Size range filter apply kept match key only in age section
-        if (isset($size_range) && $size_range != null) {
-            $size_range = strtolower($size_range);
-            $ageSections = array_filter($ageSections, function($section, $key) use ($size_range) {
-                return strtolower($key) === $size_range;
-            }, ARRAY_FILTER_USE_BOTH);
+        if($ageFilter != null){
+            $filters = array_filter(array_unique(array_merge(
+                (array) $ageFilter,
+                $size_range ? [$size_range] : []
+            )));
+            $filters = array_map('strtolower', $filters);
+            if (!empty($filters)) {
+                $ageSections = array_intersect_key($ageSections, array_flip($filters));
+            }
+        }else{
+            if (isset($size_range) && $size_range != null) {
+                $size_range = strtolower($size_range);
+                $ageSections = array_filter($ageSections, function($section, $key) use ($size_range) {
+                    return strtolower($key) === $size_range;
+                }, ARRAY_FILTER_USE_BOTH);
+            }
         }
-
+        
         foreach ($ageSections as $key => $section) {
             $groupedProducts[$key] = [
                 'label' => $section['label'],
@@ -136,6 +159,7 @@ class dashboardController extends Controller
         
         $totalProducts = 0;
         $data = ['baby' => 0,  'kids' => 0, 'junior' => 0];
+        
         foreach ($products as $product) {
             $brandSizes = json_decode($product->product_brand_size, true);
             if (!is_array($brandSizes)) {
@@ -170,6 +194,7 @@ class dashboardController extends Controller
                         //if (!in_array($product, $groupedProducts[$sectionKey]['products'], true)) {
                             $totalProducts += 1; 
                             $groupedProducts[$sectionKey]['products'][][$sizeName] = $product;
+                            $filterProducts['products'][][$sizeName] = $product;
                         //}
                         // Optional: break if you want product only in one section
                         break;
@@ -194,9 +219,23 @@ class dashboardController extends Controller
         }
         unset($sectionData);
         $ageSection = config('global_values.age_section');
-        
 
-        //echo "<pre>"; print_r($groupedProducts); die;
+        if($request->ajax()){
+            //Sorted by age range
+            if (!empty($filterProducts['products'])) {
+                usort($filterProducts['products'], function ($itemA, $itemB) {
+                    $sizeA = array_key_first($itemA);
+                    $sizeB = array_key_first($itemB);
+                    $rangeA = $this->sizeToMonths($sizeA);
+                    $rangeB = $this->sizeToMonths($sizeB);
+
+                    return ($rangeA['min'] ?? 0) <=> ($rangeB['min'] ?? 0);
+                });
+            }
+
+            return view('front.product_list_ajax', compact('filterProducts', 'totalProducts'));
+        }
+        
         return view('front.product_list', compact('groupedProducts', 'totalProducts', 'type', 'data', 'brands', 'categories', 'ageSection'));
     }
 
@@ -210,100 +249,6 @@ class dashboardController extends Controller
         return $productCnt;
     }
 
-    public function getFilterProducts(Request $request){
-        $brand = Brand::select('id', 'name')->where('deleted_at', null)->get();
-        $cat = Category::select('id', 'name')->where('id', 2)->first();
-        $categoryName = $cat->name ?? '';
-        $products = Product::select('id', 'category_id', 'name', 'url', 'product_brand_size')->where('category_id', 2)
-        ->get();
-        $categories = Category::select('id', 'name', 'url')->whereNull('deleted_at')->get();
-       
-        $clothsizes = Clothsize::all()->keyBy('id');
-        $groupedProducts = [];
-        $ageSections = config('global_values.age_section');
-        // If Size range filter apply kept match key only in age section
-        if (isset($size_range) && $size_range != null) {
-            $size_range = strtolower($size_range);
-            $ageSections = array_filter($ageSections, function($section, $key) use ($size_range) {
-                return strtolower($key) === $size_range;
-            }, ARRAY_FILTER_USE_BOTH);
-        }
-
-        foreach ($ageSections as $key => $section) {
-            $groupedProducts[$key] = [
-                'label' => $section['label'],
-                'products' => [],
-            ];
-        }
-        
-        $totalProducts = 0;
-        $data = ['baby' => 0,  'kids' => 0, 'junior' => 0];
-        foreach ($products as $product) {
-            $brandSizes = json_decode($product->product_brand_size, true);
-            if (!is_array($brandSizes)) {
-                continue;
-            }
-            $brandSizes = collect($brandSizes)->groupBy('size_id');
-            // Check all sizes in product_brand_size
-            foreach ($brandSizes as $bk => $bs) {
-                $sizeId = $bk ? (int)$bk : null;
-                if (!$sizeId || !isset($clothsizes[$sizeId])) {
-                    continue;
-                }
-                $size = $clothsizes[$sizeId];
-                $sizeName = trim($size->name); 
-                $range = $this->sizeToMonths($sizeName);
-                if (!$range) {
-                    continue;
-                }
-
-                // Check if size fits into any age section
-                foreach ($ageSections as $sectionKey => $section) {
-                    // If any overlap between size range and section range
-                    if ($range['min'] >= $section['min'] && $range['max'] <= $section['max']) {
-                        if(strtolower($sectionKey) == 'baby'){
-                            $data['baby'] += 1;
-                        }elseif(strtolower($sectionKey) == 'kids'){
-                            $data['kids'] += 1;
-                        }elseif(strtolower($sectionKey) == 'junior'){
-                            $data['junior'] += 1;
-                        }
-                        // Assign product to this age section if not already assigned
-                        //if (!in_array($product, $groupedProducts[$sectionKey]['products'], true)) {
-                            $totalProducts += 1; 
-                            $groupedProducts[$sectionKey]['products'][][$sizeName] = $product;
-                        //}
-                        // Optional: break if you want product only in one section
-                        break;
-                    }
-                }
-            }
-        }
-
-        // SORTED by Age Range
-        foreach ($groupedProducts as $sectionKey => &$sectionData) {
-            if (empty($sectionData['products'])) {
-                continue;
-            }
-            usort($sectionData['products'], function ($itemA, $itemB) {
-                // Each item has ONE size key
-                $sizeA = array_key_first($itemA);
-                $sizeB = array_key_first($itemB);
-                $rangeA = $this->sizeToMonths($sizeA);
-                $rangeB = $this->sizeToMonths($sizeB);
-                return ($rangeA['min'] ?? 0) <=> ($rangeB['min'] ?? 0);
-            });
-        }
-        unset($sectionData);
-
-        return view('front.filter_products', compact('groupedProducts', 'totalProducts', 'categoryName', 'data', 'brand', 'categories'));
-    }
-
-    public function getTotalProducts(Request $request){
-        $totalProducts = Product::whereNull('deleted_at')->count();
-        return $totalProducts;
-    }
-    
     public function index()
     {   
         $globalpresence = GlobalPresence::where('deleted_at', null)->get();

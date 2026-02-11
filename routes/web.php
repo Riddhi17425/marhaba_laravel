@@ -53,8 +53,6 @@ Route::get('/landing', [dashboardController::class, 'landing'])->name('landing')
 Route::get('/test-filter', [dashboardController::class, 'filter'])->name('filter');
 
 Route::get('/get-products/{type}/{size_range?}', [dashboardController::class, 'getProducts'])->name('get.products');
-Route::get('/get-total-products', [dashboardController::class, 'getTotalProducts'])->name('get.total.products');
-Route::get('/get-filter-products', [dashboardController::class, 'getFilterProducts'])->name('get.filter.products');
 
 	
 Route::get('login', [dashboardController::class, 'login'])->name('login');
