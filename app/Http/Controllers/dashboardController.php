@@ -121,7 +121,7 @@ class dashboardController extends Controller
             $products = $products->whereIn('category_id', $categoryFilter);
         }
         $products = $products->whereNull('deleted_at')->get();
-        
+       
         $categories = Category::select('id', 'name', 'url')->whereNull('deleted_at')->get();
         if(isset($categories) && is_countable($categories) && count($categories)){
             foreach($categories as $key => $val){
@@ -202,7 +202,7 @@ class dashboardController extends Controller
                 }
             }
         }
-
+        
         // SORTED by Age Range
         foreach ($groupedProducts as $sectionKey => &$sectionData) {
             if (empty($sectionData['products'])) {
@@ -221,6 +221,7 @@ class dashboardController extends Controller
         $ageSection = config('global_values.age_section');
 
         if($request->ajax()){
+            
             //Sorted by age range
             if (!empty($filterProducts['products'])) {
                 usort($filterProducts['products'], function ($itemA, $itemB) {
@@ -233,7 +234,13 @@ class dashboardController extends Controller
                 });
             }
 
-            return view('front.product_list_ajax', compact('filterProducts', 'totalProducts'));
+            return response()->json([
+                'filterProducts' => $filterProducts,
+                'totalProducts' => $totalProducts,
+                'html' => view('front.product_list_ajax', compact('filterProducts'))->render()
+            ]);
+
+            //return view('front.product_list_ajax', compact('filterProducts', 'totalProducts'));
         }
         
         return view('front.product_list', compact('groupedProducts', 'totalProducts', 'type', 'data', 'brands', 'categories', 'ageSection'));

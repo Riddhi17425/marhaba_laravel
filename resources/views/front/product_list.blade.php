@@ -600,12 +600,6 @@ function applyFilters() {
         renderFilterPills();
 
         loadFilterProducts();
-
-        // Filter sections
-        //filterSections();
-
-        // Update item count
-        //updateItemCount(); commented temporarily
     } else {
         // No filters active - show all sections
         showAllSections();
@@ -627,8 +621,9 @@ function loadFilterProducts(){
             //_token: $('meta[name="csrf-token"]').attr('content')
         },
         success: function (response) {
-           // console.log("RESPONSE - " + JSON.stringify(response));
-            withFilterProduct.innerHTML = response;
+            // withFilterProduct.innerHTML = response;
+            withFilterProduct.innerHTML = response.html;
+            totalItemsElement.textContent = response.totalProducts + ' Items';
         },
         error: function (error) {
             console.log(error);
@@ -636,126 +631,7 @@ function loadFilterProducts(){
     });
 }
 
-// Main Filter Logic
-function filterSections() {
-    ageSections.forEach(section => {
-        const ageType = section.getAttribute('data-age');
-        let shouldShow = false;
-
-        // RULE 1: If age range is selected, only show selected age ranges
-        if (filterState.ageRange.length > 0) {
-            if (filterState.ageRange.includes(ageType)) {
-                shouldShow = true;
-            } else {
-                shouldShow = false;
-            }
-        } else {
-            // If no age range filter, show all age sections by default
-            shouldShow = true;
-        }
-
-        // RULE 2 & 3: Filter by brand and category within the section
-        if (shouldShow && (filterState.brand.length > 0 || filterState.category.length > 0)) {
-            // Check if section has matching products
-            const hasMatchingProducts = checkSectionHasMatchingProducts(section);
-            
-            // RULE 4: Hide section if no matching products found
-            if (!hasMatchingProducts) {
-                shouldShow = false;
-            }
-        }
-
-        // Show or hide the section
-        if (shouldShow) {
-            section.classList.remove('hidden');
-            section.style.display = 'block';
-        } else {
-            section.classList.add('hidden');
-            section.style.display = 'none';
-        }
-    });
-}
-
-// Check if section has products matching brand/category filters
-function checkSectionHasMatchingProducts(section) {
-    // Get all products in the section
-    const products = section.querySelectorAll('.product_wrapper');
-    
-    if (products.length === 0) {
-        return false;
-    }
-
-    // If no brand or category filter, return true
-    if (filterState.brand.length === 0 && filterState.category.length === 0) {
-        return true;
-    }
-
-    // Check each product for matching attributes
-    let hasMatch = false;
-    
-    products.forEach(product => {
-        let productMatches = true;
-
-        // Check brand filter
-        if (filterState.brand.length > 0) {
-            const productBrand = product.getAttribute('data-brand') || '';
-            if (!filterState.brand.includes(productBrand.toLowerCase())) {
-                productMatches = false;
-            }
-        }
-
-        // Check category filter
-        if (filterState.category.length > 0 && productMatches) {
-            const productCategory = product.getAttribute('data-category') || '';
-            if (!filterState.category.includes(productCategory)) {
-                productMatches = false;
-            }
-        }
-
-        if (productMatches) {
-            hasMatch = true;
-            product.style.display = 'block';
-        } else {
-            product.style.display = 'none';
-        }
-    });
-
-    return hasMatch;
-}
-
 // Render Filter Pills
-// function renderFilterPills() {
-//     const pillsContainer = activeFiltersSection.querySelector('.d-flex');
-//     pillsContainer.innerHTML = '';
-
-//     // Add age range pills
-//     filterState.ageRange.forEach(ageValue => {
-//         const pill = createFilterPill('Age Range', ageRangeLabels[ageValue], 'ageRange[]', ageValue);
-//         pillsContainer.appendChild(pill);
-//     });
-
-//     // Add brand pills
-//     filterState.brand.forEach(brandValue => {
-//         const pill = createFilterPill('Brand', brandValue, 'brand[]', brandValue);
-//         pillsContainer.appendChild(pill);
-//     });
-
-//     // Add category pills
-//     filterState.category.forEach(categoryValue => {
-//         const pill = createFilterPill('Category', categoryValue, 'category[]', categoryValue);
-//         pillsContainer.appendChild(pill);
-//     });
-
-//     // Add Clear All button if there are filters
-//     if (filterState.ageRange.length > 0 || filterState.brand.length > 0 || filterState.category.length > 0) {
-//         const clearAllBtn = document.createElement('a');
-//         clearAllBtn.className = 'clear-all-btn';
-//         clearAllBtn.textContent = 'Clear';
-//         clearAllBtn.href = 'javascript:void(0)';
-//         clearAllBtn.addEventListener('click', clearAllFilters);
-//         pillsContainer.appendChild(clearAllBtn);
-//     }
-// }
 function renderFilterPills() {
     const pillsContainer = activeFiltersSection.querySelector('.d-flex');
     pillsContainer.innerHTML = '';
@@ -791,52 +667,7 @@ function renderFilterPills() {
     }
 }
 
-
 // Create Filter Pill Element
-// function createFilterPill(label, value, filterType, filterValue) {
-//     const pill = document.createElement('div');
-//     pill.className = 'filter-pill';
-
-//     // Label span
-//     const labelSpan = document.createElement('span');
-//     labelSpan.className = 'filter-label';
-//     labelSpan.textContent = `${label}: `;
-
-//     // Value span
-//     const valueSpan = document.createElement('span');
-//     valueSpan.className = 'filter-value';
-//     valueSpan.textContent = value;
-
-//     // Remove button
-//     const removeBtn = document.createElement('a');
-//     removeBtn.href = 'javascript:void(0)';
-//     removeBtn.className = 'remove-filter';
-
-//     removeBtn.innerHTML = `
-//         <svg width="9" height="9" viewBox="0 0 9 9" fill="none"
-//              xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-//             <path d="M0.5 0.5L8.5 8.5"
-//                   stroke="#4A4A4A"
-//                   stroke-linecap="round"
-//                   stroke-linejoin="round"/>
-//             <path d="M8.5 0.5L0.5 8.5"
-//                   stroke="#4A4A4A"
-//                   stroke-linecap="round"
-//                   stroke-linejoin="round"/>
-//         </svg>
-//     `;
-
-//     removeBtn.addEventListener('click', (e) => {
-//         e.preventDefault();
-//         removeFilter(filterType, filterValue);
-//     });
-
-//     pill.appendChild(labelSpan);
-//     pill.appendChild(valueSpan);
-//     pill.appendChild(removeBtn);
-
-//     return pill;
-// }
 function createFilterPill(label, valueLabel, filterType, filterValue) {
     const pill = document.createElement('div');
     pill.className = 'filter-pill';
@@ -867,31 +698,6 @@ function createFilterPill(label, valueLabel, filterType, filterValue) {
     return pill;
 }
 
-
-// Remove Single Filter
-// function removeFilter(filterType, filterValue) {
-//     // Update state
-//     const index = filterState[filterType].indexOf(filterValue);
-//     if (index > -1) {
-//         filterState[filterType].splice(index, 1);
-//     }
-//     // Update checkbox
-//     const checkbox = document.querySelector(`input[name="${filterType}"][value="${filterValue}"]`);
-//     console.log("checkbox  - " + JSON.stringify(checkbox));
-
-//     if (checkbox) {
-//         checkbox.checked = false;
-//     }
-//     // Re-apply filters
-//     applyFilters();
-
-//     // If no filters left, show all sections
-//     if (filterState.ageRange.length === 0 &&
-//         filterState.brand.length === 0 &&
-//         filterState.category.length === 0) {
-//         showAllSections();
-//     }
-// }
 function removeFilter(filterType, filterValue) {
     // Remove from filterState arrays
     if(filterType === 'ageRange[]') {
@@ -918,9 +724,26 @@ function removeFilter(filterType, filterValue) {
     if(checkbox) checkbox.checked = false;
 
     // Reapply filters
-    applyFilters();
-}
+    //applyFilters();
+    // Check if no filters remain
+    const noFiltersLeft =
+        filterState.ageRange.length === 0 &&
+        filterState.brand.length === 0 &&
+        filterState.category.length === 0;
 
+    // CHANGED: Added condition for last filter removal
+    if (noFiltersLeft) {
+        // Reset total item count
+        totalItemsElement.textContent = totalProducts + ' Items';
+        // Reset Apply button text
+        applyFiltersBtn.textContent = 'Show ' + totalProducts + ' Items';
+        // Show all default sections
+        showAllSections();
+    } else {
+        // Reapply filters if still active
+        applyFilters();
+    }
+}
 
 // Clear All Filters
 function clearAllFilters() {
@@ -935,10 +758,12 @@ function clearAllFilters() {
     });
     
     // Reset apply button text
-    applyFiltersBtn.textContent = 'Show ' + totalProducts + ' Items'; // NEED TO MAKE DYNAMIC
+    applyFiltersBtn.textContent = 'Show ' + totalProducts + ' Items';
 
     // Show all sections
     showAllSections();
+
+    totalItemsElement.textContent = totalProducts + ' Items';
 }
 
 // Show All Sections
@@ -963,28 +788,6 @@ function showAllSections() {
             product.style.display = 'block';
         });
     });
-
-    // Reset item count
-    //totalItemsElement.textContent = '120 Items';
-}
-
-// Update Item Count
-function updateItemCount() {
-    let visibleSections = 0;
-    let totalVisibleProducts = 0;
-
-    ageSections.forEach(section => {
-        if (!section.classList.contains('hidden') && section.style.display !== 'none') {
-            visibleSections++;
-            
-            // Count visible products in this section
-            const visibleProducts = section.querySelectorAll('.product_wrapper:not([style*="display: none"])');
-            totalVisibleProducts += visibleProducts.length;
-        }
-    });
-
-    // Update item count display
-    totalItemsElement.textContent = `${totalVisibleProducts} Items`;
 }
 
 // Initialize on Page Load

@@ -1,3 +1,4 @@
+@if(isset($filterProducts['products']) && is_countable($filterProducts['products']) && count($filterProducts['products']) > 0) 
  <section>
     <div class="products_filter_grid">
         @foreach($filterProducts['products'] as $key => $val)
@@ -39,3 +40,4 @@
         @endforeach
     </div>
 </section>
+@endif
