@@ -239,21 +239,86 @@ class dashboardController extends Controller
                 'totalProducts' => $totalProducts,
                 'html' => view('front.product_list_ajax', compact('filterProducts'))->render()
             ]);
-
             //return view('front.product_list_ajax', compact('filterProducts', 'totalProducts'));
         }
         
         return view('front.product_list', compact('groupedProducts', 'totalProducts', 'type', 'data', 'brands', 'categories', 'ageSection'));
     }
 
-    protected function getTotalProductByBrand($brandId, $type){
-        $productCnt = Product::where(['brand_id' => $brandId, 'type' => $type])->count();
-        return $productCnt;
+    protected function getTotalProductByBrand($brandId, $type)
+    {
+        $products = Product::where(['brand_id' => $brandId,'type' => $type])->whereNull('deleted_at')->get(['product_brand_size']);
+        $clothsizes = Clothsize::all()->keyBy('id');
+        $ageSections = config('global_values.age_section');
+        $total = 0;
+        foreach ($products as $product) {
+            $brandSizes = json_decode($product->product_brand_size, true);
+            if (!is_array($brandSizes)) continue;
+            $brandSizes = collect($brandSizes)->groupBy('size_id');
+            foreach ($brandSizes as $sizeId => $bs) {
+                $sizeId = (int)$sizeId;
+                if (!$sizeId || !isset($clothsizes[$sizeId])) continue;
+                $sizeName = trim($clothsizes[$sizeId]->name);
+                $range = $this->sizeToMonths($sizeName);
+                if (!$range) continue;
+                foreach ($ageSections as $section) {
+                    if ($range['min'] >= $section['min'] && $range['max'] <= $section['max']) {
+                        $total++; // Count per size match
+                        break;
+                    }
+                }
+            }
+        }
+
+        return $total;
     }
 
-    protected function getTotalProductByCategory($categoryId, $type){
-        $productCnt = Product::where(['category_id' => $categoryId, 'type' => $type])->count();
-        return $productCnt;
+    protected function getTotalProductByCategory($categoryId, $type)
+    {
+        $products = Product::where([
+                'category_id' => $categoryId,
+                'type' => $type
+            ])
+            ->whereNull('deleted_at')
+            ->get(['product_brand_size']);
+
+        $clothsizes = Clothsize::all()->keyBy('id');
+        $ageSections = config('global_values.age_section');
+
+        $total = 0;
+
+        foreach ($products as $product) {
+
+            $brandSizes = json_decode($product->product_brand_size, true);
+
+            if (!is_array($brandSizes)) continue;
+
+            $brandSizes = collect($brandSizes)->groupBy('size_id');
+
+            foreach ($brandSizes as $sizeId => $bs) {
+
+                $sizeId = (int) $sizeId;
+
+                if (!$sizeId || !isset($clothsizes[$sizeId])) continue;
+
+                $sizeName = trim($clothsizes[$sizeId]->name);
+                $range = $this->sizeToMonths($sizeName);
+
+                if (!$range) continue;
+
+                foreach ($ageSections as $section) {
+
+                    if ($range['min'] >= $section['min'] &&
+                        $range['max'] <= $section['max']) {
+
+                        $total++; // count per matching size
+                        break;
+                    }
+                }
+            }
+        }
+
+        return $total;
     }
 
     public function index()

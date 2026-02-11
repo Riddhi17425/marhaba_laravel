@@ -722,9 +722,6 @@ function removeFilter(filterType, filterValue) {
     // Uncheck the checkbox
     const checkbox = document.querySelector(`input[name="${filterType}"][value="${filterValue}"]`);
     if(checkbox) checkbox.checked = false;
-
-    // Reapply filters
-    //applyFilters();
     // Check if no filters remain
     const noFiltersLeft =
         filterState.ageRange.length === 0 &&
