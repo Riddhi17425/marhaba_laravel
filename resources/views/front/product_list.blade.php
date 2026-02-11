@@ -529,8 +529,14 @@ function initEventListeners() {
     clearFiltersBtn.addEventListener('click', clearAllFilters);
 
     // Filter checkboxes change - update button text
+    // document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+    //     checkbox.addEventListener('change', updateApplyButtonText);
+    // });
     document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
-        checkbox.addEventListener('change', updateApplyButtonText);
+        checkbox.addEventListener('change', function () {
+            updateApplyButtonText();
+            applyFilters(); // ✅ ADD THIS LINE
+        });
     });
 }
 
@@ -562,21 +568,31 @@ function updateFilterState() {
     });
 }
 
+// function updateApplyButtonText() {
+//     let total = 0;
+//     // Count checked checkboxes
+//     const checkedBoxes = document.querySelectorAll(
+//         'input[name="ageRange[]"]:checked, input[name="brand[]"]:checked, input[name="category[]"]:checked'
+//     );
+//     checkedBoxes.forEach(cb => {
+//         const count = parseInt(cb.getAttribute('data-total')) || 0;
+//         total += count;
+//     });
+//     // If nothing selected → show total products
+//     if (checkedBoxes.length === 0) {
+//         total = totalProducts;
+//     }
+//     applyFiltersBtn.textContent = `Show ${total} Items`;
+// }
 function updateApplyButtonText() {
-    let total = 0;
-    // Count checked checkboxes
     const checkedBoxes = document.querySelectorAll(
         'input[name="ageRange[]"]:checked, input[name="brand[]"]:checked, input[name="category[]"]:checked'
     );
-    checkedBoxes.forEach(cb => {
-        const count = parseInt(cb.getAttribute('data-total')) || 0;
-        total += count;
-    });
-    // If nothing selected → show total products
     if (checkedBoxes.length === 0) {
-        total = totalProducts;
+        applyFiltersBtn.textContent = `Show ${totalProducts} Items`;
+    } else {
+        applyFiltersBtn.textContent = `Loading...`;
     }
-    applyFiltersBtn.textContent = `Show ${total} Items`;
 }
 
 // Apply Filters - Main Function
@@ -624,6 +640,9 @@ function loadFilterProducts(){
             // withFilterProduct.innerHTML = response;
             withFilterProduct.innerHTML = response.html;
             totalItemsElement.textContent = response.totalProducts + ' Items';
+
+            // Update Show Item button text
+            applyFiltersBtn.textContent = 'Show ' + response.totalProducts + ' Items';
         },
         error: function (error) {
             console.log(error);
