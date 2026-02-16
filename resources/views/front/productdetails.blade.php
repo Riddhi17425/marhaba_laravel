@@ -150,6 +150,7 @@
     </div>
 </section>
 
+<!-- copied section -->
 <section class="section_pt  section_mb">
     <div class="container-fluid">
         <div class="row">
@@ -185,7 +186,7 @@
         </div>
     </div>
 </section>
-
+<!-- copied section -->
 
 @include('layouts.enquiry')
 

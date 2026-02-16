@@ -348,9 +348,43 @@ class dashboardController extends Controller
     {   
         return view('front.filter');
     }
-     public function product()
+     public function product($url, $id = null)
     {   
-        return view('front.product');
+        $product = Product::where('url', $url);
+        if($id != null){
+            $product = $product->where('id', $id);        
+        }        
+        $product = $product->firstOrFail();
+ 
+        $productVariants = json_decode($product->product_brand_size, true);
+    
+        $sizeIds = array_unique(array_column($productVariants, 'size_id'));
+        $brandIds = array_unique(array_column($productVariants, 'brand_id'));
+    
+        $sizeList = ClothSize::whereIn('id', $sizeIds)->get();
+        $brandList = Brand::whereIn('id', $brandIds)->get();
+    
+        $similarProducts = Product::where('category_id', $product->category_id)
+            ->where('id', '!=', $product->id)
+            ->whereNull('deleted_at')
+            ->get()
+            ->map(function($p) {
+                $pbsArray = json_decode($p->product_brand_size, true);
+                return [
+                    'id' => $p->id,
+                    'name' => $p->name,
+                    'url' => $p->url,
+                    'image' => $pbsArray[1]['product_image'] ?? $pbsArray[0]['product_image'] ?? null, // second image if exists
+                    'brand_id' => $pbsArray[1]['brand_id'] ?? $pbsArray[0]['brand_id'] ?? null,
+                ];
+            });
+    
+        $brandIdsForSimilar = $similarProducts->pluck('brand_id')->filter()->unique()->toArray();
+        $brands = Brand::whereIn('id', $brandIdsForSimilar)->get()->keyBy('id');
+      
+        return view('front.product', compact(
+            'product', 'productVariants', 'sizeList', 'brandList', 'similarProducts', 'brands'
+        ));
     }
 
     protected function sizeToMonths($size)

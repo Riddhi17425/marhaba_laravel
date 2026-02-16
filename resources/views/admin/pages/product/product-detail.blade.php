@@ -102,7 +102,8 @@
                                                     <div class="single-item active">
                                                         <div class="items-image">
                                                             <div class="items-image">
-                                                                <img src="{!! asset('public/backend/dist/assets/images/product/product-items-1.jpg') !!}"
+                                                         
+                                                            <img src="{!! asset('public/backend/dist/assets/images/product/product-items-1.jpg') !!}"
                                                                     alt="product">
                                                             </div>
                                                             <p class="text">Oculus Go</p>
