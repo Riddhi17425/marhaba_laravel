@@ -1639,7 +1639,7 @@ line-height: normal;
   overflow-y: auto;
   max-height: calc(100vh - 100px);
     scroll-behavior: smooth;
-  scrollbar-width: thin;          /* Firefox */
+  scrollbar-width: none;          /* Firefox */
   scrollbar-color: #ccc transparent; /* Firefox */
 }
 /* For Chrome, Edge, Safari */
@@ -1802,12 +1802,12 @@ body.has-sticky {
 }
 .filter_offcanvas .offcanvas-header{display:flex;align-items:flex-end;justify-content:space-between;}
 .apply_btn {
-    background: #2E2E2E;
+    background: var(--wb-purple);
     width: 100%;
     color: white;
     text-align: center;
     border-radius: 5px;
-    padding: 20px;
+    padding: 10px;
     display: inline-block;
 }
 .filter-pill {
