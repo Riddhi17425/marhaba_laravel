@@ -2,33 +2,53 @@
 <link rel="stylesheet" href="{{ asset('public/front/css/hero_style.css') }}">
 <link rel="stylesheet" href="{{ asset('public/front/css/hero_responsive.css') }}">
 <link rel="stylesheet" href="{{ asset('public/front/css/product_slider.css') }}">
+<script src="https://unpkg.com/@zoom-image/core"></script>
 
 <div class="product-slider">
-  <div class="slider-wrapper">
-    <div class="slides-track" id="track">
-      <div class="slide">
-        <div class="image-container">
-          <img src="{{ asset('public/front/img/product-detail/pd_1.png') }}" class="product-img" alt="View 1" draggable="false">
-          <div class="zoomed-overlay"></div>
+    <div class="slider-wrapper">
+        <div class="slides-track" id="track">
+            <div class="slide">
+                <div class="image-container">
+                    <img src="{{ asset('public/front/img/product-detail/pd_1.png') }}" class="product-img" alt="View 1"
+                        draggable="false">
+                </div>
+            </div>
+            <div class="slide">
+                <div class="image-container"><img src="{{ asset('public/front/img/product-detail/pd_2.png') }}"
+                        class="product-img" alt="View 2" draggable="false"></div>
+            </div>
+            <div class="slide">
+                <div class="image-container"><img src="{{ asset('public/front/img/product-detail/pd_3.png') }}"
+                        class="product-img" alt="View 3" draggable="false"></div>
+            </div>
+            <div class="slide">
+                <div class="image-container"><img src="{{ asset('public/front/img/product-detail/pd_4.png') }}"
+                        class="product-img" alt="View 4" draggable="false"></div>
+            </div>
+            <div class="slide">
+                <div class="image-container"><img src="{{ asset('public/front/img/product-detail/pd_5.png') }}"
+                        class="product-img" alt="View 5" draggable="false"></div>
+            </div>
+            <div class="slide">
+                <div class="image-container"><img src="{{ asset('public/front/img/product-detail/pd_3.png') }}"
+                        class="product-img" alt="View 6" draggable="false"></div>
+            </div>
         </div>
-      </div>
-      <!-- repeat for other 5 slides with different picsum ids -->
-      <div class="slide"><div class="image-container"><img src="https://picsum.photos/id/201/1200/800" class="product-img" alt="View 2" draggable="false"><div class="zoomed-overlay"></div></div></div>
-      <div class="slide"><div class="image-container"><img src="https://picsum.photos/id/301/1200/800" class="product-img" alt="View 3" draggable="false"><div class="zoomed-overlay"></div></div></div>
-      <div class="slide"><div class="image-container"><img src="https://picsum.photos/id/401/1200/800" class="product-img" alt="View 4" draggable="false"><div class="zoomed-overlay"></div></div></div>
-      <div class="slide"><div class="image-container"><img src="https://picsum.photos/id/501/1200/800" class="product-img" alt="View 5" draggable="false"><div class="zoomed-overlay"></div></div></div>
-      <div class="slide"><div class="image-container"><img src="https://picsum.photos/id/601/1200/800" class="product-img" alt="View 6" draggable="false"><div class="zoomed-overlay"></div></div></div>
+
+
     </div>
 
-    <button class="slider_btn prev" id="prevBtn">‹</button>
-    <button class="slider_btn next" id="nextBtn">›</button>
-  </div>
-
-  <div class="thumbnails" id="thumbs"></div>
+    <div class="slid_bottom">
+        <div class="thumbnails" id="thumbs"></div>
+        <button class="slider_btn prev" id="prevBtn">‹</button>
+        <button class="slider_btn next" id="nextBtn">›</button>
+    </div>
 </div>
+<!-- banner -->
 <div class="filter_banner">
-    Explore product samples. MOQ — 12 pcs per design.
+    Select designs. Contact us for full collection.
 </div>
+<!-- prod-info -->
 <section class="section_mt">
     <div class="container">
         <div class="product_detail_grid">
@@ -143,7 +163,7 @@
                     <div class="pd_social">
                         <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd" clip-rule="evenodd"
-                                d="M8.11055 6.71426C7.96976 6.39324 7.81338 6.38544 7.68038 6.38544C7.56298 6.37764 7.43732 6.37764 7.30433 6.37764C7.17959 6.37764 6.96817 6.42442 6.7884 6.62025C6.60817 6.81561 6.11563 7.27743 6.11563 8.22399C6.11563 9.171 6.80399 10.0864 6.898 10.2116C6.99156 10.3368 8.22796 12.3395 10.1844 13.1145C11.8115 13.7561 12.1403 13.6309 12.4925 13.5915C12.8443 13.5525 13.6271 13.1301 13.7913 12.6761C13.9477 12.2304 13.9477 11.8392 13.9009 11.7607C13.8541 11.6828 13.7207 11.6355 13.5331 11.5337C13.3373 11.4402 12.3985 10.9706 12.2187 10.9077C12.0385 10.8454 11.9133 10.8142 11.7881 11.0018C11.6629 11.1976 11.2951 11.6277 11.1782 11.7529C11.0681 11.8781 10.9511 11.8937 10.7631 11.7997C10.5678 11.7062 9.94956 11.5025 9.21396 10.8454C8.64254 10.3363 8.25914 9.70298 8.14174 9.51542C8.03259 9.31959 8.12615 9.21778 8.22796 9.12377C8.31417 9.03801 8.42378 8.89722 8.51779 8.78761C8.61135 8.67754 8.64253 8.59179 8.71316 8.46659C8.77553 8.34139 8.74435 8.22399 8.69757 8.13043C8.65033 8.04421 8.28299 7.09765 8.11055 6.71426Z"
+                                d="M8.11007 6.71402C7.96927 6.39299 7.81289 6.3852 7.67989 6.3852C7.56249 6.3774 7.43683 6.3774 7.30384 6.3774C7.1791 6.3774 6.96768 6.42418 6.78791 6.62C6.60768 6.81537 6.11514 7.27718 6.11514 8.22374C6.11514 9.17076 6.8035 10.0861 6.89752 10.2113C6.99107 10.3365 8.22747 12.3393 10.1839 13.1143C11.811 13.7559 12.1398 13.6307 12.492 13.5912C12.8438 13.5523 13.6266 13.1299 13.7908 12.6759C13.9472 12.2301 13.9472 11.8389 13.9004 11.7605C13.8536 11.6825 13.7202 11.6353 13.5326 11.5335C13.3368 11.4399 12.398 10.9703 12.2182 10.9075C12.038 10.8451 11.9128 10.8139 11.7876 11.0015C11.6624 11.1973 11.2946 11.6275 11.1777 11.7527C11.0676 11.8779 10.9507 11.8935 10.7626 11.7995C10.5673 11.7059 9.94907 11.5023 9.21347 10.8451C8.64205 10.3361 8.25865 9.70274 8.14125 9.51517C8.0321 9.31935 8.12566 9.21754 8.22747 9.12352C8.31369 9.03776 8.42329 8.89697 8.51731 8.78737C8.61086 8.6773 8.64205 8.59154 8.71267 8.46634C8.77504 8.34114 8.74386 8.22374 8.69708 8.13019C8.64984 8.04397 8.2825 7.09741 8.11007 6.71402Z"
                                 stroke="#452667" stroke-linejoin="round" />
                         </svg>
 
@@ -183,8 +203,24 @@
         </div>
     </div>
 </section>
+<section class="pd_view hero_cat yellow-gradient home_mt-100">
+    <div class="ym-container">
+        <div class="hero_catologue_head col-lg-6 mb-0">
+            <h2 class="title_60lora text-center">View Our Catalogues</h2>
+            <p class="title_24-raleway mt-4 mt-xl-5">Stay updated on our newest arrivals. Select your
+                preferred products and our wholesale team will be in touch with curated children's clothing
+                collections for your business.
+            </p>
+            <div class="btn_wrapper">
+                <a href="javascript:void(0)" class="btn_1">Request Latest Catalogues <img loading="lazy"
+                        src="http://localhost/marhaba_laravel/public/front/img/Home/blue-arr.svg" alt="" height="10"
+                        width="10"></a>
+            </div>
+        </div>
+    </div>
+</section>
 <!-- old section -->
-<section class="section_pt  section_mb">
+<section class="home_mt-100 section_mb">
     <div class="container-fluid">
         <div class="row">
             <h2 class="mean_head text-center scroll-text mb-4" data-animate-on-scroll>Similar Products</h2>
@@ -198,17 +234,17 @@
                         <div class="product_wrapper">
                             <div class="Product_item">
                                 <a href="{{ route('productdetails', $simProduct['url']) }}">
-                                    <img src="{{ $image }}" alt="{{ $simProduct['name'] }}" class="img-fluid product_img w-100" />
+                                    <img src="{{ $image }}" alt="{{ $simProduct['name'] }}"
+                                        class="img-fluid product_img w-100" />
                                 </a>
                             </div>
                             <div class="product_item_details">
                                 <a href="{{ route('productdetails', $simProduct['url']) }}">
-                                    <h3 class="product_card_title">{{ $simProduct['name'] }}</h3>
+                                    <p class="mb-0" style="font-weight:500;">{{ $simProduct['name'] }}</p>
                                 </a>
                                 @if($brand)
-                                    <p class="product_card_text"><b>Brand: </b>{{ $brand->name }}</p>
+                                    <p class="raleway_14 mb-0">{{ $brand->name }}</p>
                                 @endif
-                                <a href="#" class="comman_btn"><span>Enquire Now</span></a>
                             </div>
                         </div>
                     </div>
@@ -331,17 +367,52 @@
         let clickCount = 0;
         let timer = null;
         let isZoomed = false;
-        let startX = 0, startY = 0, posX = 0, posY = 0;
-
-        function activateZoom() {
+        function activateZoom(e) {
             isZoomed = !isZoomed;
             container.classList.toggle('zoomed', isZoomed);
-            console.log('Zoom toggled:', isZoomed); // debug
 
-            if (!isZoomed) {
+            if (isZoomed) {
+                const scale = 2;
+                img.style.transition = 'transform 0.3s ease-out';
+                img.style.transform = `scale(${scale})`;
+
+                // Initial pan based on click position
+                const rect = container.getBoundingClientRect();
+                const x = (e.clientX || (e.touches && e.touches[0].clientX)) - rect.left;
+                const y = (e.clientY || (e.touches && e.touches[0].clientY)) - rect.top;
+                updatePan(x, y);
+
+                container.addEventListener('mousemove', onMouseMove);
+            } else {
+                img.style.transition = 'transform 0.3s ease-out';
                 img.style.transform = 'scale(1) translate(0, 0)';
-                posX = posY = 0;
+                container.removeEventListener('mousemove', onMouseMove);
             }
+        }
+
+        function onMouseMove(e) {
+            if (!isZoomed) return;
+            const rect = container.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            updatePan(x, y);
+        }
+
+        function updatePan(x, y) {
+            const scale = 2;
+            const contW = container.clientWidth;
+            const contH = container.clientHeight;
+
+            // Percentage across the container
+            const px = x / contW;
+            const py = y / contH;
+
+            // How much we need to shift (image is twice as big, so we can shift by 1x width/height)
+            const tx = (px * (contW - contW * scale));
+            const ty = (py * (contH - contH * scale));
+
+            img.style.transition = 'none'; // No transition during mouse move for responsiveness
+            img.style.transform = `translate(${tx}px, ${ty}px) scale(${scale})`;
         }
 
         // Double-click / double-tap detection
@@ -353,12 +424,12 @@
                 clearTimeout(timer);
                 clickCount = 0;
                 e.preventDefault();
-                activateZoom();
+                activateZoom(e);
             }
         });
 
         container.addEventListener('touchstart', e => {
-            if (e.touches.length > 1) return; // ignore pinch for now
+            if (e.touches.length > 1) return;
             clickCount++;
             if (clickCount === 1) {
                 timer = setTimeout(() => { clickCount = 0; }, 300);
@@ -366,63 +437,31 @@
                 clearTimeout(timer);
                 clickCount = 0;
                 e.preventDefault();
-                activateZoom();
+                activateZoom(e);
             }
         }, { passive: false });
-
-        // Pan when zoomed
-        function onDown(e) {
-            if (!isZoomed) return;
-            e.preventDefault();
-            const clientX = e.type.includes('mouse') ? e.clientX : e.touches[0].clientX;
-            const clientY = e.type.includes('mouse') ? e.clientY : e.touches[0].clientY;
-            startX = clientX - posX;
-            startY = clientY - posY;
-
-            document.addEventListener('mousemove', onMove);
-            document.addEventListener('touchmove', onMove, { passive: false });
-            document.addEventListener('mouseup', onUp);
-            document.addEventListener('touchend', onUp);
-        }
-
-        function onMove(e) {
-            if (!isZoomed) return;
-            e.preventDefault();
-            const clientX = e.type.includes('mouse') ? e.clientX : e.touches[0].clientX;
-            const clientY = e.type.includes('mouse') ? e.clientY : e.touches[0].clientY;
-
-            posX = clientX - startX;
-            posY = clientY - startY;
-
-            // Better bounds: prevent image edges from moving inside container
-            const scale = 2.2;
-            const contW = container.clientWidth;
-            const contH = container.clientHeight;
-            const imgScaledW = contW * scale;
-            const imgScaledH = contH * scale;
-
-            posX = Math.min(0, Math.max(posX, contW - imgScaledW));
-            posY = Math.min(0, Math.max(posY, contH - imgScaledH));
-
-            img.style.transform = `scale(${scale}) translate(${posX}px, ${posY}px)`;
-        }
-
-        function onUp() {
-            document.removeEventListener('mousemove', onMove);
-            document.removeEventListener('touchmove', onMove);
-            document.removeEventListener('mouseup', onUp);
-            document.removeEventListener('touchend', onUp);
-        }
-
-        container.addEventListener('mousedown', onDown);
-        container.addEventListener('touchstart', onDown, { passive: false });
     });
 
     // ── Other init ─────────────────────────────────────────────────────────
     thumbs.forEach(thumb => {
         thumb.addEventListener('click', () => {
-            currentIndex = parseInt(thumb.dataset.index);
-            isDoubleMode = false;
+            const idx = parseInt(thumb.dataset.index);
+            if (!isDesktop) {
+                currentIndex = idx;
+                isDoubleMode = false;
+            } else {
+                if (idx === 0) {
+                    currentIndex = 0;
+                    isDoubleMode = false;
+                } else if (idx === total - 1 && total > 1) {
+                    // If last thumb, show it with the previous one
+                    currentIndex = idx - 1;
+                    isDoubleMode = true;
+                } else {
+                    currentIndex = idx - 1;
+                    isDoubleMode = true;
+                }
+            }
             positionSlides(true);
         });
     });

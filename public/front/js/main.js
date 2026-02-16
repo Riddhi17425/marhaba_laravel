@@ -288,8 +288,8 @@ $(document).ready(function(){
 $('.simple-slider').slick({
     slidesToShow: 4,
     slidesToScroll: 1,
-    arrows: false,
-    dots: false,
+    arrows: true,
+    dots: true,
     infinite: true,
     autoplay: true,
     autoplaySpeed: 3000,
