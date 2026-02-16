@@ -68,28 +68,28 @@
             <div class="d-none d-md-flex justify-content-between align-items-center heder_section">
                 <div class="social_items">
                     <!--<a href="#"><img src="{{ asset('public/front/img/facebook_icon.png') }}" alt="facebook" class="img-fluid"></a>-->
-                    <a href="#"><img src="{{ asset('public/front/img/linkedin_icon.png') }}" alt="linkedin"
+                    <a href="https://www.linkedin.com/company/marhaba-llc/" target="_blank"><img src="{{ asset('public/front/img/linkedin_icon.png') }}" alt="linkedin"
                             class="img-fluid color-head"></a>
-                    <a href="#"><img src="{{ asset('public/front/img/insta_icon.png') }}" alt="instagram"
+                    <a href="https://www.instagram.com/marhabafashionuae?igsh=cTluY2lzYTRpM2pp" target="_blank"><img src="{{ asset('public/front/img/insta_icon.png') }}" alt="instagram"
                             class="img-fluid color-head"></a>
-                    @if (url()->current() === url('landing'))
-                    <a href="#">
+                    @if (url()->current() === url('/'))
+                    <a href="https://www.linkedin.com/company/marhaba-llc/" target="_blank">
                         <img src="{{ asset('public/front/img/Home/white-insta.svg') }}" alt="instagram"
                             class="img-fluid white-head">
                     </a>
 
-                    <a href="#">
+                    <a href="https://www.instagram.com/marhabafashionuae?igsh=cTluY2lzYTRpM2pp" target="_blank">
                         <img src="{{ asset('public/front/img/Home/white-linkedin.svg') }}" alt="linkedin"
                             class="img-fluid white-head">
                     </a>
                     @else
                     {{-- Other pages icons --}}
-                    <a href="#">
+                    <a href="https://www.instagram.com/marhabafashionuae?igsh=cTluY2lzYTRpM2pp" target="_blank">
                         <img src="{{ asset('public/front/img/insta_icon.png') }}" alt="instagram"
                             class="img-fluid white-head">
                     </a>
 
-                    <a href="#">
+                    <a href="https://www.linkedin.com/company/marhaba-llc/" target="_blank">
                         <img src="{{ asset('public/front/img/linkedin_icon.png') }}" alt="linkedin"
                             class="img-fluid white-head">
                     </a>
@@ -100,7 +100,7 @@
                     <a href="{{ url('/') }}" class="me-4">
                         <img src="{{ asset('public/front/img/Home/logo-minimal.svg') }}" alt="logo"
                             class="img-fluid nav_logo color-head" style="height:16px;">
-                        @if (url()->current() === url('landing'))
+                        @if (url()->current() === url('/'))
                         <img src="{{ asset('public/front/img/Home/white-logo.svg') }}" alt="logo"
                             class="img-fluid nav_logo white-head" style="height:60px;">
                         @else
@@ -109,7 +109,7 @@
                         @endif
                     </a>
                 </div>
-                @if (url()->current() === url('landing'))
+                @if (url()->current() === url('/'))
                 <button class="btn p-0 border-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarMenu"
                     aria-controls="sidebarMenu">
                     <i class="fas fa-bars fs-3"></i>

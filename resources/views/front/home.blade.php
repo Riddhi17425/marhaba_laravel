@@ -850,8 +850,8 @@
                             collections for your business.
                         </p>
                         <div class="btn_wrapper">
-                            <a href="" class="btn_1">Request Latest Catalogues <img loading="lazy" src="{{ asset('public/front/img/Home/blue-arr.svg') }}" alt="" height="10" width="10"></a>
-                            <a href="" class="btn_1"><img loading="lazy" src="{{ asset('public/front/img/Home/purple-insta.png') }}" alt="insta" height="21"width="21"> Follow us on Instagram</a>
+                            <a href="javascript:void(0);" class="btn_1">Request Latest Catalogues <img loading="lazy" src="{{ asset('public/front/img/Home/blue-arr.svg') }}" alt="" height="10" width="10"></a>
+                            <a href="https://www.instagram.com/marhabafashionuae?igsh=cTluY2lzYTRpM2pp" class="btn_1"><img loading="lazy" src="{{ asset('public/front/img/Home/purple-insta.png') }}" alt="insta" height="21"width="21"> Follow us on Instagram</a>
                         </div>
                     </div>
                 </div>
