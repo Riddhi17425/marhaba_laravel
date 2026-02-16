@@ -348,6 +348,10 @@ class dashboardController extends Controller
     {   
         return view('front.filter');
     }
+     public function product()
+    {   
+        return view('front.product');
+    }
 
     protected function sizeToMonths($size)
     {

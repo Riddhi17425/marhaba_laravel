@@ -1719,11 +1719,22 @@ body.has-sticky {
     background-color: #452667;
     color: white;
     text-align: center;
-    padding: 22px 0;
+    padding: 12px 0;
     font-weight: 600;
     line-height: 24px;
     font-size: 18px;
     margin-bottom:40px;
+    animation: bannerColorChange 3s ease-in-out forwards;
+}
+@keyframes bannerColorChange {
+    0%, 50% {
+        background-color: #452667;
+        color: white;
+    }
+    100% {
+        background-color: #EFE6F0;
+        color: #2E2E2E;
+    }
 }
 .product_head {
     display: flex;
