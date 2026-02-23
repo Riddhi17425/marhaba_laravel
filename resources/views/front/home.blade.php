@@ -9,6 +9,53 @@
                     <div class="swiper-row">
                         <div class="swiper swiper-row-1">
                             <div class="swiper-wrapper">
+                                @if(isset($homeSliderImgs) && is_countable($homeSliderImgs) && count($homeSliderImgs) > 0)
+                                @for($i = 0; $i < 2; $i++)
+                                @foreach($homeSliderImgs as $k => $v)
+                                    @if($v->slider == 1)
+                                        <div class="swiper-slide">
+                                            <div class="image-card">
+                                                @if(isset($v->image))
+                                                    <img src="{{ asset('public/homeslider_images/'.$v->image) }}" width="100">
+                                                @else
+                                                    <img loading="lazy" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=600&fit=crop" alt="Person 1">
+                                                @endif
+                                            </div>
+                                        </div>
+                                    @endif
+                                @endforeach
+                                @endfor
+                                @endif
+                                {{-- <div class="swiper-slide">
+                                    <div class="image-card">
+                                        <img loading="lazy" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=600&fit=crop"
+                                            alt="Person 2">
+                                    </div>
+                                </div>
+                                <div class="swiper-slide">
+                                    <div class="image-card">
+                                        <img loading="lazy" src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&h=600&fit=crop"
+                                            alt="Person 3">
+                                    </div>
+                                </div>
+                                <div class="swiper-slide">
+                                    <div class="image-card">
+                                        <img loading="lazy" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&h=600&fit=crop"
+                                            alt="Person 4">
+                                    </div>
+                                </div>
+                                <div class="swiper-slide">
+                                    <div class="image-card">
+                                        <img loading="lazy" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&h=600&fit=crop"
+                                            alt="Person 5">
+                                    </div>
+                                </div>
+                                <div class="swiper-slide">
+                                    <div class="image-card">
+                                        <img loading="lazy" src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=400&h=600&fit=crop"
+                                            alt="Person 6">
+                                    </div>
+                                </div>
                                 <div class="swiper-slide">
                                     <div class="image-card">
                                         <img loading="lazy" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=600&fit=crop"
@@ -44,43 +91,7 @@
                                         <img loading="lazy" src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=400&h=600&fit=crop"
                                             alt="Person 6">
                                     </div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="image-card">
-                                        <img loading="lazy" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=600&fit=crop"
-                                            alt="Person 1">
-                                    </div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="image-card">
-                                        <img loading="lazy" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=600&fit=crop"
-                                            alt="Person 2">
-                                    </div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="image-card">
-                                        <img loading="lazy" src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&h=600&fit=crop"
-                                            alt="Person 3">
-                                    </div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="image-card">
-                                        <img loading="lazy" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&h=600&fit=crop"
-                                            alt="Person 4">
-                                    </div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="image-card">
-                                        <img loading="lazy" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&h=600&fit=crop"
-                                            alt="Person 5">
-                                    </div>
-                                </div>
-                                <div class="swiper-slide">
-                                    <div class="image-card">
-                                        <img loading="lazy" src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=400&h=600&fit=crop"
-                                            alt="Person 6">
-                                    </div>
-                                </div>
+                                </div> --}}
                             </div>
                         </div>
                     </div>
@@ -89,7 +100,24 @@
                     <div class="swiper-row">
                         <div class="swiper swiper-row-2">
                             <div class="swiper-wrapper">
-                                <div class="swiper-slide">
+                                @if(isset($homeSliderImgs) && is_countable($homeSliderImgs) && count($homeSliderImgs) > 0)
+                                @for($i = 0; $i < 2; $i++)
+                                @foreach($homeSliderImgs as $k => $v)
+                                    @if($v->slider == 2)
+                                        <div class="swiper-slide">
+                                            <div class="image-card">
+                                                @if(isset($v->image))
+                                                    <img src="{{ asset('public/homeslider_images/'.$v->image) }}" width="100">
+                                                @else
+                                                    <img loading="lazy" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=600&fit=crop" alt="Person 1">
+                                                @endif
+                                            </div>
+                                        </div>
+                                    @endif
+                                @endforeach
+                                @endfor
+                                @endif
+                                {{-- <div class="swiper-slide">
                                     <div class="image-card">
                                         <img loading="lazy" src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=400&h=600&fit=crop"
                                             alt="Person 7">
@@ -160,7 +188,7 @@
                                         <img loading="lazy" src="https://images.unsplash.com/photo-1552058544-f2b08422138a?w=400&h=600&fit=crop"
                                             alt="Person 12">
                                     </div>
-                                </div>
+                                </div> --}}
                             </div>
                         </div>
                     </div>
@@ -169,7 +197,24 @@
                     <div class="swiper-row">
                         <div class="swiper swiper-row-3">
                             <div class="swiper-wrapper">
-                                <div class="swiper-slide">
+                                @if(isset($homeSliderImgs) && is_countable($homeSliderImgs) && count($homeSliderImgs) > 0)
+                                @for($i = 0; $i < 2; $i++)
+                                @foreach($homeSliderImgs as $k => $v)
+                                    @if($v->slider == 3)
+                                        <div class="swiper-slide">
+                                            <div class="image-card">
+                                                @if(isset($v->image))
+                                                    <img src="{{ asset('public/homeslider_images/'.$v->image) }}" width="100">
+                                                @else
+                                                    <img loading="lazy" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=600&fit=crop" alt="Person 1">
+                                                @endif
+                                            </div>
+                                        </div>
+                                    @endif
+                                @endforeach
+                                @endfor
+                                @endif
+                                {{-- <div class="swiper-slide">
                                     <div class="image-card">
                                         <img loading="lazy" src="https://images.unsplash.com/photo-1519345182560-3f2917c472ef?w=400&h=600&fit=crop"
                                             alt="Person 13">
@@ -234,7 +279,7 @@
                                         <img loading="lazy" src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&h=600&fit=crop"
                                             alt="Person 17">
                                     </div>
-                                </div>
+                                </div> --}}
                             </div>
                         </div>
                     </div>

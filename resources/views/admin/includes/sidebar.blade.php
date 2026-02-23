@@ -102,6 +102,13 @@
                 </a>
             </li>
             <li>
+                <a class="m-link{{ Request::routeIs('homeslider-image.*') ? ' active' : '' }}"
+                   href="{{ route('homeslider-image.index') }}">
+                   <i class="icofont-image fs-5"></i>
+                   <span>Home Page Slider Images</span>
+                </a>
+            </li>
+            <li>
                 <a class="m-link{{ Request::routeIs('trusted-by.*') ? ' active' : '' }}"
                    href="{{ route('trusted-by.index') }}">
                    <i class="icofont-image fs-5"></i>
