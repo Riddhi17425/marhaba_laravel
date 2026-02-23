@@ -861,11 +861,10 @@
                                     @endforeach
                                     @endif
                                 </div>
-
                                 <div class="btn_wrapper">
-                                    <a href="{{ route('get.products', ['type' => 'boy','size_range' => 'junior']) }}" class="btn_1" target="_blank">Explore Boy <img loading="lazy" src="./images/Home/blue-arr.svg" alt=""
+                                    <a href="{{ route('get.products', ['type' => 'boy','size_range' => 'junior']) }}" class="btn_1" target="_blank">Explore Boy <img loading="lazy" src="{{ asset('public/front/img/Home/blue-arr.svg') }}" alt=""
                                             height="10" width="10"></a>
-                                    <a href="{{ route('get.products', ['type' => 'girl','size_range' => 'junior']) }}" class="btn_1" target="_blank">Explore Girl<img loading="lazy" src="./images/Home/blue-arr.svg" alt=""
+                                    <a href="{{ route('get.products', ['type' => 'girl','size_range' => 'junior']) }}" class="btn_1" target="_blank">Explore Girl<img loading="lazy" src="{{ asset('public/front/img/Home/blue-arr.svg') }}" alt=""
                                             height="10" width="10"></a>
                                 </div>
                             </div>

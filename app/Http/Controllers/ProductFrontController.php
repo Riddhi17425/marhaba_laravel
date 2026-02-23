@@ -92,7 +92,6 @@ class ProductFrontController extends Controller
     
         $sizeList = ClothSize::whereIn('id', $sizeIds)->get();
         $brandList = Brand::whereIn('id', $brandIds)->get();
-    
         $similarProducts = Product::where('category_id', $product->category_id)
             ->where('id', '!=', $product->id)
             ->whereNull('deleted_at')
