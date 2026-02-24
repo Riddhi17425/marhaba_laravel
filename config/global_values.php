@@ -7,6 +7,12 @@ return [
             'junior' => ['label' => '6 Years to 14 Years','min' => 72,'max' => 168],
         ],
     'product_type' => ['boy' => 'Boys', 'girl' => 'Girls'],
-   
+    'business_type' => [
+        'regional_distributor'        => 'Regional Distributor',
+        'childrens_clothing_store'    => "Children's Clothing Store",
+        'department_store'            => 'Department Store',
+        'independent_retailer'        => 'Independent Retailer',
+        'online_seller'               => 'Online Seller',
+    ],
    
 ];
