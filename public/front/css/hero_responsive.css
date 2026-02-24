@@ -4,9 +4,13 @@
 @media (max-width: 1800px) {
     .col_small .title_60lora{white-space: break-spaces!important;}
     /*.container_main {gap: 10px;}*/
-    .col_big .product_grid {grid-template-columns: repeat(3, minmax(0, 300px));}
+    .col_big .product_grid {grid-template-columns: repeat(3, minmax(0, 320px));}
+    .ym_card{width:320px;height: 350px;}
+    .product_wrapper .Product_item, .ym_card_img{height: 320px;}
+    .container_main_boy{gap:60px;}
     .Product_item{height:100%;}
-    /*.col_big .product_grid .swiper {width:300px!important;}*/
+    .hero_img_wrapper img{height:500px;}
+    .hero_why_content{max-width: 700px;max-height: 430px;padding: 50px;}
 }
 @media (max-width: 1537px) {
     .ym-container{max-width: 1460px;}
@@ -18,13 +22,14 @@
 }
 @media (max-width: 1441px) {
     .ym-container{max-width: calc(100% - 40px);}
-    .stats_box{height:100%;width:100%;}
+    .stats_box{height:100%;width:100%;padding: 30px 50px;}
     .btn_1{padding: 10px 20px;font-size: 12px;}
     .card_pill{font-size: 16px;}
-    /*.project-card {max-height: 650px;min-height: 650px;}*/
-    .stat_box_wrapper{padding-bottom: 60px;}
+    .stat_box_wrapper{padding-bottom: 00px;}
     .ym-project .btn_wrapper{justify-content: flex-start;}
     .hero_overlay_ctnt{transform: translateY(20%);}
+    .comp_bus_child.expanded, .comp_bus_child:hover{height: 480px;padding: 30px 0px 30px 30px;}
+    .comp_bus_child{padding:30px;height:260px;}
 }
 @media (max-width: 1367px) {
     .hero_why_content {transform: translate(-53%, 0%);}

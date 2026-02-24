@@ -61,34 +61,34 @@ document.addEventListener("DOMContentLoaded", () => {
     /* =========================
        BUSINESS CARDS (DESKTOP vs MOBILE)
     ========================= */
-    const cards = document.querySelectorAll(".comp_bus_child");
-    const mqCards = window.matchMedia("(min-width: 1281px)");
+    // const cards = document.querySelectorAll(".comp_bus_child");
+    // const mqCards = window.matchMedia("(min-width: 1281px)");
 
-    function activateCard(card) {
-        cards.forEach(c => c.classList.remove("expanded"));
-        card.classList.add("expanded");
-    }
+    // function activateCard(card) {
+    //     cards.forEach(c => c.classList.remove("expanded"));
+    //     card.classList.add("expanded");
+    // }
 
-    function setupCards() {
-        if (!cards.length) return;
+    // function setupCards() {
+    //     if (!cards.length) return;
 
-        if (mqCards.matches) {
-            cards.forEach(c => c.classList.remove("expanded"));
-            activateCard(cards[0]);
+    //     if (mqCards.matches) {
+    //         cards.forEach(c => c.classList.remove("expanded"));
+    //         activateCard(cards[0]);
 
-            cards.forEach(card => {
-                card.onclick = () => activateCard(card);
-            });
-        } else {
-            cards.forEach(card => {
-                card.classList.add("expanded");
-                card.onclick = null;
-            });
-        }
-    }
+    //         cards.forEach(card => {
+    //             card.onclick = () => activateCard(card);
+    //         });
+    //     } else {
+    //         cards.forEach(card => {
+    //             card.classList.add("expanded");
+    //             card.onclick = null;
+    //         });
+    //     }
+    // }
 
-    setupCards();
-    mqCards.addEventListener("change", setupCards);
+    // setupCards();
+    // mqCards.addEventListener("change", setupCards);
 
 
     /* =========================
@@ -118,119 +118,92 @@ document.addEventListener("DOMContentLoaded", () => {
     /* =========================
        HERO CATEGORY SLIDER
     ========================= */
-   if (document.querySelector('.hero_cat_slider')) {
-    new Swiper('.hero_cat_slider', {
-        loop: true,
-        centeredSlides: false,
-        autoplay: {
-            delay: 2000,
-            disableOnInteraction: false,
-        },
-        breakpoints: {
-            0: {
-                slidesPerView: 1,
+    if (document.querySelector('.hero_cat_slider')) {
+        new Swiper('.hero_cat_slider', {
+            loop: true,
+            centeredSlides: false,
+            autoplay: {
+                delay: 2000,
+                disableOnInteraction: false,
             },
-            991: {
-                slidesPerView: 2,
-                spaceBetween: 10,
-            },
-            1280: {
-                slidesPerView: 2.5,
-            },
-            1440: {
-                slidesPerView: 2.8,
+            breakpoints: {
+                0: {
+                    slidesPerView: 1,
+                },
+                991: {
+                    slidesPerView: 2,
+                    spaceBetween: 10,
+                },
+                1280: {
+                    slidesPerView: 2.5,
+                },
+                1536: {
+                    slidesPerView: 3,
+                },
+                1600: {
+                    slidesPerView: 2.8,
+                },
             }
-        }
-    });
-}
+        });
+    }
 
 
 
     /* =========================
        PROJECT CARDS (AUTO + HOVER DESKTOP / CLICK MOBILE)
     ========================= */
-    const projectCards = document.querySelectorAll('.project-card');
+    /* =========================
+   PROJECT CARDS (CLICK ONLY - DESKTOP & MOBILE)
+========================= */
+
+    let projectCards = document.querySelectorAll('.project-card');
     let activeIndex = 0;
-    let autoplayTimer = null;
-    let isMobile = window.innerWidth < 992; // CHANGED: 769 -> 992
 
     function setActiveProject(index) {
         activeIndex = index;
+        const isDesktop = window.innerWidth >= 992;
+
         projectCards.forEach((card, i) => {
             card.classList.toggle('active', i === index);
-            if (!isMobile) card.style.flex = i === index ? '1.1' : '0.5';
-        });
-    }
 
-    function startAuto() {
-        if (isMobile) return;
-        stopAuto();
-        autoplayTimer = setInterval(() => {
-            setActiveProject((activeIndex + 1) % projectCards.length);
-        }, 3000);
-    }
-
-    function stopAuto() {
-        if (autoplayTimer) clearInterval(autoplayTimer);
-    }
-
-    function bindProjectEvents() {
-        projectCards.forEach((card, i) => {
-            card.replaceWith(card.cloneNode(true));
+            // Expand only on desktop
+            if (isDesktop) {
+                card.style.flex = i === index ? '1.1' : '0.5';
+            } else {
+                card.style.flex = '';
+            }
         });
     }
 
     function initProjectCards() {
         if (!projectCards.length) return;
 
-        isMobile = window.innerWidth < 992; // CHANGED: 769 -> 992
-        stopAuto();
+        const isDesktop = window.innerWidth >= 992;
 
-        if (!isMobile) {
-            setActiveProject(0);
-            projectCards.forEach((card, i) => {
-                card.style.flex = i === 0 ? '1.1' : '0.5'; // Reset flex for desktop
-                card.addEventListener('mouseenter', () => {
-                    stopAuto();
-                    setActiveProject(i);
-                });
-                card.addEventListener('mouseleave', startAuto);
-            });
-            startAuto();
-        } else {
-            projectCards.forEach((card, i) => {
-                card.classList.remove('active');
-                card.style.flex = '';
-                // Remove old event listeners if any, by cloning (simple reset)
-                // In a perfect world we'd use AbortController or removeEventListener with named funcs
-                // But here we might just attach new ones. 
-                // Let's assume the previous replaceWith strategy wasn't fully implemented in the snippet I saw.
-                // Re-attaching click is fine if we are cautious.
-                card.onclick = () => setActiveProject(i);
-            });
-        }
-    }
-
-    // Clean up old listeners by cloning
-    // This is a bit heavy but guarantees no duplicate listeners on resize
-    function resetProjectCards() {
+        // Reset styles
         projectCards.forEach(card => {
-            const newCard = card.cloneNode(true);
-            card.parentNode.replaceChild(newCard, card);
+            card.classList.remove('active');
+            card.style.flex = '';
         });
-        // Re-query needed after replace
-        return document.querySelectorAll('.project-card');
-    }
 
-    // We can't easily re-query 'projectCards' variable since it's const. 
-    // Instead, let's just properly handle listeners or assume simple toggle.
-    // Given the constraints, I will stick to the logic provided but ensure breakpoints match.
+        // Set first active by default (optional)
+        // if (isDesktop) {
+        //     setActiveProject(0);
+        // }
+
+        // Click handler for BOTH desktop & mobile
+        projectCards.forEach((card, i) => {
+            card.onclick = () => setActiveProject(i);
+        });
+    }
 
     initProjectCards();
+
     window.addEventListener('resize', () => {
         clearTimeout(window.__pcResize);
         window.__pcResize = setTimeout(initProjectCards, 200);
     });
+
 
     /* =========================
        PRODUCT GRID (MOBILE SLICK)
@@ -331,3 +304,50 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
+// new slider inside card js 
+new Swiper(".prod_img_slider", {
+    slidesPerView: 1,
+    slidesPerGroup: 1,
+    spaceBetween: 0,
+    loop: true,
+    autoplay: {
+        delay: 3000,
+        disableOnInteraction: false,
+    },
+    speed: 800,
+});
+
+// new slider inside card js 
+
+// CARD EFFECT
+document.querySelectorAll('.project-card').forEach(wrapper => {
+    const circle = wrapper.querySelector('.enquire-circle');
+
+    wrapper.addEventListener('mouseenter', () => {
+        circle.style.opacity = 1;
+    });
+
+    wrapper.addEventListener('mousemove', (e) => {
+        const rect = wrapper.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+
+        circle.style.left = `${x}px`;
+        circle.style.top = `${y}px`;
+    });
+
+    wrapper.addEventListener('mouseleave', () => {
+        circle.style.opacity = 0;
+    });
+});
+
+$(document).ready(function () {
+
+    $('.ym_slider').slick({
+        arrows: true,
+        dots: false,
+        infinite: true,
+        speed: 400
+    });
+
+});

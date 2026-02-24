@@ -122,14 +122,7 @@
     </div>
 </footer>
 
-<div class="float-buttons">
-    <div class="WhatsAppButton">
-        <a href="https://api.whatsapp.com/send?phone=97142264582&text=Hello,%20I%27m%20visiting%20your%20website%20and%20would%20like%20to%20know%20more%22" id="whatsapp" aria-label="WhatsApp +971 4 226 4582" rel="nofollow" target="_blank">
-            <i class="fab fa-whatsapp"></i>
-            <span>WhatsApp<br><small>+971 4 226 4582</small></span>
-        </a>
-    </div>
-</div>
+@include('layouts.whatsapp-popup')
 
 <!-- Scripts -->
 <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
