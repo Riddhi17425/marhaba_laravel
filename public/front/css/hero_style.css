@@ -621,25 +621,6 @@ a {
     padding: 10px 20px;
 }
 
-/*.enquire-circle {*/
-/*    cursor: pointer;*/
-/*    position: absolute;*/
-/*    width: 80px;*/
-/*    height: 80px;*/
-/*    background: rgba(0, 0, 0, 0.6);*/
-/*    color: #fff;*/
-/*    border-radius: 50%;*/
-/*    font-size: 12px;*/
-/*    display: flex;*/
-/*    align-items: center;*/
-/*    justify-content: center;*/
-/*    pointer-events: auto;*/
-/*    transform: translate(-50%, -50%);*/
-/*    opacity: 0;*/
-/*    transition: opacity 0.2s ease;*/
-/*    z-index: 2;*/
-/*}*/
-
 .global_tab_item .nav-link.active {
     background-color: #e7d2ff;
 }
@@ -728,7 +709,7 @@ a {
 
 .ym_slider .slick-prev:before,
 .ym_slider .slick-next:before {
-    font-family: sans-serif;
+    /* font-family: sans-serif; */
     opacity: 1;
     color: #111;
 }
@@ -805,10 +786,14 @@ a {
     opacity: 1;
 }
 
-input:focus, 
-textarea:focus, 
+input:focus,
+textarea:focus,
 select:focus {
     outline: none;
-    box-shadow: none; 
+    box-shadow: none;
 }
 /* inquiry form css  */
+.project-card.active .enquire-circle {
+    display: none;
+}
+
