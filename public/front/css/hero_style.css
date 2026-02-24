@@ -28,7 +28,7 @@ a {
 }
 
 .yellow-gradient {
-    background: linear-gradient(90deg, #FFF 0%, #F8F3E8 49.04%, #FFF 100%);
+    background: linear-gradient(90deg, #fff 0%, #f8f3e8 49.04%, #fff 100%);
 }
 
 .btn_1 {
@@ -69,7 +69,7 @@ a {
     font-family: var(--font-lore);
     font-size: 60px;
     line-height: 64px;
-    color: #2E2E2E;
+    color: #2e2e2e;
 }
 
 /*.title_48lora {*/
@@ -121,7 +121,6 @@ a {
     overflow: hidden;
 }
 
-
 .image-card img {
     width: 100%;
     height: 100%;
@@ -140,7 +139,7 @@ a {
     inset: 0;
     height: 100%;
     width: 100%;
-    transition: .5s ease;
+    transition: 0.5s ease;
     color: white;
     font-size: 20px;
     text-align: center;
@@ -176,9 +175,7 @@ a {
 
 /* ---------------hero css---------------------- */
 
-
 /* stats css */
-
 
 .stat_box_wrapper {
     display: grid;
@@ -196,14 +193,14 @@ a {
     gap: 10px;
     box-shadow: 0px 20px 20px rgba(69, 38, 103, 0.15);
     /*border-radius: 10px;*/
-    border: 1px solid #D7C7E9;
+    border: 1px solid #d7c7e9;
     margin-top: 60px;
 }
 
 .stats_border {
     width: 45px;
     height: 1px;
-    background-color: #D7C7E9;
+    background-color: #d7c7e9;
     display: block;
     margin-inline: auto;
 }
@@ -217,7 +214,6 @@ a {
 
 /* stats css */
 /* house of brands */
-
 
 .home_brand_bg {
     display: flex;
@@ -253,7 +249,7 @@ a {
 
 .comp_bus_child {
     /*border-radius: 10px;*/
-    border: 1px solid #D7C7E9;
+    border: 1px solid #d7c7e9;
     padding: 40px;
     display: flex;
     align-items: center;
@@ -355,13 +351,18 @@ a {
 
 /* Shimmer effect */
 .comp_bus_child::before {
-    content: '';
+    content: "";
     position: absolute;
     top: 0;
     left: -100%;
     width: 100%;
     height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.3),
+        transparent
+    );
     transition: left 0.6s;
 }
 
@@ -371,7 +372,7 @@ a {
 }
 
 .comp_bus_ext {
-    color: #4A4A4A;
+    color: #4a4a4a;
     font-family: var(--font-ralwway);
     font-size: 18px;
     line-height: 24px;
@@ -382,18 +383,20 @@ a {
 }
 
 .comp_bus_ext::before {
-    content: '';
+    content: "";
     position: absolute;
     top: 0;
     left: 0;
     height: 1px;
     width: 40px;
-    background-color: #D7C7E9;
+    background-color: #d7c7e9;
 }
 
 /* trusted */
 /* why css */
-.hero_why_wrapper{margin-top:60px;}
+.hero_why_wrapper {
+    margin-top: 60px;
+}
 .why_slide {
     display: flex;
     flex-direction: column;
@@ -427,7 +430,7 @@ a {
     width: 14px;
     height: 8px;
     border-radius: 10px;
-    background-color: #E7D2FF;
+    background-color: #e7d2ff;
     opacity: 1;
     transition: all 0.3s ease-in;
 }
@@ -442,9 +445,8 @@ a {
     display: flex;
     gap: 5px;
     font-family: var(--font-lore);
-    ;
     font-size: 38px;
-    color: #D7C7E9;
+    color: #d7c7e9;
     line-height: 38px;
     margin-bottom: 40px;
 }
@@ -515,7 +517,7 @@ a {
 
 .card_title {
     font-family: var(--font-lore);
-    color: #2E2E2E;
+    color: #2e2e2e;
     font-size: 32px;
     line-height: 40px;
     letter-spacing: -0.01em;
@@ -542,13 +544,13 @@ a {
 }
 
 .card_subtitle::before {
-    content: '';
+    content: "";
     position: absolute;
     bottom: 0;
     left: 0;
     height: 2px;
     width: 40px;
-    background-color: #D7C7E9;
+    background-color: #d7c7e9;
 }
 
 .card_pill {
@@ -559,7 +561,7 @@ a {
     padding: 10px 25px;
     border-radius: 200px;
     background-color: white;
-    color: black
+    color: black;
 }
 
 .tags {
@@ -639,12 +641,12 @@ a {
 /*}*/
 
 .global_tab_item .nav-link.active {
-    background-color: #E7D2FF;
+    background-color: #e7d2ff;
 }
 
 .global_presence_tab .nav-tabs .nav-link.active::before,
 .global_presence_tab .nav-tabs .nav-link.active::after {
-    background-color: #E7D2FF;
+    background-color: #e7d2ff;
     /* Added the missing '#' for the hex code */
 }
 
@@ -678,7 +680,7 @@ a {
 .ym_slide_img {
     width: 350px;
     object-fit: contain;
-    background-color: #F7F7F7;
+    background-color: #f7f7f7;
 }
 
 /* Hide arrows by default */
@@ -719,7 +721,7 @@ a {
     font-family: var(--font-ralwway);
     font-size: 18px;
     font-weight: 500;
-    color: #2E2E2E;
+    color: #2e2e2e;
     margin-top: 10px;
     margin-bottom: 0;
 }
@@ -732,60 +734,81 @@ a {
 }
 
 .ym_slider .slick-prev:before {
-    content: '<';
+    content: "<";
 }
 
 .ym_slider .slick-next:before {
-    content: '>';
+    content: ">";
 }
 
 .ym_slider .slick-prev {
     left: 0px;
-    top:35%;
+    top: 35%;
 }
 
 .ym_slider .slick-next {
     right: 0px;
-    top:35%;
+    top: 35%;
 }
 .ym_slider .slick-dots {
-  display: flex !important;
-  justify-content: center;
-  align-items: center;
-  /* gap: 8px; */
-  padding: 0;
-  bottom: 0px !important;
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+    /* gap: 8px; */
+    padding: 0;
+    bottom: 0px !important;
 }
 
 .ym_slider .slick-dots li {
-  margin: 0 !important;
-  padding: 0 !important;
-  width: 126px;
-  height: 5px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 0px;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 126px;
+    height: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0px;
 }
 
 .ym_slider .slick-dots li button:before {
-  display: none;
+    display: none;
 }
 
 .ym_slider .slick-dots li button {
-  width: 126px;
-  height: 5px;
-  background-color: #D7C7E9;
-  padding: 0;
-  transition: all 0.3s ease;
+    width: 126px;
+    height: 5px;
+    background-color: #d7c7e9;
+    padding: 0;
+    transition: all 0.3s ease;
 }
 
 .ym_slider .slick-dots li.slick-active button {
-  height: 5px;
-  background-color: #452667;
-  border-radius: 0px;
-  transition: all 0.3s ease;
-  cursor: none;
+    height: 5px;
+    background-color: #452667;
+    border-radius: 0px;
+    transition: all 0.3s ease;
+    cursor: none;
 }
 
 /* ================= ym CARD ================= */
+
+/* inquiry form css  */
+.enquiry_head {
+    text-align: center;
+    position: relative;
+}
+.enquiry_head .btn-close{
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+.enquiry_body .iti__country-container{top:10%!important;}
+.enquiry_body .iti{width: 100%;}
+.enquiry_body label{display:inline-block;}
+.enquiry_body input,
+.enquiry_body textarea,
+.enquiry_body select
+ {width:100%;padding:5px;}
+.enquiry_body input[type="checkbox"]{width:16px;height: 16px;}
+
+/* inquiry form css  */

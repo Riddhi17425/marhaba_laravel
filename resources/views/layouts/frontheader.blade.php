@@ -39,6 +39,7 @@
     <!--<link rel="stylesheet" href="{{ asset('public/front/css/hero_style.css') }}">-->
     <link rel="stylesheet" href="{{ asset('public/front/css/responsive.css') }}">
     <!--<link rel="stylesheet" href="{{ asset('public/front/css/hero_responsive.css') }}">-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@25.12.4/build/css/intlTelInput.min.css">
     <style>
         .error {
             color: red;

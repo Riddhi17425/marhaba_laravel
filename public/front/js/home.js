@@ -208,6 +208,9 @@ document.addEventListener("DOMContentLoaded", () => {
     /* =========================
        PRODUCT GRID (MOBILE SLICK)
     ========================= */
+    /* =========================
+       PRODUCT GRID (MOBILE SLICK)
+    ========================= */
     const productGrids = document.querySelectorAll('.product_grid');
     const mqGrid = window.matchMedia('(max-width: 768px)'); // < 769px
 
@@ -250,23 +253,17 @@ document.addEventListener("DOMContentLoaded", () => {
     handleProductGrid(mqGrid);
     mqGrid.addEventListener('change', handleProductGrid);
 
-});
 
-
-/* =========================
-   CORE WRAPPER (SLICK)
-========================= */
-
-document.addEventListener('DOMContentLoaded', () => {
-
+    /* =========================
+       CORE WRAPPER (SLICK)
+    ========================= */
     const coreWrapper = document.querySelector('.core_wrapper');
-    const mqCore = window.matchMedia('(max-width: 1280px)'); // CHANGED: 1281 -> 1280 (< 1281px)
+    const mqCore = window.matchMedia('(max-width: 1280px)');
 
     function handleCoreSlider() {
         if (!coreWrapper || typeof $ === 'undefined') return;
 
         if (mqCore.matches) {
-            // ✅ ONLY below 1281px
             if (!$(coreWrapper).hasClass('slick-initialized')) {
                 $(coreWrapper).slick({
                     slidesToShow: 3,
@@ -288,66 +285,106 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
             }
         } else {
-            // ✅ ABOVE 1280px → FORCE UNSLICK
             if ($(coreWrapper).hasClass('slick-initialized')) {
                 $(coreWrapper).slick('unslick');
             }
         }
     }
 
-    // Run on load
     handleCoreSlider();
-
-    // Run on resize / breakpoint change
     mqCore.addEventListener('change', handleCoreSlider);
 
-});
 
-
-// new slider inside card js 
-new Swiper(".prod_img_slider", {
-    slidesPerView: 1,
-    slidesPerGroup: 1,
-    spaceBetween: 0,
-    loop: true,
-    autoplay: {
-        delay: 3000,
-        disableOnInteraction: false,
-    },
-    speed: 800,
-});
-
-// new slider inside card js 
-
-// CARD EFFECT
-document.querySelectorAll('.project-card').forEach(wrapper => {
-    const circle = wrapper.querySelector('.enquire-circle');
-
-    wrapper.addEventListener('mouseenter', () => {
-        circle.style.opacity = 1;
+    /* =========================
+       MISC SLIDERS & EFFECTS
+    ========================= */
+    // Product Image Slider
+    new Swiper(".prod_img_slider", {
+        slidesPerView: 1,
+        slidesPerGroup: 1,
+        spaceBetween: 0,
+        loop: true,
+        autoplay: {
+            delay: 3000,
+            disableOnInteraction: false,
+        },
+        speed: 800,
     });
 
-    wrapper.addEventListener('mousemove', (e) => {
-        const rect = wrapper.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
+    // Project Cards Hover Reveal (Enquire Circle)
+    document.querySelectorAll('.project-card').forEach(wrapper => {
+        const circle = wrapper.querySelector('.enquire-circle');
+        if (!circle) return;
 
-        circle.style.left = `${x}px`;
-        circle.style.top = `${y}px`;
+        wrapper.addEventListener('mouseenter', () => {
+            circle.style.opacity = 1;
+        });
+
+        wrapper.addEventListener('mousemove', (e) => {
+            const rect = wrapper.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            circle.style.left = `${x}px`;
+            circle.style.top = `${y}px`;
+        });
+
+        wrapper.addEventListener('mouseleave', () => {
+            circle.style.opacity = 0;
+        });
     });
 
-    wrapper.addEventListener('mouseleave', () => {
-        circle.style.opacity = 0;
-    });
-});
+    // YM Slider (Slick)
+    if (typeof $ !== 'undefined' && $('.ym_slider').length) {
+        $('.ym_slider').slick({
+            arrows: true,
+            dots: false,
+            infinite: true,
+            speed: 400
+        });
+    }
 
-$(document).ready(function () {
+    /* =========================
+       PROJECT CARDS GIF EFFECT
+    ========================= */
+    document.querySelectorAll('.project-card').forEach(card => {
+        const img = card.querySelector('.category-img');
+        if (!img) return;
 
-    $('.ym_slider').slick({
-        arrows: true,
-        dots: false,
-        infinite: true,
-        speed: 400
+        const originalSrc = img.src;
+        let altImages = [];
+        let interval;
+
+        try {
+            const altData = img.getAttribute('data-alt');
+            if (altData) {
+                altImages = JSON.parse(altData);
+                // Preload
+                altImages.forEach(src => {
+                    const pi = new Image();
+                    pi.src = src;
+                });
+            }
+        } catch (e) {
+            console.error("Invalid data-alt:", img);
+        }
+
+        card.addEventListener('mouseenter', () => {
+            if (!altImages.length) return;
+            let index = 0;
+            // Immediate first change
+            img.src = altImages[index];
+            index = (index + 1) % altImages.length;
+            
+            interval = setInterval(() => {
+                img.src = altImages[index];
+                index = (index + 1) % altImages.length;
+            }, 800);
+        });
+
+        card.addEventListener('mouseleave', () => {
+            if (interval) clearInterval(interval);
+            img.src = originalSrc;
+        });
     });
 
 });
