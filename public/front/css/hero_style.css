@@ -793,22 +793,22 @@ a {
 /* ================= ym CARD ================= */
 
 /* inquiry form css  */
-.enquiry_head {
-    text-align: center;
+.enquiry_body {
     position: relative;
+    padding: 0;
 }
-.enquiry_head .btn-close{
+.enquiry_body .btn-close {
     position: absolute;
     top: 10px;
     right: 10px;
+    filter: invert(1);
+    opacity: 1;
 }
-.enquiry_body .iti__country-container{top:10%!important;}
-.enquiry_body .iti{width: 100%;}
-.enquiry_body label{display:inline-block;}
-.enquiry_body input,
-.enquiry_body textarea,
-.enquiry_body select
- {width:100%;padding:5px;}
-.enquiry_body input[type="checkbox"]{width:16px;height: 16px;}
 
+input:focus, 
+textarea:focus, 
+select:focus {
+    outline: none;
+    box-shadow: none; 
+}
 /* inquiry form css  */
