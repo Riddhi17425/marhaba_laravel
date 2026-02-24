@@ -2,32 +2,284 @@
 <link rel="stylesheet" href="{{ asset('public/front/css/hero_style.css') }}">
 <link rel="stylesheet" href="{{ asset('public/front/css/hero_responsive.css') }}">
 
-<section class="ym_hero">
-    <div class="ym_hero_slider_wrapper">
-        <div class="gallery-container">
-            <!-- Row 1: Left to Right -->
-            <div class="swiper-row">
-                <div class="swiper swiper-row-1">
-                    <div class="swiper-wrapper">
-                        <div class="swiper-slide">
-                            <div class="image-card">
-                                <img loading="lazy"
-                                    src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=600&fit=crop"
-                                    alt="Person 1">
+    <section class="ym_hero">
+            <div class="ym_hero_slider_wrapper">
+                <div class="gallery-container">
+                    <!-- Row 1: Left to Right -->
+                    <div class="swiper-row">
+                        <div class="swiper swiper-row-1">
+                            <div class="swiper-wrapper">
+                                @if(isset($homeSliderImgs) && is_countable($homeSliderImgs) && count($homeSliderImgs) > 0)
+                                @for($i = 0; $i < 2; $i++)
+                                @foreach($homeSliderImgs as $k => $v)
+                                    @if($v->slider == 1)
+                                        <div class="swiper-slide">
+                                            <div class="image-card">
+                                                @if(isset($v->image))
+                                                    <img src="{{ asset('public/homeslider_images/'.$v->image) }}" width="100">
+                                                @else
+                                                    <img loading="lazy" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=600&fit=crop" alt="Person 1">
+                                                @endif
+                                            </div>
+                                        </div>
+                                    @endif
+                                @endforeach
+                                @endfor
+                                @endif
+                                {{-- <div class="swiper-slide">
+                                    <div class="image-card">
+                                        <img loading="lazy" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=600&fit=crop"
+                                            alt="Person 2">
+                                    </div>
+                                </div>
+                                <div class="swiper-slide">
+                                    <div class="image-card">
+                                        <img loading="lazy" src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&h=600&fit=crop"
+                                            alt="Person 3">
+                                    </div>
+                                </div>
+                                <div class="swiper-slide">
+                                    <div class="image-card">
+                                        <img loading="lazy" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&h=600&fit=crop"
+                                            alt="Person 4">
+                                    </div>
+                                </div>
+                                <div class="swiper-slide">
+                                    <div class="image-card">
+                                        <img loading="lazy" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&h=600&fit=crop"
+                                            alt="Person 5">
+                                    </div>
+                                </div>
+                                <div class="swiper-slide">
+                                    <div class="image-card">
+                                        <img loading="lazy" src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=400&h=600&fit=crop"
+                                            alt="Person 6">
+                                    </div>
+                                </div>
+                                <div class="swiper-slide">
+                                    <div class="image-card">
+                                        <img loading="lazy" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=600&fit=crop"
+                                            alt="Person 1">
+                                    </div>
+                                </div>
+                                <div class="swiper-slide">
+                                    <div class="image-card">
+                                        <img loading="lazy" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=600&fit=crop"
+                                            alt="Person 2">
+                                    </div>
+                                </div>
+                                <div class="swiper-slide">
+                                    <div class="image-card">
+                                        <img loading="lazy" src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&h=600&fit=crop"
+                                            alt="Person 3">
+                                    </div>
+                                </div>
+                                <div class="swiper-slide">
+                                    <div class="image-card">
+                                        <img loading="lazy" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&h=600&fit=crop"
+                                            alt="Person 4">
+                                    </div>
+                                </div>
+                                <div class="swiper-slide">
+                                    <div class="image-card">
+                                        <img loading="lazy" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&h=600&fit=crop"
+                                            alt="Person 5">
+                                    </div>
+                                </div>
+                                <div class="swiper-slide">
+                                    <div class="image-card">
+                                        <img loading="lazy" src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=400&h=600&fit=crop"
+                                            alt="Person 6">
+                                    </div>
+                                </div> --}}
                             </div>
                         </div>
-                        <div class="swiper-slide">
-                            <div class="image-card">
-                                <img loading="lazy"
-                                    src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=600&fit=crop"
-                                    alt="Person 2">
+                    </div>
+
+                    <!-- Row 2: Right to Left -->
+                    <div class="swiper-row">
+                        <div class="swiper swiper-row-2">
+                            <div class="swiper-wrapper">
+                                @if(isset($homeSliderImgs) && is_countable($homeSliderImgs) && count($homeSliderImgs) > 0)
+                                @for($i = 0; $i < 2; $i++)
+                                @foreach($homeSliderImgs as $k => $v)
+                                    @if($v->slider == 2)
+                                        <div class="swiper-slide">
+                                            <div class="image-card">
+                                                @if(isset($v->image))
+                                                    <img src="{{ asset('public/homeslider_images/'.$v->image) }}" width="100">
+                                                @else
+                                                    <img loading="lazy" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=600&fit=crop" alt="Person 1">
+                                                @endif
+                                            </div>
+                                        </div>
+                                    @endif
+                                @endforeach
+                                @endfor
+                                @endif
+                                {{-- <div class="swiper-slide">
+                                    <div class="image-card">
+                                        <img loading="lazy" src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=400&h=600&fit=crop"
+                                            alt="Person 7">
+                                    </div>
+                                </div>
+                                <div class="swiper-slide">
+                                    <div class="image-card">
+                                        <img loading="lazy" src="https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?w=400&h=600&fit=crop"
+                                            alt="Person 8">
+                                    </div>
+                                </div>
+                                <div class="swiper-slide">
+                                    <div class="image-card">
+                                        <img loading="lazy" src="https://images.unsplash.com/photo-1504593811423-6dd665756598?w=400&h=600&fit=crop"
+                                            alt="Person 9">
+                                    </div>
+                                </div>
+                                <div class="swiper-slide">
+                                    <div class="image-card">
+                                        <img loading="lazy" src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=400&h=600&fit=crop"
+                                            alt="Person 10">
+                                    </div>
+                                </div>
+                                <div class="swiper-slide">
+                                    <div class="image-card">
+                                        <img loading="lazy" src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=400&h=600&fit=crop"
+                                            alt="Person 11">
+                                    </div>
+                                </div>
+                                <div class="swiper-slide">
+                                    <div class="image-card">
+                                        <img loading="lazy" src="https://images.unsplash.com/photo-1552058544-f2b08422138a?w=400&h=600&fit=crop"
+                                            alt="Person 12">
+                                    </div>
+                                </div>
+                                <div class="swiper-slide">
+                                    <div class="image-card">
+                                        <img loading="lazy" src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=400&h=600&fit=crop"
+                                            alt="Person 7">
+                                    </div>
+                                </div>
+                                <div class="swiper-slide">
+                                    <div class="image-card">
+                                        <img loading="lazy" src="https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?w=400&h=600&fit=crop"
+                                            alt="Person 8">
+                                    </div>
+                                </div>
+                                <div class="swiper-slide">
+                                    <div class="image-card">
+                                        <img loading="lazy" src="https://images.unsplash.com/photo-1504593811423-6dd665756598?w=400&h=600&fit=crop"
+                                            alt="Person 9">
+                                    </div>
+                                </div>
+                                <div class="swiper-slide">
+                                    <div class="image-card">
+                                        <img loading="lazy" src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=400&h=600&fit=crop"
+                                            alt="Person 10">
+                                    </div>
+                                </div>
+                                <div class="swiper-slide">
+                                    <div class="image-card">
+                                        <img loading="lazy" src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=400&h=600&fit=crop"
+                                            alt="Person 11">
+                                    </div>
+                                </div>
+                                <div class="swiper-slide">
+                                    <div class="image-card">
+                                        <img loading="lazy" src="https://images.unsplash.com/photo-1552058544-f2b08422138a?w=400&h=600&fit=crop"
+                                            alt="Person 12">
+                                    </div>
+                                </div> --}}
                             </div>
                         </div>
-                        <div class="swiper-slide">
-                            <div class="image-card">
-                                <img loading="lazy"
-                                    src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&h=600&fit=crop"
-                                    alt="Person 3">
+                    </div>
+
+                    <!-- Row 3: Left to Right -->
+                    <div class="swiper-row">
+                        <div class="swiper swiper-row-3">
+                            <div class="swiper-wrapper">
+                                @if(isset($homeSliderImgs) && is_countable($homeSliderImgs) && count($homeSliderImgs) > 0)
+                                @for($i = 0; $i < 2; $i++)
+                                @foreach($homeSliderImgs as $k => $v)
+                                    @if($v->slider == 3)
+                                        <div class="swiper-slide">
+                                            <div class="image-card">
+                                                @if(isset($v->image))
+                                                    <img src="{{ asset('public/homeslider_images/'.$v->image) }}" width="100">
+                                                @else
+                                                    <img loading="lazy" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=600&fit=crop" alt="Person 1">
+                                                @endif
+                                            </div>
+                                        </div>
+                                    @endif
+                                @endforeach
+                                @endfor
+                                @endif
+                                {{-- <div class="swiper-slide">
+                                    <div class="image-card">
+                                        <img loading="lazy" src="https://images.unsplash.com/photo-1519345182560-3f2917c472ef?w=400&h=600&fit=crop"
+                                            alt="Person 13">
+                                    </div>
+                                </div>
+                                <div class="swiper-slide">
+                                    <div class="image-card">
+                                        <img loading="lazy" src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=400&h=600&fit=crop"
+                                            alt="Person 14">
+                                    </div>
+                                </div>
+                                <div class="swiper-slide">
+                                    <div class="image-card">
+                                        <img loading="lazy" src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=400&h=600&fit=crop"
+                                            alt="Person 15">
+                                    </div>
+                                </div>
+                                <div class="swiper-slide">
+                                    <div class="image-card">
+                                        <img loading="lazy" src="https://images.unsplash.com/photo-1557862921-37829c790f19?w=400&h=600&fit=crop"
+                                            alt="Person 16">
+                                    </div>
+                                </div>
+                                <div class="swiper-slide">
+                                    <div class="image-card">
+                                        <img loading="lazy" src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&h=600&fit=crop"
+                                            alt="Person 17">
+                                    </div>
+                                </div>
+                                <div class="swiper-slide">
+                                    <div class="image-card">
+                                        <img loading="lazy" src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&h=600&fit=crop"
+                                            alt="Person 18">
+                                    </div>
+                                </div>
+                                <div class="swiper-slide">
+                                    <div class="image-card">
+                                        <img loading="lazy" src="https://images.unsplash.com/photo-1519345182560-3f2917c472ef?w=400&h=600&fit=crop"
+                                            alt="Person 13">
+                                    </div>
+                                </div>
+                                <div class="swiper-slide">
+                                    <div class="image-card">
+                                        <img loading="lazy" src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=400&h=600&fit=crop"
+                                            alt="Person 14">
+                                    </div>
+                                </div>
+                                <div class="swiper-slide">
+                                    <div class="image-card">
+                                        <img loading="lazy" src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=400&h=600&fit=crop"
+                                            alt="Person 15">
+                                    </div>
+                                </div>
+                                <div class="swiper-slide">
+                                    <div class="image-card">
+                                        <img loading="lazy" src="https://images.unsplash.com/photo-1557862921-37829c790f19?w=400&h=600&fit=crop"
+                                            alt="Person 16">
+                                    </div>
+                                </div>
+                                <div class="swiper-slide">
+                                    <div class="image-card">
+                                        <img loading="lazy" src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&h=600&fit=crop"
+                                            alt="Person 17">
+                                    </div>
+                                </div> --}}
                             </div>
                         </div>
                         <div class="swiper-slide">
@@ -1133,9 +1385,307 @@
 
         </div>
     </section>
-@endif
-<!-- ----------------why choose------------ -->
-@if(isset($whyChooseUs) && is_countable($whyChooseUs) && count($whyChooseUs) > 0)
+        <!-- ----------------range------------ -->
+     <section id="categories" class="projects-section home_mt-100">
+         <h2 class="title_60lora mx-atuo"><h2 class="title_60lora text-center">Age Ranges</h2></h2>
+            <div class="ym-container">
+                <div class="projects-desktop">
+                    <!-- Baby -->
+                    <div class="project-card active" data-index="0" style="background-color: #F3F2E7;">
+                        <div class="project-bg bg-cream"></div>
+
+                        <div class="project-content">
+                            <span class="card_title">Baby</span>
+                            <p class="card_desc">Age Range : {{$ageSections['baby']['label']}}</p>
+
+                            <div class="ym-project">
+                                <h3 class="card_subtitle">Size Groups</h3>
+                                <div class="tags">
+                                    @if(isset($groupedSizes) && is_countable($groupedSizes) && count($groupedSizes) > 0)
+                                    @foreach ($groupedSizes['baby'] as $val)
+                                        <span class="card_pill">{{$val}}</span>
+                                    @endforeach
+                                    @endif
+                                </div>
+                                <h3 class="card_subtitle">Products:</h3>
+                                <div class="tags">
+                                    @if(isset($productsByAge) && is_countable($productsByAge) && count($productsByAge) > 0)
+                                    @foreach ($productsByAge['baby'] as $key => $val)
+                                        @if($key == 9)
+                                            @break
+                                        @endif
+                                        <a href="{{ url('products-details/' . $val['url'].'/'. $val['id'])}}" target="_blank"><span class="p_type">{{$val->name}}</span></a>
+                                    @endforeach
+                                    @endif
+                                </div>
+
+                                <div class="btn_wrapper">
+                                    <a href="{{ route('get.products', ['type' => 'boy','size_range' => 'baby']) }}" class="btn_1" target="_blank">Explore Baby Boy <img loading="lazy" src="{{ asset('public/front/img/Home/blue-arr.svg') }}" alt="" height="10" width="10"></a>
+                                    <a href="{{ route('get.products', ['type' => 'girl','size_range' => 'baby']) }}" class="btn_1" target="_blank">Explore Baby Girl<img loading="lazy" src="{{ asset('public/front/img/Home/blue-arr.svg') }}" alt="" height="10" width="10"></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card_top">
+                            <div class="card_top_head">
+                                <span class="card_title">Baby</span>
+                                <p class="card_desc">Age Range : {{$ageSections['baby']['label']}}</p>
+                            </div>
+                            <img loading="lazy" src="{{ asset('public/front/img/Home/baby_girl-1.png') }}" class="category-img" alt="Toddler">
+                        </div>
+                        <!-- <img loading="lazy" src="./images/baby_girl-1.png" class="category-img" alt="Baby"> -->
+                    </div>
+
+                    <!-- Toddler -->
+                    <div class="project-card" data-index="1" style="background-color: #EFE6F0;">
+                        <div class="project-bg bg-light"></div>
+
+                        <div class="project-content">
+                            <span class="card_title">Toddler & Little Kids</span>
+                            <p class="card_desc">Age Range : {{$ageSections['kids']['label']}}</p>
+
+                            <div class="ym-project">
+                                <h3 class="card_subtitle">Size Groups</h3>
+                                <div class="tags">
+                                    @if(isset($groupedSizes) && is_countable($groupedSizes) && count($groupedSizes) > 0)
+                                    @foreach ($groupedSizes['kids'] as $val)
+                                        <span class="card_pill">{{$val}}</span>
+                                    @endforeach
+                                    @endif
+                                </div>
+                                <h3 class="card_subtitle">Products:</h3>
+                                <div class="tags">
+                                    @if(isset($productsByAge) && is_countable($productsByAge) && count($productsByAge) > 0)
+                                    @foreach ($productsByAge['kids'] as $key => $val)
+                                        @if($key == 9)
+                                            @break
+                                        @endif
+                                        <a href="{{ url('products-details/' . $val['url'].'/'. $val['id'])}}" target="_blank"><span class="p_type">{{$val->name}}</span></a>
+                                    @endforeach
+                                    @endif
+                                </div>
+
+                                <div class="btn_wrapper">
+                                    <a href="{{ route('get.products', ['type' => 'boy','size_range' => 'kids']) }}" class="btn_1" target="_blank">Explore Boy <img loading="lazy" src="{{ asset('public/front/img/Home/blue-arr.svg') }}" alt=""
+                                            height="10" width="10"></a>
+                                    <a href="{{ route('get.products', ['type' => 'girl','size_range' => 'kids']) }}" class="btn_1" target="_blank">Explore Girl<img loading="lazy" src="{{ asset('public/front/img/Home/blue-arr.svg') }}" alt=""
+                                            height="10" width="10"></a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card_top">
+                            <div class="card_top_head">
+                                <span class="card_title">Toddler & Little Kids</span>
+                                <p class="card_desc">Age Range : {{$ageSections['kids']['label']}}</p>
+                            </div>
+                            <img loading="lazy" src="{{ asset('public/front/img/Home/tlk.png') }}" class="category-img" alt="Toddler">
+                        </div>
+                    </div>
+
+                    <!-- Kids -->
+                    <div class="project-card" data-index="2" style="background-color: #E6EFF2;">
+                        <div class="project-bg bg-soft"></div>
+
+                        <div class="project-content">
+                            <span class="card_title">Kids & Youth</span>
+                            <p class="card_desc">Age Range : {{$ageSections['junior']['label']}}</p>
+
+                            <div class="ym-project">
+                                <h3 class="card_subtitle">Size Groups</h3>
+                                <div class="tags">
+                                    @if(isset($groupedSizes) && is_countable($groupedSizes) && count($groupedSizes) > 0)
+                                    @foreach ($groupedSizes['junior'] as $val)
+                                        <span class="card_pill">{{$val}}</span>
+                                    @endforeach
+                                    @endif
+                                </div>
+                                <h3 class="card_subtitle">Products:</h3>
+                                <div class="tags">
+                                    @if(isset($productsByAge) && is_countable($productsByAge) && count($productsByAge) > 0)
+                                    @foreach ($productsByAge['junior'] as $key => $val)
+                                        @if($key == 9)
+                                            @break
+                                        @endif
+                                        <a href="{{ url('products-details/' . $val['url'].'/'. $val['id'])}}" target="_blank"><span class="p_type">{{$val->name}}</span></a>
+                                    @endforeach
+                                    @endif
+                                </div>
+                                <div class="btn_wrapper">
+                                    <a href="{{ route('get.products', ['type' => 'boy','size_range' => 'junior']) }}" class="btn_1" target="_blank">Explore Boy <img loading="lazy" src="{{ asset('public/front/img/Home/blue-arr.svg') }}" alt=""
+                                            height="10" width="10"></a>
+                                    <a href="{{ route('get.products', ['type' => 'girl','size_range' => 'junior']) }}" class="btn_1" target="_blank">Explore Girl<img loading="lazy" src="{{ asset('public/front/img/Home/blue-arr.svg') }}" alt=""
+                                            height="10" width="10"></a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card_top">
+                            <div class="card_top_head">
+                                <span class="card_title">Kids & Youth</span>
+                                <p class="card_desc">Age Range : {{$ageSections['junior']['label']}}</p>
+                            </div>
+                            <img loading="lazy" src="{{ asset('public/front/img/Home/ky.png') }}" class="category-img" alt="Kids & Youth">
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+        <!-- ----------------catalogues------------ -->
+        @if(isset($catImgs) && is_countable($catImgs) && count($catImgs) > 0)
+        <section class="home_mt-100">
+            <div class="hero_cat yellow-gradient">
+                <div class="ym-container">
+                    <div class="hero_catologue_head col-lg-6">
+                        <h2 class="title_60lora text-center">View Our Catalogues</h2>
+                        <p class="title_24-raleway mt-4 mt-xl-5">Stay updated on our newest arrivals. Select your
+                            preferred products and our wholesale team will be in touch with curated children's clothing
+                            collections for your business.
+                        </p>
+                        <div class="btn_wrapper">
+                            <a href="javascript:void(0);" class="btn_1">Request Latest Catalogues <img loading="lazy" src="{{ asset('public/front/img/Home/blue-arr.svg') }}" alt="" height="10" width="10"></a>
+                            <a href="https://www.instagram.com/marhabafashionuae?igsh=cTluY2lzYTRpM2pp" class="btn_1"><img loading="lazy" src="{{ asset('public/front/img/Home/purple-insta.png') }}" alt="insta" height="21"width="21"> Follow us on Instagram</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper hero_cat_slider">
+                    <div class="swiper-wrapper">
+                        @foreach ($catImgs as $val)
+                            <div class="swiper-slide">
+                                <img loading="lazy" src="{{ asset('public/catalogue_images/'. $val->image) }}" class="img-fluid">
+                            </div>
+                            {{-- <div class="swiper-slide">
+                                <img loading="lazy" src="{{ asset('public/front/img/Home/catalogue1.png') }}" class="img-fluid">
+                            </div>
+                            <div class="swiper-slide">
+                                <img loading="lazy" src="{{ asset('public/front/img/Home/catalogue1.png') }}" class="img-fluid">
+                            </div>
+                            <div class="swiper-slide">
+                                <img loading="lazy" src="{{ asset('public/front/img/Home/catalogue1.png') }}" class="img-fluid">
+                            </div> --}}
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+        </section>
+        @endif
+
+        <!-- ----------------trusted------------ -->
+       @if(isset($trustedBy) && is_countable($trustedBy) && count($trustedBy) > 0) 
+        <section class="home_mt-100">
+            <div class="ym-container">
+                <h2 class="title_60lora text-center">Trusted by</h2>
+                <p class="text-center">Whether you run a boutique, supply a regional network, or sell online—there's a place for you here. Marhaba partners with businesses of every size, with terms shaped around your needs.</p>
+                <a href="#" class="btn_1 mx-auto">Enquire Now <img loading="lazy" src="{{ asset('public/front/img/Home/blue-arr.svg') }}" alt="" height="10" width="10"></a>
+                <div class="core_wrapper mt-5">
+                    @foreach($trustedBy as $key => $val)
+                        <div class="comp_bus_child">
+                            <div class="comp_bus_front">
+                                <div class="comp_bus_fronts">
+                                    <span>
+                                        <img loading="lazy" src="{{ asset('public/front/img/Home/ccs.png') }}" alt="" height="113" width="186">
+                                    </span>
+                                    <h6 class="comp_bus_num">{{$val->title ?? ''}}</h6>
+                                </div>
+                            </div>
+                            <div class="comp_bus_back">
+                                <span>
+                                    <img loading="lazy" src="{{ asset('public/trusted_by_images/'. $val->image) }}" alt="" width="330" height="200">
+                                </span>
+                                <div class="comp_bus_back_bt">
+                                    <h6 class="comp_bus_num">{{$val->title ?? ''}}</h6>
+                                    <p class="comp_bus_ext">{{$val->desc ?? ''}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                    <!--<div class="comp_bus_child">-->
+                    <!--    <div class="comp_bus_front">-->
+                    <!--        <div class="comp_bus_fronts">-->
+                    <!--            <span>-->
+                    <!--                <img loading="lazy" src="{{ asset('public/front/img/Home/ccs.png') }}" alt="" height="113" width="186">-->
+                    <!--            </span>-->
+                    <!--            <h6 class="comp_bus_num">Regional Distributors</h6>-->
+                    <!--        </div>-->
+                    <!--    </div>-->
+                    <!--    <div class="comp_bus_back">-->
+                    <!--        <span>-->
+                    <!--            <img loading="lazy" src="{{ asset('public/front/img/Home/rd.png') }}" alt="" width="330" height="200">-->
+                    <!--        </span>-->
+                    <!--        <div class="comp_bus_back_bt">-->
+                    <!--            <h6 class="comp_bus_num">Regional Distributors</h6>-->
+                    <!--            <p class="comp_bus_ext">High-precision printing using SLA, FDM & SLS technologies.-->
+                    <!--                From digital design to physical part — fast, accurate, and scalable.</p>-->
+                    <!--        </div>-->
+                    <!--    </div>-->
+                    <!--</div>-->
+                    <!--<div class="comp_bus_child">-->
+                    <!--    <div class="comp_bus_front">-->
+                    <!--        <div class="comp_bus_fronts">-->
+                    <!--            <span>-->
+                    <!--                <img loading="lazy" src="{{ asset('public/front/img/Home/ccs.png') }}" alt="" height="113" width="186">-->
+                    <!--            </span>-->
+                    <!--            <h6 class="comp_bus_num">Regional Distributors</h6>-->
+                    <!--        </div>-->
+                    <!--    </div>-->
+                    <!--    <div class="comp_bus_back">-->
+                    <!--        <span>-->
+                    <!--            <img loading="lazy" src="{{ asset('public/front/img/Home/rd.png') }}" alt="" width="330" height="200">-->
+                    <!--        </span>-->
+                    <!--        <div class="comp_bus_back_bt">-->
+                    <!--            <h6 class="comp_bus_num">Regional Distributors</h6>-->
+                    <!--            <p class="comp_bus_ext">High-precision printing using SLA, FDM & SLS technologies.-->
+                    <!--                From digital design to physical part — fast, accurate, and scalable.</p>-->
+                    <!--        </div>-->
+                    <!--    </div>-->
+                    <!--</div>-->
+                    <!--<div class="comp_bus_child">-->
+                    <!--    <div class="comp_bus_front">-->
+                    <!--        <div class="comp_bus_fronts">-->
+                    <!--            <span>-->
+                    <!--                <img loading="lazy" src="{{ asset('public/front/img/Home/ccs.png') }}" alt="" height="113" width="186">-->
+                    <!--            </span>-->
+                    <!--            <h6 class="comp_bus_num">Regional Distributors</h6>-->
+                    <!--        </div>-->
+                    <!--    </div>-->
+                    <!--    <div class="comp_bus_back">-->
+                    <!--        <span>-->
+                    <!--            <img loading="lazy" src="{{ asset('public/front/img/Home/rd.png') }}" alt="" width="330" height="200">-->
+                    <!--        </span>-->
+                    <!--        <div class="comp_bus_back_bt">-->
+                    <!--            <h6 class="comp_bus_num">Regional Distributors</h6>-->
+                    <!--            <p class="comp_bus_ext">High-precision printing using SLA, FDM & SLS technologies.-->
+                    <!--                From digital design to physical part — fast, accurate, and scalable.</p>-->
+                    <!--        </div>-->
+                    <!--    </div>-->
+                    <!--</div>-->
+                    <!--<div class="comp_bus_child">-->
+                    <!--    <div class="comp_bus_front">-->
+                    <!--        <div class="comp_bus_fronts">-->
+                    <!--            <span>-->
+                    <!--                <img loading="lazy" src="{{ asset('public/front/img/Home/ccs.png') }}" alt="" height="113" width="186">-->
+                    <!--            </span>-->
+                    <!--            <h6 class="comp_bus_num">Regional Distributors</h6>-->
+                    <!--        </div>-->
+                    <!--    </div>-->
+                    <!--    <div class="comp_bus_back">-->
+                    <!--        <span>-->
+                    <!--            <img loading="lazy" src="{{ asset('public/front/img/Home/rd.png') }}" alt="" width="330" height="200">-->
+                    <!--        </span>-->
+                    <!--        <div class="comp_bus_back_bt">-->
+                    <!--            <h6 class="comp_bus_num">Regional Distributors</h6>-->
+                    <!--            <p class="comp_bus_ext">High-precision printing using SLA, FDM & SLS technologies.-->
+                    <!--                From digital design to physical part — fast, accurate, and scalable.</p>-->
+                    <!--        </div>-->
+                    <!--    </div>-->
+                    <!--</div>-->
+                </div>
+                
+            </div>
+        </section>
+        @endif
+        <!-- ----------------why choose------------ -->
+    @if(isset($whyChooseUs) && is_countable($whyChooseUs) && count($whyChooseUs) > 0)
     <section class="home_mt-100">
         <div class="ym-container">
             <h2 class="title_60lora text-center">Why Choose Us</h2>

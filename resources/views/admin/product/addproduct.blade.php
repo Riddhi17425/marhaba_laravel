@@ -95,6 +95,18 @@
                         <textarea name="more_information" class="form-control summernote">{{ old('more_information') }}</textarea>
                         @error('more_information') <span class="text-danger">{{ $message }}</span> @enderror
                     </div>
+
+                    <div class="col-md-12">
+                        <label class="form-label">Meta Title</label><span class="text-danger">*</span>
+                        <input type="text" name="meta_title" class="form-control" value="{{ old('meta_title') }}">
+                        @error('meta_title') <span class="text-danger">{{ $message }}</span> @enderror
+                    </div>
+
+                    <div class="col-md-12">
+                        <label class="form-label">Meta Description</label><span class="text-danger">*</span>
+                        <textarea name="meta_description" class="form-control" rows="3">{{ old('meta_description') }}</textarea>
+                        @error('meta_description') <span class="text-danger">{{ $message }}</span> @enderror
+                    </div>
                     
                     <div class="col-12 mt-3">
                         {{-- <h5>Brand, Size, Color & Product Images</h5> --}}

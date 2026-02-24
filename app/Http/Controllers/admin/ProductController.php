@@ -37,7 +37,9 @@ class ProductController extends Controller
                 'category_id' => 'nullable|string|max:255',
                 'brand_id' => 'nullable|string|max:255',
                 'name' => 'required|string|max:255',
-                'url' => 'required|string|max:255'
+                'url' => 'required|string|max:255',
+                'meta_title' => 'nullable|string|max:255',
+                'meta_description' => 'nullable|string|max:1000',
             ]);
             if ($validator->fails()) {
                 return redirect()->back()
@@ -57,7 +59,8 @@ class ProductController extends Controller
             $product->key_features = $request->key_features;
             $product->more_information = $request->more_information;
             $product->show_homepage = $request->has('show_homepage') ? 1 : 0;
-
+            $product->meta_title = $request->meta_title ?? null;
+            $product->meta_description = $request->meta_description ?? null;
 
             if ($request->hasFile('image')) {
                 $filename = $request->image->getClientOriginalName();
@@ -122,7 +125,9 @@ class ProductController extends Controller
                 'category_id' => 'nullable|string|max:255',
                 'brand_id' => 'nullable|string|max:255',
                 'name' => 'required|string|max:255',
-                'url' => 'required|string|max:255'
+                'url' => 'required|string|max:255',
+                'meta_title' => 'nullable|string|max:255',
+                'meta_description' => 'nullable|string|max:1000',
             ]);
             if ($validator->fails()) {
                 return redirect()->back()
@@ -142,6 +147,8 @@ class ProductController extends Controller
             $product->key_features = $request->key_features;
             $product->more_information = $request->more_information;
             $product->show_homepage = $request->has('show_homepage') ? 1 : 0;
+            $product->meta_title = $request->meta_title ?? null;
+            $product->meta_description = $request->meta_description ?? null;
 
             if ($request->hasFile('image')) {
                 $filename = $request->image->getClientOriginalName();

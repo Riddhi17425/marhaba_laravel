@@ -11,7 +11,7 @@ use App\Models\GlobalPresence;
 use App\Models\Brand;
 use App\Models\Product;
 use App\Models\Category;
-use App\Models\{ClothSize, CatalogueImage, TrustedBy, WhyChooseUs, Contact};
+use App\Models\{ClothSize, CatalogueImage, TrustedBy, WhyChooseUs, Contact, HomeSliderImage};
 
 class dashboardController extends Controller
 {
@@ -37,6 +37,7 @@ class dashboardController extends Controller
         $girlsCollection = (clone $collection)->where('type', 'girl')->get();
         $globalpresence = GlobalPresence::select('id', 'logo_name', 'logo_image')->where('deleted_at', null)->get();
         $ageSections = config('global_values.age_section');
+        $homeSliderImgs = HomeSliderImage::whereNull('deleted_at')->get();
         
         $products = Product::select('id', 'type', 'category_id','name','url','image','product_brand_size')->orderBy('created_at', 'desc')->whereNull('deleted_at')->get();
         
@@ -76,7 +77,7 @@ class dashboardController extends Controller
             $productsByAge[$group] = $query->distinct()->get();
         }
 
-        return view('front.home', compact('brand', 'boysCollection', 'girlsCollection', 'globalpresence', 'ageSections', 'groupedSizes', 'productsByAge', 'catImgs', 'trustedBy', 'whyChooseUs'));
+        return view('front.home', compact('brand', 'boysCollection', 'girlsCollection', 'globalpresence', 'ageSections', 'groupedSizes', 'productsByAge', 'catImgs', 'trustedBy', 'whyChooseUs', 'homeSliderImgs'));
     }
 
     private function groupSizesByAge(array $sizes, array $ageSections)

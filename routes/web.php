@@ -18,7 +18,7 @@ use App\Http\Controllers\admin\ClothSizeController;
 use App\Http\Controllers\admin\ClothColorController;
 use App\Http\Controllers\admin\AboutImageController;
 use App\Http\Controllers\admin\MenuImageController;
-use App\Http\Controllers\admin\{CatalogueImageController, TrustedByController, WhyChooseUsController};
+use App\Http\Controllers\admin\{CatalogueImageController, TrustedByController, WhyChooseUsController, HomeSliderImageController};
 
 
 /*
@@ -82,7 +82,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('catalogue-image', CatalogueImageController::class);
 	Route::resource('trusted-by', TrustedByController::class);
 	Route::resource('whychoose-us', WhyChooseUsController::class);
-
+    Route::resource('homeslider-image', HomeSliderImageController::class)->except(['update']);
+	Route::delete('homeslider-image/delete/{id}', [HomeSliderImageController::class, 'deleteImage'])->name('homeslider-image.delete');
+	Route::put('homeslider-image/update/{slider}', [HomeSliderImageController::class, 'updateBySlider'])->name('homeslider-image.update');
 
  
 Route::prefix('backend')->group(function () {
