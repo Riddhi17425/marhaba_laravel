@@ -39,9 +39,10 @@
     <!--<link rel="stylesheet" href="{{ asset('public/front/css/hero_style.css') }}">-->
     <link rel="stylesheet" href="{{ asset('public/front/css/responsive.css') }}">
     <!--<link rel="stylesheet" href="{{ asset('public/front/css/hero_responsive.css') }}">-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@25.12.4/build/css/intlTelInput.min.css">
     <style>
-        .error{
-            color:red;
+        .error {
+            color: red;
         }
     </style>
 </head>
@@ -69,31 +70,33 @@
             <div class="d-none d-md-flex justify-content-between align-items-center heder_section">
                 <div class="social_items">
                     <!--<a href="#"><img src="{{ asset('public/front/img/facebook_icon.png') }}" alt="facebook" class="img-fluid"></a>-->
-                    <a href="https://www.linkedin.com/company/marhaba-llc/" target="_blank"><img src="{{ asset('public/front/img/linkedin_icon.png') }}" alt="linkedin"
+                    <a href="https://www.linkedin.com/company/marhaba-llc/" target="_blank"><img
+                            src="{{ asset('public/front/img/linkedin_icon.png') }}" alt="linkedin"
                             class="img-fluid color-head"></a>
-                    <a href="https://www.instagram.com/marhabafashionuae?igsh=cTluY2lzYTRpM2pp" target="_blank"><img src="{{ asset('public/front/img/insta_icon.png') }}" alt="instagram"
+                    <a href="https://www.instagram.com/marhabafashionuae?igsh=cTluY2lzYTRpM2pp" target="_blank"><img
+                            src="{{ asset('public/front/img/insta_icon.png') }}" alt="instagram"
                             class="img-fluid color-head"></a>
                     @if (url()->current() === url('/'))
-                    <a href="https://www.linkedin.com/company/marhaba-llc/" target="_blank">
-                        <img src="{{ asset('public/front/img/Home/white-insta.svg') }}" alt="instagram"
-                            class="img-fluid white-head">
-                    </a>
+                        <a href="https://www.linkedin.com/company/marhaba-llc/" target="_blank">
+                            <img src="{{ asset('public/front/img/Home/white-insta.svg') }}" alt="instagram"
+                                class="img-fluid white-head">
+                        </a>
 
-                    <a href="https://www.instagram.com/marhabafashionuae?igsh=cTluY2lzYTRpM2pp" target="_blank">
-                        <img src="{{ asset('public/front/img/Home/white-linkedin.svg') }}" alt="linkedin"
-                            class="img-fluid white-head">
-                    </a>
+                        <a href="https://www.instagram.com/marhabafashionuae?igsh=cTluY2lzYTRpM2pp" target="_blank">
+                            <img src="{{ asset('public/front/img/Home/white-linkedin.svg') }}" alt="linkedin"
+                                class="img-fluid white-head">
+                        </a>
                     @else
-                    {{-- Other pages icons --}}
-                    <a href="https://www.instagram.com/marhabafashionuae?igsh=cTluY2lzYTRpM2pp" target="_blank">
-                        <img src="{{ asset('public/front/img/insta_icon.png') }}" alt="instagram"
-                            class="img-fluid white-head">
-                    </a>
+                        {{-- Other pages icons --}}
+                        <a href="https://www.instagram.com/marhabafashionuae?igsh=cTluY2lzYTRpM2pp" target="_blank">
+                            <img src="{{ asset('public/front/img/insta_icon.png') }}" alt="instagram"
+                                class="img-fluid white-head">
+                        </a>
 
-                    <a href="https://www.linkedin.com/company/marhaba-llc/" target="_blank">
-                        <img src="{{ asset('public/front/img/linkedin_icon.png') }}" alt="linkedin"
-                            class="img-fluid white-head">
-                    </a>
+                        <a href="https://www.linkedin.com/company/marhaba-llc/" target="_blank">
+                            <img src="{{ asset('public/front/img/linkedin_icon.png') }}" alt="linkedin"
+                                class="img-fluid white-head">
+                        </a>
                     @endif
 
                 </div>
@@ -102,64 +105,85 @@
                         <img src="{{ asset('public/front/img/Home/logo-minimal.svg') }}" alt="logo"
                             class="img-fluid nav_logo color-head" style="height:16px;">
                         @if (url()->current() === url('/'))
-                        <img src="{{ asset('public/front/img/Home/white-logo.svg') }}" alt="logo"
-                            class="img-fluid nav_logo white-head" style="height:60px;">
+                            <img src="{{ asset('public/front/img/Home/white-logo.svg') }}" alt="logo"
+                                class="img-fluid nav_logo white-head" style="height:60px;">
                         @else
-                        <img src="{{ asset('public/front/img/purple-logo.svg') }}" alt="logo"
-                            class="img-fluid nav_logo white-head" style="height:60px;">
+                            <img src="{{ asset('public/front/img/purple-logo.svg') }}" alt="logo"
+                                class="img-fluid nav_logo white-head" style="height:60px;">
                         @endif
                     </a>
                 </div>
                 @if (url()->current() === url('/'))
-                <button class="btn p-0 border-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarMenu"
-                    aria-controls="sidebarMenu">
-                    <i class="fas fa-bars fs-3"></i>
-                </button>
+                    <div class="d-flex align-items-center gap-3">
+                        <div class="d-flex align-items-center gap-3 boy_girl">
+                            <a href="javscript:void(0)">Boy</a>
+                            <a href="javscript:void(0)">Girl</a>
+                        </div>
+                        <button class="btn p-0 border-0" type="button" data-bs-toggle="offcanvas"
+                            data-bs-target="#sidebarMenu" aria-controls="sidebarMenu">
+                            <i class="fas fa-bars fs-3"></i>
+                        </button>
+                    </div>
                 @else
-                <button class="btn p-0 border-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarMenu"
-                    aria-controls="sidebarMenu">
-                    <i class="fas fa-bars fs-3" style="color:#452667;"></i>
-                </button>
+                    <div class="d-flex gap-3">
+                        <div class="d-flex align-items-center gap-3 boy_girl">
+                            <a href="javscript:void(0)" style=" color: #452667; ">Boy</a>
+                            <a href="javscript:void(0)" style=" color: #452667; ">Girl</a>
+                        </div>
+                        <button class="btn p-0 border-0" type="button" data-bs-toggle="offcanvas"
+                            data-bs-target="#sidebarMenu" aria-controls="sidebarMenu">
+                            <i class="fas fa-bars fs-3" style="color:#452667;"></i>
+                        </button>
+                    </div>
                 @endif
             </div>
         </div>
     </header>
 
     @php
-    use App\Models\Category;
-    use App\Models\Product;
-    use App\Models\ClothSize;
-    use App\Models\MenuImage;
+        use App\Models\Category;
+        use App\Models\Product;
+        use App\Models\ClothSize;
+        use App\Models\MenuImage;
 
-    $categories = Category::whereNull('deleted_at')->get();
+        $categories = Category::whereNull('deleted_at')->get();
 
-    $products = Product::whereNull('deleted_at')->get()->map(function($p){
-    return [
-    'id' => $p->id,
-    'product_detail_name' => $p->product_detail_name,
-    'name' => $p->name,
-    'category_id' => $p->category_id,
-    'url' => $p->url,
-    'product_brand_size' => json_decode($p->product_brand_size, true)
-    ];
-    });
+        $products = Product::whereNull('deleted_at')->get()->map(function ($p) {
+            return [
+                'id' => $p->id,
+                'product_detail_name' => $p->product_detail_name,
+                'name' => $p->name,
+                'category_id' => $p->category_id,
+                'url' => $p->url,
+                'product_brand_size' => json_decode($p->product_brand_size, true)
+            ];
+        });
 
-    $sizes = ClothSize::all();
+        $sizes = ClothSize::all();
 
-    $menu_images = MenuImage::whereNull('deleted_at')->get()->map(function($img){
-    return [
-    'type' => $img->type,
-    'reference_id' => $img->reference_id,
-    'image' => $img->image ? asset('public/menu_images/' . $img->image) : null
-    ];
-    });
+        $menu_images = MenuImage::whereNull('deleted_at')->get()->map(function ($img) {
+            return [
+                'type' => $img->type,
+                'reference_id' => $img->reference_id,
+                'image' => $img->image ? asset('public/menu_images/' . $img->image) : null
+            ];
+        });
     @endphp
 
     <!-- Sidebar -->
-    <div class="offcanvas offcanvas-end" tabindex="-1" id="sidebarMenu" aria-labelledby="sidebarMenuLabel">
-        <div class="offcanvas-header">
+    <div class="offcanvas offcanvas-end" data-bs-scroll="false" tabindex="-1" id="sidebarMenu"
+        aria-labelledby="sidebarMenuLabel">
+        <div class="offcanvas-header d-flex justify-content-between align-items-end">
             <h5 class="offcanvas-title lora_36" id="filterOffcanvasLabel">Menu</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            <button type="button" class="btn d-flex align-items-center p-0 gap-2 border-0" data-bs-dismiss="offcanvas"
+                aria-label="Close">
+                <span>Close</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg"
+                    viewBox="0 0 16 16">
+                    <path
+                        d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z" />
+                </svg>
+            </button>
             <!--<p type="button" class="mb-0" id="clearFilters">Clear</button>-->
         </div>
         <div class="offcanvas-body">
@@ -182,17 +206,24 @@
                                             @php $ageSection = config('global_values.age_section'); @endphp
                                             @if(isset($ageSection) && is_countable($ageSection) && count($ageSection) > 0)
                                                 @foreach($ageSection as $aKey => $aVal)
-                                                    <div><a href="{{ route('get.products', ['type' => $key,'size_range' => $aKey]) }}" class="menu_text">{{ $aVal['label'] }}</a></div>
+                                                    <div><a href="{{ route('get.products', ['type' => $key, 'size_range' => $aKey]) }}"
+                                                            class="menu_text">{{ $aVal['label'] }}</a></div>
                                                 @endforeach
                                             @endif
-                                            {{-- <div><a href="{{ url('filter') }}" class="menu_text">2 years to 6 years</a></div>
-                                            <div><a href="{{ url('filter') }}" class="menu_text">6 years to 14 years</a></div> --}}
-                                            <a href="{{ route('get.products', ['type' => $key]) }}" class="menu_view_all">View all</a>
-                                            {{-- <img src="https://marhabafashion.com/public/menu_images/Boys.jpg" alt="Our Collections" class="img-fluid mt-3"> --}}
+                                            {{-- <div><a href="{{ url('filter') }}" class="menu_text">2 years to 6 years</a>
+                                            </div>
+                                            <div><a href="{{ url('filter') }}" class="menu_text">6 years to 14 years</a></div>
+                                            --}}
+                                            <a href="{{ route('get.products', ['type' => $key]) }}" class="menu_view_all">View
+                                                all</a>
+                                            {{-- <img src="https://marhabafashion.com/public/menu_images/Boys.jpg"
+                                                alt="Our Collections" class="img-fluid mt-3"> --}}
                                             @if($key == 'boy')
-                                            <img src="{{ asset('public/front/img/menu_img_boy.jpg') }}" alt="Our Collections" class="img-fluid mt-3">
+                                                <img src="{{ asset('public/front/img/menu_img_boy.jpg') }}" alt="Our Collections"
+                                                    class="img-fluid mt-3">
                                             @else
-                                            <img src="{{ asset('public/front/img/menu_img_girl.jpg') }}" alt="Our Collections" class="img-fluid mt-3">
+                                                <img src="{{ asset('public/front/img/menu_img_girl.jpg') }}" alt="Our Collections"
+                                                    class="img-fluid mt-3">
                                             @endif
                                         </div>
                                     </div>
@@ -203,8 +234,9 @@
                         <!--Girls-->
                         {{-- <div class="accordion-item">
                             <h2 class="accordion-header" id="headingBrand">
-                                <button class="ps-0 accordion-button collapsed raleway_24" type="button" data-bs-toggle="collapse"
-                                    data-bs-target="#collapseBrand" aria-expanded="false" aria-controls="collapseBrand">
+                                <button class="ps-0 accordion-button collapsed raleway_24" type="button"
+                                    data-bs-toggle="collapse" data-bs-target="#collapseBrand" aria-expanded="false"
+                                    aria-controls="collapseBrand">
                                     Girls
                                 </button>
                             </h2>
@@ -224,16 +256,17 @@
                                         <a href="{{ url('filter') }}" class="menu_text">6 years to 14 years</a>
                                     </div>
                                     <a href="{{ url('filter') }}" class="menu_view_all">View all</a>
-                                    <img src="https://marhabafashion.com/public/menu_images/Girls.jpg" alt="Our Collections" class="img-fluid mt-3">
+                                    <img src="https://marhabafashion.com/public/menu_images/Girls.jpg"
+                                        alt="Our Collections" class="img-fluid mt-3">
                                 </div>
                             </div>
                         </div> --}}
 
                         <!--Resources-->
-                        <div class="accordion-item">
+                        <div class="accordion-item d-none">
                             <h2 class="accordion-header" id="headingCategory">
-                                <button class="ps-0 accordion-button collapsed raleway_24" type="button" data-bs-toggle="collapse"
-                                    data-bs-target="#collapseCategory" aria-expanded="false"
+                                <button class="ps-0 accordion-button collapsed raleway_24" type="button"
+                                    data-bs-toggle="collapse" data-bs-target="#collapseCategory" aria-expanded="false"
                                     aria-controls="collapseCategory">
                                     Resources
                                 </button>
@@ -247,11 +280,18 @@
                                     </div>
 
                                     <div>
-                                         <a href="{{ url('contact-us') }}" class="menu_text">Contact</a>
+                                        <a href="{{ url('contact-us') }}" class="menu_text">Contact</a>
                                     </div>
 
                                 </div>
                             </div>
+                        </div>
+                        <div>
+                            <a href="{{ url('about-us') }}" class="menu_text_about">About Us</a>
+                        </div>
+
+                        <div>
+                            <a href="{{ url('contact-us') }}" class="menu_text_about">Contact</a>
                         </div>
                     </div>
                 </div>
@@ -259,38 +299,49 @@
         </div>
     </div>
 
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
+    <!-- header script -->
+        <script>
+            // gsap
             const header = document.querySelector("header");
-            const headerHeight = header.offsetHeight;
 
-            let lastScrollY = window.scrollY;
+            let lastScroll = 0;
+            let headerHeight = header.offsetHeight;
 
-            window.addEventListener("scroll", function () {
-                const currentScrollY = window.scrollY;
+            window.addEventListener("scroll", () => {
+                const currentScroll = window.pageYOffset;
 
-                // Sticky logic
-                if (currentScrollY > headerHeight) {
+                // SCROLL DOWN â†’ HIDE
+                if (currentScroll > lastScroll && currentScroll > headerHeight + 100) {
+                    gsap.to(header, {
+                        y: -(headerHeight + 100),
+                        duration: 0.35,
+                        ease: "power2.out"
+                    });
+                }
+
+                // SCROLL UP â†’ SHOW + GLASS
+                if (currentScroll < lastScroll) {
+                    gsap.to(header, {
+                        y: 0,
+                        duration: 0.35,
+                        ease: "power2.out"
+                    });
                     header.classList.add("sticky");
-                    document.body.classList.add("has-sticky");
-                } else {
+                }
+
+                // TOP â†’ RESET
+                if (currentScroll <= 10) {
                     header.classList.remove("sticky");
-                    document.body.classList.remove("has-sticky");
-                    header.style.transform = "translateY(0)";
+                    gsap.to(header, {
+                        y: 0,
+                        duration: 0.2
+                    });
                 }
 
-                // Scroll direction logic
-                if (currentScrollY > lastScrollY && currentScrollY > headerHeight) {
-                    // scrolling DOWN
-                    header.style.transform = "translateY(-100%)";
-                } else {
-                    // scrolling UP
-                    header.style.transform = "translateY(0)";
-                }
-
-                lastScrollY = currentScrollY;
+                lastScroll = currentScroll;
             });
-        });
-    </script>
+            // gsap
+        </script>
+        <!-- header script -->
 
 </body>

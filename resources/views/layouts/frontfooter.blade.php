@@ -122,19 +122,21 @@
     </div>
 </footer>
 
-<div class="float-buttons">
+
+{{-- <div class="float-buttons">
     <div class="WhatsAppButton">
         {{-- <a href="https://api.whatsapp.com/send?phone=97142264582&text=Hello,%20I%27m%20visiting%20your%20website%20and%20would%20like%20to%20know%20more%22" id="whatsapp" aria-label="WhatsApp +971 4 226 4582" rel="nofollow" target="_blank">
             <i class="fab fa-whatsapp"></i>
             <span>WhatsApp<br><small>+971 4 226 4582</small></span>
         </a> --}}
-        <a data-bs-toggle="modal" data-bs-target="#whatsappEnquiryPopup" target="_blank"> 
+        {{-- <a data-bs-toggle="modal" data-bs-target="#whatsappEnquiryPopup" target="_blank"> 
             <i class="fab fa-whatsapp" id="whatsapp"></i>
         </a>
     </div>
-</div>
+</div> --}} 
 
-<div class="modal fade" id="whatsappEnquiryPopup" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+@include('layouts.whatsapp-popup')
+{{-- <div class="modal fade" id="whatsappEnquiryPopup" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered custom-dialog">
     <div class="modal-content popup-box popup-box_whatsapp">
       <div class="modal-header popup-header">
@@ -167,7 +169,7 @@
       </div>
     </div>
   </div>
-</div>
+</div> --}}
 
 <!-- Scripts -->
 <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
@@ -179,7 +181,7 @@
 
 <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 
-
+<script src="https://cdn.jsdelivr.net/npm/intl-tel-input@25.12.4/build/js/intlTelInput.min.js"></script>
 
 
 

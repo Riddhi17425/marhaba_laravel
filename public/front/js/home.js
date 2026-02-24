@@ -61,34 +61,34 @@ document.addEventListener("DOMContentLoaded", () => {
     /* =========================
        BUSINESS CARDS (DESKTOP vs MOBILE)
     ========================= */
-    const cards = document.querySelectorAll(".comp_bus_child");
-    const mqCards = window.matchMedia("(min-width: 1281px)");
+    // const cards = document.querySelectorAll(".comp_bus_child");
+    // const mqCards = window.matchMedia("(min-width: 1281px)");
 
-    function activateCard(card) {
-        cards.forEach(c => c.classList.remove("expanded"));
-        card.classList.add("expanded");
-    }
+    // function activateCard(card) {
+    //     cards.forEach(c => c.classList.remove("expanded"));
+    //     card.classList.add("expanded");
+    // }
 
-    function setupCards() {
-        if (!cards.length) return;
+    // function setupCards() {
+    //     if (!cards.length) return;
 
-        if (mqCards.matches) {
-            cards.forEach(c => c.classList.remove("expanded"));
-            activateCard(cards[0]);
+    //     if (mqCards.matches) {
+    //         cards.forEach(c => c.classList.remove("expanded"));
+    //         activateCard(cards[0]);
 
-            cards.forEach(card => {
-                card.onclick = () => activateCard(card);
-            });
-        } else {
-            cards.forEach(card => {
-                card.classList.add("expanded");
-                card.onclick = null;
-            });
-        }
-    }
+    //         cards.forEach(card => {
+    //             card.onclick = () => activateCard(card);
+    //         });
+    //     } else {
+    //         cards.forEach(card => {
+    //             card.classList.add("expanded");
+    //             card.onclick = null;
+    //         });
+    //     }
+    // }
 
-    setupCards();
-    mqCards.addEventListener("change", setupCards);
+    // setupCards();
+    // mqCards.addEventListener("change", setupCards);
 
 
     /* =========================
@@ -118,120 +118,96 @@ document.addEventListener("DOMContentLoaded", () => {
     /* =========================
        HERO CATEGORY SLIDER
     ========================= */
-   if (document.querySelector('.hero_cat_slider')) {
-    new Swiper('.hero_cat_slider', {
-        loop: true,
-        centeredSlides: false,
-        autoplay: {
-            delay: 2000,
-            disableOnInteraction: false,
-        },
-        breakpoints: {
-            0: {
-                slidesPerView: 1,
+    if (document.querySelector('.hero_cat_slider')) {
+        new Swiper('.hero_cat_slider', {
+            loop: true,
+            centeredSlides: false,
+            autoplay: {
+                delay: 2000,
+                disableOnInteraction: false,
             },
-            991: {
-                slidesPerView: 2,
-                spaceBetween: 10,
-            },
-            1280: {
-                slidesPerView: 2.5,
-            },
-            1440: {
-                slidesPerView: 2.8,
+            breakpoints: {
+                0: {
+                    slidesPerView: 1,
+                },
+                991: {
+                    slidesPerView: 2,
+                    spaceBetween: 10,
+                },
+                1280: {
+                    slidesPerView: 2.5,
+                },
+                1536: {
+                    slidesPerView: 3,
+                },
+                1600: {
+                    slidesPerView: 2.8,
+                },
             }
-        }
-    });
-}
+        });
+    }
 
 
 
     /* =========================
        PROJECT CARDS (AUTO + HOVER DESKTOP / CLICK MOBILE)
     ========================= */
-    const projectCards = document.querySelectorAll('.project-card');
+    /* =========================
+   PROJECT CARDS (CLICK ONLY - DESKTOP & MOBILE)
+========================= */
+
+    let projectCards = document.querySelectorAll('.project-card');
     let activeIndex = 0;
-    let autoplayTimer = null;
-    let isMobile = window.innerWidth < 992; // CHANGED: 769 -> 992
 
     function setActiveProject(index) {
         activeIndex = index;
+        const isDesktop = window.innerWidth >= 992;
+
         projectCards.forEach((card, i) => {
             card.classList.toggle('active', i === index);
-            if (!isMobile) card.style.flex = i === index ? '1.1' : '0.5';
-        });
-    }
 
-    function startAuto() {
-        if (isMobile) return;
-        stopAuto();
-        autoplayTimer = setInterval(() => {
-            setActiveProject((activeIndex + 1) % projectCards.length);
-        }, 3000);
-    }
-
-    function stopAuto() {
-        if (autoplayTimer) clearInterval(autoplayTimer);
-    }
-
-    function bindProjectEvents() {
-        projectCards.forEach((card, i) => {
-            card.replaceWith(card.cloneNode(true));
+            // Expand only on desktop
+            if (isDesktop) {
+                card.style.flex = i === index ? '1.1' : '0.5';
+            } else {
+                card.style.flex = '';
+            }
         });
     }
 
     function initProjectCards() {
         if (!projectCards.length) return;
 
-        isMobile = window.innerWidth < 992; // CHANGED: 769 -> 992
-        stopAuto();
+        const isDesktop = window.innerWidth >= 992;
 
-        if (!isMobile) {
-            setActiveProject(0);
-            projectCards.forEach((card, i) => {
-                card.style.flex = i === 0 ? '1.1' : '0.5'; // Reset flex for desktop
-                card.addEventListener('mouseenter', () => {
-                    stopAuto();
-                    setActiveProject(i);
-                });
-                card.addEventListener('mouseleave', startAuto);
-            });
-            startAuto();
-        } else {
-            projectCards.forEach((card, i) => {
-                card.classList.remove('active');
-                card.style.flex = '';
-                // Remove old event listeners if any, by cloning (simple reset)
-                // In a perfect world we'd use AbortController or removeEventListener with named funcs
-                // But here we might just attach new ones. 
-                // Let's assume the previous replaceWith strategy wasn't fully implemented in the snippet I saw.
-                // Re-attaching click is fine if we are cautious.
-                card.onclick = () => setActiveProject(i);
-            });
-        }
-    }
-
-    // Clean up old listeners by cloning
-    // This is a bit heavy but guarantees no duplicate listeners on resize
-    function resetProjectCards() {
+        // Reset styles
         projectCards.forEach(card => {
-            const newCard = card.cloneNode(true);
-            card.parentNode.replaceChild(newCard, card);
+            card.classList.remove('active');
+            card.style.flex = '';
         });
-        // Re-query needed after replace
-        return document.querySelectorAll('.project-card');
-    }
 
-    // We can't easily re-query 'projectCards' variable since it's const. 
-    // Instead, let's just properly handle listeners or assume simple toggle.
-    // Given the constraints, I will stick to the logic provided but ensure breakpoints match.
+        // Set first active by default (optional)
+        // if (isDesktop) {
+        //     setActiveProject(0);
+        // }
+
+        // Click handler for BOTH desktop & mobile
+        projectCards.forEach((card, i) => {
+            card.onclick = () => setActiveProject(i);
+        });
+    }
 
     initProjectCards();
+
     window.addEventListener('resize', () => {
         clearTimeout(window.__pcResize);
         window.__pcResize = setTimeout(initProjectCards, 200);
     });
 
+
+    /* =========================
+       PRODUCT GRID (MOBILE SLICK)
+    ========================= */
     /* =========================
        PRODUCT GRID (MOBILE SLICK)
     ========================= */
@@ -277,23 +253,17 @@ document.addEventListener("DOMContentLoaded", () => {
     handleProductGrid(mqGrid);
     mqGrid.addEventListener('change', handleProductGrid);
 
-});
 
-
-/* =========================
-   CORE WRAPPER (SLICK)
-========================= */
-
-document.addEventListener('DOMContentLoaded', () => {
-
+    /* =========================
+       CORE WRAPPER (SLICK)
+    ========================= */
     const coreWrapper = document.querySelector('.core_wrapper');
-    const mqCore = window.matchMedia('(max-width: 1280px)'); // CHANGED: 1281 -> 1280 (< 1281px)
+    const mqCore = window.matchMedia('(max-width: 1280px)');
 
     function handleCoreSlider() {
         if (!coreWrapper || typeof $ === 'undefined') return;
 
         if (mqCore.matches) {
-            // ✅ ONLY below 1281px
             if (!$(coreWrapper).hasClass('slick-initialized')) {
                 $(coreWrapper).slick({
                     slidesToShow: 3,
@@ -315,19 +285,106 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
             }
         } else {
-            // ✅ ABOVE 1280px → FORCE UNSLICK
             if ($(coreWrapper).hasClass('slick-initialized')) {
                 $(coreWrapper).slick('unslick');
             }
         }
     }
 
-    // Run on load
     handleCoreSlider();
-
-    // Run on resize / breakpoint change
     mqCore.addEventListener('change', handleCoreSlider);
 
+
+    /* =========================
+       MISC SLIDERS & EFFECTS
+    ========================= */
+    // Product Image Slider
+    new Swiper(".prod_img_slider", {
+        slidesPerView: 1,
+        slidesPerGroup: 1,
+        spaceBetween: 0,
+        loop: true,
+        autoplay: {
+            delay: 3000,
+            disableOnInteraction: false,
+        },
+        speed: 800,
+    });
+
+    // Project Cards Hover Reveal (Enquire Circle)
+    document.querySelectorAll('.project-card').forEach(wrapper => {
+        const circle = wrapper.querySelector('.enquire-circle');
+        if (!circle) return;
+
+        wrapper.addEventListener('mouseenter', () => {
+            circle.style.opacity = 1;
+        });
+
+        wrapper.addEventListener('mousemove', (e) => {
+            const rect = wrapper.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            circle.style.left = `${x}px`;
+            circle.style.top = `${y}px`;
+        });
+
+        wrapper.addEventListener('mouseleave', () => {
+            circle.style.opacity = 0;
+        });
+    });
+
+    // YM Slider (Slick)
+    if (typeof $ !== 'undefined' && $('.ym_slider').length) {
+        $('.ym_slider').slick({
+            arrows: true,
+            dots: false,
+            infinite: true,
+            speed: 400
+        });
+    }
+
+    /* =========================
+       PROJECT CARDS GIF EFFECT
+    ========================= */
+    document.querySelectorAll('.project-card').forEach(card => {
+        const img = card.querySelector('.category-img');
+        if (!img) return;
+
+        const originalSrc = img.src;
+        let altImages = [];
+        let interval;
+
+        try {
+            const altData = img.getAttribute('data-alt');
+            if (altData) {
+                altImages = JSON.parse(altData);
+                // Preload
+                altImages.forEach(src => {
+                    const pi = new Image();
+                    pi.src = src;
+                });
+            }
+        } catch (e) {
+            console.error("Invalid data-alt:", img);
+        }
+
+        card.addEventListener('mouseenter', () => {
+            if (!altImages.length) return;
+            let index = 0;
+            // Immediate first change
+            img.src = altImages[index];
+            index = (index + 1) % altImages.length;
+            
+            interval = setInterval(() => {
+                img.src = altImages[index];
+                index = (index + 1) % altImages.length;
+            }, 800);
+        });
+
+        card.addEventListener('mouseleave', () => {
+            if (interval) clearInterval(interval);
+            img.src = originalSrc;
+        });
+    });
+
 });
-
-
