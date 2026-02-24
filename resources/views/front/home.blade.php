@@ -299,7 +299,7 @@
                         <div class="btn_wrapper">
                             <a href="" class="btn_1" data-bs-toggle="modal" data-bs-target="#enquiryModal">Enquire Now <img loading="lazy" src="{{ asset('public/front/img/Home/blue-arr.svg') }}" alt="" height="10"
                                     width="10"></a>
-                            <a href="" class="btn_1">Become a Distributor <img loading="lazy" src="{{ asset('public/front/img/Home/blue-arr.svg') }}" alt=""
+                            <a href="{{ route('contact') }}" class="btn_1">Become a Distributor <img loading="lazy" src="{{ asset('public/front/img/Home/blue-arr.svg') }}" alt=""
                                     height="10" width="10"></a>
                         </div>
                     </div>
@@ -1094,7 +1094,7 @@
                     <div class="btn_wrapper">
                         <a href="" class="btn_1">Enquire Now <img loading="lazy" src="{{ asset('public/front/img/Home/blue-arr.svg') }}" alt="" height="10"
                                 width="10"></a>
-                        <a href="" class="btn_1">Become a Distributor <img loading="lazy" src="{{ asset('public/front/img/Home/blue-arr.svg') }}" alt=""
+                        <a href="{{ route('contact') }}" class="btn_1">Become a Distributor <img loading="lazy" src="{{ asset('public/front/img/Home/blue-arr.svg') }}" alt=""
                                 height="10" width="10"></a>
                     </div>
                 </div>

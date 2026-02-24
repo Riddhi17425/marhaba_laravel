@@ -82,7 +82,7 @@
                         <div class="form_floating_contect">
                             <div class="form-floating">
                                 <input type="text" class="form-control" id="Message" value="{{old('message_note')}}" name="message_note" placeholder="Message">
-                                <label for="Message">Message*</label>
+                                <label for="Message">Message</label>
                                 @error('message_note')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror

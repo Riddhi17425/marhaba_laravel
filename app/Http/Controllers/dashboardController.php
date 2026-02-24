@@ -11,7 +11,9 @@ use App\Models\GlobalPresence;
 use App\Models\Brand;
 use App\Models\Product;
 use App\Models\Category;
-use App\Models\{ClothSize, CatalogueImage, TrustedBy, WhyChooseUs, Contact, HomeSliderImage};
+use App\Models\{ClothSize, CatalogueImage, TrustedBy, WhyChooseUs, Contact, HomeSliderImage, WhatsappInquiry};
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Http;
 
 class dashboardController extends Controller
 {
@@ -475,6 +477,46 @@ class dashboardController extends Controller
         }
         
         return back()->with('success', 'Your inquiry has been submitted successfully!');
+    }
+
+    public function whatsappInquiry(Request $request){
+        WhatsappInquiry::create([
+           
+            'number'  => $request->number,
+            'message'  => $request->message,
+        ]);
+    
+        $timestamp = Carbon::now()->format('Y-m-d H:i:s');
+    
+        // Google Sheet expects:
+        // form_type, contact, message, date
+        $sheetsData = [
+            'form_type' => 'whatsapp inquiry',
+            'contact'   => $request->number,
+            'message'  => $request->message,
+            'date'      => $timestamp,
+        ];
+    
+        // Send to Google Sheets
+        try {
+            Http::withHeaders(['Content-Type' => 'application/json'])
+                ->post('https://script.google.com/macros/s/AKfycbyiWRofXVf9V0lj8xKffnzl3ygyRIzPh_EJ2FvgPmClfgJWU0xHe0hE63BaLDCSVjfE/exec', 
+                    $sheetsData
+                );
+        } catch (\Exception $e) {
+            \Log::error('Google Sheets Exception (WhatsApp Inquiry):', [
+                'message'   => $e->getMessage(),
+                'trace'     => $e->getTraceAsString(),
+                'data_sent' => $sheetsData
+            ]);
+        }
+    
+        // Redirect to WhatsApp
+        $number = '916358820089'; // Change if needed
+        $message = 'Inquiry from the website.';
+        $whatsappUrl = "https://api.whatsapp.com/send/?phone={$number}&text=" . urlencode($message);
+    
+        return redirect()->away($whatsappUrl);
     }
     
 }

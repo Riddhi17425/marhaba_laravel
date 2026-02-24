@@ -1074,11 +1074,11 @@
         font-weight: bolder;
       }
 
-      .WhatsAppButton:hover {
+      /* .WhatsAppButton:hover {
         color: #fff;
         background-color: var(--wb-purple);
         transform: translate(0, 0);
-      }
+      } */
 
       .offcanvas .btn:first-child:active {
 

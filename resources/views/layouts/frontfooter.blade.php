@@ -124,11 +124,49 @@
 
 <div class="float-buttons">
     <div class="WhatsAppButton">
-        <a href="https://api.whatsapp.com/send?phone=97142264582&text=Hello,%20I%27m%20visiting%20your%20website%20and%20would%20like%20to%20know%20more%22" id="whatsapp" aria-label="WhatsApp +971 4 226 4582" rel="nofollow" target="_blank">
+        {{-- <a href="https://api.whatsapp.com/send?phone=97142264582&text=Hello,%20I%27m%20visiting%20your%20website%20and%20would%20like%20to%20know%20more%22" id="whatsapp" aria-label="WhatsApp +971 4 226 4582" rel="nofollow" target="_blank">
             <i class="fab fa-whatsapp"></i>
             <span>WhatsApp<br><small>+971 4 226 4582</small></span>
+        </a> --}}
+        <a data-bs-toggle="modal" data-bs-target="#whatsappEnquiryPopup" target="_blank"> 
+            <i class="fab fa-whatsapp" id="whatsapp"></i>
         </a>
     </div>
+</div>
+
+<div class="modal fade" id="whatsappEnquiryPopup" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered custom-dialog">
+    <div class="modal-content popup-box popup-box_whatsapp">
+      <div class="modal-header popup-header">
+        <h5 class="modal-title" id="exampleModalLabel">Chat with us on WhatsApp</h5>
+        <button type="button" class="btn-close white-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form method="POST" action="{{ route('whatsapp.inquiry') }}">
+          @csrf
+          <div class="mb-3">
+            <label class="form-label">Message <span class="text-danger"></span></label>
+            <textarea class="form-control popup-input" rows="3" name="message" id="message_set"></textarea>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Contact No. <span class="text-danger">*</span></label>
+            <input 
+                type="tel"
+                class="form-control popup-input"
+                id="wa_phone"
+                placeholder=""
+                oninput="this.value=this.value.replace(/[^0-9]/g,'').slice(0,15);"
+                required >
+            <input type="hidden" name="number" id="wa_full_phone">
+            <input type="hidden" name="country" id="wa_country_name">
+        </div>
+          <div class="d-grid">
+            <button type="submit" class="comman_btn2 border-0">Start Chat with Us</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
 </div>
 
 <!-- Scripts -->
