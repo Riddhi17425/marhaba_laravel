@@ -146,7 +146,7 @@
                                         <li>Premixed sizing: Balanced distribution for retail coverage</li>
                                         <li>12 sets per design in single or pre-assorted colours</li>
                                     </ul>
-                                    <a>Standard 12-Piece Assortment</a>
+                                    <a class="prod_detail_a" data-bs-toggle="modal" data-bs-target="#size_popup">Standard 12-Piece Assortment</a>
                                     <h6>Delivery & Shipping</h6>
                                     <ul>
                                         <li>Dubai: Delivered within 1-3 days after order confirmation</li>
@@ -255,6 +255,7 @@
         </div>
     </div>
 </section>
+@include('layouts.size-popup')
 @include('layouts.frontfooter')
 
 <!-- slider js -->

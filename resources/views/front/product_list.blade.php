@@ -118,7 +118,7 @@ $subcatVal = preg_replace('/[\#].*$/', '', $subcatVal);
                                             <img loading="lazy" src="{{ asset('public/front/img/product-not-found.png') }}"
                                                 alt="not found" class="img-fluid product_img w-100">
                                         </div>
-                                    </div>
+                                    </div>  
                                 @endif
                                 {{-- <a href="https://www.intelliworkz.co/marhaba_laravel/products-details/shirt-shorts-co-ord-set">
                                     <img src="https://www.intelliworkz.co/marhaba_laravel/public/product_images/Shirt-Shorts-Co-ord-set-2-5Y-1.png" alt="Shirt Shorts Co-ord Set" class="img-fluid product_img w-100" onerror="this.src='https://www.intelliworkz.co/marhaba_laravel/public/front/img/default-product.jpg'">

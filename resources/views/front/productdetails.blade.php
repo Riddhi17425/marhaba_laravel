@@ -191,6 +191,8 @@
 <!-- copied section -->
 
 @include('layouts.enquiry')
+@include('layouts.size-popup')
+
 
 @include('layouts.frontfooter')
 
