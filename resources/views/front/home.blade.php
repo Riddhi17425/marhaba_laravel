@@ -1,4 +1,5 @@
 @include('layouts.frontheader')
+
 <link rel="stylesheet" href="{{ asset('public/front/css/hero_style.css') }}">
 <link rel="stylesheet" href="{{ asset('public/front/css/hero_responsive.css') }}">
 
@@ -296,7 +297,7 @@
                             <span><a href="#">Children's fashion — from Dubai to the world.</a></span>
                         </div>
                         <div class="btn_wrapper">
-                            <a href="" class="btn_1">Enquire Now <img loading="lazy" src="{{ asset('public/front/img/Home/blue-arr.svg') }}" alt="" height="10"
+                            <a href="" class="btn_1" data-bs-toggle="modal" data-bs-target="#enquiryModal">Enquire Now <img loading="lazy" src="{{ asset('public/front/img/Home/blue-arr.svg') }}" alt="" height="10"
                                     width="10"></a>
                             <a href="" class="btn_1">Become a Distributor <img loading="lazy" src="{{ asset('public/front/img/Home/blue-arr.svg') }}" alt=""
                                     height="10" width="10"></a>
@@ -1205,6 +1206,26 @@
         </div>
     </div>
 </div>
+
+<!-- Modal -->
+<div class="modal fade" id="enquiryModal" tabindex="-1" aria-labelledby="enquiryModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="enquiryModalLabel">Modal title</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script>
     // globalPresenceModal
     document.addEventListener('DOMContentLoaded', function() {
