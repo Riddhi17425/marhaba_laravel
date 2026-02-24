@@ -541,7 +541,7 @@
                         collections for your business.
                     </p>
                     <div class="btn_wrapper">
-                        <a href="javascript:void(0);" class="btn_1">Request Latest Catalogues <img loading="lazy"
+                        <a href="javascript:void(0);" class="btn_1" data-bs-toggle="modal" data-bs-target="#enquiryModal">Request Latest Catalogues <img loading="lazy"
                                 src="{{ asset('public/front/img/Home/blue-arr.svg') }}" alt="" height="10" width="10"></a>
                         <a href="https://www.instagram.com/marhabafashionuae?igsh=cTluY2lzYTRpM2pp" class="btn_1"><img
                                 loading="lazy" src="{{ asset('public/front/img/Home/purple-insta.png') }}" alt="insta"
@@ -569,7 +569,7 @@
             <h2 class="title_60lora text-center">Trusted by</h2>
             <p class="text-center">Whether you run a boutique, supply a regional network, or sell online—there's a place for
                 you here. Marhaba partners with businesses of every size, with terms shaped around your needs.</p>
-            <a href="#" class="btn_1 mx-auto">Enquire Now <img loading="lazy"
+            <a href="#" class="btn_1 mx-auto" data-bs-toggle="modal" data-bs-target="#enquiryModal">Enquire Now <img loading="lazy"
                     src="{{ asset('public/front/img/Home/blue-arr.svg') }}" alt="" height="10" width="10"></a>
             <div class="core_wrapper mt-5">
                 @foreach($trustedBy as $key => $val)
@@ -649,7 +649,7 @@
             <p class="title_24-raleway">Share your requirements with us, and our team will get back to you with
                 catalogs, pricing, MOQs, and customization options.</p>
             <div class="btn_wrapper">
-                <a href="" class="btn_1">Enquire Now <img loading="lazy"
+                <a href="" class="btn_1" data-bs-toggle="modal" data-bs-target="#enquiryModal">Enquire Now <img loading="lazy"
                         src="{{ asset('public/front/img/Home/blue-arr.svg') }}" alt="" height="10" width="10"></a>
                 <a href="{{ route('contact') }}" class="btn_1">Become a Distributor <img loading="lazy"
                         src="{{ asset('public/front/img/Home/blue-arr.svg') }}" alt="" height="10" width="10"></a>
@@ -709,7 +709,6 @@
                 </div>
                 <div class="global_presence_tabcontent">
                     <div class="tab-content" id="pills-tabContent">
-
                         <div class="tab-pane fade" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
                             <div class="row">
                                 <div class="col-md-12">

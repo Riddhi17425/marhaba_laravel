@@ -116,8 +116,8 @@
                 @if (url()->current() === url('/'))
                     <div class="d-flex align-items-center gap-3">
                         <div class="d-flex align-items-center gap-3 boy_girl">
-                            <a href="javscript:void(0)">Boy</a>
-                            <a href="javscript:void(0)">Girl</a>
+                            <a href="{{ route('get.products', ['type' => 'boy']) }}">Boy</a>
+                            <a href="{{ route('get.products', ['type' => 'girl']) }}">Girl</a>
                         </div>
                         <button class="btn p-0 border-0" type="button" data-bs-toggle="offcanvas"
                             data-bs-target="#sidebarMenu" aria-controls="sidebarMenu">
@@ -127,8 +127,8 @@
                 @else
                     <div class="d-flex gap-3">
                         <div class="d-flex align-items-center gap-3 boy_girl">
-                            <a href="javscript:void(0)" style=" color: #452667; ">Boy</a>
-                            <a href="javscript:void(0)" style=" color: #452667; ">Girl</a>
+                            <a href="{{ route('get.products', ['type' => 'boy']) }}" style=" color: #452667; ">Boy</a>
+                            <a href="{{ route('get.products', ['type' => 'girl']) }}" style=" color: #452667; ">Girl</a>
                         </div>
                         <button class="btn p-0 border-0" type="button" data-bs-toggle="offcanvas"
                             data-bs-target="#sidebarMenu" aria-controls="sidebarMenu">
