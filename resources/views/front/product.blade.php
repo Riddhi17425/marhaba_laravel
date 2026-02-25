@@ -4,16 +4,26 @@
 <link rel="stylesheet" href="{{ asset('public/front/css/product_slider.css') }}">
 <script src="https://unpkg.com/@zoom-image/core"></script>
 
+@php 
+    $productImages = json_decode($product->product_brand_size);
+    $filteredImages = collect($productImages)->values();
+@endphp
 <div class="product-slider">
     <div class="slider-wrapper">
         <div class="slides-track" id="track">
             <div class="slide">
                 <div class="image-container">
-                    <img src="{{ asset('public/front/img/product-detail/pd_1.png') }}" class="product-img" alt="View 1"
-                        draggable="false">
+                    <img src="{{ asset('public/product_images/' . $filteredImages[0]->product_image) }}" class="product-img" alt="{{ $product->name }}" draggable="false">
                 </div>
             </div>
-            <div class="slide">
+            @foreach($filteredImages as $v)
+                <div class="slide">
+                    <div class="image-container">
+                        <img src="{{ asset('public/product_images/' . $v->product_image) }}" class="product-img" alt="{{ $product->name ?? 'Product Image' }}" draggable="false">
+                    </div>
+                </div>
+            @endforeach
+            {{-- <div class="slide">
                 <div class="image-container"><img src="{{ asset('public/front/img/product-detail/pd_2.png') }}"
                         class="product-img" alt="View 2" draggable="false"></div>
             </div>
@@ -32,12 +42,9 @@
             <div class="slide">
                 <div class="image-container"><img src="{{ asset('public/front/img/product-detail/pd_3.png') }}"
                         class="product-img" alt="View 6" draggable="false"></div>
-            </div>
+            </div> --}}
         </div>
-
-
     </div>
-
     <div class="slid_bottom">
         <div class="thumbnails" id="thumbs"></div>
         <button class="slider_btn prev" id="prevBtn">‹</button>
