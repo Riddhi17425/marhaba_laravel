@@ -50,11 +50,11 @@ Route::post('/post-contact-us', [dashboardController::class, 'postContact'])->na
 Route::get('/shipping-policy', [dashboardController::class, 'shippingpolicy'])->name('shippingpolicy');
 Route::get('/products/{categoryUrl}', [ProductFrontController::class, 'index'])->name('products');
 Route::get('/products-details/{url}/{id?}', [ProductFrontController::class, 'productdetails'])->name('productdetails');
+Route::get('/product-page/{url}/{id?}', [dashboardController::class, 'product'])->name('product');
 // Route::get('/landing', [dashboardController::class, 'landing'])->name('landing');
 Route::get('/test-filter', [dashboardController::class, 'filter'])->name('filter');
 
 Route::get('/get-products/{type}/{size_range?}', [dashboardController::class, 'getProducts'])->name('get.products');
-Route::get('/product-page/{url}/{id?}', [dashboardController::class, 'product'])->name('product');
 Route::post('/whatsapp-inquiry', [dashboardController::class, 'whatsappInquiry'])->name('whatsapp.inquiry');
 	
 Route::get('login', [dashboardController::class, 'login'])->name('login');

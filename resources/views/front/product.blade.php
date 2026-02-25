@@ -54,37 +54,49 @@
         <div class="product_detail_grid">
             <div class="pd_left">
                 <div>
-                    <h1 class="pd_name raleway_24">Baby Starters: 3-Pack Bodysuits</h1>
+                    <h1 class="pd_name raleway_24">{{ $product->name }}</h1>
                 </div>
-                <div>
-                    <p>Size Assortment : 0m-9m</p>
-                    <table class="range-table">
-                        <tr>
-                            <td>0m-3m</td>
-                            <td>3m-6m</td>
-                            <td>6m-9m</td>
-                        </tr>
-                    </table>
-                    <p class="pd_note">3 sizes premixed per dozen (12 pc pack)</p>
+                
+                <p>Size Assortment : 0m-9m</p>
+                <div class="row">
+                    <div class="col-md-6">
+                        <table class="range-table">
+                            <tr>
+                                @foreach($sizeList as $size)
+                                    <td>{{ $size->name }}</td>
+                                @endforeach
+                                {{-- <td>0m-3m</td>
+                                <td>3m-6m</td>
+                                <td>6m-9m</td> --}}
+                            </tr>
+                        </table>
+                        <p class="pd_note">3 or 4 sizes premixed per dozen (12 pc pack)</p>
+                    </div>
+                    <div class="col-md-6">
+                        <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#size_popup" class="btn_1">Product Assortment</a>
+                    </div>
                 </div>
+
                 <div>
                     <section class="age_range_section">
                         <div class="age_range_box" style="background-color: rgb(243, 242, 231);">
                             <div class="age-card">
                                 <p class="raleway_14 mb-0">MOQ</p>
-                                <h3 class="fs_18">12 sets per design</h3>
+                                <h3 class="fs_18">12 units per design</h3>
                             </div>
                         </div>
                         <div class="age_range_box" style="background-color: rgb(239, 230, 240);">
                             <div class="age-card">
-                                <img src="{{ asset('public/brand_images/smart_kids.png') }}" alt="" width="114"
-                                    height="47">
+                                {{-- <img src="{{ asset('public/brand_images/smart_kids.png') }}" alt="" width="114"
+                                    height="47"> --}}
+                                <img loading="lazy" src="{{ asset('public/brand_images/' . $product->brand->image) }}" alt="{{ $product->brand->name }}"
+                            class="img-fluid">
                             </div>
                         </div>
                         <div class="age_range_box" style="background-color: rgb(230, 239, 242);">
                             <div class="age-card">
-                                <p class="raleway_14 mb-0">Boy</p>
-                                <h3 class="fs_18">Homeware</h3>
+                                <p class="raleway_14 mb-0">{{ ucfirst($product->type ?? '') }}</p>
+                                <h3 class="fs_18">{{ $product->category->name ?? '' }}</h3>
                             </div>
                         </div>
                     </section>
@@ -119,11 +131,7 @@
                             <div id="collapseProduct" class="accordion-collapse collapse" aria-labelledby="headingOne"
                                 data-bs-parent="#accordionExample">
                                 <div class="accordion-body">
-                                    Soft, coordinated, and made for everyday comfort — this 3-pack of short-sleeve
-                                    bodysuits keeps babies well-dressed from playtime to nap time. Each piece features
-                                    smooth seams, durable snap closures, and uniform sizing for easy wear and
-                                    presentation. Thoughtfully designed to keep little ones cozy and cared for through
-                                    every moment of the day.
+                                   {!! $product->description ?? '' !!}
                                 </div>
                             </div>
                         </div>
@@ -146,7 +154,7 @@
                                         <li>Premixed sizing: Balanced distribution for retail coverage</li>
                                         <li>12 sets per design in single or pre-assorted colours</li>
                                     </ul>
-                                    <a class="prod_detail_a" data-bs-toggle="modal" data-bs-target="#size_popup">Standard 12-Piece Assortment</a>
+                                    {{-- <a class="prod_detail_a" data-bs-toggle="modal" data-bs-target="#size_popup">Standard 12-Piece Assortment</a> --}}
                                     <h6>Delivery & Shipping</h6>
                                     <ul>
                                         <li>Dubai: Delivered within 1-3 days after order confirmation</li>
@@ -166,9 +174,7 @@
                                 d="M8.11007 6.71402C7.96927 6.39299 7.81289 6.3852 7.67989 6.3852C7.56249 6.3774 7.43683 6.3774 7.30384 6.3774C7.1791 6.3774 6.96768 6.42418 6.78791 6.62C6.60768 6.81537 6.11514 7.27718 6.11514 8.22374C6.11514 9.17076 6.8035 10.0861 6.89752 10.2113C6.99107 10.3365 8.22747 12.3393 10.1839 13.1143C11.811 13.7559 12.1398 13.6307 12.492 13.5912C12.8438 13.5523 13.6266 13.1299 13.7908 12.6759C13.9472 12.2301 13.9472 11.8389 13.9004 11.7605C13.8536 11.6825 13.7202 11.6353 13.5326 11.5335C13.3368 11.4399 12.398 10.9703 12.2182 10.9075C12.038 10.8451 11.9128 10.8139 11.7876 11.0015C11.6624 11.1973 11.2946 11.6275 11.1777 11.7527C11.0676 11.8779 10.9507 11.8935 10.7626 11.7995C10.5673 11.7059 9.94907 11.5023 9.21347 10.8451C8.64205 10.3361 8.25865 9.70274 8.14125 9.51517C8.0321 9.31935 8.12566 9.21754 8.22747 9.12352C8.31369 9.03776 8.42329 8.89697 8.51731 8.78737C8.61086 8.6773 8.64205 8.59154 8.71267 8.46634C8.77504 8.34114 8.74386 8.22374 8.69708 8.13019C8.64984 8.04397 8.2825 7.09741 8.11007 6.71402Z"
                                 stroke="#452667" stroke-linejoin="round" />
                         </svg>
-
-
-                        <span><a href="">WhatsApp Catalogue: +971 56 923 3052</a></span>
+                        <span>WhatsApp Catalogue: <a href="tel:+97142264582">+971 56 923 3052</a></span>
 
                     </div>
                     <div class="pd_social">
@@ -206,13 +212,11 @@
 <section class="pd_view hero_cat yellow-gradient home_mt-100">
     <div class="ym-container">
         <div class="hero_catologue_head col-lg-6 mb-0">
-            <h2 class="title_60lora text-center">View Our Catalogues</h2>
-            <p class="title_24-raleway mt-4 mt-xl-5">Stay updated on our newest arrivals. Select your
-                preferred products and our wholesale team will be in touch with curated children's clothing
-                collections for your business.
+            <h2 class="title_60lora text-center">Looking for more designs?</h2>
+            <p class="title_24-raleway mt-4 mt-xl-5">
             </p>
             <div class="btn_wrapper">
-                <a href="javascript:void(0)" class="btn_1">Request Latest Catalogues <img loading="lazy"
+                <a href="javascript:void(0)" class="btn_1" data-bs-toggle="modal" data-bs-target="#enquiryModal">Request Latest Catalogues <img loading="lazy"
                         src="http://localhost/marhaba_laravel/public/front/img/Home/blue-arr.svg" alt="" height="10"
                         width="10"></a>
             </div>
@@ -227,7 +231,6 @@
             <div class="simple-slider">
                 @forelse($similarProducts as $simProduct)
                     @php
-                        $brand = $brands[$simProduct['brand_id']] ?? null;
                         $image = $simProduct['image'] ? asset('public/product_images/' . $simProduct['image']) : asset('public/front/img/product_detail_boy.png');
                     @endphp
                     <div class="col-md-3">
@@ -242,9 +245,6 @@
                                 <a href="{{ route('productdetails', $simProduct['url']) }}">
                                     <p class="mb-0" style="font-weight:500;">{{ $simProduct['name'] }}</p>
                                 </a>
-                                @if($brand)
-                                    <p class="raleway_14 mb-0">{{ $brand->name }}</p>
-                                @endif
                             </div>
                         </div>
                     </div>
@@ -257,7 +257,7 @@
 </section>
 @include('layouts.size-popup')
 @include('layouts.frontfooter')
-
+@include('layouts.new-enquiry')
 <!-- slider js -->
 <script>
     // ── Core slider logic (unchanged from previous working version) ────────

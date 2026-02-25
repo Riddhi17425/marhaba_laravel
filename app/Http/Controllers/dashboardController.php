@@ -353,20 +353,44 @@ class dashboardController extends Controller
     }
      public function product($url, $id = null)
     {   
-        $product = Product::where('url', $url);
+        // OLD
+        // $product = Product::where('url', $url);
+        // if($id != null){
+        //     $product = $product->where('id', $id);        
+        // }        
+        // $product = $product->firstOrFail();
+        // $productVariants = json_decode($product->product_brand_size, true);
+        // $sizeIds = array_unique(array_column($productVariants, 'size_id'));
+        // $brandIds = array_unique(array_column($productVariants, 'brand_id'));
+        // $sizeList = ClothSize::whereIn('id', $sizeIds)->get();
+        // $brandList = Brand::whereIn('id', $brandIds)->get();
+        // $similarProducts = Product::where('category_id', $product->category_id)
+        //     ->where('id', '!=', $product->id)
+        //     ->whereNull('deleted_at')
+        //     ->get()
+        //     ->map(function($p) {
+        //         $pbsArray = json_decode($p->product_brand_size, true);
+        //         return [
+        //             'id' => $p->id,
+        //             'name' => $p->name,
+        //             'url' => $p->url,
+        //             'image' => $pbsArray[1]['product_image'] ?? $pbsArray[0]['product_image'] ?? null, // second image if exists
+        //             'brand_id' => $pbsArray[1]['brand_id'] ?? $pbsArray[0]['brand_id'] ?? null,
+        //         ];
+        //     });
+        // $brandIdsForSimilar = $similarProducts->pluck('brand_id')->filter()->unique()->toArray();
+        // $brands = Brand::whereIn('id', $brandIdsForSimilar)->get()->keyBy('id');
+
+        // return view('front.product', compact(
+        //     'product', 'productVariants', 'sizeList', 'brandList', 'similarProducts', 'brands'
+        // ));
+
+        // NEW
+        $product = Product::where('url', $url)->with('category', 'brand');
         if($id != null){
             $product = $product->where('id', $id);        
         }        
         $product = $product->firstOrFail();
- 
-        $productVariants = json_decode($product->product_brand_size, true);
-    
-        $sizeIds = array_unique(array_column($productVariants, 'size_id'));
-        $brandIds = array_unique(array_column($productVariants, 'brand_id'));
-    
-        $sizeList = ClothSize::whereIn('id', $sizeIds)->get();
-        $brandList = Brand::whereIn('id', $brandIds)->get();
-    
         $similarProducts = Product::where('category_id', $product->category_id)
             ->where('id', '!=', $product->id)
             ->whereNull('deleted_at')
@@ -378,15 +402,47 @@ class dashboardController extends Controller
                     'name' => $p->name,
                     'url' => $p->url,
                     'image' => $pbsArray[1]['product_image'] ?? $pbsArray[0]['product_image'] ?? null, // second image if exists
-                    'brand_id' => $pbsArray[1]['brand_id'] ?? $pbsArray[0]['brand_id'] ?? null,
                 ];
             });
-    
-        $brandIdsForSimilar = $similarProducts->pluck('brand_id')->filter()->unique()->toArray();
-        $brands = Brand::whereIn('id', $brandIdsForSimilar)->get()->keyBy('id');
-      
+        $productVariants = json_decode($product->product_brand_size, true);
+        $sizeIds = array_unique(array_column($productVariants, 'size_id'));
+        $sizeList = ClothSize::select('id', 'name')->whereIn('id', $sizeIds)->get();
+
+    //    $sizeList = ClothSize::select('id', 'name')->whereIn('id', $sizeIds)->get()
+    //     ->sortBy(function ($item) {
+    //         preg_match('/(\d+)Y-(\d+)Y/', $item->name, $matches);
+    //         return (int) $matches[1]; // start age
+    //     })
+    //     ->values();
+    //     $smallest = $sizeList->first();
+    //     $largest  = $sizeList->last();
+            $sizeList = ClothSize::select('id', 'name')->whereIn('id', $sizeIds)->get()
+            ->map(function ($item) {
+                preg_match('/(\d+)(m|Y)-(\d+)(m|Y)/i', $item->name, $matches);
+                if (!empty($matches)) {
+                    $startValue = (int) $matches[1];
+                    $startUnit  = strtolower($matches[2]);
+                    $endValue = (int) $matches[3];
+                    $endUnit  = strtolower($matches[4]);
+                    // Convert everything to months
+                    $startInMonths = $startUnit === 'y' ? $startValue * 12 : $startValue;
+                    $endInMonths   = $endUnit === 'y' ? $endValue * 12 : $endValue;
+                    $item->start_months = $startInMonths;
+                    $item->end_months   = $endInMonths;
+                } else {
+                    $item->start_months = 0;
+                    $item->end_months   = 0;
+                }
+                return $item;
+            })->sortBy('start_months')->values();
+
+        $sizeListFirst = $sizeList->first();
+        $sizeListLast  = $sizeList->last();
+        $smallest = $sizeListFirst->name;
+        $largest  = $sizeListLast->name;
+
         return view('front.product', compact(
-            'product', 'productVariants', 'sizeList', 'brandList', 'similarProducts', 'brands'
+            'product', 'similarProducts', 'sizeList', 'smallest', 'largest'
         ));
     }
 
