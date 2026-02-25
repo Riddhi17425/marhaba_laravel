@@ -678,7 +678,7 @@
         <div class="row">
             <div class="col-md-12">
                 <h2 class="mean_head section_pt scroll-text" animation="2" data-animate-on-scroll>Global Presence</h2>
-                <div class="global_legend">
+                <div class="global_legend active">
                     <span class="legend-item">
                         <span class="color-box africa"></span>
                         <p class="mb-0">Africa</p>
@@ -799,41 +799,84 @@
 
 <script>
     // globalPresenceModal
+    // document.addEventListener('DOMContentLoaded', function () {
+    //     const modalEl = document.getElementById('globalPresenceModal');
+    //     const modalContent = document.getElementById('globalPresenceModalContent');
+    //     const globalButtons = document.querySelectorAll('.global_tab_item .nav-link');
+
+    //     globalButtons.forEach(button => {
+    //         button.addEventListener('click', function (e) {
+    //             e.preventDefault();
+
+    //             // For mobile view — open modal
+    //             if (window.innerWidth <= 992) {
+    //                 const region = button.getAttribute('data-region');
+    //                 let content = '';
+
+    //                 if (region === 'africa') {
+    //                     content = document.querySelector('#pills-home').innerHTML;
+    //                 } else if (region === 'east') {
+    //                     content = document.querySelector('#pills-profile').innerHTML;
+    //                 } else if (region === 'asia') {
+    //                     content = document.querySelector('#pills-contact').innerHTML;
+    //                 }
+
+    //                 modalContent.innerHTML = content;
+    //                 const modal = new bootstrap.Modal(modalEl);
+    //                 modal.show();
+    //             } else {
+    //                 // Desktop: show tab normally
+    //                 const target = button.getAttribute('data-bs-target');
+    //                 if (target) {
+    //                     const tab = new bootstrap.Tab(button);
+    //                     tab.show();
+    //                 }
+    //             }
+    //         });
+    //     });
+    // });
+
     document.addEventListener('DOMContentLoaded', function () {
         const modalEl = document.getElementById('globalPresenceModal');
         const modalContent = document.getElementById('globalPresenceModalContent');
         const globalButtons = document.querySelectorAll('.global_tab_item .nav-link');
 
+        function handleClick(button) {
+            // For mobile view — open modal
+            if (window.innerWidth <= 992) {
+                const region = button.getAttribute('data-region');
+                let content = '';
+
+                if (region === 'africa') {
+                    content = document.querySelector('#pills-home').innerHTML;
+                } else if (region === 'east') {
+                    content = document.querySelector('#pills-profile').innerHTML;
+                } else if (region === 'asia') {
+                    content = document.querySelector('#pills-contact').innerHTML;
+                }
+
+                modalContent.innerHTML = content;
+                const modal = new bootstrap.Modal(modalEl);
+                modal.show();
+            } else {
+                // Desktop: show tab normally
+                const tab = new bootstrap.Tab(button);
+                tab.show();
+            }
+        }
+
         globalButtons.forEach(button => {
             button.addEventListener('click', function (e) {
                 e.preventDefault();
-
-                // For mobile view — open modal
-                if (window.innerWidth <= 992) {
-                    const region = button.getAttribute('data-region');
-                    let content = '';
-
-                    if (region === 'africa') {
-                        content = document.querySelector('#pills-home').innerHTML;
-                    } else if (region === 'east') {
-                        content = document.querySelector('#pills-profile').innerHTML;
-                    } else if (region === 'asia') {
-                        content = document.querySelector('#pills-contact').innerHTML;
-                    }
-
-                    modalContent.innerHTML = content;
-                    const modal = new bootstrap.Modal(modalEl);
-                    modal.show();
-                } else {
-                    // Desktop: show tab normally
-                    const target = button.getAttribute('data-bs-target');
-                    if (target) {
-                        const tab = new bootstrap.Tab(button);
-                        tab.show();
-                    }
-                }
+                handleClick(button);
             });
         });
+
+        // ✅ Trigger Africa by default on page load
+        const defaultButton = document.querySelector('[data-region="africa"]');
+        if (defaultButton) {
+            handleClick(defaultButton);
+        }
     });
 </script>
 @include('layouts.frontfooter')

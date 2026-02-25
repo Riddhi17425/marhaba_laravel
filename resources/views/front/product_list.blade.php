@@ -1,4 +1,6 @@
 @include('layouts.frontheader')
+<link rel="stylesheet" href="{{ asset('public/front/css/hero_style.css') }}">
+<link rel="stylesheet" href="{{ asset('public/front/css/hero_responsive.css') }}">
 @php 
 $segments = request()->segments();
 $categoryId = $segments[1] ?? null; // index may vary
@@ -100,78 +102,61 @@ $subcatVal = preg_replace('/[\#].*$/', '', $subcatVal);
                     @endphp
                     <div>
                         <div class="product_wrapper">
-                            <div class="Product_item swiper prod_img_slider">
-                                @if($filteredImages->count() > 0)
-                                    <div class="swiper-wrapper">
-                                        @foreach($filteredImages as $v)
-                                            <div class="swiper-slide">
-                                                <a href="{{ url('products-details/' . $vv['url'].'/'. $vv['id']) }}" target="_blank">
-                                                    <img loading="lazy" src="{{ asset('public/product_images/' . $v->product_image) }}"
-                                                        alt="{{ $vv->name }}" class="img-fluid product_img w-100">
-                                                </a>
+                            <div class="ym_card">
+                                <div class="Product_item">
+                                    <div class="ym_card_img">
+                                        @if($filteredImages->count() > 0)
+                                            {{-- <div class="swiper-wrapper">
+                                                @foreach($filteredImages as $v)
+                                                    <div class="swiper-slide">
+                                                        <a href="{{ url('products-details/' . $vv['url'].'/'. $vv['id']) }}" target="_blank">
+                                                            <img loading="lazy" src="{{ asset('public/product_images/' . $v->product_image) }}"
+                                                                alt="{{ $vv->name }}" class="img-fluid product_img w-100">
+                                                        </a>
+                                                    </div>
+                                                @endforeach
+                                            </div> --}}
+                                            <!-- ✅ COVER IMAGE (FIRST IMAGE ONLY) -->
+                                            <img src="{{ asset('public/product_images/' . $filteredImages[0]->product_image) }}"
+                                                alt="{{ $vv->name }}" class="ym_cover_slider">
+                                            <!-- ✅ SLICK SLIDER -->
+                                            <div class="ym_slider">
+                                                @foreach($filteredImages as $v)
+                                                    <div>
+                                                        <a href="{{ url('products-details/' . $vv['url'].'/'. $vv['id']) }}" target="_blank">
+                                                            <img loading="lazy" src="{{ asset('public/product_images/' . $v->product_image) }}"
+                                                                alt="{{ $vv->name }}" class="img-fluid product_img w-100">
+                                                        </a>
+                                                    </div>
+                                                @endforeach
                                             </div>
-                                        @endforeach
+                                        @else
+                                            <!-- ✅ NO IMAGE CASE -->
+                                            <img src="{{ asset('public/front/img/product-not-found.png') }}" alt="not found"
+                                                class="ym_cover_slider">
+
+                                            <div class="ym_slider">
+                                                <div>
+                                                    <img src="{{ asset('public/front/img/product-not-found.png') }}"
+                                                        class="ym_slide_img">
+                                                </div>
+                                            </div>
+                                            {{-- <div class="swiper-wrapper">
+                                                <div class="swiper-slide">
+                                                    <img loading="lazy" src="{{ asset('public/front/img/product-not-found.png') }}"
+                                                        alt="not found" class="img-fluid product_img w-100">
+                                                </div>
+                                            </div> --}}
+                                        @endif
                                     </div>
-                                @else
-                                    <div class="swiper-wrapper">
-                                        <div class="swiper-slide">
-                                            <img loading="lazy" src="{{ asset('public/front/img/product-not-found.png') }}"
-                                                alt="not found" class="img-fluid product_img w-100">
-                                        </div>
-                                    </div>  
-                                @endif
-                                {{-- <a href="https://www.intelliworkz.co/marhaba_laravel/products-details/shirt-shorts-co-ord-set">
-                                    <img src="https://www.intelliworkz.co/marhaba_laravel/public/product_images/Shirt-Shorts-Co-ord-set-2-5Y-1.png" alt="Shirt Shorts Co-ord Set" class="img-fluid product_img w-100" onerror="this.src='https://www.intelliworkz.co/marhaba_laravel/public/front/img/default-product.jpg'">
-                                </a> --}}
+                                </div>
+                                <a href="{{ url('products-details/' . $vv['url'].'/'. $vv['id']) }}" target="_blank"><p class="mb-0" style="font-weight:500;">{{$vv->name ?? ''}}</p></a>
+                                <p class="raleway_14 mb-0">{{$vk ?? ''}}</p>
                             </div>
-                            <a href="{{ url('products-details/' . $vv['url'].'/'. $vv['id']) }}" target="_blank"><p class="mb-0" style="font-weight:500;">{{$vv->name ?? ''}}</p></a>
-                            <p class="raleway_14 mb-0">{{$vk ?? ''}}</p>
                         </div>
                     </div>
                     @endforeach
                     @endforeach
-                    {{-- <div>
-                        <div class="product_wrapper">
-                            <div class="Product_item">
-                                <a
-                                    href="https://www.intelliworkz.co/marhaba_laravel/products-details/shirt-shorts-co-ord-set">
-                                    <img src="https://www.intelliworkz.co/marhaba_laravel/public/product_images/Shirt-Shorts-Co-ord-set-2-5Y-1.png"
-                                        alt="Shirt Shorts Co-ord Set" class="img-fluid product_img w-100"
-                                        onerror="this.src='https://www.intelliworkz.co/marhaba_laravel/public/front/img/default-product.jpg'">
-                                </a>
-                            </div>
-                            <p class="mb-0" style="font-weight:500;">Smart Kids Comfort Bodysuit Set</p>
-                            <p class="raleway_14 mb-0">3m-12m</p>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="product_wrapper">
-                            <div class="Product_item">
-                                <a
-                                    href="https://www.intelliworkz.co/marhaba_laravel/products-details/shirt-shorts-co-ord-set">
-                                    <img src="https://www.intelliworkz.co/marhaba_laravel/public/product_images/Shirt-Shorts-Co-ord-set-2-5Y-1.png"
-                                        alt="Shirt Shorts Co-ord Set" class="img-fluid product_img w-100"
-                                        onerror="this.src='https://www.intelliworkz.co/marhaba_laravel/public/front/img/default-product.jpg'">
-                                </a>
-                            </div>
-                            <p class="mb-0" style="font-weight:500;">Smart Kids Comfort Bodysuit Set</p>
-                            <p class="raleway_14 mb-0">3m-12m</p>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="product_wrapper">
-                            <div class="Product_item">
-                                <a
-                                    href="https://www.intelliworkz.co/marhaba_laravel/products-details/shirt-shorts-co-ord-set">
-                                    <img src="https://www.intelliworkz.co/marhaba_laravel/public/product_images/Shirt-Shorts-Co-ord-set-2-5Y-1.png"
-                                        alt="Shirt Shorts Co-ord Set" class="img-fluid product_img w-100"
-                                        onerror="this.src='https://www.intelliworkz.co/marhaba_laravel/public/front/img/default-product.jpg'">
-                                </a>
-                            </div>
-                            <p class="mb-0" style="font-weight:500;">Smart Kids Comfort Bodysuit Set</p>
-                            <p class="raleway_14 mb-0">3m-12m</p>
-                        </div>
-                    </div> --}}
                 </div>
             </section>
             @endif
@@ -193,79 +178,61 @@ $subcatVal = preg_replace('/[\#].*$/', '', $subcatVal);
                     @endphp
                     <div>
                         <div class="product_wrapper">
-                            <div class="Product_item swiper prod_img_slider">
-                                @if($filteredImages->count() > 0)
-                                    <div class="swiper-wrapper">
-                                        @foreach($filteredImages as $v)
-                                            <div class="swiper-slide">
-                                                <a href="{{ url('products-details/' . $vv['url'].'/'. $vv['id']) }}" target="_blank">
-                                                    <img loading="lazy" src="{{ asset('public/product_images/' . $v->product_image) }}"
-                                                        alt="{{ $vv->name }}" class="img-fluid product_img w-100">
-                                                </a>
+                            <div class="ym_card">
+                                <div class="Product_item">
+                                    <div class="ym_card_img">
+                                        @if($filteredImages->count() > 0)
+                                            {{-- <div class="swiper-wrapper">
+                                                @foreach($filteredImages as $v)
+                                                    <div class="swiper-slide">
+                                                        <a href="{{ url('products-details/' . $vv['url'].'/'. $vv['id']) }}" target="_blank">
+                                                            <img loading="lazy" src="{{ asset('public/product_images/' . $v->product_image) }}"
+                                                                alt="{{ $vv->name }}" class="img-fluid product_img w-100">
+                                                        </a>
+                                                    </div>
+                                                @endforeach
+                                            </div> --}}
+                                            <!-- ✅ COVER IMAGE (FIRST IMAGE ONLY) -->
+                                            <img src="{{ asset('public/product_images/' . $filteredImages[0]->product_image) }}"
+                                                alt="{{ $vv->name }}" class="ym_cover_slider">
+                                            <!-- ✅ SLICK SLIDER -->
+                                            <div class="ym_slider">
+                                                @foreach($filteredImages as $v)
+                                                    <div>
+                                                        <a href="{{ url('products-details/' . $vv['url'].'/'. $vv['id']) }}" target="_blank">
+                                                            <img loading="lazy" src="{{ asset('public/product_images/' . $v->product_image) }}"
+                                                                alt="{{ $vv->name }}" class="img-fluid product_img w-100">
+                                                        </a>
+                                                    </div>
+                                                @endforeach
                                             </div>
-                                        @endforeach
-                                    </div>
-                                @else
-                                    <div class="swiper-wrapper">
-                                        <div class="swiper-slide">
-                                            <img loading="lazy" src="{{ asset('public/front/img/product-not-found.png') }}"
-                                                alt="not found" class="img-fluid product_img w-100">
-                                        </div>
-                                    </div>
-                                @endif
-                                {{-- <a href="https://www.intelliworkz.co/marhaba_laravel/products-details/shirt-shorts-co-ord-set">
-                                    <img src="https://www.intelliworkz.co/marhaba_laravel/public/product_images/Shirt-Shorts-Co-ord-set-2-5Y-1.png" alt="Shirt Shorts Co-ord Set" class="img-fluid product_img w-100" onerror="this.src='https://www.intelliworkz.co/marhaba_laravel/public/front/img/default-product.jpg'">
-                                </a> --}}
-                            </div>
-                            <a href="{{ url('products-details/' . $vv['url'].'/'. $vv['id']) }}" target="_blank"><p class="mb-0" style="font-weight:500;">{{$vv->name ?? ''}}</p></a>
-                            <p class="raleway_14 mb-0">{{$vk ?? ''}}</p>
-                        </div>
-                    </div>
-                    @endforeach
-                    @endforeach
+                                        @else
+                                            {{-- <div class="swiper-wrapper">
+                                                <div class="swiper-slide">
+                                                    <img loading="lazy" src="{{ asset('public/front/img/product-not-found.png') }}"
+                                                        alt="not found" class="img-fluid product_img w-100">
+                                                </div>
+                                            </div> --}}
+                                            <!-- ✅ NO IMAGE CASE -->
+                                            <img src="{{ asset('public/front/img/product-not-found.png') }}" alt="not found"
+                                                class="ym_cover_slider">
 
-                    {{-- <div>
-                        <div class="product_wrapper">
-                            <div class="Product_item">
-                                <a
-                                    href="https://www.intelliworkz.co/marhaba_laravel/products-details/shirt-shorts-co-ord-set">
-                                    <img src="https://www.intelliworkz.co/marhaba_laravel/public/product_images/Shirt-Shorts-Co-ord-set-2-5Y-1.png"
-                                        alt="Shirt Shorts Co-ord Set" class="img-fluid product_img w-100"
-                                        onerror="this.src='https://www.intelliworkz.co/marhaba_laravel/public/front/img/default-product.jpg'">
-                                </a>
+                                            <div class="ym_slider">
+                                                <div>
+                                                    <img src="{{ asset('public/front/img/product-not-found.png') }}"
+                                                        class="ym_slide_img">
+                                                </div>
+                                            </div>
+                                        @endif
+                                    </div>
+                                </div>
+                                <a href="{{ url('products-details/' . $vv['url'].'/'. $vv['id']) }}" target="_blank"><p class="mb-0" style="font-weight:500;">{{$vv->name ?? ''}}</p></a>
+                                <p class="raleway_14 mb-0">{{$vk ?? ''}}</p>
                             </div>
-                            <p class="mb-0" style="font-weight:500;">Smart Kids Comfort Bodysuit Set</p>
-                            <p class="raleway_14 mb-0">3m-12m</p>
                         </div>
                     </div>
-                    <div>
-                        <div class="product_wrapper">
-                            <div class="Product_item">
-                                <a
-                                    href="https://www.intelliworkz.co/marhaba_laravel/products-details/shirt-shorts-co-ord-set">
-                                    <img src="https://www.intelliworkz.co/marhaba_laravel/public/product_images/Shirt-Shorts-Co-ord-set-2-5Y-1.png"
-                                        alt="Shirt Shorts Co-ord Set" class="img-fluid product_img w-100"
-                                        onerror="this.src='https://www.intelliworkz.co/marhaba_laravel/public/front/img/default-product.jpg'">
-                                </a>
-                            </div>
-                            <p class="mb-0" style="font-weight:500;">Smart Kids Comfort Bodysuit Set</p>
-                            <p class="raleway_14 mb-0">3m-12m</p>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="product_wrapper">
-                            <div class="Product_item">
-                                <a
-                                    href="https://www.intelliworkz.co/marhaba_laravel/products-details/shirt-shorts-co-ord-set">
-                                    <img src="https://www.intelliworkz.co/marhaba_laravel/public/product_images/Shirt-Shorts-Co-ord-set-2-5Y-1.png"
-                                        alt="Shirt Shorts Co-ord Set" class="img-fluid product_img w-100"
-                                        onerror="this.src='https://www.intelliworkz.co/marhaba_laravel/public/front/img/default-product.jpg'">
-                                </a>
-                            </div>
-                            <p class="mb-0" style="font-weight:500;">Smart Kids Comfort Bodysuit Set</p>
-                            <p class="raleway_14 mb-0">3m-12m</p>
-                        </div>
-                    </div> --}}
+                    @endforeach
+                    @endforeach
                 </div>
             </section>
             @endif
@@ -285,49 +252,74 @@ $subcatVal = preg_replace('/[\#].*$/', '', $subcatVal);
                     @endphp
                     <div>
                         <div class="product_wrapper">
-                            <div class="Product_item swiper prod_img_slider">
-                                {{-- @if(isset($productImages) && is_countable($productImages) && count($productImages) > 0) 
-                                    <div class="swiper-wrapper">
-                                        @foreach($productImages as $k => $v)
-                                        <div class="swiper-slide">
-                                                <a href="{{ url('products-details/' . $vv['url']) }}"><img loading="lazy" src="{{ asset('public/product_images/' . $v->product_image) }}" alt="{{ $vv->name }}" class="img-fluid product_img w-100"></a>
-                                        </div>
-                                        @endforeach
-                                    </div>
-                                @else
-                                    <div class="swiper-wrapper">
-                                        <div class="swiper-slide">
-                                            <img loading="lazy" src="{{ asset('public/front/img/product-not-found.png') }}" alt="not found" class="img-fluid product_img w-100">
-                                        </div>
-                                    </div>
-                                @endif --}}
-                                @if($filteredImages->count() > 0)
-                                    <div class="swiper-wrapper">
-                                        @foreach($filteredImages as $v)
-                                            <div class="swiper-slide">
-                                                <a href="{{ url('products-details/' . $vv['url'].'/'. $vv['id']) }}" target="_blank">
-                                                    <img loading="lazy" src="{{ asset('public/product_images/' . $v->product_image) }}"
-                                                        alt="{{ $vv->name }}" class="img-fluid product_img w-100">
-                                                </a>
+                            <div class="ym_card">
+                                <div class="Product_item">
+                                    <div class="ym_card_img">
+                                        {{-- @if(isset($productImages) && is_countable($productImages) && count($productImages) > 0) 
+                                            <div class="swiper-wrapper">
+                                                @foreach($productImages as $k => $v)
+                                                <div class="swiper-slide">
+                                                        <a href="{{ url('products-details/' . $vv['url']) }}"><img loading="lazy" src="{{ asset('public/product_images/' . $v->product_image) }}" alt="{{ $vv->name }}" class="img-fluid product_img w-100"></a>
+                                                </div>
+                                                @endforeach
                                             </div>
-                                        @endforeach
+                                        @else
+                                            <div class="swiper-wrapper">
+                                                <div class="swiper-slide">
+                                                    <img loading="lazy" src="{{ asset('public/front/img/product-not-found.png') }}" alt="not found" class="img-fluid product_img w-100">
+                                                </div>
+                                            </div>
+                                        @endif --}}
+                                        @if($filteredImages->count() > 0)
+                                            {{-- <div class="swiper-wrapper">
+                                                @foreach($filteredImages as $v)
+                                                    <div class="swiper-slide">
+                                                        <a href="{{ url('products-details/' . $vv['url'].'/'. $vv['id']) }}" target="_blank">
+                                                            <img loading="lazy" src="{{ asset('public/product_images/' . $v->product_image) }}"
+                                                                alt="{{ $vv->name }}" class="img-fluid product_img w-100">
+                                                        </a>
+                                                    </div>
+                                                @endforeach
+                                            </div> --}}
+                                            <!-- ✅ COVER IMAGE (FIRST IMAGE ONLY) -->
+                                            <img src="{{ asset('public/product_images/' . $filteredImages[0]->product_image) }}"
+                                                alt="{{ $vv->name }}" class="ym_cover_slider">
+                                            <!-- ✅ SLICK SLIDER -->
+                                            <div class="ym_slider">
+                                                @foreach($filteredImages as $v)
+                                                    <div>
+                                                        <a href="{{ url('products-details/' . $vv['url'].'/'. $vv['id']) }}" target="_blank">
+                                                            <img loading="lazy" src="{{ asset('public/product_images/' . $v->product_image) }}"
+                                                                alt="{{ $vv->name }}" class="img-fluid product_img w-100">
+                                                        </a>
+                                                    </div>
+                                                @endforeach
+                                            </div>
+                                        @else
+                                            {{-- <div class="swiper-wrapper">
+                                                <div class="swiper-slide">
+                                                    <img loading="lazy" src="{{ asset('public/front/img/product-not-found.png') }}"
+                                                        alt="not found" class="img-fluid product_img w-100">
+                                                </div>
+                                            </div> --}}
+                                            <!-- ✅ NO IMAGE CASE -->
+                                            <img src="{{ asset('public/front/img/product-not-found.png') }}" alt="not found" class="ym_cover_slider">
+                                            <div class="ym_slider">
+                                                <div>
+                                                    <img src="{{ asset('public/front/img/product-not-found.png') }}"
+                                                        class="ym_slide_img">
+                                                </div>
+                                            </div>
+                                        @endif
                                     </div>
-                                @else
-                                    <div class="swiper-wrapper">
-                                        <div class="swiper-slide">
-                                            <img loading="lazy" src="{{ asset('public/front/img/product-not-found.png') }}"
-                                                alt="not found" class="img-fluid product_img w-100">
-                                        </div>
-                                    </div>
-                                @endif
-
-                                {{-- <a
-                                    href="https://www.intelliworkz.co/marhaba_laravel/products-details/shirt-shorts-co-ord-set">
-                                    <img src="https://www.intelliworkz.co/marhaba_laravel/public/product_images/Shirt-Shorts-Co-ord-set-2-5Y-1.png" alt="Shirt Shorts Co-ord Set" class="img-fluid product_img w-100" onerror="this.src='https://www.intelliworkz.co/marhaba_laravel/public/front/img/default-product.jpg'">
-                                </a> --}}
+                                    {{-- <a
+                                        href="https://www.intelliworkz.co/marhaba_laravel/products-details/shirt-shorts-co-ord-set">
+                                        <img src="https://www.intelliworkz.co/marhaba_laravel/public/product_images/Shirt-Shorts-Co-ord-set-2-5Y-1.png" alt="Shirt Shorts Co-ord Set" class="img-fluid product_img w-100" onerror="this.src='https://www.intelliworkz.co/marhaba_laravel/public/front/img/default-product.jpg'">
+                                    </a> --}}
+                                </div>
+                                <a href="{{ url('products-details/' . $vv['url'].'/'. $vv['id']) }}" target="_blank"><p class="mb-0" style="font-weight:500;">{{$vv->name ?? ''}}</p></a>
+                                <p class="raleway_14 mb-0">{{$vk ?? ''}}</p>
                             </div>
-                            <a href="{{ url('products-details/' . $vv['url'].'/'. $vv['id']) }}" target="_blank"><p class="mb-0" style="font-weight:500;">{{$vv->name ?? ''}}</p></a>
-                            <p class="raleway_14 mb-0">{{$vk ?? ''}}</p>
                         </div>
                     </div>
                     @endforeach
