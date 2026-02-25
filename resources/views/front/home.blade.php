@@ -408,7 +408,12 @@
                     </div>
                     <img loading="lazy" src="{{ asset('public/front/img/Home/baby_girl-1.png') }}" class="category-img"
                         alt="Baby"
-                        data-alt='["https://marhabafashion.com/public/front/img/bannerKids_banner_3a.png", "https://marhabafashion.com/public/front/img/bannerKids_banner_3b.png", "https://marhabafashion.com/public/front/img/bannerKids_banner_3.png"]'>
+                        data-alt='[
+                            "{{ asset('public/front/img/bannerKids_banner_3a.png') }}",
+                            "{{ asset('public/front/img/bannerKids_banner_3b.png') }}",
+                            "{{ asset('public/front/img/bannerKids_banner_3.png') }}"
+                        ]'>
+                        {{-- data-alt='["https://marhabafashion.com/public/front/img/bannerKids_banner_3a.png", "https://marhabafashion.com/public/front/img/bannerKids_banner_3b.png", "https://marhabafashion.com/public/front/img/bannerKids_banner_3.png"]'> --}}
                 </div>
                 <!-- <img loading="lazy" src="./images/baby_girl-1.png" class="category-img" alt="Baby"> -->
             </div>
@@ -466,7 +471,12 @@
                     </div>
                     <img loading="lazy" src="{{ asset('public/front/img/Home/tlk.png') }}" class="category-img"
                         alt="Toddler"
-                        data-alt='["https://marhabafashion.com/public/front/img/bannerKids_banner_1a.png", "https://marhabafashion.com/public/front/img/bannerKids_banner_1b.png", "https://marhabafashion.com/public/front/img/bannerKids_banner_1.png"]'>
+                        {{-- data-alt='["https://marhabafashion.com/public/front/img/bannerKids_banner_1a.png", "https://marhabafashion.com/public/front/img/bannerKids_banner_1b.png", "https://marhabafashion.com/public/front/img/bannerKids_banner_1.png"]'> --}}
+                        data-alt='[
+                            "{{ asset('public/front/img/bannerKids_banner_1a.png') }}",
+                            "{{ asset('public/front/img/bannerKids_banner_1b.png') }}",
+                            "{{ asset('public/front/img/bannerKids_banner_1.png') }}"
+                        ]'>
                 </div>
             </div>
 
@@ -522,7 +532,12 @@
                     </div>
                     <img loading="lazy" src="{{ asset('public/front/img/Home/ky.png') }}" class="category-img"
                         alt="Kids & Youth"
-                        data-alt='["https://marhabafashion.com/public/front/img/bannerKids_banner_4a.png", "https://marhabafashion.com/public/front/img/bannerKids_banner_4b.png", "https://marhabafashion.com/public/front/img/bannerKids_banner_4.png"]'>
+                        {{-- data-alt='["https://marhabafashion.com/public/front/img/bannerKids_banner_4a.png", "https://marhabafashion.com/public/front/img/bannerKids_banner_4b.png", "https://marhabafashion.com/public/front/img/bannerKids_banner_4.png"]'> --}}
+                        data-alt='[
+                            "{{ asset('public/front/img/bannerKids_banner_4a.png') }}",
+                            "{{ asset('public/front/img/bannerKids_banner_4b.png') }}",
+                            "{{ asset('public/front/img/bannerKids_banner_4.png') }}"
+                        ]'>
                 </div>
             </div>
 
