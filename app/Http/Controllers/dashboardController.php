@@ -440,7 +440,9 @@ class dashboardController extends Controller
         $sizeListLast  = $sizeList->last();
         $smallest = $sizeListFirst->name;
         $largest  = $sizeListLast->name;
-
+        $smallest = explode('-', $smallest);
+        $largest = explode('-', $largest);
+        
         return view('front.product', compact(
             'product', 'similarProducts', 'sizeList', 'smallest', 'largest'
         ));
