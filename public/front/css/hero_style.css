@@ -248,7 +248,6 @@ a {
 }
 
 .comp_bus_child {
-    /*border-radius: 10px;*/
     border: 1px solid #d7c7e9;
     padding: 40px;
     display: flex;
@@ -691,6 +690,7 @@ a {
 .ym_slider img {
     width: 100%;
     display: block;
+    background: linear-gradient(0deg, #FBFBFB 0%, #FBFBFB 100%), linear-gradient(134deg, #FFF 9%, #DDD 93.94%);
 }
 
 .ym_info {
@@ -701,6 +701,7 @@ a {
 .ym_prod_name {
     font-family: var(--font-ralwway);
     font-size: 18px;
+    line-height: 17px;
     font-weight: 500;
     color: #2e2e2e;
     margin-top: 10px;

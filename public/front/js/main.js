@@ -74,37 +74,37 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 // insta skider
-document.addEventListener('DOMContentLoaded', function () {
- const instaSwiper = new Swiper('.insta-swiper', {
-    slidesPerView: 4,
-    spaceBetween: 10,
-    loop: true,
-    autoplay: {
-        delay: 2000,
-        disableOnInteraction: true, // stops autoplay when user interacts
-        pauseOnMouseEnter: true,    // pause when hovering
-    },
-    navigation: false,
-    breakpoints: {
-        0: { slidesPerView: 2 },
-        576: { slidesPerView: 2.5 },
-        768: { slidesPerView: 3.5 },
-        1024: { slidesPerView: 4 }
-    }
-});
+// document.addEventListener('DOMContentLoaded', function () {
+//  const instaSwiper = new Swiper('.insta-swiper', {
+//     slidesPerView: 4,
+//     spaceBetween: 10,
+//     loop: true,
+//     autoplay: {
+//         delay: 2000,
+//         disableOnInteraction: true, // stops autoplay when user interacts
+//         pauseOnMouseEnter: true,    // pause when hovering
+//     },
+//     navigation: false,
+//     breakpoints: {
+//         0: { slidesPerView: 2 },
+//         576: { slidesPerView: 2.5 },
+//         768: { slidesPerView: 3.5 },
+//         1024: { slidesPerView: 4 }
+//     }
+// });
 
-});
+// });
   document.addEventListener('DOMContentLoaded', function () {
       const swiper = new Swiper('.about-slider', {
-        loop: true,
+        loop: false,
         slidesPerView: 1,
         spaceBetween: 10,
         speed: 1000,
-        // autoplay: {
-        //   delay: 2000,
-        //   disableOnInteraction: false,
-        //   pauseOnMouseEnter: false
-        // },
+        autoplay: {
+          delay: 2000,
+          disableOnInteraction: false,
+          pauseOnMouseEnter: false
+        },
         pagination: {
           el: '.about-slider .swiper-pagination',
           clickable: true
@@ -118,21 +118,21 @@ document.addEventListener('DOMContentLoaded', function () {
       });
     });
 // why choose card 
- document.addEventListener("DOMContentLoaded", function() {
-        gsap.registerPlugin(ScrollTrigger);
+//  document.addEventListener("DOMContentLoaded", function() {
+//         gsap.registerPlugin(ScrollTrigger);
 
-  gsap.from(".goal_crad", {
-  scrollTrigger: {
-    trigger: ".goal_crad",
-    start: "top 25%",
-  },
-  opacity: 0,
-  filter: "blur(20px)",
-  duration: 1,
-  ease: "power3.out",
-  stagger: 0.25
-});
-});
+//   gsap.from(".goal_crad", {
+//   scrollTrigger: {
+//     trigger: ".goal_crad",
+//     start: "top 25%",
+//   },
+//   opacity: 0,
+//   filter: "blur(20px)",
+//   duration: 1,
+//   ease: "power3.out",
+//   stagger: 0.25
+// });
+// });
 // tab slide js
 document.addEventListener("DOMContentLoaded", function() {
   const tabs = document.querySelectorAll('#productTab button');

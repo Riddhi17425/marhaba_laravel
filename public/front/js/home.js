@@ -211,54 +211,54 @@ document.addEventListener("DOMContentLoaded", () => {
     /* =========================
        PRODUCT GRID (MOBILE SLICK)
     ========================= */
-    const productGrids = document.querySelectorAll('.product_grid');
-    const mqGrid = window.matchMedia('(max-width: 768px)'); // < 769px
+    // const productGrids = document.querySelectorAll('.product_grid');
+    // const mqGrid = window.matchMedia('(max-width: 768px)'); // < 769px
 
-    function handleProductGrid(e) {
-        if (!productGrids.length) return;
+    // function handleProductGrid(e) {
+    //     if (!productGrids.length) return;
 
-        productGrids.forEach(grid => {
-            const $grid = $(grid);
-            if (e.matches) {
-                grid.classList.add('is-mobile');
-                if (!$grid.hasClass('slick-initialized')) {
-                    $grid.slick({
-                        slidesToShow: 1,
-                        arrows: false,
-                        dots: true,
-                        infinite: true,
-                        swipe: true,
-                        draggable: true,
-                        autoplay: true,
-                        autoplaySpeed: 2000,
-                        responsive: [
-                            {
-                                breakpoint: 576,
-                                settings: {
-                                    slidesToShow: 1,
-                                }
-                            }
-                        ]
-                    });
-                }
-            } else {
-                if ($grid.hasClass('slick-initialized')) {
-                    $grid.slick('unslick');
-                }
-                grid.classList.remove('is-mobile');
-            }
-        });
-    }
+    //     productGrids.forEach(grid => {
+    //         const $grid = $(grid);
+    //         if (e.matches) {
+    //             grid.classList.add('is-mobile');
+    //             if (!$grid.hasClass('slick-initialized')) {
+    //                 $grid.slick({
+    //                     slidesToShow: 1,
+    //                     arrows: false,
+    //                     dots: true,
+    //                     infinite: true,
+    //                     swipe: true,
+    //                     draggable: true,
+    //                     autoplay: false,
+    //                     autoplaySpeed: 2000,
+    //                     responsive: [
+    //                         {
+    //                             breakpoint: 576,
+    //                             settings: {
+    //                                 slidesToShow: 1,
+    //                             }
+    //                         }
+    //                     ]
+    //                 });
+    //             }
+    //         } else {
+    //             if ($grid.hasClass('slick-initialized')) {
+    //                 $grid.slick('unslick');
+    //             }
+    //             grid.classList.remove('is-mobile');
+    //         }
+    //     });
+    // }
 
-    handleProductGrid(mqGrid);
-    mqGrid.addEventListener('change', handleProductGrid);
+    // handleProductGrid(mqGrid);
+    // mqGrid.addEventListener('change', handleProductGrid);
 
 
     /* =========================
        CORE WRAPPER (SLICK)
     ========================= */
     const coreWrapper = document.querySelector('.core_wrapper');
-    const mqCore = window.matchMedia('(max-width: 1280px)');
+    const mqCore = window.matchMedia('(max-width: 991px)');
 
     function handleCoreSlider() {
         if (!coreWrapper || typeof $ === 'undefined') return;
@@ -270,7 +270,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     arrows: false,
                     dots: false,
                     infinite: false,
-                    autoplay: true,
+                    autoplay: false,
                     autoplaySpeed: 2000,
                     responsive: [
                         {
@@ -278,7 +278,7 @@ document.addEventListener("DOMContentLoaded", () => {
                             settings: { slidesToShow: 2 }
                         },
                         {
-                            breakpoint: 576,
+                            breakpoint: 577,
                             settings: { slidesToShow: 1 }
                         }
                     ]
@@ -299,17 +299,7 @@ document.addEventListener("DOMContentLoaded", () => {
        MISC SLIDERS & EFFECTS
     ========================= */
     // Product Image Slider
-    new Swiper(".prod_img_slider", {
-        slidesPerView: 1,
-        slidesPerGroup: 1,
-        spaceBetween: 0,
-        loop: true,
-        autoplay: {
-            delay: 3000,
-            disableOnInteraction: false,
-        },
-        speed: 800,
-    });
+    
 
     // Project Cards Hover Reveal (Enquire Circle)
     document.querySelectorAll('.project-card').forEach(wrapper => {
@@ -333,13 +323,17 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    // YM Slider (Slick)
+
+    // YM Slider (Slick) the product slider
     if (typeof $ !== 'undefined' && $('.ym_slider').length) {
         $('.ym_slider').slick({
             arrows: true,
             dots: false,
             infinite: true,
-            speed: 400
+            speed: 400,
+            autoplay:false,
+            autoplaySpeed: 2000,
+            pauseOnHover: false
         });
     }
 
@@ -347,44 +341,72 @@ document.addEventListener("DOMContentLoaded", () => {
        PROJECT CARDS GIF EFFECT
     ========================= */
     document.querySelectorAll('.project-card').forEach(card => {
-        const img = card.querySelector('.category-img');
-        if (!img) return;
+    const img = card.querySelector('.category-img');
+    if (!img) return;
 
-        const originalSrc = img.src;
-        let altImages = [];
-        let interval;
+    const originalSrc = img.src;
+    let altImages = [];
+    let interval;
+    let index = 0;
 
-        try {
-            const altData = img.getAttribute('data-alt');
-            if (altData) {
-                altImages = JSON.parse(altData);
-                // Preload
-                altImages.forEach(src => {
-                    const pi = new Image();
-                    pi.src = src;
-                });
-            }
-        } catch (e) {
-            console.error("Invalid data-alt:", img);
+    // 1. Data Parsing & Preloading
+    try {
+        const altData = img.getAttribute('data-alt');
+        if (altData) {
+            altImages = JSON.parse(altData);
+            altImages.forEach(src => {
+                const pi = new Image();
+                pi.src = src;
+            });
         }
+    } catch (e) {
+        console.error("Invalid data-alt:", img);
+    }
 
-        card.addEventListener('mouseenter', () => {
-            if (!altImages.length) return;
-            let index = 0;
-            // Immediate first change
+    // 2. Animation Logic Functions
+    const startAnimation = () => {
+        if (!altImages.length || interval) return;
+        index = 0;
+        
+        interval = setInterval(() => {
             img.src = altImages[index];
             index = (index + 1) % altImages.length;
-            
-            interval = setInterval(() => {
-                img.src = altImages[index];
-                index = (index + 1) % altImages.length;
-            }, 800);
-        });
+        }, 800);
+    };
 
-        card.addEventListener('mouseleave', () => {
-            if (interval) clearInterval(interval);
-            img.src = originalSrc;
-        });
+    const stopAnimation = () => {
+        if (interval) {
+            clearInterval(interval);
+            interval = null;
+        }
+        img.src = originalSrc;
+    };
+
+    // 3. Execution Logic
+    const handleDisplay = () => {
+        if (window.innerWidth <= 577) {
+            // Auto-run on mobile
+            startAnimation();
+        } else {
+            // Ensure animation is stopped on desktop unless hovering
+            stopAnimation();
+        }
+    };
+
+    // Run immediately on load
+    handleDisplay();
+
+    // --- DESKTOP HOVER EVENTS ---
+    card.addEventListener('mouseenter', () => {
+        if (window.innerWidth > 577) startAnimation();
     });
+
+    card.addEventListener('mouseleave', () => {
+        if (window.innerWidth > 577) stopAnimation();
+    });
+
+    // Handle window resizing (if user flips phone or resizes browser)
+    window.addEventListener('resize', handleDisplay);
+});
 
 });
