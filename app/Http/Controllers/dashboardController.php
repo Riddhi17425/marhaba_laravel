@@ -37,7 +37,7 @@ class dashboardController extends Controller
          $collection = Product::select('id', 'type', 'category_id','name','url','image','product_brand_size')->whereNull('deleted_at')->where('show_homepage', 1)->latest()->take(6);
         $boysCollection = (clone $collection)->where('type', 'boy')->get();
         $girlsCollection = (clone $collection)->where('type', 'girl')->get();
-        $globalpresence = GlobalPresence::select('id', 'logo_name', 'logo_image')->where('deleted_at', null)->get();
+        $globalpresence = GlobalPresence::where('deleted_at', null)->get();
         $ageSections = config('global_values.age_section');
         $homeSliderImgs = HomeSliderImage::whereNull('deleted_at')->get();
         
