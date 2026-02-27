@@ -70,9 +70,11 @@
     gap: 5px;
     margin-right: 50px;
 }
+
 .slid_pagination_number {
     display: none;
 }
+
 .slider_btn {
     width: 34px;
     height: 34px;
@@ -350,7 +352,6 @@
 
 .size_pop .nav-link.active {
     border: 1px solid #452667;
-    padding: 20px 30px;
     color: #fff;
     border-radius: 0;
     background: #452667;
@@ -401,3 +402,21 @@
 }
 
 /* size ppup css */
+
+.range_table_head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+.range_table_head .btn_1 {
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding:10px 20px;
+}
+
+.range_table_head .btn_1:hover {
+    background-color: #452667;
+    color: white;
+    transition: all 0.3 ease;
+}

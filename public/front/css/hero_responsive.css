@@ -344,6 +344,9 @@
     .product-slider{padding:30px 0;}
     .product_detail_intro{height: auto;}
     .product_detail_intro .filter_banner {margin-bottom: 0px;}
+    .range_table_head {margin-bottom: 10px;}
+    .size_pop_head{font-size: 24px;line-height: 34px;}
+    .size_pop .nav-link {padding: 10px 20px;}
 }
 @media screen and (min-width: 376px) and (max-width: 431px) {
     .comp_bus_back {padding: 20px;}

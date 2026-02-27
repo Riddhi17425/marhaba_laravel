@@ -66,7 +66,11 @@
                     <h1 class="pd_name raleway_24">Baby Starters: 3-Pack Bodysuits</h1>
                 </div>
                 <div>
-                    <p style="font-weight:500;">Size Assortment : 0m-9m</p>
+                    <div class="range_table_head">
+                        <p style="font-weight:500;">Size Assortment : 0m-9m</p>
+                        <a class="btn_1" data-bs-toggle="modal" data-bs-target="#size_popup">Product
+                            Assortment</a>
+                    </div>
                     <table class="range-table">
                         <tr>
                             <td>0m-3m</td>
@@ -155,8 +159,8 @@
                                         <li>Premixed sizing: Balanced distribution for retail coverage</li>
                                         <li>12 sets per design in single or pre-assorted colours</li>
                                     </ul>
-                                    <a class="prod_detail_a" data-bs-toggle="modal"
-                                        data-bs-target="#size_popup">Standard 12-Piece Assortment</a>
+                                    <!-- <a class="prod_detail_a" data-bs-toggle="modal"
+                                        data-bs-target="#size_popup">Standard 12-Piece Assortment</a> -->
                                     <h6>Delivery & Shipping</h6>
                                     <ul class="pd_list">
                                         <li>Dubai: Delivered within 1-3 days after order confirmation</li>
@@ -237,7 +241,7 @@
             <div class="simple-slider">
                 @forelse($similarProducts as $simProduct)
                     @php
-                        $brand = $brands[$simProduct['brand_id']] ?? null;
+                        //$brand = $brands[$simProduct['brand_id']] ?? null;
                         $image = $simProduct['image'] ? asset('public/product_images/' . $simProduct['image']) : asset('public/front/img/product_detail_boy.png');
                     @endphp
                     <div class="col-md-3">
@@ -347,6 +351,7 @@
 
     // ── Wrap forward: exit last slide(s) LEFT, slide 0 enters from RIGHT ──────
     function wrapToStart() {
+        // 1. Animate exit of current visible slide(s) to the left
         if (isDesktop && isDoubleMode) {
             slides[currentIndex].style.transition = '';
             slides[currentIndex].style.width = '50%';
@@ -364,15 +369,25 @@
             slides[currentIndex].style.left = '-100%';
         }
 
-        slides[0].style.transition = 'none';
-        slides[0].style.left = '100%';
-        slides[0].style.width = '100%';
+        // 2. Silently park ALL other slides off-screen right — no transition so they don't fly across
+        slides.forEach((slide, i) => {
+            if (i === currentIndex) return;
+            if (isDesktop && isDoubleMode && i === currentIndex + 1) return;
+            slide.style.transition = 'none';
+            slide.style.left = '100%';
+            slide.style.width = '100%';
+        });
 
         requestAnimationFrame(() => {
             requestAnimationFrame(() => {
                 currentIndex = 0;
                 isDoubleMode = false;
-                positionSlides(true);
+                // 3. Only animate slide 0 in — rest are already silently parked off-screen
+                slides[0].style.transition = '';
+                slides[0].style.left = '0%';
+                slides[0].style.width = '100%';
+                updateThumbs();
+                updateCounter();
             });
         });
     }
@@ -381,19 +396,29 @@
     function wrapToEnd() {
         const lastIndex = total - 1;
 
+        // 1. Animate current slide out to the right
         slides[currentIndex].style.transition = '';
         slides[currentIndex].style.width = '100%';
         slides[currentIndex].style.left = '100%';
 
-        slides[lastIndex].style.transition = 'none';
-        slides[lastIndex].style.left = '-100%';
-        slides[lastIndex].style.width = '100%';
+        // 2. Silently park ALL other slides off-screen left — no transition so they don't fly across
+        slides.forEach((slide, i) => {
+            if (i === currentIndex) return;
+            slide.style.transition = 'none';
+            slide.style.left = '-100%';
+            slide.style.width = '100%';
+        });
 
         requestAnimationFrame(() => {
             requestAnimationFrame(() => {
                 currentIndex = lastIndex;
                 isDoubleMode = false;
-                positionSlides(true);
+                // 3. Only animate last slide in — rest are already silently parked off-screen
+                slides[lastIndex].style.transition = '';
+                slides[lastIndex].style.left = '0%';
+                slides[lastIndex].style.width = '100%';
+                updateThumbs();
+                updateCounter();
             });
         });
     }

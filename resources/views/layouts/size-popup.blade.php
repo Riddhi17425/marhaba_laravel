@@ -26,7 +26,7 @@
                     </li>
                 </ul>
                 <div class="size_pop_head">
-                    12-Piece Pack – Size Distribution Examples
+                    12-Units Pack – Size Distribution Examples
                 </div>
 
                 <!-- Tabs Content -->
@@ -36,7 +36,7 @@
                         <div class="table-responsive">
                             <table class="size_table">
                                 <tr>
-                                    <td>Size 1 (e.g., S)</td>
+                                    <td>Size A</td>
                                     <td>
                                         <div class="peice_img_wrapper">
                                             <img src="{{ asset('public/front/img/peice.svg') }}" alt="peice" height="34"
@@ -50,11 +50,11 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <div class="btn_1 ">4 peices</div>
+                                        <div class="btn_1 ">4 Units</div>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>Size 2 (e.g., M)</td>
+                                    <td>Size B</td>
                                     <td>
                                         <div class="peice_img_wrapper">
                                             <img src="{{ asset('public/front/img/peice.svg') }}" alt="peice" height="34"
@@ -68,11 +68,11 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <div class="btn_1 ">4 peices</div>
+                                        <div class="btn_1 ">4 Units</div>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>Size 3 (e.g., L)</td>
+                                    <td>Size C</td>
                                     <td>
                                         <div class="peice_img_wrapper">
                                             <img src="{{ asset('public/front/img/peice.svg') }}" alt="peice" height="34"
@@ -86,7 +86,7 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <div class="btn_1 ">4 peices</div>
+                                        <div class="btn_1 ">4 Units</div>
                                     </td>
                                 </tr>
                             </table>
@@ -97,11 +97,9 @@
                         <div class="table-responsive">
                             <table class="size_table">
                                 <tr>
-                                    <td>Size 1 (e.g., S)</td>
+                                    <td>Size A</td>
                                     <td>
                                         <div class="peice_img_wrapper">
-                                            <img src="{{ asset('public/front/img/peice.svg') }}" alt="peice" height="34"
-                                                width="34">
                                             <img src="{{ asset('public/front/img/peice.svg') }}" alt="peice" height="34"
                                                 width="34">
                                             <img src="{{ asset('public/front/img/peice.svg') }}" alt="peice" height="34"
@@ -111,15 +109,13 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <div class="btn_1 ">4 peices</div>
+                                        <div class="btn_1 ">3 Units</div>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>Size 2 (e.g., M)</td>
+                                    <td>Size B</td>
                                     <td>
                                         <div class="peice_img_wrapper">
-                                            <img src="{{ asset('public/front/img/peice.svg') }}" alt="peice" height="34"
-                                                width="34">
                                             <img src="{{ asset('public/front/img/peice.svg') }}" alt="peice" height="34"
                                                 width="34">
                                             <img src="{{ asset('public/front/img/peice.svg') }}" alt="peice" height="34"
@@ -129,15 +125,13 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <div class="btn_1 ">4 peices</div>
+                                        <div class="btn_1 ">3 Units</div>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>Size 3 (e.g., L)</td>
+                                    <td>Size C</td>
                                     <td>
                                         <div class="peice_img_wrapper">
-                                            <img src="{{ asset('public/front/img/peice.svg') }}" alt="peice" height="34"
-                                                width="34">
                                             <img src="{{ asset('public/front/img/peice.svg') }}" alt="peice" height="34"
                                                 width="34">
                                             <img src="{{ asset('public/front/img/peice.svg') }}" alt="peice" height="34"
@@ -147,7 +141,23 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <div class="btn_1 ">4 peices</div>
+                                        <div class="btn_1 ">3 Units</div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Size D</td>
+                                    <td>
+                                        <div class="peice_img_wrapper">
+                                            <img src="{{ asset('public/front/img/peice.svg') }}" alt="peice" height="34"
+                                                width="34">
+                                            <img src="{{ asset('public/front/img/peice.svg') }}" alt="peice" height="34"
+                                                width="34">
+                                            <img src="{{ asset('public/front/img/peice.svg') }}" alt="peice" height="34"
+                                                width="34">
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="btn_1 ">3 Units</div>
                                     </td>
                                 </tr>
                             </table>
