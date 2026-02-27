@@ -121,7 +121,10 @@ $subcatVal = preg_replace('/[\#].*$/', '', $subcatVal);
                                                 alt="{{ $vv->name }}" class="ym_cover_slider">
                                             <!-- ✅ SLICK SLIDER -->
                                             <div class="ym_slider">
-                                                @foreach($filteredImages as $v)
+                                                @foreach($filteredImages as $k => $v)
+                                                    @if($k == 4)
+                                                        @break
+                                                    @endif
                                                     <div>
                                                         <a href="{{ url('products-details/' . $vv['url'].'/'. $vv['id']) }}" target="_blank">
                                                             <img loading="lazy" src="{{ asset('public/product_images/' . $v->product_image) }}"
@@ -201,7 +204,10 @@ $subcatVal = preg_replace('/[\#].*$/', '', $subcatVal);
                                                 alt="{{ $vv->name }}" class="ym_cover_slider">
                                             <!-- ✅ SLICK SLIDER -->
                                             <div class="ym_slider">
-                                                @foreach($filteredImages as $v)
+                                                @foreach($filteredImages as $k => $v)
+                                                    @if($k == 4)
+                                                        @break
+                                                    @endif
                                                     <div>
                                                         <a href="{{ url('products-details/' . $vv['url'].'/'. $vv['id']) }}" target="_blank">
                                                             <img loading="lazy" src="{{ asset('public/product_images/' . $v->product_image) }}"
@@ -294,7 +300,10 @@ $subcatVal = preg_replace('/[\#].*$/', '', $subcatVal);
                                                 alt="{{ $vv->name }}" class="ym_cover_slider">
                                             <!-- ✅ SLICK SLIDER -->
                                             <div class="ym_slider">
-                                                @foreach($filteredImages as $v)
+                                                @foreach($filteredImages as $k => $v)
+                                                    @if($k == 4)
+                                                        @break
+                                                    @endif
                                                     <div>
                                                         <a href="{{ url('products-details/' . $vv['url'].'/'. $vv['id']) }}" target="_blank">
                                                             <img loading="lazy" src="{{ asset('public/product_images/' . $v->product_image) }}"
