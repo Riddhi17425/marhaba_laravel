@@ -134,58 +134,58 @@ document.addEventListener('DOMContentLoaded', function () {
 // });
 // });
 // tab slide js
-document.addEventListener("DOMContentLoaded", function() {
-  const tabs = document.querySelectorAll('#productTab button');
-  const tabContent = document.getElementById("productTabContent");
-  let index = 0;
-  let interval;
+// document.addEventListener("DOMContentLoaded", function() {
+//   const tabs = document.querySelectorAll('#productTab button');
+//   const tabContent = document.getElementById("productTabContent");
+//   let index = 0;
+//   let interval;
 
-  function startSlider() {
-    interval = setInterval(() => {
-      index = (index + 1) % tabs.length;
-      const tabTrigger = new bootstrap.Tab(tabs[index]);
-      tabTrigger.show();
-    }, 5000);
-  }
+//   function startSlider() {
+//     interval = setInterval(() => {
+//       index = (index + 1) % tabs.length;
+//       const tabTrigger = new bootstrap.Tab(tabs[index]);
+//       tabTrigger.show();
+//     }, 5000);
+//   }
 
-  function stopSlider() {
-    clearInterval(interval);
-  }
+//   function stopSlider() {
+//     clearInterval(interval);
+//   }
 
-  startSlider();
+//   startSlider();
 
-  // Hover events (tabs + tabContent)
-  [...tabs].forEach(tab => {
-    tab.addEventListener("mouseenter", stopSlider);
-    tab.addEventListener("mouseleave", startSlider);
-  });
-  tabContent.addEventListener("mouseenter", stopSlider);
-  tabContent.addEventListener("mouseleave", startSlider);
+//   // Hover events (tabs + tabContent)
+//   [...tabs].forEach(tab => {
+//     tab.addEventListener("mouseenter", stopSlider);
+//     tab.addEventListener("mouseleave", startSlider);
+//   });
+//   tabContent.addEventListener("mouseenter", stopSlider);
+//   tabContent.addEventListener("mouseleave", startSlider);
 
-  // Intersection Observer to check if tab section is in viewport
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if(entry.isIntersecting){
-        // section visible, check if mouse is over it
-        const rect = tabContent.getBoundingClientRect();
-        const mouseX = window.mouseX || -1;
-        const mouseY = window.mouseY || -1;
-        if(mouseX >= rect.left && mouseX <= rect.right &&
-           mouseY >= rect.top && mouseY <= rect.bottom){
-             stopSlider(); // pause if mouse already over section
-        }
-      }
-    });
-  }, { threshold: 0.1 });
+//   // Intersection Observer to check if tab section is in viewport
+//   const observer = new IntersectionObserver(entries => {
+//     entries.forEach(entry => {
+//       if(entry.isIntersecting){
+//         // section visible, check if mouse is over it
+//         const rect = tabContent.getBoundingClientRect();
+//         const mouseX = window.mouseX || -1;
+//         const mouseY = window.mouseY || -1;
+//         if(mouseX >= rect.left && mouseX <= rect.right &&
+//            mouseY >= rect.top && mouseY <= rect.bottom){
+//              stopSlider(); // pause if mouse already over section
+//         }
+//       }
+//     });
+//   }, { threshold: 0.1 });
 
-  observer.observe(tabContent);
+//   observer.observe(tabContent);
 
-  // track mouse position
-  window.addEventListener("mousemove", e => {
-    window.mouseX = e.clientX;
-    window.mouseY = e.clientY;
-  });
-});
+//   // track mouse position
+//   window.addEventListener("mousemove", e => {
+//     window.mouseX = e.clientX;
+//     window.mouseY = e.clientY;
+//   });
+// });
 
 // mobile slider product
 document.addEventListener('DOMContentLoaded', function () {
