@@ -1512,11 +1512,9 @@
         z-index: 0;
       }
 
-      .product_wrapper .Product_item {
-        /* padding: 60px 20px; */
-        /*border-radius: 10px;*/
+      .product_wrapper .Product_item {        
         background: linear-gradient(0deg, #FBFBFB 0%, #FBFBFB 100%), linear-gradient(134deg, #FFF 9%, #DDD 93.94%);
-        height: 350px;
+        height: 450px;
       }
 
       /*.product_wrapper .Product_item .product_img{*/

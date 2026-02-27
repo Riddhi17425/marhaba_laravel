@@ -1,63 +1,72 @@
 @include('layouts.frontheader')
 <link rel="stylesheet" href="{{ asset('public/front/css/hero_style.css') }}">
-<link rel="stylesheet" href="{{ asset('public/front/css/hero_responsive.css') }}">
 <link rel="stylesheet" href="{{ asset('public/front/css/product_slider.css') }}">
+<link rel="stylesheet" href="{{ asset('public/front/css/hero_responsive.css') }}">
 <script src="https://unpkg.com/@zoom-image/core"></script>
 
-<div class="product-slider">
-    <div class="slider-wrapper">
-        <div class="slides-track" id="track">
-            <div class="slide">
-                <div class="image-container">
-                    <img src="{{ asset('public/front/img/product-detail/pd_1.png') }}" class="product-img" alt="View 1"
-                        draggable="false">
+<section class="product_detail_intro">
+    <div>
+        <div class="product-slider">
+            <div class="slider-wrapper">
+                <div class="slides-track" id="track">
+                    <div class="slide">
+                        <div class="image-container">
+                            <img src="{{ asset('public/front/img/product-detail/pd_1.png') }}" class="product-img"
+                                alt="View 1" draggable="false">
+                        </div>
+                    </div>
+                    <div class="slide">
+                        <div class="image-container"><img src="{{ asset('public/front/img/product-detail/pd_2.png') }}"
+                                class="product-img" alt="View 2" draggable="false"></div>
+                    </div>
+                    <div class="slide">
+                        <div class="image-container"><img src="{{ asset('public/front/img/product-detail/pd_3.png') }}"
+                                class="product-img" alt="View 3" draggable="false"></div>
+                    </div>
+                    <div class="slide">
+                        <div class="image-container"><img src="{{ asset('public/front/img/product-detail/pd_4.png') }}"
+                                class="product-img" alt="View 4" draggable="false"></div>
+                    </div>
+                    <div class="slide">
+                        <div class="image-container"><img src="{{ asset('public/front/img/product-detail/pd_5.png') }}"
+                                class="product-img" alt="View 5" draggable="false"></div>
+                    </div>
+                    <div class="slide">
+                        <div class="image-container"><img src="{{ asset('public/front/img/product-detail/pd_3.png') }}"
+                                class="product-img" alt="View 6" draggable="false"></div>
+                    </div>
                 </div>
+
+
             </div>
-            <div class="slide">
-                <div class="image-container"><img src="{{ asset('public/front/img/product-detail/pd_2.png') }}"
-                        class="product-img" alt="View 2" draggable="false"></div>
+
+            <div class="slid_bottom">
+                <div class="thumbnails" id="thumbs"></div>
+                <button class="slider_btn prev" id="prevBtn">‹</button>
+                <button class="slider_btn next" id="nextBtn">›</button>
             </div>
-            <div class="slide">
-                <div class="image-container"><img src="{{ asset('public/front/img/product-detail/pd_3.png') }}"
-                        class="product-img" alt="View 3" draggable="false"></div>
-            </div>
-            <div class="slide">
-                <div class="image-container"><img src="{{ asset('public/front/img/product-detail/pd_4.png') }}"
-                        class="product-img" alt="View 4" draggable="false"></div>
-            </div>
-            <div class="slide">
-                <div class="image-container"><img src="{{ asset('public/front/img/product-detail/pd_5.png') }}"
-                        class="product-img" alt="View 5" draggable="false"></div>
-            </div>
-            <div class="slide">
-                <div class="image-container"><img src="{{ asset('public/front/img/product-detail/pd_3.png') }}"
-                        class="product-img" alt="View 6" draggable="false"></div>
+            <div class="slid_pagination_number">
+                <button class="slider_btn prev" id="prevBtn2">‹</button>
+                <span id="slideCounter">1 / 6</span>
+                <button class="slider_btn next" id="nextBtn2">›</button>
             </div>
         </div>
-
-
+        <!-- banner -->
+        <div class="filter_banner">
+            Select designs. Contact us for full collection.
+        </div>
     </div>
-
-    <div class="slid_bottom">
-        <div class="thumbnails" id="thumbs"></div>
-        <button class="slider_btn prev" id="prevBtn">‹</button>
-        <button class="slider_btn next" id="nextBtn">›</button>
-    </div>
-</div>
-<!-- banner -->
-<div class="filter_banner">
-    Select designs. Contact us for full collection.
-</div>
+</section>
 <!-- prod-info -->
 <section class="section_mt">
-    <div class="container">
+    <div class="ym-container">
         <div class="product_detail_grid">
             <div class="pd_left">
                 <div>
                     <h1 class="pd_name raleway_24">Baby Starters: 3-Pack Bodysuits</h1>
                 </div>
                 <div>
-                    <p>Size Assortment : 0m-9m</p>
+                    <p style="font-weight:500;">Size Assortment : 0m-9m</p>
                     <table class="range-table">
                         <tr>
                             <td>0m-3m</td>
@@ -92,7 +101,7 @@
             </div>
             <div class="pd_right">
                 <div>
-                    <a href="#" class="get-price">
+                    <a href="#" class="get_price">
                         <svg class="me-2" width="18" height="18" viewBox="0 0 18 18" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
                             <path
@@ -129,7 +138,7 @@
                         </div>
 
                         <!-- Buyer Information -->
-                        <div class="accordion-item">
+                        <div class="accordion-item pd_small_acc rounded-0">
                             <h2 class="accordion-header" id="headingTwo">
                                 <button class="accordion-button collapsed raleway_24 ps-0" type="button"
                                     data-bs-toggle="collapse" data-bs-target="#collapseBuyer" aria-expanded="false"
@@ -141,14 +150,15 @@
                                 data-bs-parent="#accordionExample">
                                 <div class="accordion-body">
                                     <h6>Packaging & Sizing</h6>
-                                    <ul>
+                                    <ul class="pd_list">
                                         <li>Export-ready packaging: Each set with hanger and protective sleeve</li>
                                         <li>Premixed sizing: Balanced distribution for retail coverage</li>
                                         <li>12 sets per design in single or pre-assorted colours</li>
                                     </ul>
-                                    <a class="prod_detail_a" data-bs-toggle="modal" data-bs-target="#size_popup">Standard 12-Piece Assortment</a>
+                                    <a class="prod_detail_a" data-bs-toggle="modal"
+                                        data-bs-target="#size_popup">Standard 12-Piece Assortment</a>
                                     <h6>Delivery & Shipping</h6>
-                                    <ul>
+                                    <ul class="pd_list">
                                         <li>Dubai: Delivered within 1-3 days after order confirmation</li>
                                         <li>Small orders: Collection can be arranged from showroom</li>
                                         <li>Custom orders: Lead time varies—contact for details</li>
@@ -221,7 +231,7 @@
 </section>
 <!-- old section -->
 <section class="home_mt-100 section_mb">
-    <div class="container-fluid">
+    <div class="ym-container">
         <div class="row">
             <h2 class="mean_head text-center scroll-text mb-4" data-animate-on-scroll>Similar Products</h2>
             <div class="simple-slider">
@@ -232,19 +242,10 @@
                     @endphp
                     <div class="col-md-3">
                         <div class="product_wrapper">
-                            <div class="Product_item">
+                            <div class="">
                                 <a href="{{ route('productdetails', $simProduct['url']) }}">
-                                    <img src="{{ $image }}" alt="{{ $simProduct['name'] }}"
-                                        class="img-fluid product_img w-100" />
+                                    <img src="{{ $image }}" alt="{{ $simProduct['name'] }}" class="img-fluid" />
                                 </a>
-                            </div>
-                            <div class="product_item_details">
-                                <a href="{{ route('productdetails', $simProduct['url']) }}">
-                                    <p class="mb-0" style="font-weight:500;">{{ $simProduct['name'] }}</p>
-                                </a>
-                                @if($brand)
-                                    <p class="raleway_14 mb-0">{{ $brand->name }}</p>
-                                @endif
                             </div>
                         </div>
                     </div>
@@ -260,7 +261,7 @@
 
 <!-- slider js -->
 <script>
-    // ── Core slider logic (unchanged from previous working version) ────────
+    // ── Core slider logic ────────────────────────────────────────────────────
     const track = document.getElementById('track');
     const slides = Array.from(track.children);
     const total = slides.length;
@@ -270,6 +271,35 @@
 
     const prevBtn = document.getElementById('prevBtn');
     const nextBtn = document.getElementById('nextBtn');
+
+    // ── Config ────────────────────────────────────────────────────────────────
+    const AUTOPLAY_SPEED = 3000; // ms between slides
+    let autoplayTimer = null;
+
+    // Pagination counter
+    const slideCounter = document.getElementById('slideCounter');
+
+    function updateCounter() {
+        if (slideCounter) slideCounter.textContent = `${currentIndex + 1} / ${total}`;
+    }
+
+    // ── Autoplay ──────────────────────────────────────────────────────────────
+    function startAutoplay() {
+        stopAutoplay();
+        autoplayTimer = setInterval(() => goNext(), AUTOPLAY_SPEED);
+    }
+
+    function stopAutoplay() {
+        if (autoplayTimer) {
+            clearInterval(autoplayTimer);
+            autoplayTimer = null;
+        }
+    }
+
+    function resetAutoplay() {
+        stopAutoplay();
+        startAutoplay();
+    }
 
     // Thumbnails setup
     const thumbsContainer = document.getElementById('thumbs');
@@ -312,111 +342,176 @@
             slide.style.width = w;
         });
         updateThumbs();
+        updateCounter();
+    }
+
+    // ── Wrap forward: exit last slide(s) LEFT, slide 0 enters from RIGHT ──────
+    function wrapToStart() {
+        if (isDesktop && isDoubleMode) {
+            slides[currentIndex].style.transition = '';
+            slides[currentIndex].style.width = '50%';
+            slides[currentIndex].style.left = '-50%';
+
+            const second = currentIndex + 1;
+            if (second < total) {
+                slides[second].style.transition = '';
+                slides[second].style.width = '50%';
+                slides[second].style.left = '-50%';
+            }
+        } else {
+            slides[currentIndex].style.transition = '';
+            slides[currentIndex].style.width = '100%';
+            slides[currentIndex].style.left = '-100%';
+        }
+
+        slides[0].style.transition = 'none';
+        slides[0].style.left = '100%';
+        slides[0].style.width = '100%';
+
+        requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+                currentIndex = 0;
+                isDoubleMode = false;
+                positionSlides(true);
+            });
+        });
+    }
+
+    // ── Wrap backward: exit slide 0 RIGHT, last slide enters from LEFT ─────────
+    function wrapToEnd() {
+        const lastIndex = total - 1;
+
+        slides[currentIndex].style.transition = '';
+        slides[currentIndex].style.width = '100%';
+        slides[currentIndex].style.left = '100%';
+
+        slides[lastIndex].style.transition = 'none';
+        slides[lastIndex].style.left = '-100%';
+        slides[lastIndex].style.width = '100%';
+
+        requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+                currentIndex = lastIndex;
+                isDoubleMode = false;
+                positionSlides(true);
+            });
+        });
     }
 
     function goNext() {
         if (!isDesktop) {
-            currentIndex = (currentIndex + 1) % total;
-            positionSlides(true);
+            if (currentIndex + 1 < total) {
+                currentIndex++;
+                positionSlides(true);
+            } else {
+                wrapToStart();
+            }
             return;
         }
 
         if (!isDoubleMode) {
-            if (currentIndex + 1 < total) isDoubleMode = true;
-            else {
-                currentIndex = 0; isDoubleMode = false;
-                slides[0].style.left = '100%'; slides[0].style.transition = 'none';
-                requestAnimationFrame(() => positionSlides(true));
-                return;
+            if (currentIndex + 1 < total) {
+                isDoubleMode = true;
+                positionSlides(true);
+            } else {
+                wrapToStart();
             }
         } else {
-            if (currentIndex + 2 < total) currentIndex++;
-            else {
-                currentIndex = 0; isDoubleMode = false;
-                slides[0].style.left = '100%'; slides[0].style.transition = 'none';
-                requestAnimationFrame(() => positionSlides(true));
-                return;
+            if (currentIndex + 2 < total) {
+                currentIndex++;
+                positionSlides(true);
+            } else {
+                wrapToStart();
             }
         }
-        positionSlides(true);
     }
 
     function goPrev() {
         if (!isDesktop) {
-            currentIndex = (currentIndex - 1 + total) % total;
-            positionSlides(true);
+            if (currentIndex - 1 >= 0) {
+                currentIndex--;
+                positionSlides(true);
+            } else {
+                wrapToEnd();
+            }
             return;
         }
 
         if (isDoubleMode) {
             if (currentIndex === 0) {
-                isDoubleMode = false; // collapse first pair → slide 1 full width
-            } else currentIndex--;
+                isDoubleMode = false;
+                positionSlides(true);
+            } else {
+                currentIndex--;
+                positionSlides(true);
+            }
         } else {
             if (currentIndex > 0) {
                 currentIndex--;
                 if (currentIndex + 1 < total) isDoubleMode = true;
+                positionSlides(true);
+            } else {
+                wrapToEnd();
             }
         }
-        positionSlides(true);
     }
 
-    // ── Fixed Zoom + Pan ───────────────────────────────────────────────────
+    // ── Zoom + Pan (desktop mouse + mobile touch) ──────────────────────────────
     slides.forEach(slide => {
         const container = slide.querySelector('.image-container');
         const img = slide.querySelector('.product-img');
         let clickCount = 0;
         let timer = null;
         let isZoomed = false;
+
         function activateZoom(e) {
             isZoomed = !isZoomed;
             container.classList.toggle('zoomed', isZoomed);
 
             if (isZoomed) {
+                stopAutoplay();
                 const scale = 2;
                 img.style.transition = 'transform 0.3s ease-out';
                 img.style.transform = `scale(${scale})`;
-
-                // Initial pan based on click position
                 const rect = container.getBoundingClientRect();
                 const x = (e.clientX || (e.touches && e.touches[0].clientX)) - rect.left;
                 const y = (e.clientY || (e.touches && e.touches[0].clientY)) - rect.top;
                 updatePan(x, y);
-
-                container.addEventListener('mousemove', onMouseMove);
             } else {
                 img.style.transition = 'transform 0.3s ease-out';
                 img.style.transform = 'scale(1) translate(0, 0)';
-                container.removeEventListener('mousemove', onMouseMove);
+                startAutoplay();
             }
-        }
-
-        function onMouseMove(e) {
-            if (!isZoomed) return;
-            const rect = container.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-            updatePan(x, y);
         }
 
         function updatePan(x, y) {
             const scale = 2;
             const contW = container.clientWidth;
             const contH = container.clientHeight;
-
-            // Percentage across the container
-            const px = x / contW;
-            const py = y / contH;
-
-            // How much we need to shift (image is twice as big, so we can shift by 1x width/height)
-            const tx = (px * (contW - contW * scale));
-            const ty = (py * (contH - contH * scale));
-
-            img.style.transition = 'none'; // No transition during mouse move for responsiveness
+            const tx = (x / contW) * (contW - contW * scale);
+            const ty = (y / contH) * (contH - contH * scale);
+            img.style.transition = 'none';
             img.style.transform = `translate(${tx}px, ${ty}px) scale(${scale})`;
         }
 
-        // Double-click / double-tap detection
+        // ── Desktop: mousemove pans ────────────────────────────────────────────
+        container.addEventListener('mousemove', e => {
+            if (!isZoomed) return;
+            const rect = container.getBoundingClientRect();
+            updatePan(e.clientX - rect.left, e.clientY - rect.top);
+        });
+
+        // ── Mobile: touchmove pans ─────────────────────────────────────────────
+        container.addEventListener('touchmove', e => {
+            if (!isZoomed || e.touches.length > 1) return;
+            e.preventDefault(); // prevent page scroll while panning
+            const rect = container.getBoundingClientRect();
+            const x = e.touches[0].clientX - rect.left;
+            const y = e.touches[0].clientY - rect.top;
+            updatePan(x, y);
+        }, { passive: false });
+
+        // ── Double-click (desktop) ─────────────────────────────────────────────
         container.addEventListener('click', e => {
             clickCount++;
             if (clickCount === 1) {
@@ -429,6 +524,7 @@
             }
         });
 
+        // ── Double-tap (mobile) ────────────────────────────────────────────────
         container.addEventListener('touchstart', e => {
             if (e.touches.length > 1) return;
             clickCount++;
@@ -443,7 +539,7 @@
         }, { passive: false });
     });
 
-    // ── Other init ─────────────────────────────────────────────────────────
+    // ── Thumbnails ─────────────────────────────────────────────────────────────
     thumbs.forEach(thumb => {
         thumb.addEventListener('click', () => {
             const idx = parseInt(thumb.dataset.index);
@@ -455,7 +551,6 @@
                     currentIndex = 0;
                     isDoubleMode = false;
                 } else if (idx === total - 1 && total > 1) {
-                    // If last thumb, show it with the previous one
                     currentIndex = idx - 1;
                     isDoubleMode = true;
                 } else {
@@ -464,6 +559,7 @@
                 }
             }
             positionSlides(true);
+            resetAutoplay();
         });
     });
 
@@ -477,8 +573,68 @@
         }
     });
 
+    // ── Swipe (mouse + touch) on slider wrapper ────────────────────────────────
+    const SWIPE_THRESHOLD = 50; // px — minimum drag distance to trigger a swipe
+    const sliderWrapper = document.querySelector('.slider-wrapper');
+
+    let swipeStartX = null;
+    let swipeStartY = null;
+    let isSwiping = false;
+
+    // Shared: is any slide currently zoomed?
+    function anyZoomed() {
+        return Array.from(document.querySelectorAll('.image-container')).some(c => c.classList.contains('zoomed'));
+    }
+
+    sliderWrapper.addEventListener('pointerdown', e => {
+        if (anyZoomed()) return; // don't swipe while zoomed
+        swipeStartX = e.clientX;
+        swipeStartY = e.clientY;
+        isSwiping = true;
+        sliderWrapper.setPointerCapture(e.pointerId);
+    }, { passive: true });
+
+    sliderWrapper.addEventListener('pointermove', e => {
+        if (!isSwiping || anyZoomed()) return;
+        // Optional: could add live drag preview here in future
+    }, { passive: true });
+
+    sliderWrapper.addEventListener('pointerup', e => {
+        if (!isSwiping || swipeStartX === null) return;
+        isSwiping = false;
+
+        const dx = e.clientX - swipeStartX;
+        const dy = e.clientY - swipeStartY;
+        swipeStartX = null;
+        swipeStartY = null;
+
+        // Only trigger if horizontal movement is dominant and exceeds threshold
+        if (Math.abs(dx) < SWIPE_THRESHOLD || Math.abs(dx) < Math.abs(dy)) return;
+
+        if (dx < 0) {
+            goNext(); // swiped left → next
+        } else {
+            goPrev(); // swiped right → prev
+        }
+        resetAutoplay();
+    });
+
+    sliderWrapper.addEventListener('pointercancel', () => {
+        isSwiping = false;
+        swipeStartX = null;
+        swipeStartY = null;
+    });
+
+    // ── Init ───────────────────────────────────────────────────────────────────
     positionSlides(false);
-    prevBtn.addEventListener('click', goPrev);
-    nextBtn.addEventListener('click', goNext);
+
+    prevBtn.addEventListener('click', () => { goPrev(); resetAutoplay(); });
+    nextBtn.addEventListener('click', () => { goNext(); resetAutoplay(); });
+
+    document.getElementById('prevBtn2')?.addEventListener('click', () => { goPrev(); resetAutoplay(); });
+    document.getElementById('nextBtn2')?.addEventListener('click', () => { goNext(); resetAutoplay(); });
+
+    startAutoplay();
+
 </script>
 <!-- slider js -->

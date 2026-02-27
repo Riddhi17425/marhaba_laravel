@@ -356,12 +356,10 @@ a {
     left: -100%;
     width: 100%;
     height: 100%;
-    background: linear-gradient(
-        90deg,
-        transparent,
-        rgba(255, 255, 255, 0.3),
-        transparent
-    );
+    background: linear-gradient(90deg,
+            transparent,
+            rgba(255, 255, 255, 0.3),
+            transparent);
     transition: left 0.6s;
 }
 
@@ -396,6 +394,7 @@ a {
 .hero_why_wrapper {
     margin-top: 60px;
 }
+
 .why_slide {
     display: flex;
     flex-direction: column;
@@ -632,8 +631,8 @@ a {
 
 /* ================= ym CARD ================= */
 .ym_card {
-    width: 350px;
-    height: 380px;
+    width: 390px;
+    height: 510px;
     border: 1px solid red;
     overflow: hidden;
     /* 🔥 prevents overflow */
@@ -645,7 +644,7 @@ a {
 .ym_card_img {
     position: relative;
     overflow: hidden;
-    height: 350px;
+    height: 450px;
     /* 🔥 prevents slider overflow */
 }
 
@@ -653,12 +652,12 @@ a {
     position: absolute;
     inset: 0;
     object-fit: contain;
-    height: 350px;
+    height: 450px;
     width: 100%;
 }
 
 .ym_slide_img {
-    width: 350px;
+    width: 450px;
     object-fit: contain;
     background-color: #f7f7f7;
 }
@@ -732,6 +731,7 @@ a {
     right: 0px;
     top: 35%;
 }
+
 .ym_slider .slick-dots {
     display: flex !important;
     justify-content: center;
@@ -772,6 +772,18 @@ a {
     cursor: none;
 }
 
+.prod_list_title {
+    height: 50px;
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.prod_list_title h4 {
+    font-size: 18px;
+}
+
 /* ================= ym CARD ================= */
 
 /* inquiry form css  */
@@ -779,6 +791,7 @@ a {
     position: relative;
     padding: 0;
 }
+
 .enquiry_body .btn-close {
     position: absolute;
     top: 10px;
@@ -793,11 +806,117 @@ select:focus {
     outline: none;
     box-shadow: none;
 }
-.project-card.active .enquire-circle{
+
+.project-card.active .enquire-circle {
     display: none;
 }
+
 /* inquiry form css  */
 .project-card.active .enquire-circle {
     display: none;
 }
 
+/* brand grid image */
+.brand-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    border: 1px solid #ddd;
+    overflow: hidden;
+    background: #fff;
+}
+
+.brand-cell {
+    position: relative;
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-right: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    overflow: hidden;
+    cursor: pointer;
+    background: linear-gradient(0deg, #FBFBFB 0%, #FBFBFB 100%), linear-gradient(134deg, #FFF 9%, #DDD 93.94%);
+}
+
+.brand-cell:nth-child(3n) {
+    border-right: none;
+}
+
+.brand-cell:nth-child(n+4) {
+    border-bottom: none;
+}
+
+/* The image wrapper — this rotates together with overlay */
+.brand-inner {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.brand-img {
+    object-fit: contain;
+    display: block;
+    transition: opacity 0.6s ease;
+}
+
+.brand-img.fade-out {
+    opacity: 0;
+}
+
+/* Overlay */
+.brand-overlay {
+    position: absolute;
+    inset: 0;
+    background: #d7c7e99e;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.35s ease;
+    pointer-events: none;
+}
+
+.brand-overlay span {
+    color: #452667;
+    font-size: clamp(13px, 1.5vw, 18px);
+    font-weight: 600;
+    text-align: center;
+    padding: 0 12px;
+    padding-bottom: 15px;
+}
+
+/* Desktop hover */
+@media (min-width: 1240px) {
+    .brand-cell:hover .brand-overlay {
+        opacity: 1;
+    }
+}
+
+/* Mobile tap */
+.brand-cell.tapped .brand-overlay {
+    opacity: 1;
+}
+
+@media (max-width: 600px) {
+    .brand-grid {
+        grid-template-columns: repeat(1, 1fr);
+        border: 1px solid #ddd;
+    }
+
+    .brand-cell {
+        border-bottom: 1px solid #ddd;
+        border-right: none;
+    }
+
+    .brand-cell:last-child {
+        border-bottom: none;
+    }
+    .brand-cell:nth-child(n+4) {
+    border-bottom: 1px solid #ddd;
+    }
+}
+
+/* brand grid image */

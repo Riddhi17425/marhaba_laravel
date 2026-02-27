@@ -57,8 +57,12 @@
                             @endif
                         </div>
                     </div>
-                    <a href="{{ url('products-details/' . $vv['url'].'/'. $vv['id']) }}" target="_blank"><p class="mb-0" style="font-weight:500;">{{$vv->name ?? ''}}</p></a>
-                    <p class="raleway_14 mb-0">{{$vk ?? ''}}</p>
+                    <div>
+                        <a href="{{ url('products-details/' . $vv['url'].'/'. $vv['id']) }}" target="_blank">                            
+                            <h4 class="mb-0" style="font-weight:500;">{{$vv->name ?? ''}}</h4>
+                            <p class="mb-0">{{$vk ?? ''}}</p>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>

@@ -150,8 +150,12 @@ $subcatVal = preg_replace('/[\#].*$/', '', $subcatVal);
                                         @endif
                                     </div>
                                 </div>
-                                <a href="{{ url('products-details/' . $vv['url'].'/'. $vv['id']) }}" target="_blank"><p class="mb-0" style="font-weight:500;">{{$vv->name ?? ''}}</p></a>
-                                <p class="raleway_14 mb-0">{{$vk ?? ''}}</p>
+                                <div>
+                                    <a href="{{ url('products-details/' . $vv['url'].'/'. $vv['id']) }}" target="_blank" class="prod_list_title">
+                                        <h4 class="mb-0" style="font-weight:500;">{{$vv->name ?? ''}}</h4>
+                                        <p class="mb-0">{{$vk ?? ''}}</p>
+                                    </a>                                
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -226,8 +230,12 @@ $subcatVal = preg_replace('/[\#].*$/', '', $subcatVal);
                                         @endif
                                     </div>
                                 </div>
-                                <a href="{{ url('products-details/' . $vv['url'].'/'. $vv['id']) }}" target="_blank"><p class="mb-0" style="font-weight:500;">{{$vv->name ?? ''}}</p></a>
-                                <p class="raleway_14 mb-0">{{$vk ?? ''}}</p>
+                                <div>
+                                    <a href="{{ url('products-details/' . $vv['url'].'/'. $vv['id']) }}" target="_blank" class="prod_list_title">
+                                        <h4 class="mb-0" style="font-weight:500;">{{$vv->name ?? ''}}</h4>
+                                        <p class="mb-0">{{$vk ?? ''}}</p>
+                                    </a>                                
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -317,8 +325,12 @@ $subcatVal = preg_replace('/[\#].*$/', '', $subcatVal);
                                         <img src="https://www.intelliworkz.co/marhaba_laravel/public/product_images/Shirt-Shorts-Co-ord-set-2-5Y-1.png" alt="Shirt Shorts Co-ord Set" class="img-fluid product_img w-100" onerror="this.src='https://www.intelliworkz.co/marhaba_laravel/public/front/img/default-product.jpg'">
                                     </a> --}}
                                 </div>
-                                <a href="{{ url('products-details/' . $vv['url'].'/'. $vv['id']) }}" target="_blank"><p class="mb-0" style="font-weight:500;">{{$vv->name ?? ''}}</p></a>
-                                <p class="raleway_14 mb-0">{{$vk ?? ''}}</p>
+                                <div>
+                                    <a href="{{ url('products-details/' . $vv['url'].'/'. $vv['id']) }}" target="_blank" class="prod_list_title">
+                                        <h4 class="mb-0" style="font-weight:500;">{{$vv->name ?? ''}}</h4>
+                                        <p class="mb-0">{{$vk ?? ''}}</p>
+                                    </a>                                
+                                </div>
                             </div>
                         </div>
                     </div>

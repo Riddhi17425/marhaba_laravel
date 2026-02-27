@@ -59,10 +59,17 @@
                     </a>
                 </div>
                 <div class="col-6 text-end">
-                    <button class="btn p-0 border-0" type="button" data-bs-toggle="offcanvas"
-                        data-bs-target="#sidebarMenu" aria-controls="sidebarMenu">
-                        <i class="fas fa-bars fs-3"></i>
-                    </button>
+                    @if (url()->current() === url('/'))
+                        <button class="btn p-0 border-0" type="button" data-bs-toggle="offcanvas"
+                            data-bs-target="#sidebarMenu" aria-controls="sidebarMenu">
+                            <i class="fas fa-bars fs-3"></i>
+                        </button>
+                    @else
+                        <button class="btn p-0 border-0" type="button" data-bs-toggle="offcanvas"
+                            data-bs-target="#sidebarMenu" aria-controls="sidebarMenu">
+                            <i class="fas fa-bars fs-3" style="color:#452667;"></i>
+                        </button>
+                    @endif
                 </div>
             </div>
 

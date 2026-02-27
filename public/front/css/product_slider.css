@@ -1,3 +1,9 @@
+.product_detail_intro {
+    height: 100vh;
+    overflow: hidden;
+    margin-top: 60px;
+}
+
 /* slider css */
 .product-slider {
     max-width: 100vw;
@@ -8,8 +14,8 @@
 }
 
 .slider-wrapper {
+    height: calc(100vh - 26vh);
     position: relative;
-    height: 90vh;
     background: #fff;
     overflow: hidden;
 }
@@ -52,13 +58,20 @@
 }
 
 /* Navigation arrows */
-.slid_bottom {
+
+
+.slid_bottom,
+.slid_pagination_number {
     position: absolute;
     right: 0;
     bottom: 0;
     display: flex;
     align-items: center;
     gap: 5px;
+    margin-right: 50px;
+}
+.slid_pagination_number {
+    display: none;
 }
 .slider_btn {
     width: 34px;
@@ -116,7 +129,11 @@
     }
 }
 
-/* slier css */
+/* ---------------------------slier css---------------------------- */
+.product_detail_intro .filter_banner {
+    margin-top: 30px;
+}
+
 .product_detail_grid {
     display: grid;
     grid-template-columns: 600px 600px;
@@ -125,7 +142,7 @@
 
 .pd_name {
     padding-bottom: 20px;
-    border-bottom: 1px solid purple;
+    border-bottom: 1px solid #D7C7E9;
     margin-bottom: 40px;
 }
 
@@ -134,12 +151,12 @@
 }
 
 .range-table td {
-    border: 1px solid black;
+    border: 1px solid #999999;
     padding: 8px 24px;
 }
 
 .pd_note {
-    font-size: 14px;
+    font-size: 16px;
     margin: 8px 0 30px;
 }
 
@@ -149,21 +166,23 @@
 
 .fs_18 {
     font-size: 18px;
-    line-height: 20px;
+    line-height: 24px;
     letter-spacing: -0.05em;
+    font-weight: 500;
 }
 
 .pd_left .age_range_box {
     padding: 16px 25px;
 }
 
-.get-price {
+.get_price {
     display: inline-block;
     width: 100%;
     background-color: #2e2e2e;
     padding: 23px 0;
     color: white;
     text-align: center;
+    margin-bottom: 35px;
 }
 
 .pd_right .accordion-item:before {
@@ -177,9 +196,24 @@
 }
 
 .pd_right .accordion-item {
-    border: unset;
+    border: none;
+    border-bottom: 1px solid #D7C7E9;
     position: relative;
-    padding-bottom: 12px;
+    padding-bottom: 8px;
+    margin-bottom: 30px;
+}
+
+.pd_right .accordion-item .accordion-button {
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 22px;
+    padding: 0;
+}
+
+.pd_right .accordion-item .accordion-body {
+    padding: 10px 0;
+    font-size: 16px;
+    line-height: 24px;
 }
 
 .pd_right .accordion-item:after {
@@ -198,6 +232,30 @@
     width: 100%;
 }
 
+.pd_small_acc {
+    width: 87%;
+    border-radius: 0;
+}
+
+.pd_list {
+    padding-left: 1rem;
+    margin-bottom: 10px;
+}
+
+.pd_list li::marker {
+    color: #D7C7E9;
+}
+
+.pd_social {
+    margin-bottom: 8px;
+}
+
+.pd_social a {
+    margin-left: 10px;
+    text-decoration: underline;
+    display: inline-block;
+}
+
 /* bottom slider arrow snad dots */
 .simple-slider .slick-next:before,
 .simple-slider .slick-prev:before,
@@ -206,14 +264,17 @@
     opacity: 1;
     color: #333;
 }
+
 .simple-slider .slick-prev {
     left: 25px;
     z-index: 99;
 }
+
 .simple-slider .slick-next {
     right: 25px;
     z-index: 99;
 }
+
 /* slick slider dots */
 .slick-dotted.slick-slider {
     margin-bottom: 40px;
@@ -269,6 +330,7 @@
     margin-bottom: 15px;
     display: inline-block;
 }
+
 /* prduct detail css */
 /* size ppup css */
 .size_pop .nav-link {
@@ -279,11 +341,13 @@
     background: #fff;
     font-family: var(--font-lore);
     font-size: 18px;
-    line-height: 16px;/* as per figma  */
+    line-height: 16px;
+    /* as per figma  */
     font-weight: 500;
     font-variant-numeric: lining-nums tabular-nums;
     font-feature-settings: "lnum", "tnum";
 }
+
 .size_pop .nav-link.active {
     border: 1px solid #452667;
     padding: 20px 30px;
@@ -291,10 +355,12 @@
     border-radius: 0;
     background: #452667;
 }
+
 .size_pop .nav-tabs {
     width: fit-content;
     margin-inline: auto;
 }
+
 .size_pop_head {
     text-align: center;
     font-family: var(--font-lore);
@@ -304,6 +370,7 @@
     letter-spacing: -0.01em;
     margin: 24px 0;
 }
+
 .size_table {
     border: 1px solid #999999;
     margin-inline: auto;
@@ -311,19 +378,26 @@
     border-radius: 0;
     box-shadow: none;
 }
+
 .size_table td {
     border: none;
     padding: 16px 24px;
     white-space: nowrap;
 }
+
 .size_table tr {
     border: 1px solid #999999;
 }
+
 .peice_img_wrapper {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 10px;
 }
-.size_table .btn_1{margin-left: auto;}
+
+.size_table .btn_1 {
+    margin-left: auto;
+}
+
 /* size ppup css */

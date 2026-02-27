@@ -296,9 +296,9 @@ $('.simple-slider').slick({
     speed: 500,
     pauseOnHover: true,
     responsive: [
-        { breakpoint: 992, settings: { slidesToShow: 3 } },
-        { breakpoint: 768, settings: { slidesToShow: 2 } },
-        { breakpoint: 576, settings: { slidesToShow: 1 } }
+        { breakpoint: 992, settings: { slidesToShow: 3, dots: false } },
+        { breakpoint: 769, settings: { slidesToShow: 2, dots: false } },
+        { breakpoint: 576, settings: { slidesToShow: 1, dots: false } }
     ]
 });
 });

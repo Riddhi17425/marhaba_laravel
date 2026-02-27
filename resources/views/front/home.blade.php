@@ -178,7 +178,7 @@
     </section>
 @endif
 <!-- -----------------boy slider----------- -->
-<section class="home_mt-100">
+<section class="home_mt-100 d-none">
     <div class="ym-container">
         <div class="container_main_boy">
             <div class="col_small">
@@ -263,8 +263,10 @@
         </div>
     </div>
 </section>
+@include('layouts.boy-section')
+@include('layouts.girl-section')
 <!-- -------------girl slider--------------- -->
-<section class="home_mt-100">
+<section class="home_mt-100 d-none">
     <div class="ym-container">
         <div class="container_main_girl">
             <div class="col_big">

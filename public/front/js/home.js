@@ -331,9 +331,18 @@ document.addEventListener("DOMContentLoaded", () => {
             dots: false,
             infinite: true,
             speed: 400,
-            autoplay:false,
+            autoplay:true,
             autoplaySpeed: 2000,
-            pauseOnHover: false
+            pauseOnHover: false,
+            responsive: [
+                            {
+                                breakpoint: 576,
+                                settings: {                                    
+                                    arrows: false,
+                                    dots:true,
+                                }
+                            }
+                        ]
         });
     }
 
