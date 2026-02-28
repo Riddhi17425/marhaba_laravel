@@ -3,6 +3,10 @@
 <link rel="stylesheet" href="{{ asset('public/front/css/product_slider.css') }}">
 <link rel="stylesheet" href="{{ asset('public/front/css/hero_responsive.css') }}">
 <script src="https://unpkg.com/@zoom-image/core"></script>
+@php 
+    $productImages = json_decode($product->product_brand_size);
+    $filteredImages = collect($productImages)->values();
+@endphp
 
 <section class="product_detail_intro">
     <div>
@@ -11,11 +15,22 @@
                 <div class="slides-track" id="track">
                     <div class="slide">
                         <div class="image-container">
-                            <img src="{{ asset('public/front/img/product-detail/pd_1.png') }}" class="product-img"
-                                alt="View 1" draggable="false">
+                            <img src="{{ asset('public/product_images/' . $filteredImages[0]->product_image) }}" class="product-img" alt="{{ $product->name }}" draggable="false">
+                            {{-- <img src="{{ asset('public/front/img/product-detail/pd_1.png') }}" class="product-img"
+                                alt="View 1" draggable="false"> --}}
                         </div>
                     </div>
-                    <div class="slide">
+                    @foreach($filteredImages as $k => $v)
+                    @if($k == 6)
+                        @break
+                    @endif
+                        <div class="slide">
+                            <div class="image-container">
+                                <img src="{{ asset('public/product_images/' . $v->product_image) }}" class="product-img" alt="{{ $product->name ?? 'Product Image' }}" draggable="false">
+                            </div>
+                        </div>
+                    @endforeach
+                    {{-- <div class="slide">
                         <div class="image-container"><img src="{{ asset('public/front/img/product-detail/pd_2.png') }}"
                                 class="product-img" alt="View 2" draggable="false"></div>
                     </div>
@@ -34,7 +49,7 @@
                     <div class="slide">
                         <div class="image-container"><img src="{{ asset('public/front/img/product-detail/pd_3.png') }}"
                                 class="product-img" alt="View 6" draggable="false"></div>
-                    </div>
+                    </div> --}}
                 </div>
 
 
@@ -63,19 +78,22 @@
         <div class="product_detail_grid">
             <div class="pd_left">
                 <div>
-                    <h1 class="pd_name raleway_24">Baby Starters: 3-Pack Bodysuits</h1>
+                    <h1 class="pd_name raleway_24">{{ $product->name }}</h1>
                 </div>
                 <div>
                     <div class="range_table_head">
-                        <p style="font-weight:500;">Size Assortment : 0m-9m</p>
+                        <p style="font-weight:500;">Size Assortment : {{ $smallest[0] ?? '' }}-{{$largest[1] ?? ''}}</p>
                         <a class="btn_1" data-bs-toggle="modal" data-bs-target="#size_popup">Product
                             Assortment</a>
                     </div>
                     <table class="range-table">
                         <tr>
-                            <td>0m-3m</td>
+                            @foreach($sizeList as $size)
+                                <td>{{ $size->name }}</td>
+                            @endforeach
+                            {{-- <td>0m-3m</td>
                             <td>3m-6m</td>
-                            <td>6m-9m</td>
+                            <td>6m-9m</td> --}}
                         </tr>
                     </table>
                     <p class="pd_note">3 sizes premixed per dozen (12 pc pack)</p>
@@ -90,14 +108,16 @@
                         </div>
                         <div class="age_range_box" style="background-color: rgb(239, 230, 240);">
                             <div class="age-card">
-                                <img src="{{ asset('public/brand_images/smart_kids.png') }}" alt="" width="114"
-                                    height="47">
+                                {{-- <img src="{{ asset('public/brand_images/smart_kids.png') }}" alt="" width="114"
+                                    height="47"> --}}
+                                <img loading="lazy" src="{{ asset('public/brand_images/' . $product->brand->image) }}" alt="{{ $product->brand->name }}"
+                            class="img-fluid">
                             </div>
                         </div>
                         <div class="age_range_box" style="background-color: rgb(230, 239, 242);">
                             <div class="age-card">
-                                <p class="raleway_14 mb-0">Boy</p>
-                                <h3 class="fs_18">Homeware</h3>
+                                <p class="raleway_14 mb-0">{{ ucfirst($product->type ?? '') }}</p>
+                                <h3 class="fs_18">{{ $product->category->name ?? '' }}</h3>
                             </div>
                         </div>
                     </section>
@@ -105,7 +125,11 @@
             </div>
             <div class="pd_right">
                 <div>
-                    <a href="#" class="get_price">
+                    @php
+                        $message = "Hello, I'm visiting your website and would like to know more about " . $product->name;
+                        $whatsappUrl = "https://api.whatsapp.com/send?phone=971569233052&text=" . urlencode($message);
+                    @endphp
+                    <a href="{{ $whatsappUrl }}" class="get_price">
                         <svg class="me-2" width="18" height="18" viewBox="0 0 18 18" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
                             <path
@@ -132,11 +156,7 @@
                             <div id="collapseProduct" class="accordion-collapse collapse" aria-labelledby="headingOne"
                                 data-bs-parent="#accordionExample">
                                 <div class="accordion-body">
-                                    Soft, coordinated, and made for everyday comfort — this 3-pack of short-sleeve
-                                    bodysuits keeps babies well-dressed from playtime to nap time. Each piece features
-                                    smooth seams, durable snap closures, and uniform sizing for easy wear and
-                                    presentation. Thoughtfully designed to keep little ones cozy and cared for through
-                                    every moment of the day.
+                                    {!! $product->description ?? '' !!}
                                 </div>
                             </div>
                         </div>
