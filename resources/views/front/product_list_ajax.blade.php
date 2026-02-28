@@ -50,11 +50,11 @@
                                     </div>
                                 </div> --}}
                                 <img src="{{ asset('public/front/img/product-not-found.png') }}" alt="not found"
-                                    class="ym_cover_slider">
+                                    class="ym_cover_slider" loading="lazy">
                                 <div class="ym_slider">
                                     <div>
                                         <img src="{{ asset('public/front/img/product-not-found.png') }}"
-                                            class="ym_slide_img">
+                                            class="ym_slide_img" loading="lazy">
                                     </div>
                                 </div>
                             @endif

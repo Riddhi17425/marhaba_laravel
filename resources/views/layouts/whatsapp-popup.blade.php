@@ -4,8 +4,7 @@
 <style>
     /* Hidden Popup */
     input, textarea{
-        font-variant-numeric: lining-nums tabular-nums;
-        font-feature-settings: "lnum", "tnum";
+        font-family: "Lora", serif;
         line-height: normal;
     }
     .wa_popup {
@@ -36,8 +35,7 @@
     }
 
     .wa_head h3 {
-        font-size: 18px;
-        ;
+        font-size: 18px;;
         margin: 0;
     }
 
@@ -69,7 +67,7 @@
     }
 
     .iti__country-container {
-        top: 7px !important;
+        top: 8px !important;
     }
     .iti__selected-country, .iti__country-name{color:#333;}
     .iti__selected-country {

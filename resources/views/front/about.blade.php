@@ -21,7 +21,7 @@
         <div class="row align-items-center">
             <div class="col-md-6 ">
                 <div class="overflow-hidden">
-                     <img src="{{ asset('public/front/img/our_story.png') }}" alt="Our Story"animation="3" class="img-fluid scroll-image" data-animate-on-scroll>
+                     <img loading="lazy" src="{{ asset('public/front/img/our_story.png') }}" alt="Our Story"animation="3" class="img-fluid scroll-image" data-animate-on-scroll>
                 </div>
             </div>
             <div class="col-md-6">
@@ -68,34 +68,34 @@
             <div
                 class="col-md-2 d-flex justify-content-center align-items-center mb-3 wow animate__animated animate__fadeInDown"
                 data-wow-delay="0.3s">
-                <img src="{{ asset('public/front/img/baby_starters.png') }}" alt="baby_starters"
+                <img loading="lazy"src="{{ asset('public/front/img/baby_starters.png') }}" alt="baby_starters"
                     class="img-fluid">
             </div>
             <div
                 class="col-md-2 d-flex justify-content-center align-items-center mb-3 wow animate__animated animate__fadeInUp"
                 data-wow-delay="0.3s">
-                <img src="{{ asset('public/front/img/my_melody.png') }}" alt="my_melody"
+                <img loading="lazy" src="{{ asset('public/front/img/my_melody.png') }}" alt="my_melody"
                     class="img-fluid">
             </div>
             <div
                 class="col-md-2 d-flex justify-content-center align-items-center mb-3 wow animate__animated animate__fadeInUp"
                 data-wow-delay="0.3s">
-                <img src="{{ asset('public/front/img/smart_kids.png') }}" alt="smart_kids"
+                <img loading="lazy" src="{{ asset('public/front/img/smart_kids.png') }}" alt="smart_kids"
                     class="img-fluid">
             </div>
         </div>
         <div class=" d-block d-md-none gy-4 py-4 pb-1">
             <div class="mobile_slider">
                 <div class="col-md-2 d-flex justify-content-center align-items-center">
-                    <img src="{{ asset('public/front/img/baby_starters.png') }}"
+                    <img loading="lazy" src="{{ asset('public/front/img/baby_starters.png') }}"
                         alt="baby_starters"
                         class="img-fluid brand_logo">
                 </div>
-                <div class="col-md-2 d-flex justify-content-center align-items-center">
+                <div loading="lazy" class="col-md-2 d-flex justify-content-center align-items-center">
                     <img src="{{ asset('public/front/img/my_melody.png') }}" alt="my_melody"
                         class="img-fluid brand_logo">
                 </div>
-                <div class="col-md-2 d-flex justify-content-center align-items-center">
+                <div loading="lazy" class="col-md-2 d-flex justify-content-center align-items-center">
                     <img src="{{ asset('public/front/img/smart_kids.png') }}" alt="smart_kids"
                         class="img-fluid brand_logo">
                 </div>

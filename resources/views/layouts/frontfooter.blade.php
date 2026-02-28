@@ -99,7 +99,7 @@
                         <div class="text-md-center">
                             <p class="mb-0">2883595863</p>
                             <img src="{{ asset('public/front/img/Home/home_qr.svg') }}" alt="Isolation Mode"
-                                class="img-fluid">
+                                class="img-fluid" height="94" width="94" loading="lazy">
                             <p class="mb-0">2883595863</p>
                         </div>
                         <div>

@@ -119,7 +119,7 @@ $subcatVal = preg_replace('/[\#].*$/', '', $subcatVal);
                                             </div> --}}
                                             <!-- ✅ COVER IMAGE (FIRST IMAGE ONLY) -->
                                             <img src="{{ asset('public/product_images/' . $filteredImages[0]->product_image) }}"
-                                                alt="{{ $vv->name }}" class="ym_cover_slider">
+                                                alt="{{ $vv->name }}" class="ym_cover_slider" loading="lazy">
                                             <!-- ✅ SLICK SLIDER -->
                                             <div class="ym_slider">
                                                 @foreach($filteredImages as $k => $v)

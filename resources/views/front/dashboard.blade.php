@@ -5,17 +5,17 @@
             <div class="row d-flex justify-content-center">
                 <div class="col-xxl-9 col-lg-8">
                     <a href="#section3">
-                        <img src="{{ asset('public/front/img/hero_banner_textbg.png') }}" alt="hero_banner_girl" class="img-fluid herobanner_img">
+                        <img src="{{ asset('public/front/img/hero_banner_textbg.png') }}" alt="hero_banner_girl" class="img-fluid herobanner_img" loading="lazy">
                     </a>
                     
                 </div>
             </div>
         </div>
         <div class="col-md-6 col-6 p-0">
-            <img src="{{ asset('public/front/img/baby-boy.gif') }}" alt="hero_banner_boy" class="img-fluid w-100">
+            <img loading="lazy" src="{{ asset('public/front/img/baby-boy.gif') }}" alt="hero_banner_boy" class="img-fluid w-100">
         </div>
         <div class="col-md-6 col-6 p-0">
-            <img src="{{ asset('public/front/img/baby-girl.gif') }}" alt="hero_banner_girl" class="img-fluid w-100">
+            <img loading="lazy" src="{{ asset('public/front/img/baby-girl.gif') }}" alt="hero_banner_girl" class="img-fluid w-100">
         </div>
 
     </div>
