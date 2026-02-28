@@ -419,3 +419,33 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 });
+
+function initYmSlider() {
+
+    $('.ym_slider').not('.slick-initialized').slick({
+        arrows: true,
+        dots: false,
+        infinite: true,
+        speed: 400,
+        autoplay: true,
+        autoplaySpeed: 2000,
+        pauseOnHover: false,
+        responsive: [
+            {
+                breakpoint: 576,
+                settings: {
+                    arrows: false,
+                    dots: true,
+                }
+            }
+        ]
+    });
+}
+
+$(document).ready(function () {
+    initYmSlider();
+});
+
+$(document).ajaxComplete(function () {
+    initYmSlider();
+});

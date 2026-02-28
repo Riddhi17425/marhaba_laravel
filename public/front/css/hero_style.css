@@ -633,7 +633,7 @@ a {
 .ym_card {
     width: 390px;
     height: 510px;
-    border: 1px solid red;
+    /* border: 1px solid red; */
     overflow: hidden;
     /* 🔥 prevents overflow */
     background: #fff;
@@ -914,9 +914,14 @@ select:focus {
     .brand-cell:last-child {
         border-bottom: none;
     }
+
     .brand-cell:nth-child(n+4) {
-    border-bottom: 1px solid #ddd;
+        border-bottom: 1px solid #ddd;
     }
 }
 
 /* brand grid image */
+.iti__selected-dial-code {
+    font-variant-numeric: lining-nums tabular-nums;
+    font-feature-settings: "lnum", "tnum";
+}

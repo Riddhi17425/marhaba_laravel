@@ -83,7 +83,8 @@ $subcatVal = preg_replace('/[\#].*$/', '', $subcatVal);
         <div id="withFilterProduct" class="d-none">
            
         </div>
-
+    </div>
+    <div class="ym-container">
         <div id="withoutFilterProducts">
             <!-- Baby Section -->
             @if(isset($groupedProducts['baby']['products']) && is_countable($groupedProducts['baby']['products']) && count($groupedProducts['baby']['products']) > 0)

@@ -61,7 +61,7 @@
                         </div>
                     </div>
                     <div>
-                        <a href="{{ url('products-details/' . $vv['url'].'/'. $vv['id']) }}" target="_blank">                            
+                        <a href="{{ url('products-details/' . $vv['url'].'/'. $vv['id']) }}" target="_blank" class="prod_list_title">                            
                             <h4 class="mb-0" style="font-weight:500;">{{$vv->name ?? ''}}</h4>
                             <p class="mb-0">{{$vk ?? ''}}</p>
                         </a>
