@@ -102,13 +102,13 @@
                 </div>
                 <div>
                     <section class="age_range_section">
-                        <div class="age_range_box" style="background-color: rgb(243, 242, 231);">
+                        <div class="age_range_box" style="background-color: rgb(239, 230, 240);">
                             <div class="age-card">
                                 <p class="raleway_14 mb-0">MOQ</p>
                                 <h3 class="fs_18">12 sets per design</h3>
                             </div>
                         </div>
-                        <div class="age_range_box" style="background-color: rgb(239, 230, 240);">
+                        <div class="age_range_box" style="background-color: rgb(243, 242, 231);">
                             <div class="age-card">
                                 {{-- <img src="{{ asset('public/brand_images/smart_kids.png') }}" alt="" width="114"
                                     height="47"> --}}
