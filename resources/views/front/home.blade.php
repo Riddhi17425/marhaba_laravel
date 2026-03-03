@@ -584,8 +584,8 @@
     <section class="home_mt-100">
         <div class="ym-container">
             <h2 class="title_60lora text-center">Trusted by</h2>
-            <p class="text-center">Whether you run a boutique, supply a regional network, or sell online—there's a place for
-                you here. Marhaba partners with businesses of every size, with terms shaped around your needs.</p>
+            <p class="text-center mt-3 title_24-raleway">Whether you run a boutique, supply a regional network, or sell online—there's a place for
+                you here.<br> Marhaba partners with businesses of every size, with terms shaped around your needs.</p>
             <a href="#" class="btn_1 mx-auto" data-bs-toggle="modal" data-bs-target="#enquiryModal">Enquire Now <img loading="lazy"
                     src="{{ asset('public/front/img/Home/blue-arr.svg') }}" alt="" height="10" width="10"></a>
             <div class="core_wrapper mt-5">
