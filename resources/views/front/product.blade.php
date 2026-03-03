@@ -246,7 +246,7 @@
                 collections for your business.
             </p>
             <div class="btn_wrapper">
-                <a href="javascript:void(0)" class="btn_1">Request Latest Catalogues <img loading="lazy"
+                <a href="javascript:void(0)" class="btn_1" data-bs-toggle="modal" data-bs-target="#enquiryModal">Request Latest Catalogues <img loading="lazy"
                         src="http://localhost/marhaba_laravel/public/front/img/Home/blue-arr.svg" alt="" height="10"
                         width="10"></a>
             </div>
@@ -282,7 +282,7 @@
 </section>
 @include('layouts.size-popup')
 @include('layouts.frontfooter')
-
+@include('layouts.new-enquiry')
 <!-- slider js -->
 <script>
     // ── Core slider logic ────────────────────────────────────────────────────
