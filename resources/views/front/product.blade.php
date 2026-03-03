@@ -284,6 +284,7 @@
 @include('layouts.frontfooter')
 @include('layouts.new-enquiry')
 <!-- slider js -->
+<!-- slider js -->
 <script>
     // ── Core slider logic ────────────────────────────────────────────────────
     const track = document.getElementById('track');
@@ -298,6 +299,7 @@
 
     // ── Config ────────────────────────────────────────────────────────────────
     const AUTOPLAY_SPEED = 3000; // ms between slides
+    const TRANSITION_DURATION = 400; // ms — must match your CSS transition duration
     let autoplayTimer = null;
 
     // Pagination counter
@@ -347,23 +349,41 @@
         slides.forEach((slide, i) => {
             let left = '100%';
             let w = isDesktop ? '50%' : '100%';
+            let visible = false;
 
             if (!isDesktop) {
                 left = (i === currentIndex) ? '0%' : (i < currentIndex ? '-100%' : '100%');
                 w = '100%';
+                visible = (i === currentIndex);
             } else if (isDoubleMode) {
-                if (i === currentIndex) { left = '0%'; w = '50%'; }
-                else if (i === currentIndex + 1) { left = '50%'; w = '50%'; }
-                else if (i < currentIndex) { left = '-50%'; w = '50%'; }
-                else { left = '100%'; w = '50%'; }
+                if (i === currentIndex)          { left = '0%';   w = '50%'; visible = true; }
+                else if (i === currentIndex + 1) { left = '50%';  w = '50%'; visible = true; }
+                else if (i < currentIndex)       { left = '-50%'; w = '50%'; }
+                else                             { left = '100%'; w = '50%'; }
             } else {
                 left = (i === currentIndex) ? '0%' : (i < currentIndex ? '-100%' : '100%');
                 w = '100%';
+                visible = (i === currentIndex);
             }
 
             slide.style.transition = animate ? '' : 'none';
             slide.style.left = left;
             slide.style.width = w;
+
+            if (visible) {
+                // Show immediately so the enter animation is visible
+                slide.style.visibility = 'visible';
+            } else if (animate) {
+                // Delay hiding so the exit animation still plays fully
+                setTimeout(() => {
+                    if (slide.style.left !== '0%' && slide.style.left !== '50%') {
+                        slide.style.visibility = 'hidden';
+                    }
+                }, TRANSITION_DURATION);
+            } else {
+                // No animation — hide instantly
+                slide.style.visibility = 'hidden';
+            }
         });
         updateThumbs();
         updateCounter();
@@ -376,17 +396,20 @@
             slides[currentIndex].style.transition = '';
             slides[currentIndex].style.width = '50%';
             slides[currentIndex].style.left = '-50%';
+            slides[currentIndex].style.visibility = 'visible'; // keep visible during exit animation
 
             const second = currentIndex + 1;
             if (second < total) {
                 slides[second].style.transition = '';
                 slides[second].style.width = '50%';
                 slides[second].style.left = '-50%';
+                slides[second].style.visibility = 'visible'; // keep visible during exit animation
             }
         } else {
             slides[currentIndex].style.transition = '';
             slides[currentIndex].style.width = '100%';
             slides[currentIndex].style.left = '-100%';
+            slides[currentIndex].style.visibility = 'visible'; // keep visible during exit animation
         }
 
         // 2. Silently park ALL other slides off-screen right — no transition so they don't fly across
@@ -396,6 +419,7 @@
             slide.style.transition = 'none';
             slide.style.left = '100%';
             slide.style.width = '100%';
+            slide.style.visibility = 'hidden'; // hidden instantly — no animation needed
         });
 
         requestAnimationFrame(() => {
@@ -406,6 +430,17 @@
                 slides[0].style.transition = '';
                 slides[0].style.left = '0%';
                 slides[0].style.width = '100%';
+                slides[0].style.visibility = 'visible'; // show as it enters
+
+                // 4. Hide the exiting slide(s) after transition completes
+                setTimeout(() => {
+                    slides.forEach((slide, i) => {
+                        if (slide.style.left !== '0%' && slide.style.left !== '50%') {
+                            slide.style.visibility = 'hidden';
+                        }
+                    });
+                }, TRANSITION_DURATION);
+
                 updateThumbs();
                 updateCounter();
             });
@@ -420,6 +455,7 @@
         slides[currentIndex].style.transition = '';
         slides[currentIndex].style.width = '100%';
         slides[currentIndex].style.left = '100%';
+        slides[currentIndex].style.visibility = 'visible'; // keep visible during exit animation
 
         // 2. Silently park ALL other slides off-screen left — no transition so they don't fly across
         slides.forEach((slide, i) => {
@@ -427,6 +463,7 @@
             slide.style.transition = 'none';
             slide.style.left = '-100%';
             slide.style.width = '100%';
+            slide.style.visibility = 'hidden'; // hidden instantly — no animation needed
         });
 
         requestAnimationFrame(() => {
@@ -437,6 +474,17 @@
                 slides[lastIndex].style.transition = '';
                 slides[lastIndex].style.left = '0%';
                 slides[lastIndex].style.width = '100%';
+                slides[lastIndex].style.visibility = 'visible'; // show as it enters
+
+                // 4. Hide the exiting slide after transition completes
+                setTimeout(() => {
+                    slides.forEach((slide) => {
+                        if (slide.style.left !== '0%' && slide.style.left !== '50%') {
+                            slide.style.visibility = 'hidden';
+                        }
+                    });
+                }, TRANSITION_DURATION);
+
                 updateThumbs();
                 updateCounter();
             });
@@ -683,4 +731,5 @@
 
     startAutoplay();
 </script>
+<!-- slider js -->
 <!-- slider js -->
