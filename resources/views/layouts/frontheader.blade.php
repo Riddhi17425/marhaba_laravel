@@ -100,6 +100,10 @@
                                 class="img-fluid white-head">
                         </a>
 
+                        <a href="javascript:void(0)" target="_blank">
+                            <img src="{{ asset('public/front/img/facebook_icon.png') }}" alt="faceook"
+                                class="img-fluid white-head">
+                        </a>
                         <a href="https://www.linkedin.com/company/marhaba-llc/" target="_blank">
                             <img src="{{ asset('public/front/img/linkedin_icon.png') }}" alt="linkedin"
                                 class="img-fluid white-head">

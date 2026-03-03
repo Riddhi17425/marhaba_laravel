@@ -401,7 +401,7 @@ $subcatVal = preg_replace('/[\#].*$/', '', $subcatVal);
     <div class="offcanvas-header">
         <h5 class="offcanvas-title lora_36" id="filterOffcanvasLabel">Filters</h5>
         <!--<button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>-->
-        <p type="button" class="mb-0" id="clearFilters">Clear All</button>
+        <p type="button" class="mb-0 text-decoration-underline" id="clearFilters">Clear All</button>
     </div>
     <div class="offcanvas-body filter">
         <div class="menu_body">
