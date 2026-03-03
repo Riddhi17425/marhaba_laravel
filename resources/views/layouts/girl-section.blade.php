@@ -62,13 +62,13 @@
 document.addEventListener('DOMContentLoaded', () => {
 
   const brands = [
-    { src: "{{ asset('public/front/img/home/Comfort-Palazzo-Set.png') }}",            name: "Comfort Palazzo Set" },
-    { src: "{{ asset('public/front/img/home/classic-dress.png') }}",        name: "Classic Dress" },
-    { src: "{{ asset('public/front/img/home/Top-Leggings-Set.png') }}",                      name: "Top & Leggings Set" },
-    { src: "{{ asset('public/front/img/home/Loungewear-Set.png') }}",                  name: "Loungewear Set" },
-    { src: "{{ asset('public/front/img/home/Comfort-Tshirt-Shorts.png') }}",           name: "Comfort T-shirt Shorts" },
-    { src: "{{ asset('public/front/img/home/Classic-Shirt-Shorts-Set.png') }}",        name: "Classic Shirt Shorts Set" },
-    { src: "{{ asset('public/front/img/home/Smart-Kids-Comfort-Bodysuit-Set.png') }}",  name: "Smart Kids Comfort Bodysuit Set" },
+    { src: "{{ asset('public/front/img/Home/Comfort-Palazzo-Set.png') }}",            name: "Comfort Palazzo Set" },
+    { src: "{{ asset('public/front/img/Home/classic-dress.png') }}",        name: "Classic Dress" },
+    { src: "{{ asset('public/front/img/Home/Top-Leggings-Set.png') }}",                      name: "Top & Leggings Set" },
+    { src: "{{ asset('public/front/img/Home/Loungewear-Set.png') }}",                  name: "Loungewear Set" },
+    { src: "{{ asset('public/front/img/Home/Comfort-Tshirt-Shorts.png') }}",           name: "Comfort T-shirt Shorts" },
+    { src: "{{ asset('public/front/img/Home/Classic-Shirt-Shorts-Set.png') }}",        name: "Classic Shirt Shorts Set" },
+    { src: "{{ asset('public/front/img/Home/Smart-Kids-Comfort-Bodysuit-Set.png') }}",  name: "Smart Kids Comfort Bodysuit Set" },
   ];
 
   const cells = document.querySelectorAll('#brand-grid-girl .brand-cell');

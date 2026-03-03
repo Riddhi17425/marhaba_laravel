@@ -166,6 +166,7 @@ a {
 .hero_breadcrumb {
     display: flex;
     gap: 24px;
+    margin-top:24px;
     align-items: center;
 }
 
@@ -924,4 +925,8 @@ select:focus {
 .iti__selected-dial-code {
     font-variant-numeric: lining-nums tabular-nums;
     font-feature-settings: "lnum", "tnum";
+}
+
+.hero_img_wrapper img {
+    height: 500px;
 }

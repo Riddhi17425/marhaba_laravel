@@ -62,13 +62,13 @@
 document.addEventListener('DOMContentLoaded', () => {
 
   const brands = [
-    { src: "{{ asset('public/front/img/home/Classic-Shirt-Shorts.png') }}",            name: "Classic Shirt Shorts" },
-    { src: "{{ asset('public/front/img/home/Shirt-Shorts-Co-ord-Set.png') }}",        name: "Shirt Shorts Co-ord Set" },
-    { src: "{{ asset('public/front/img/home/Pyjama-Set.png') }}",                      name: "Pyjama Set" },
-    { src: "{{ asset('public/front/img/home/Loungewear-Set.png') }}",                  name: "Loungewear Set" },
-    { src: "{{ asset('public/front/img/home/Comfort-Tshirt-Shorts.png') }}",           name: "Comfort T-shirt Shorts" },
-    { src: "{{ asset('public/front/img/home/Classic-Shirt-Shorts-Set.png') }}",        name: "Classic Shirt Shorts Set" },
-    { src: "{{ asset('public/front/img/home/Smart-Kids-Comfort-Bodysuit-Set.png') }}",  name: "Smart Kids Comfort Bodysuit Set" },
+    { src: "{{ asset('public/front/img/Home/Classic-Shirt-Shorts.png') }}",            name: "Classic Shirt Shorts" },
+    { src: "{{ asset('public/front/img/Home/Shirt-Shorts-Co-ord-Set.png') }}",        name: "Shirt Shorts Co-ord Set" },
+    { src: "{{ asset('public/front/img/Home/Pyjama-Set.png') }}",                      name: "Pyjama Set" },
+    { src: "{{ asset('public/front/img/Home/Loungewear-Set.png') }}",                  name: "Loungewear Set" },
+    { src: "{{ asset('public/front/img/Home/Comfort-Tshirt-Shorts.png') }}",           name: "Comfort T-shirt Shorts" },
+    { src: "{{ asset('public/front/img/Home/Classic-Shirt-Shorts-Set.png') }}",        name: "Classic Shirt Shorts Set" },
+    { src: "{{ asset('public/front/img/Home/Smart-Kids-Comfort-Bodysuit-Set.png') }}",  name: "Smart Kids Comfort Bodysuit Set" },
   ];
 
   const cells = document.querySelectorAll('#brand-grid .brand-cell');

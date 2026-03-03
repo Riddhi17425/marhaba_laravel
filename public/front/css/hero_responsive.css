@@ -351,6 +351,8 @@
 @media screen and (min-width: 376px) and (max-width: 431px) {
     .comp_bus_back {padding: 20px;}
     .slider-wrapper {height: calc(100vh - 32vh);}
+    .ym-container.mob_ym_container{margin:0!important;}
+    .ym_card {width: 190px;height: 300px;}
 }
 @media screen and (max-width: 376px){
     .hero_overlay_ctnt_h1 {font-size: 23px;line-height: 34px;}
