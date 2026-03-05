@@ -22,6 +22,9 @@
                         </div>
                     </div>
                     @foreach($filteredImages as $k => $v)
+                        @if($k == 0)
+                            @continue
+                        @endif
                         @if($k == 6)
                             @break
                         @endif
