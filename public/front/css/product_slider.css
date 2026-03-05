@@ -16,7 +16,7 @@
 .slider-wrapper {
     height: calc(100vh - 26vh);
     position: relative;
-    background: #fff;
+    background: linear-gradient(0deg, #FBFBFB 0%, #FBFBFB 100%), linear-gradient(134deg, #FFF 9%, #DDD 93.94%);
     overflow: hidden;
 }
 
@@ -412,7 +412,7 @@
 .range_table_head .btn_1 {
     cursor: pointer;
     transition: all 0.3s ease;
-    padding:10px 20px;
+    padding: 10px 20px;
 }
 
 .range_table_head .btn_1:hover {

@@ -51,10 +51,11 @@
         .card_overlay{padding: 26px;}
         .f_48{    font-size: 42px;line-height: 46px;}
         .map_img{width: 70%;}
-        .map-circle{    width: 180px; height: 180px;padding: 20px;    margin-left: 5%;}
+        .map-circle{width: 180px; height: 180px;padding: 20px;    margin-left: 5%;}
         .map-circle-location {align-items: flex-end;}
-        .map-location-text {font-size: 18px; line-height: 27px;
-}
+        .map-location-text {font-size: 18px; line-height: 27px;}
+        .serve_grid, .serve_grid_2{grid-template-columns: 1fr 1fr;}
+        .serve_grid .title_24-raleway {margin: 15px 0 10px;}
      } 
          @media screen and (max-width:1280px){
                  .right_breadcrumb { width: 355px;}
@@ -83,6 +84,7 @@
         .trendsetters_title{    font-size: 28px; }
         .goal_crad h2{font-size: 22px;}
          .f_48{    font-size: 38px;line-height: 42px;}
+         .serve_grid, .serve_grid_2{gap:40px;}
      } 
      @media screen and (max-width:1120px){} 
      @media screen and (max-width:992px){
@@ -139,6 +141,9 @@
     transform:none;
     position: relative;
      }
+    .serve_grid, .serve_grid_2{grid-template-columns: 1fr;}
+    .serve_grid_2 > div:nth-child(2) {order: -1;}
+
    }
     @media screen and (min-width:992px){
       .product_wrapper:hover .product_card {
@@ -171,6 +176,7 @@
       .product_wrapper:hover .slick-arrow {
           opacity: 1;
       }
+      
    }
      @media screen and (max-width:768px){
          .right_breadcrumb{width: 100%;
@@ -215,6 +221,9 @@
         font-size: 32px;
         line-height: 40px;
     }
+    .serve_grid .title_48lora{font-size: 24px;line-height: 24px;}
+    .serve_grid .title_24-raleway{font-size: 18px;}
+    .serve_grid, .serve_grid_2 {gap: 20px;}
      }
    @media (max-width: 1920px) and (min-width: 1700px)  {
     

@@ -351,6 +351,10 @@ class dashboardController extends Controller
     {   
         return view('front.filter');
     }
+    public function serve()
+    {   
+        return view('front.serve');
+    }
      public function product($url, $id = null)
     {   
         // OLD

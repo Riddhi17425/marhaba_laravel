@@ -410,13 +410,13 @@ $subcatVal = preg_replace('/[\#].*$/', '', $subcatVal);
                 @if(isset($ageSection) && is_countable($ageSection) && count($ageSection) > 0)
                 <div class="accordion-item">
                     <h2 class="accordion-header" id="headingAge">
-                        <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                        <button class="accordion-button ps-0" type="button" data-bs-toggle="collapse"
                             data-bs-target="#collapseAge" aria-expanded="true" aria-controls="collapseAge">
                             Age Range
                         </button>
                     </h2>
                     <div id="collapseAge" class="accordion-collapse collapse show" aria-labelledby="headingAge" data-bs-parent="#accordionExample">
-                        <div class="accordion-body">
+                        <div class="accordion-body ps-0">
                             @foreach($ageSection as $key => $val)
                             <div class="form-check mb-2">
                                 <input class="form-check-input" type="checkbox" value="{{ $key }}" id="filterAge_{{ $key }}"
@@ -433,14 +433,14 @@ $subcatVal = preg_replace('/[\#].*$/', '', $subcatVal);
                 @if(isset($brands) && is_countable($brands) && count($brands) > 0)
                 <div class="accordion-item">
                     <h2 class="accordion-header" id="headingBrand">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        <button class="accordion-button collapsed ps-0" type="button" data-bs-toggle="collapse"
                             data-bs-target="#collapseBrand" aria-expanded="false" aria-controls="collapseBrand">
                             Brand
                         </button>
                     </h2>
                     <div id="collapseBrand" class="accordion-collapse collapse" aria-labelledby="headingBrand"
                         data-bs-parent="#accordionExample">
-                        <div class="accordion-body">
+                        <div class="accordion-body ps-0">
                             @foreach($brands as $key => $val)
                             <div class="form-check mb-2">
                                 <input class="form-check-input" type="checkbox" value="{{ $val->id }}" id="filterBrand_{{ $val->id }}" name="brand[]" data-total="{{ $val->total_brand_product }}" data-text="{{ $val->name }}">
@@ -456,14 +456,14 @@ $subcatVal = preg_replace('/[\#].*$/', '', $subcatVal);
                 <!--category-->
                 <div class="accordion-item">
                     <h2 class="accordion-header" id="headingCategory">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        <button class="accordion-button collapsed ps-0" type="button" data-bs-toggle="collapse"
                             data-bs-target="#collapseCategory" aria-expanded="false" aria-controls="collapseCategory">
                             Category
                         </button>
                     </h2>
                     <div id="collapseCategory" class="accordion-collapse collapse" aria-labelledby="headingCategory"
                         data-bs-parent="#accordionExample">
-                        <div class="accordion-body">
+                        <div class="accordion-body ps-0">
                             @foreach($categories as $key => $val)
                             <div class="form-check mb-2">
                                 <input class="form-check-input catFilter" type="checkbox" value="{{ $val->id }}"

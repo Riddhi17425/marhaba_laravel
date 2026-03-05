@@ -7,7 +7,8 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ $meta_title ?? 'Marhaba' }}</title>
-    <meta name="description" content="{{ $meta_description ?? "Marhaba is a wholesale children's clothing distributor headquartered in Dubai, UAE. We manufacture our own lines, giving us direct control over quality, consistency, and pricing." }}">
+    <meta name="description"
+        content="{{ $meta_description ?? "Marhaba is a wholesale children's clothing distributor headquartered in Dubai, UAE. We manufacture our own lines, giving us direct control over quality, consistency, and pricing." }}">
 
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="{{ asset('public/front/img/favicon.png') }}">
@@ -62,12 +63,28 @@
                     @if (url()->current() === url('/'))
                         <button class="btn p-0 border-0" type="button" data-bs-toggle="offcanvas"
                             data-bs-target="#sidebarMenu" aria-controls="sidebarMenu">
-                            <i class="fas fa-bars fs-3"></i>
+                            <i class="">
+                                <svg width="34" height="30" viewBox="0 0 34 30" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <rect y="2" width="34" height="2" fill="white" />
+                                    <rect y="14" width="34" height="2" fill="white" />
+                                    <rect y="26" width="34" height="2" fill="white" />
+                                </svg>
+
+                            </i>
                         </button>
                     @else
                         <button class="btn p-0 border-0" type="button" data-bs-toggle="offcanvas"
                             data-bs-target="#sidebarMenu" aria-controls="sidebarMenu">
-                            <i class="fas fa-bars fs-3" style="color:#452667;"></i>
+                            <i class="">
+                                <svg width="34" height="30" viewBox="0 0 34 30" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <rect y="2" width="34" height="2" fill="#452667" />
+                                    <rect y="14" width="34" height="2" fill="#452667" />
+                                    <rect y="26" width="34" height="2" fill="#452667" />
+                                </svg>
+
+                            </i>
                         </button>
                     @endif
                 </div>
@@ -132,7 +149,15 @@
                         </div>
                         <button class="btn p-0 border-0" type="button" data-bs-toggle="offcanvas"
                             data-bs-target="#sidebarMenu" aria-controls="sidebarMenu">
-                            <i class="fas fa-bars fs-3"></i>
+                            <i>
+                                <svg width="34" height="30" viewBox="0 0 34 30" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <rect y="2" width="34" height="2" fill="white" />
+                                    <rect y="14" width="34" height="2" fill="white" />
+                                    <rect y="26" width="34" height="2" fill="white" />
+                                </svg>
+
+                            </i>
                         </button>
                     </div>
                 @else
@@ -143,7 +168,15 @@
                         </div>
                         <button class="btn p-0 border-0" type="button" data-bs-toggle="offcanvas"
                             data-bs-target="#sidebarMenu" aria-controls="sidebarMenu">
-                            <i class="fas fa-bars fs-3" style="color:#452667;"></i>
+                            <i>
+                                <svg width="34" height="30" viewBox="0 0 34 30" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <rect y="2" width="34" height="2" fill="#452667" />
+                                    <rect y="14" width="34" height="2" fill="#452667" />
+                                    <rect y="26" width="34" height="2" fill="#452667" />
+                                </svg>
+
+                            </i>
                         </button>
                     </div>
                 @endif
@@ -206,13 +239,17 @@
                             @foreach($menuTypes as $key => $val)
                                 <div class="accordion-item">
                                     <h2 class="accordion-header" id="headingAge">
-                                        <button class="ps-0 accordion-button raleway_24 {{--{{ !$loop->first ? 'collapsed' : '' }}" --}}" type="button" data-bs-toggle="collapse"
-                                            data-bs-target="#collapseCat_{{ $key }}" aria-expanded="true" aria-controls="collapseCat_{{ $key }}">
+                                        <button
+                                            class="ps-0 accordion-button raleway_24 {{--{{ !$loop->first ? 'collapsed' : '' }}"
+                                            --}}" type="button" data-bs-toggle="collapse"
+                                            data-bs-target="#collapseCat_{{ $key }}" aria-expanded="true"
+                                            aria-controls="collapseCat_{{ $key }}">
                                             {{ $val ?? '' }}
                                         </button>
                                     </h2>
-                                    <div id="collapseCat_{{ $key }}" class="accordion-collapse collapse {{-- {{ $loop->first ? 'show' : '' }} --}}" aria-labelledby="headingAge"
-                                        data-bs-parent="#accordionExample">
+                                    <div id="collapseCat_{{ $key }}"
+                                        class="accordion-collapse collapse {{-- {{ $loop->first ? 'show' : '' }} --}}"
+                                        aria-labelledby="headingAge" data-bs-parent="#accordionExample">
                                         <div class="accordion-body p-0">
                                             @php $ageSection = config('global_values.age_section'); @endphp
                                             @if(isset($ageSection) && is_countable($ageSection) && count($ageSection) > 0)
@@ -300,6 +337,9 @@
                         <div>
                             <a href="{{ url('about-us') }}" class="menu_text_about">About Us</a>
                         </div>
+                        <div>
+                            <a href="javascript:void(0)" class="menu_text_about">Who we serve</a>
+                        </div>
 
                         <div>
                             <a href="{{ url('contact-us') }}" class="menu_text_about">Contact</a>
@@ -311,48 +351,48 @@
     </div>
 
     <!-- header script -->
-        <script>
-            // gsap
-            const header = document.querySelector("header");
+    <script>
+        // gsap
+        const header = document.querySelector("header");
 
-            let lastScroll = 0;
-            let headerHeight = header.offsetHeight;
+        let lastScroll = 0;
+        let headerHeight = header.offsetHeight;
 
-            window.addEventListener("scroll", () => {
-                const currentScroll = window.pageYOffset;
+        window.addEventListener("scroll", () => {
+            const currentScroll = window.pageYOffset;
 
-                // SCROLL DOWN â†’ HIDE
-                if (currentScroll > lastScroll && currentScroll > headerHeight + 100) {
-                    gsap.to(header, {
-                        y: -(headerHeight + 100),
-                        duration: 0.35,
-                        ease: "power2.out"
-                    });
-                }
+            // SCROLL DOWN â†’ HIDE
+            if (currentScroll > lastScroll && currentScroll > headerHeight + 100) {
+                gsap.to(header, {
+                    y: -(headerHeight + 100),
+                    duration: 0.35,
+                    ease: "power2.out"
+                });
+            }
 
-                // SCROLL UP â†’ SHOW + GLASS
-                if (currentScroll < lastScroll) {
-                    gsap.to(header, {
-                        y: 0,
-                        duration: 0.35,
-                        ease: "power2.out"
-                    });
-                    header.classList.add("sticky");
-                }
+            // SCROLL UP â†’ SHOW + GLASS
+            if (currentScroll < lastScroll) {
+                gsap.to(header, {
+                    y: 0,
+                    duration: 0.35,
+                    ease: "power2.out"
+                });
+                header.classList.add("sticky");
+            }
 
-                // TOP â†’ RESET
-                if (currentScroll <= 10) {
-                    header.classList.remove("sticky");
-                    gsap.to(header, {
-                        y: 0,
-                        duration: 0.2
-                    });
-                }
+            // TOP â†’ RESET
+            if (currentScroll <= 10) {
+                header.classList.remove("sticky");
+                gsap.to(header, {
+                    y: 0,
+                    duration: 0.2
+                });
+            }
 
-                lastScroll = currentScroll;
-            });
-            // gsap
-        </script>
-        <!-- header script -->
+            lastScroll = currentScroll;
+        });
+        // gsap
+    </script>
+    <!-- header script -->
 
 </body>

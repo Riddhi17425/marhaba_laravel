@@ -1512,7 +1512,7 @@
         z-index: 0;
       }
 
-      .product_wrapper .Product_item {        
+      .product_wrapper .Product_item {
         background: linear-gradient(0deg, #FBFBFB 0%, #FBFBFB 100%), linear-gradient(134deg, #FFF 9%, #DDD 93.94%);
         height: 450px;
       }
@@ -1533,6 +1533,12 @@
         align-items: flex-start;
         flex-direction: column;
 
+      }
+
+      .form-check {
+        display: flex !important;
+        gap: 8px;
+        align-items: center;
       }
 
       .form-check-input:checked {
@@ -1808,20 +1814,31 @@
         line-height: 24px;
         font-size: 18px;
         margin-bottom: 40px;
-        animation: bannerColorChange 3s ease-in-out forwards;
+        animation: bannerColorChange 5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
       }
 
       @keyframes bannerColorChange {
 
-        0%,
-        50% {
+        0% {
           background-color: #452667;
-          color: white;
+          color: #ffffff;
+          opacity: 1;
+        }
+
+        40% {
+          background-color: #5a347f;
+          color: #ffffff;
+        }
+
+        70% {
+          background-color: #d9cde3;
+          color: #3a3a3a;
         }
 
         100% {
           background-color: #EFE6F0;
           color: #2E2E2E;
+          opacity: 1;
         }
       }
 
@@ -1947,18 +1964,18 @@
         margin-left: 5px;
       }
 
-      
+
       .menu_body::-webkit-scrollbar {
         width: 5px;
       }
 
       /* Track */
-      
+
       .menu_body::-webkit-scrollbar-track {
         background: #D7C7E9;
       }
 
-      /* Handle */      
+      /* Handle */
       .menu_body::-webkit-scrollbar-thumb {
         background: #452667;
       }
@@ -1984,7 +2001,29 @@
 
       .menu_text_about {
         font-weight: 500;
-        margin-top:30px;
-        display:inline-block;
+        margin-top: 30px;
+        display: inline-block;
       }
-      .offcanvas-body{padding-right:0;}
+
+      .offcanvas-body {
+        padding-right: 0;
+      }
+
+      /* who we serve page css */
+      .serve_grid {
+        display: grid;
+        grid-template-columns: 1.1fr 0.9fr;
+        gap: 64px;
+        align-items: center;
+      }
+
+      .serve_grid_2 {
+        grid-template-columns: 0.9fr 1.1fr;
+      }
+
+      .serve_grid .title_24-raleway {
+        margin: 40px 0;
+        color: #452667;
+      }
+
+      /* who we serve page css */

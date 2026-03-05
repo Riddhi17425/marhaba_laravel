@@ -622,7 +622,7 @@
     <section class="home_mt-100">
         <div class="ym-container">
             <h2 class="title_60lora text-center">Why Choose Us</h2>
-            <p class="text-centertitle_24-raleway mt-3 ">Everything to build a children's department that sells — ages 0–14Y, from one
+            <p class="text-center title_24-raleway mt-3 ">Everything to build a children's department that sells — ages 0–14Y, from one
                 trusted source.</p>
             <div class="hero_why_wrapper">
                 <div class="d-flex align-items-center">
