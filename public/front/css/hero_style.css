@@ -685,6 +685,9 @@ a {
 .ym_card:hover .ym_slider {
     opacity: 1;
 }
+.ym_card:hover .ym_cover_slider{
+    opacity:0;
+}
 
 /* Image styling */
 .ym_slider img {
@@ -739,7 +742,7 @@ a {
     align-items: center;
     /* gap: 8px; */
     padding: 0;
-    bottom: 0px !important;
+    bottom: 27% !important;
 }
 
 .ym_slider .slick-dots li {

@@ -328,7 +328,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (typeof $ !== 'undefined' && $('.ym_slider').length) {
         $('.ym_slider').slick({
             arrows: true,
-            dots: false,
+            dots: true,
             infinite: true,
             speed: 400,
             autoplay:true,
@@ -424,7 +424,7 @@ function initYmSlider() {
 
     $('.ym_slider').not('.slick-initialized').slick({
         arrows: true,
-        dots: false,
+        dots: true,
         infinite: true,
         speed: 400,
         autoplay: true,

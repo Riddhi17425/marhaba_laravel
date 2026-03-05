@@ -20,6 +20,7 @@
     .hero_cat_slider .swiper-slide {overflow: hidden;}
     .stats_des{margin-bottom:0;}
     .slider-wrapper {height: calc(100vh - 33vh);}
+    .ym_slider .slick-dots{bottom: 36% !important;}
 }
 @media (max-width: 1441px) {
     .ym-container{max-width: calc(100% - 40px);}
@@ -45,6 +46,7 @@
     .hero_img_wrapper img{height:475px;}
     .comp_bus_back{padding: 30px 35px 30px 35px;}
     .swiper_number_pagination{margin-bottom:30px;}
+    .ym_slider .slick-dots{bottom: 38% !important;}
 }
 @media (max-width: 1281px) {
     .home_mt-100 {margin-top: 70px;}
@@ -65,9 +67,8 @@
       /* homepage hover card */
     .stats_box{padding: 40px 40px;}  
     .ym_card {width: 300px;height: 370px;} 
-        .hero_img_wrapper img {
-        height: 400px;
-    } 
+    .hero_img_wrapper img {height: 400px;} 
+    .ym_slider .slick-dots {bottom: 34% !important;}
 }
 @media (max-width: 992px) {
     .stat_box_wrapper{grid-template-columns: repeat(2, 1fr);}
@@ -347,8 +348,10 @@
     .range_table_head {margin-bottom: 10px;}
     .size_pop_head{font-size: 24px;line-height: 34px;}
     .size_pop .nav-link {padding: 10px 20px;}
+    .ym_slider .slick-dots {bottom: -1% !important;}
+    .ym_card {width: 210px;height: 300px;}
 }
-@media screen and (min-width: 376px) and (max-width: 431px) {
+@media screen and (min-width: 377px) and (max-width: 429px) {
     .comp_bus_back {padding: 20px;}
     .slider-wrapper {height: calc(100vh - 32vh);}
     .ym-container.mob_ym_container{margin:0!important;}
