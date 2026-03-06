@@ -34,6 +34,7 @@
                             <li><a href="{{ route('about') }}">About Us</a></li>
                             <!--<li><a href="#">Blogs</a></li>-->
                             <li><a href="{{ route('contact') }}">Contact</a></li>
+                            <li><a href="{{ route('serve') }}">Who we serve</a></li>
                         </ul>
                     </div>
                 </div>

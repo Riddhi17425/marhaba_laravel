@@ -338,7 +338,7 @@
                             <a href="{{ url('about-us') }}" class="menu_text_about">About Us</a>
                         </div>
                         <div>
-                            <a href="javascript:void(0)" class="menu_text_about">Who we serve</a>
+                            <a href="{{ url('who-we-serve') }}" class="menu_text_about">Who we serve</a>
                         </div>
 
                         <div>
