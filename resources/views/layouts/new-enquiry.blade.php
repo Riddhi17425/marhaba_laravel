@@ -242,8 +242,7 @@
         font-size: 0.9rem;
         font-weight: 500;
         color: var(--text-dark);
-        background: var(--gold-light);
-        border: 2px solid transparent;
+        border: 2px solid var(--gold-light);
         border-radius: var(--radius-md);
         cursor: pointer;
         transition: all 0.25s ease;

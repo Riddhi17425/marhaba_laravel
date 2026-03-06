@@ -1,7 +1,8 @@
 .product_detail_intro {
     /* height: 100vh; */
     overflow: hidden;
-    margin-top: 60px;
+    padding-top: 60px;
+    background: #F7F7F7;
 }
 
 /* slider css */
@@ -16,7 +17,7 @@
 .slider-wrapper {
     height: calc(100vh - 26vh);
     position: relative;
-    background: linear-gradient(0deg, #FBFBFB 0%, #FBFBFB 100%), linear-gradient(134deg, #FFF 9%, #DDD 93.94%);
+    background: #F7F7F7;
     overflow: hidden;
 }
 
