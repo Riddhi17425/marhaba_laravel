@@ -62,8 +62,8 @@ Route::get('login', [dashboardController::class, 'login'])->name('login');
 Auth::routes();
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
-// who we serve
 Route::get('/who-we-serve', [dashboardController::class, 'serve'])->name('serve');
+
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/user', [usersController::class, 'user'])->name('user');
  Route::get('/admin/dashboard',[dashboardController::class, 'admin'])->name('/admin/dashboard');

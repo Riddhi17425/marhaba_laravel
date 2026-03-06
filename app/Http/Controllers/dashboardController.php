@@ -31,7 +31,7 @@ class dashboardController extends Controller
     
     public function landing(){  
         $catImgs = CatalogueImage::select('id', 'image')->get();
-        $trustedBy = TrustedBy::select('id', 'image', 'title', 'desc')->latest()->take(5)->get();
+        $trustedBy = TrustedBy::select('id', 'image', 'title', 'desc')->take(5)->get();
         $whyChooseUs = WhyChooseUs::select('id', 'title', 'desc')->get();
         $brand = Brand::select('id', 'name', 'image')->where('deleted_at', null)->limit(3)->get();
          $collection = Product::select('id', 'type', 'category_id','name','url','image','product_brand_size')->whereNull('deleted_at')->where('show_homepage', 1)->latest()->take(6);
