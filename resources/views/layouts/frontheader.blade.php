@@ -129,7 +129,7 @@
 
                 </div>
                 <div class="text-center align-items-center mx-auto">
-                    <a href="{{ url('/') }}" class="me-4">
+                    <a href="{{ url('/') }}">
                         <img src="{{ asset('public/front/img/Home/logo-minimal.svg') }}" alt="logo"
                             class="img-fluid nav_logo color-head" style="height:16px;">
                         @if (url()->current() === url('/'))

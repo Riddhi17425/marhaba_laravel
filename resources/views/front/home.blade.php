@@ -408,7 +408,7 @@
                         <span class="card_title">Baby</span>
                         <p class="card_desc">Age Range : {{$ageSections['baby']['label']}}</p>
                     </div>
-                    <img loading="lazy" src="{{ asset('public/front/img/Home/baby_girl-1.png') }}" class="category-img"
+                    <img loading="lazy" src="{{ asset('public/front/img/bannerKids_banner_3.png') }}" class="category-img"
                         alt="Baby"
                         data-alt='[
                             "{{ asset('public/front/img/bannerKids_banner_3a.png') }}",
