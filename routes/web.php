@@ -57,6 +57,7 @@ Route::get('/test-filter', [dashboardController::class, 'filter'])->name('filter
 
 Route::get('/get-products/{type}/{size_range?}', [dashboardController::class, 'getProducts'])->name('get.products');
 Route::post('/whatsapp-inquiry', [dashboardController::class, 'whatsappInquiry'])->name('whatsapp.inquiry');
+Route::post('/submit-product-inquiry', [dashboardController::class,'storeProductInquiry'])->name('store.product.inquiry');
 	
 Route::get('login', [dashboardController::class, 'login'])->name('login');
 Auth::routes();
