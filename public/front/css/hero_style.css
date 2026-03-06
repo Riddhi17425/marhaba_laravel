@@ -678,12 +678,13 @@ a {
 /* Hide slider initially */
 .ym_slider {
     opacity: 0;
-    transition: 0.3s ease;
+    transition: all 0.3s ease;
 }
 
 /* Show slider on hover */
 .ym_card:hover .ym_slider {
     opacity: 1;
+    transition: all 0.3s ease;
 }
 
 .ym_card:hover .ym_cover_slider {
