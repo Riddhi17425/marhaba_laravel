@@ -6,7 +6,7 @@
                 <nav style="--bs-breadcrumb-divider: '|';" aria-label="breadcrumb">
                     <ol class="breadcrumb  justify-content-center">
                         <li class="breadcrumb-item"><a href="{{ url('/') }}">Home</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Home</li>
+                        <li class="breadcrumb-item active" aria-current="page">Who we Serve</li>
                     </ol>
                 </nav>
                 <h2 class="mean_head scroll-text" data-animate-on-scroll>Who We Serve</h2>

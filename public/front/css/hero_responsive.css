@@ -63,7 +63,7 @@
     .comp_bus_child.expanded{height: 460px;}
     .core_wrapper .slick-slide{margin-inline:20px;}
     .comp_bus_back {padding: 20px 25px 20px 25px;}
-    .comp_bus_back_bt{padding-inline:20px;}
+    .comp_bus_back_bt{padding-inline:00px;}
       /* homepage hover card */
     .stats_box{padding: 40px 40px;}  
     .ym_card {width: 300px;height: 370px;} 

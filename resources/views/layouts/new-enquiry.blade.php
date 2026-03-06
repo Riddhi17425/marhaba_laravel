@@ -500,13 +500,13 @@
         border-color: var(--gold);
     }
 
-    .enquiry_modal.checkbox-item input[type="checkbox"]:checked+label {
+    .enquiry_modal .checkbox-item input[type="checkbox"]:checked+label {
         background: var(--navy);
         color: var(--white);
         border-color: var(--navy);
     }
 
-    .enquiry_modal.checkbox-item input[type="checkbox"]:checked+label::before {
+    .enquiry_modal .checkbox-item input[type="checkbox"]:checked+label::before {
         background: var(--white);
         border-color: var(--white);
         background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%231E1E2F'%3E%3Cpath d='M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z'/%3E%3C/svg%3E");
@@ -515,20 +515,20 @@
         background-repeat: no-repeat;
     }
 
-    .enquiry_modal.checkbox-item input[type="checkbox"]:disabled+label {
+    .enquiry_modal .checkbox-item input[type="checkbox"]:disabled+label {
         opacity: 0.4;
         cursor: not-allowed;
     }
 
-    .enquiry_modal.checkbox-item input[type="checkbox"]:disabled+label:hover {
+    .enquiry_modal .checkbox-item input[type="checkbox"]:disabled+label:hover {
         border-color: var(--border-gray);
     }
 
-    .enquiry_modal.checkbox-item input[type="checkbox"]:disabled+label:hover::before {
+    .enquiry_modal .checkbox-item input[type="checkbox"]:disabled+label:hover::before {
         border-color: var(--border-gray);
     }
 
-    .enquiry_modal.selection-count {
+    .enquiry_modal .selection-count {
         font-weight: 400;
         font-size: 0.7rem;
         color: var(--light-gray);
@@ -537,17 +537,17 @@
         letter-spacing: 0;
     }
 
-    .enquiry_modal.selection-count.has-selection {
+    .enquiry_modal .selection-count.has-selection {
         color: var(--gold);
     }
 
     /* Multi-Select Dropdown */
-    .enquiry_modal.multi-select {
+    .enquiry_modal .multi-select {
         position: relative;
         z-index: 100;
     }
 
-    .enquiry_modal.multi-select-trigger {
+    .enquiry_modal .multi-select-trigger {
         width: 100%;
         padding: 0.9rem 1rem;
         font-family: 'Jost', sans-serif;
@@ -563,7 +563,7 @@
         transition: all 0.2s ease;
     }
 
-    .enquiry_modal.multi-select-trigger:hover {
+    .enquiry_modal .multi-select-trigger:hover {
         border-color: var(--gold-light);
     }
 
