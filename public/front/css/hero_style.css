@@ -684,6 +684,7 @@ a {
 /* Show slider on hover */
 .ym_card:hover .ym_slider {
     opacity: 1;
+    transition: all 0.3s ease;
 }
 
 .ym_card:hover .ym_cover_slider {
