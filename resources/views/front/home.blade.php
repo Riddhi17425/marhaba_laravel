@@ -594,8 +594,8 @@
                         <div class="comp_bus_front">
                             <div class="comp_bus_fronts">
                                 <span>
-                                    <img loading="lazy" src="{{ asset('public/front/img/Home/ccs.png') }}" alt="" height="113"
-                                        width="186">
+                                    {{-- <img loading="lazy" src="{{ asset('public/front/img/Home/ccs.png') }}" alt="" height="113" width="186"> --}}
+                                    <img loading="lazy" src="{{ asset('public/trusted_by_images/' . $val->image) }}" alt="" height="113" width="186">
                                 </span>
                                 <h6 class="comp_bus_num">{{$val->title ?? ''}}</h6>
                             </div>
