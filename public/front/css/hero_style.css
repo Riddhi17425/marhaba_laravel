@@ -678,7 +678,7 @@ a {
 /* Hide slider initially */
 .ym_slider {
     opacity: 0;
-    transition: 0.3s ease;
+    transition: all .8s cubic-bezier(.5, 0, 0, 1) 0s;
 }
 
 /* Show slider on hover */
