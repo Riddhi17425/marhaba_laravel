@@ -14,6 +14,7 @@ use App\Models\Category;
 use App\Models\{ClothSize, CatalogueImage, TrustedBy, WhyChooseUs, Contact, HomeSliderImage, WhatsappInquiry, ProductInquiry};
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Http;
+use Carbon\Carbon;
 
 class dashboardController extends Controller
 {
@@ -638,9 +639,6 @@ class dashboardController extends Controller
         ]);
     
         $timestamp = Carbon::now()->format('Y-m-d H:i:s');
-    
-        // Google Sheet expects:
-        // form_type, contact, message, date
         $sheetsData = [
             'form_type' => 'whatsapp inquiry',
             'contact'   => $request->number,
@@ -671,86 +669,124 @@ class dashboardController extends Controller
     }
 
     public function storeProductInquiry(Request $request){
-        echo "<pre>"; print_r($request->all()); die;
         $validator = Validator::make($request->all(), [
             'name' => 'required',
             'businessName' => 'required',
             'businessType' => 'nullable',
             'countryCode' => 'required',
             'whatsapp' => 'required',
-            'gender' => 'nullable|array',
-            'age' => 'nullable|array',
-            'productTypes' => 'nullable|array',
+            'gender' => 'nullable',
+            'age' => 'nullable',
+            'productTypes' => 'nullable',
             'message' => 'nullable'
         ]);
         if ($validator->fails()) {
-            echo "<pre>"; print_r($validators->errors()); die;
             return redirect()->back()
                 ->withErrors($validator)
                 ->withInput();
         }
-        $data = $request->all();
         $inquiry = ProductInquiry::create([
-            'name' => $data['name'],
-            'business_name' => $data['businessName'],
-            'business_type' => $data['businessType'] ?? null,
-            'country_code' => $data['countryCode'],
-            'whatsapp' => $data['whatsapp'],
-            'gender' => json_encode($data['gender'] ?? []),
-            'age' => json_encode($data['age'] ?? []),
-            'product_types' => json_encode($data['productTypes'] ?? []),
-            'message' => $data['message'] ?? null
+            'name' => $request->name?? null,
+            'business_name' => $request->businessName ?? null,
+            'business_type' => $request->businessType ?? null,
+            'country_code' => $request->countryCode ?? null,
+            'whatsapp' => $request->whatsapp ?? null,
+            'gender' => $request->selected_gender ?? null,
+            'age' => $request->selected_age ?? null,
+            'product_types' => $request->selected_product ?? null,
+            'message_note' => $request->message ?? null
         ]);
-
+        
+        // STORE IN GOOGLE SHEET
         $timestamp = Carbon::now()->format('Y-m-d H:i:s');
+        $passedData = [
+            'name' => $request->name?? null,
+            'business_name' => $request->businessName ?? null,
+            'business_type' => $request->businessType ?? null,
+            'country_code' => $request->countryCode ?? null,
+            'whatsapp' => $request->whatsapp ?? null,
+            'gender' => $request->selected_gender ?? null,
+            'age' => $request->selected_age ?? null,
+            'product_types' => $request->selected_product ?? null,
+            'message_note' => $request->message ?? null,
+            'date'      => $timestamp,
+        ];
+       
+        // Send to Google Sheets
+       try {
+            Http::withBody(json_encode($passedData), 'application/json')
+                    ->post('https://script.google.com/macros/s/AKfycbw3mLCXGC6TUiHBCNHchZ9S6JZerm0YitYVJYZrowlckrqYdBDh5CeVVowTYaeVjGtE/exec');
+           
+        } catch (\Exception $e) {
+            \Log::error('Google Sheets Exception (WhatsApp Inquiry):', [
+                'message'   => $e->getMessage(),
+                'trace'     => $e->getTraceAsString(),
+                'data_sent' => $passedData
+            ]);
+        }
     
+        $message = "*New Product Inquiry Received*\n\n" .
+            "*Name:* {$request->name}\n" .
+            "*Business Name:* {$request->businessName}\n" .
+            "*Business Type:* {$request->businessType}\n" .
+            "*Country Code.:* {$request->countryCode}\n" .
+            "*Whatsapp No.:* {$request->whatsapp}\n" .
+            "*Gender:* {$request->selected_gender}\n" .
+            "*Age:* {$request->selected_age}\n" .
+            "*Product Types:* {$request->selected_product}\n" .
+            "*Message:* " . ($request->message ?? '') . "\n\n" .
+            "— Marhaba Fashion";
+
+        // Redirect to WhatsApp
+        $number = config('global_values.admin_whatsapp_number');
+        $whatsappUrl = "https://api.whatsapp.com/send/?phone={$number}&text=" . urlencode($message);
+    
+        return redirect()->away($whatsappUrl);
+        
+    }
+
+    public function whatsaapInquiry(Request $request){
+        // $validator = Validator::make($request->all(), [
+        //     'number' => 'required',
+        //     'message' => 'required',
+        // ]);
+        // if ($validator->fails()) {
+        //     return redirect()->back()->withErrors($validator)->withInput();
+        // }
+        WhatsappInquiry::create([
+            'number'  => $request->number,
+            'message'  => $request->message,
+        ]);
+    
+        $timestamp = Carbon::now()->format('Y-m-d H:i:s');
         // Google Sheet expects:
-        // form_type, contact, message, date
         $sheetsData = [
             'form_type' => 'whatsapp inquiry',
             'contact'   => $request->number,
             'message'  => $request->message,
             'date'      => $timestamp,
         ];
-    
         // Send to Google Sheets
-        try {
-            Http::withHeaders(['Content-Type' => 'application/json'])
-                ->post('https://script.google.com/macros/s/AKfycbyiWRofXVf9V0lj8xKffnzl3ygyRIzPh_EJ2FvgPmClfgJWU0xHe0hE63BaLDCSVjfE/exec', 
-                    $sheetsData
-                );
-        } catch (\Exception $e) {
-            \Log::error('Google Sheets Exception (WhatsApp Inquiry):', [
-                'message'   => $e->getMessage(),
-                'trace'     => $e->getTraceAsString(),
-                'data_sent' => $sheetsData
-            ]);
-        }
+        // try { 
+            $response =  Http::withBody(json_encode($sheetsData), 'application/json')
+                    ->post('https://script.google.com/macros/s/AKfycbyTWZnYVejCiY9xiZRPEe_zNS-OA8okFRuYDLMwl2aJ_b-LKwZ5jGI9Qsx4Ot6vE2kF/exec');
+            if ($response->failed()) {
+                \Log::error('Google Sheet request failed: '.$response->body());
+            }
+        // } catch (\Exception $e) {
+        //     \Log::error('Google Sheets Exception (WhatsApp Inquiry):', [
+        //         'message'   => $e->getMessage(),
+        //         'trace'     => $e->getTraceAsString(),
+        //         'data_sent' => $sheetsData
+        //     ]);
+        // }
 
-        // SEND MAIL TO USER AND ADMIN
-        $adminEmail = $this->adminEmail;
-        $userEmail = $request->w_email;
-        $weddingDate = $request->w_wedding_date ? date('d-m-Y', strtotime($request->w_wedding_date)) : '-';
-        $data['wedding_date'] = $weddingDate;
-        try {
-            Mail::send('email.admin.wedding_catalogue_request', $data, function ($message) use ($adminEmail) {
-                $message->to($this->adminEmail)->subject('New Wedding Catalogue Request Received');
-            });
-       
-            Mail::send('email.front.wedding_catalogue_request', $data, function ($message) use ($userEmail) {
-                $message->to($userEmail)->subject('Wedding Catalogue Request send Successfully');
-            });
-        } catch (Exception $e) {
-            Log::error('Inquiry Mail sending failed: '.$e->getMessage());
-        }
-    
         // Redirect to WhatsApp
-        $number = '916358820089'; // Change if needed
-        $message = 'Inquiry from the website.';
+        $number = config('global_values.admin_whatsapp_number');
+        $message = 'Inquiry from the website with Phone No. - '. $number.' and Message - '. $request->message;
         $whatsappUrl = "https://api.whatsapp.com/send/?phone={$number}&text=" . urlencode($message);
-    
+   
         return redirect()->away($whatsappUrl);
-
     }
     
 }

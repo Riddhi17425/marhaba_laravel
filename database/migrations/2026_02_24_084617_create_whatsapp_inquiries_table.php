@@ -15,6 +15,8 @@ class CreateWhatsappInquiriesTable extends Migration
     {
         Schema::create('whatsapp_inquiries', function (Blueprint $table) {
             $table->id();
+            $table->string('number', 20)->nullable(); // varchar(20), nullable
+            $table->text('message')->nullable(); // text, nullable
             $table->timestamps();
         });
     }

@@ -20,11 +20,11 @@ class CreateProductInquiriesTable extends Migration
             $table->string('business_type')->nullable();
             $table->string('country_code')->nullable();
             $table->string('whatsapp')->nullable();
-            $table->json('gender')->nullable();
-            $table->json('age')->nullable();
-            $table->json('product_types')->nullable();
+            $table->string('gender')->nullable();
+            $table->string('age')->nullable();
+            $table->string('product_types')->nullable();
             $table->text('message_note')->nullable();
-            $table->timestamps();
+
         });
     }
 

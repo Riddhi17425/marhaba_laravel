@@ -951,7 +951,8 @@
                                 </select>
                             </div>
 
-                            <input type="text" id="messageContent" name="messageContent" value="">
+                            <input type="hidden" id="messageContent" name="messageContent" value="">
+
                             <div class="form-group">
                                 <label for="name">Name</label>
                                 <input type="text" id="name" name="name" required placeholder="Your name">
@@ -1007,8 +1008,7 @@
                             </div>
 
                             <p class="section-hint">Select all that apply</p>
-
-                            <input type="text" id="selected_gender" name="selected_gender" value="">
+                            <input type="hidden" id="selected_gender" name="selected_gender" value="">
                             <div class="form-group">
                                 <span class="group-label">Gender <span class="selection-count"
                                         id="genderCount"></span></span>
@@ -1024,7 +1024,8 @@
                                 </div>
                             </div>
 
-                            <input type="text" id="selected_age" name="selected_age" value="">
+
+                            <input type="hidden" id="selected_age" name="selected_age" value="">
                             <div class="form-group">
                                 <span class="group-label">Age Range <span class="selection-count"
                                         id="ageCount"></span></span>
@@ -1044,7 +1045,7 @@
                                 </div>
                             </div>
 
-                            <input type="text" id="selected_product" name="selected_product" value="">
+                            <input type="hidden" id="selected_product" name="selected_product" value="">
                             <div class="optional-section">
                                 <div class="form-group" style="margin-bottom: 0.75rem;">
                                     <label class="field-label" id="productTypeLabel">Product Type <span
@@ -3171,16 +3172,20 @@
         // Build product type section
         let productTypeSection = '';
         if (selectedProducts.length > 0) {
-            const productsList = selectedProducts.map(p => `- ${p}`).join('\n');
+            // const productsList = selectedProducts.map(p => `- ${p}`).join('\n');
+            const productsList = selectedProducts.map(p => p).join(', ');
             // productTypeSection = `Product Type:${productsList}`;
-            productTypeSection = ${productsList};
+            productTypeSection = productsList;
         }
 
         // Build message/notes section
         const messageText = document.getElementById('message').value.trim();
         let notesSection = '';
         if (messageText) {
-            notesSection = `Notes:${messageText}`;
+            notesSection = `
+
+Notes:
+${messageText}`;
         }
 
         // Get business name (required)
@@ -3190,7 +3195,8 @@
         const businessType = document.getElementById('businessType').value;
         let businessTypeSection = '';
         if (businessType) {
-            businessTypeSection = `Business Type: ${businessType}`;
+            businessTypeSection = `
+Business Type: ${businessType}`;
         }
 
         // Build message (always in English for Marhaba team)
@@ -3207,13 +3213,15 @@
         const langName = languageNames[currentLang] || 'English';
 
         const message = `Name: ${name}
-        Business: ${businessName}${businessTypeSection}
-        Interested in wholesale
-        clothing for:
-        Gender: ${genderTextPlain}
-        Age: ${agesTextPlain}
-        ${productTypeSection}${notesSection}
-        Language: ${langName}`;
+Business: ${businessName}${businessTypeSection}
+
+Interested in wholesale
+clothing for:
+
+Gender: ${genderTextPlain}
+Age: ${agesTextPlain}
+${productTypeSection}${notesSection}
+Language: ${langName}`;
 
         // NEW LINE ADDED START
         document.getElementById('messageContent').value = message;
