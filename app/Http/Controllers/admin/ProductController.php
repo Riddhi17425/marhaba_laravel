@@ -10,6 +10,7 @@ use App\Models\ClothSize;
 use App\Models\ClothColor;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
+use Stichoza\GoogleTranslate\GoogleTranslate;
 
 class ProductController extends Controller
 {
@@ -95,6 +96,28 @@ class ProductController extends Controller
             $product->product_brand_size = json_encode($sizeImageData);
             $product->save();
 
+            // PRODUCT NAME TRANSLATION START
+            $productName = $product->name;
+            // English is identity
+            $translations['en'] = [$productName => $productName];
+            // Translate into other languages
+            foreach (config('global_values.languages') as $lang) {
+                try {
+                    $tr = new GoogleTranslate();
+                    $tr->setTarget($lang);
+                    $translations[$lang] = [$productName => $tr->translate($productName)
+                    ];
+                } catch (\Exception $e) {
+                    // fallback to English
+                    $translations[$lang] = [
+                        $productName => $productName
+                    ];
+                }
+            }
+            $product->translations = $translations;
+            $product->save();
+            // PRODUCT NAME TRANSLATION END
+
             return redirect()->route('product.index')->with('success', 'Product added successfully.');
         } catch (\Exception $e) {
             Log::error('Product store failed: ' . $e->getMessage(), [
@@ -105,17 +128,17 @@ class ProductController extends Controller
         }
     }
 
-        public function edit($id)
-        {
-            $product = Product::findOrFail($id);
-            $categories = Category::orderBy('name')->get();
-            $brands = Brand::orderBy('name')->get();
-            $sizes = ClothSize::orderBy('name')->get();
-            $colors = ClothColor::orderBy('name')->get();
-            $productBrandSize = $product->product_brand_size ? json_decode($product->product_brand_size, true) : [];
+    public function edit($id)
+    {
+        $product = Product::findOrFail($id);
+        $categories = Category::orderBy('name')->get();
+        $brands = Brand::orderBy('name')->get();
+        $sizes = ClothSize::orderBy('name')->get();
+        $colors = ClothColor::orderBy('name')->get();
+        $productBrandSize = $product->product_brand_size ? json_decode($product->product_brand_size, true) : [];
 
-            return view('admin.product.editproduct', compact('product', 'categories', 'brands', 'sizes', 'colors', 'productBrandSize'));
-        }
+        return view('admin.product.editproduct', compact('product', 'categories', 'brands', 'sizes', 'colors', 'productBrandSize'));
+    }
 
     public function update(Request $request, $id)
     {
@@ -137,6 +160,8 @@ class ProductController extends Controller
             }
 
             $product = Product::findOrFail($id);
+            $existingProductName = strtolower($product->name);
+
             $product->type = $request->product_type;
             $product->name = $request->name;
             $product->url = $request->url;
@@ -181,6 +206,29 @@ class ProductController extends Controller
 
             $product->product_brand_size = json_encode($sizeImageData);
             $product->save();
+
+            $newProductName = strtolower($product->name);
+            // PRODUCT NAME TRANSLATION START
+            if($existingProductName != $newProductName){
+                $translations = [];
+                $translations['en'] = [$newProductName => $newProductName];
+                foreach (config('global_values.languages') as $lang) {
+                    try {
+                        $tr = new GoogleTranslate();
+                        $tr->setTarget($lang);
+                        $translations[$lang] = [$newProductName => $tr->translate($newProductName)
+                        ];
+                    } catch (\Exception $e) {
+                        $translations[$lang] = [
+                            $newProductName => $newProductName
+                        ];
+                    }
+                }
+                $product->update([
+                    'translations' => $translations
+                ]);
+            }
+            // PRODUCT NAME TRANSLATION END
 
             return redirect()->route('product.index')->with('success', 'Product updated successfully');
         } catch (\Exception $e) {

@@ -12,6 +12,7 @@ class Product extends Model
     protected $table = 'products';
     protected $primaryKey = 'id';
     protected $dates = ['deleted_at'];
+    protected $guarded = [];
 
     public function category()
     {

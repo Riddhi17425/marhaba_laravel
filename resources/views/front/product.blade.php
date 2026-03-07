@@ -88,8 +88,8 @@
                 <div>
                     <div class="range_table_head">
                         <p style="font-weight:500;">Size Assortment : {{ $smallest[0] ?? '' }}-{{$largest[1] ?? ''}}</p>
-                        <a class="btn_1" data-bs-toggle="modal" data-bs-target="#size_popup">Product
-                            Assortment</a>
+                        {{-- <a class="btn_1" data-bs-toggle="modal" data-bs-target="#size_popup">Product
+                            Assortment</a> --}}
                     </div>
                     <table class="range-table">
                         <tr>
@@ -184,8 +184,8 @@
                                         <li>Premixed sizing: Balanced distribution for retail coverage</li>
                                         <li>12 sets per design in single or pre-assorted colours</li>
                                     </ul>
-                                    <!-- <a class="prod_detail_a" data-bs-toggle="modal"
-                                        data-bs-target="#size_popup">Standard 12-Piece Assortment</a> -->
+                                    <a class="prod_detail_a" data-bs-toggle="modal" data-bs-target="#size_popup">Standard 12-Piece Assortment</a>
+                            
                                     <h6>Delivery & Shipping</h6>
                                     <ul class="pd_list">
                                         <li>Dubai: Delivered within 1-3 days after order confirmation</li>

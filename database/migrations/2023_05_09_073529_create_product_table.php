@@ -23,6 +23,7 @@ class CreateProductTable extends Migration
             $table->string('product_image');
             $table->string('meta_title');
             $table->string('meta_description');
+            $table->json('translations')->nullable();
             $table->string('is_delete');
             $table->timestamps();
         });
