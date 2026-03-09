@@ -117,7 +117,7 @@
                                 class="img-fluid white-head">
                         </a>
 
-                        <a href="javascript:void(0)" target="_blank">
+                        <a href="https://www.facebook.com/marhabafashionuae" target="_blank">
                             <img src="{{ asset('public/front/img/facebook_icon.png') }}" alt="faceook"
                                 class="img-fluid white-head">
                         </a>

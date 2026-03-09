@@ -912,10 +912,9 @@
                     </div>
 
                     <div class="form-body">
-                        <form id="inquiryForm" method="POST" action="{{ route('store.product.inquiry') }}">
-                            @csrf
+                        <form id="inquiryForm">
                             <div class="language-selector">
-                                <select id="languageSelect" name="selected_language" onchange="changeLanguage(this.value)">
+                                <select id="languageSelect" onchange="changeLanguage(this.value)">
                                     <optgroup label="──────────">
                                         <option value="en">English</option>
                                     </optgroup>
@@ -950,8 +949,6 @@
                                     </optgroup>
                                 </select>
                             </div>
-
-                            <input type="hidden" id="messageContent" name="messageContent" value="">
 
                             <div class="form-group">
                                 <label for="name">Name</label>
@@ -1008,7 +1005,7 @@
                             </div>
 
                             <p class="section-hint">Select all that apply</p>
-                            <input type="hidden" id="selected_gender" name="selected_gender" value="">
+
                             <div class="form-group">
                                 <span class="group-label">Gender <span class="selection-count"
                                         id="genderCount"></span></span>
@@ -1024,8 +1021,6 @@
                                 </div>
                             </div>
 
-
-                            <input type="hidden" id="selected_age" name="selected_age" value="">
                             <div class="form-group">
                                 <span class="group-label">Age Range <span class="selection-count"
                                         id="ageCount"></span></span>
@@ -1036,7 +1031,7 @@
                                     </div>
                                     <div class="checkbox-item">
                                         <input type="checkbox" id="age-toddlers" name="age" value="toddlers" disabled>
-                                        <label for="age-toddlers">2-6Y</label>
+                                        <label for="age-toddlers">2-7Y</label>
                                     </div>
                                     <div class="checkbox-item">
                                         <input type="checkbox" id="age-kids" name="age" value="kids" disabled>
@@ -1045,7 +1040,6 @@
                                 </div>
                             </div>
 
-                            <input type="hidden" id="selected_product" name="selected_product" value="">
                             <div class="optional-section">
                                 <div class="form-group" style="margin-bottom: 0.75rem;">
                                     <label class="field-label" id="productTypeLabel">Product Type <span
@@ -2725,103 +2719,100 @@
     }
 
     // Product Data
-    // const productData = {
-    //     boy: {
-    //         baby: ["Bodysuit Sets", "Bodysuits", "Co-ord Sets", "Dungaree Sets", "Loungewear Sets", "Pyjama Sets", "Rompers & Sleepsuits", "Shirt & Shorts Sets", "Shirts", "Trousers & Jeans", "Tshirt & Shorts Sets"],
-    //         toddlers: ["Co-ord Sets", "Loungewear Sets", "Pyjama Sets", "Shirt & Shorts Sets", "Shirts", "Shorts & Bermudas", "Trousers & Jeans", "Tshirt & Shorts Sets"],
-    //         kids: ["Co-ord Sets", "Loungewear Sets", "Shirt & Shorts Sets", "Shirts", "Shorts & Bermudas", "Trousers & Jeans", "Tshirt & Shorts Sets"]
-    //     },
-    //     girl: {
-    //         baby: ["Bodysuit Sets", "Bodysuits", "Dungaree Sets", "Frock 2pc Sets", "Frocks & Dresses", "Loungewear Sets", "Pyjama Sets", "Rompers & Sleepsuits", "Shirt & Shorts Sets", "Top & Leggings Sets", "Top & Shorts Sets"],
-    //         toddlers: ["Co-ord Sets", "Frocks & Dresses", "Leggings", "Loungewear Sets", "Palazzo Sets", "Pyjama Sets", "Top & Leggings Sets", "Top & Shorts Sets"],
-    //         kids: ["Frocks & Dresses", "Leggings", "Palazzo Sets"]
-    //     }
-    // };
-    const productData = @json($productData);
+    const productData = {
+        boy: {
+            baby: ["Bodysuit Sets", "Bodysuits", "Co-ord Sets", "Dungaree Sets", "Loungewear Sets", "Pyjama Sets", "Rompers & Sleepsuits", "Shirt & Shorts Sets", "Shirts", "Trousers & Jeans", "Tshirt & Shorts Sets"],
+            toddlers: ["Co-ord Sets", "Loungewear Sets", "Pyjama Sets", "Shirt & Shorts Sets", "Shirts", "Shorts & Bermudas", "Trousers & Jeans", "Tshirt & Shorts Sets"],
+            kids: ["Co-ord Sets", "Loungewear Sets", "Shirt & Shorts Sets", "Shirts", "Shorts & Bermudas", "Trousers & Jeans", "Tshirt & Shorts Sets"]
+        },
+        girl: {
+            baby: ["Bodysuit Sets", "Bodysuits", "Dungaree Sets", "Frock 2pc Sets", "Frocks & Dresses", "Loungewear Sets", "Pyjama Sets", "Rompers & Sleepsuits", "Shirt & Shorts Sets", "Top & Leggings Sets", "Top & Shorts Sets"],
+            toddlers: ["Co-ord Sets", "Frocks & Dresses", "Leggings", "Loungewear Sets", "Palazzo Sets", "Pyjama Sets", "Top & Leggings Sets", "Top & Shorts Sets"],
+            kids: ["Frocks & Dresses", "Leggings", "Palazzo Sets"]
+        }
+    };
 
     // Product Translations for 26 languages
-    // const productTranslations = {
-    //     // en: {
-    //     //     "Bodysuit Sets": "Bodysuit Sets", "Bodysuits": "Bodysuits", "Co-ord Sets": "Co-ord Sets", "Dungaree Sets": "Dungaree Sets", "Loungewear Sets": "Loungewear Sets", "Pyjama Sets": "Pyjama Sets", "Rompers & Sleepsuits": "Rompers & Sleepsuits", "Shirt & Shorts Sets": "Shirt & Shorts Sets", "Shirts": "Shirts", "Trousers & Jeans": "Trousers & Jeans", "Tshirt & Shorts Sets": "Tshirt & Shorts Sets", "Shorts & Bermudas": "Shorts & Bermudas", "Frock 2pc Sets": "Frock 2pc Sets", "Frocks & Dresses": "Frocks & Dresses", "Top & Leggings Sets": "Top & Leggings Sets", "Top & Shorts Sets": "Top & Shorts Sets", "Leggings": "Leggings", "Palazzo Sets": "Palazzo Sets"
-    //     // },
-    //     // ar: {
-    //     //     "Bodysuit Sets": "أطقم بودي سوت", "Bodysuits": "بودي سوت", "Co-ord Sets": "أطقم متناسقة", "Dungaree Sets": "أطقم سالوبيت", "Loungewear Sets": "أطقم ملابس منزلية", "Pyjama Sets": "أطقم بيجاما", "Rompers & Sleepsuits": "رومبر وملابس نوم", "Shirt & Shorts Sets": "أطقم قميص وشورت", "Shirts": "قمصان", "Trousers & Jeans": "بناطيل وجينز", "Tshirt & Shorts Sets": "أطقم تيشيرت وشورت", "Shorts & Bermudas": "شورتات وبرمودا", "Frock 2pc Sets": "أطقم فستان قطعتين", "Frocks & Dresses": "فساتين", "Top & Leggings Sets": "أطقم بلوزة وليقنز", "Top & Shorts Sets": "أطقم بلوزة وشورت", "Leggings": "ليقنز", "Palazzo Sets": "أطقم بلازو"
-    //     // },
-    //     // fa: {
-    //     //     "Bodysuit Sets": "ست بادی سوت", "Bodysuits": "بادی سوت", "Co-ord Sets": "ست هماهنگ", "Dungaree Sets": "ست سرهمی", "Loungewear Sets": "ست لباس راحتی", "Pyjama Sets": "ست پیژامه", "Rompers & Sleepsuits": "رامپر و لباس خواب", "Shirt & Shorts Sets": "ست پیراهن و شلوارک", "Shirts": "پیراهن", "Trousers & Jeans": "شلوار و جین", "Tshirt & Shorts Sets": "ست تیشرت و شلوارک", "Shorts & Bermudas": "شلوارک و برمودا", "Frock 2pc Sets": "ست لباس دو تکه", "Frocks & Dresses": "پیراهن و لباس", "Top & Leggings Sets": "ست بلوز و ساپورت", "Top & Shorts Sets": "ست بلوز و شلوارک", "Leggings": "ساپورت", "Palazzo Sets": "ست پالازو"
-    //     // },
-    //     // fr: {
-    //     //     "Bodysuit Sets": "Ensembles Body", "Bodysuits": "Bodies", "Co-ord Sets": "Ensembles Coordonnés", "Dungaree Sets": "Ensembles Salopette", "Loungewear Sets": "Ensembles Détente", "Pyjama Sets": "Ensembles Pyjama", "Rompers & Sleepsuits": "Barboteuses et Grenouillères", "Shirt & Shorts Sets": "Ensembles Chemise et Short", "Shirts": "Chemises", "Trousers & Jeans": "Pantalons et Jeans", "Tshirt & Shorts Sets": "Ensembles T-shirt et Short", "Shorts & Bermudas": "Shorts et Bermudas", "Frock 2pc Sets": "Ensembles Robe 2 pièces", "Frocks & Dresses": "Robes", "Top & Leggings Sets": "Ensembles Haut et Leggings", "Top & Shorts Sets": "Ensembles Haut et Short", "Leggings": "Leggings", "Palazzo Sets": "Ensembles Palazzo"
-    //     // },
-    //     // ru: {
-    //     //     "Bodysuit Sets": "Комплекты боди", "Bodysuits": "Боди", "Co-ord Sets": "Комплекты", "Dungaree Sets": "Комплекты комбинезонов", "Loungewear Sets": "Домашние комплекты", "Pyjama Sets": "Пижамные комплекты", "Rompers & Sleepsuits": "Ромперы и слипы", "Shirt & Shorts Sets": "Комплекты рубашка+шорты", "Shirts": "Рубашки", "Trousers & Jeans": "Брюки и джинсы", "Tshirt & Shorts Sets": "Комплекты футболка+шорты", "Shorts & Bermudas": "Шорты и бермуды", "Frock 2pc Sets": "Платья из 2 частей", "Frocks & Dresses": "Платья", "Top & Leggings Sets": "Комплекты топ+леггинсы", "Top & Shorts Sets": "Комплекты топ+шорты", "Leggings": "Леггинсы", "Palazzo Sets": "Комплекты палаццо"
-    //     // },
-    //     // es: {
-    //     //     "Bodysuit Sets": "Conjuntos de Body", "Bodysuits": "Bodies", "Co-ord Sets": "Conjuntos Coordinados", "Dungaree Sets": "Conjuntos de Peto", "Loungewear Sets": "Conjuntos de Ropa Cómoda", "Pyjama Sets": "Conjuntos de Pijama", "Rompers & Sleepsuits": "Peleles y Pijamas Enteros", "Shirt & Shorts Sets": "Conjuntos Camisa y Pantalón Corto", "Shirts": "Camisas", "Trousers & Jeans": "Pantalones y Vaqueros", "Tshirt & Shorts Sets": "Conjuntos Camiseta y Pantalón Corto", "Shorts & Bermudas": "Pantalones Cortos y Bermudas", "Frock 2pc Sets": "Conjuntos Vestido 2 Piezas", "Frocks & Dresses": "Vestidos", "Top & Leggings Sets": "Conjuntos Top y Leggings", "Top & Shorts Sets": "Conjuntos Top y Pantalón Corto", "Leggings": "Leggings", "Palazzo Sets": "Conjuntos Palazzo"
-    //     // },
-    //     // sw: {
-    //     //     "Bodysuit Sets": "Seti za Bodysuit", "Bodysuits": "Bodysuit", "Co-ord Sets": "Seti Zinazolingana", "Dungaree Sets": "Seti za Dungaree", "Loungewear Sets": "Seti za Nguo za Nyumbani", "Pyjama Sets": "Seti za Pijama", "Rompers & Sleepsuits": "Rompa na Nguo za Kulala", "Shirt & Shorts Sets": "Seti za Shati na Suruali Fupi", "Shirts": "Mashati", "Trousers & Jeans": "Suruali na Jinsi", "Tshirt & Shorts Sets": "Seti za Fulana na Suruali Fupi", "Shorts & Bermudas": "Suruali Fupi na Bermuda", "Frock 2pc Sets": "Seti za Gauni Vipande 2", "Frocks & Dresses": "Mavazi", "Top & Leggings Sets": "Seti za Juu na Leginzi", "Top & Shorts Sets": "Seti za Juu na Suruali Fupi", "Leggings": "Leginzi", "Palazzo Sets": "Seti za Palazzo"
-    //     // },
-    //     // af: {
-    //     //     "Bodysuit Sets": "Lyfpakstelle", "Bodysuits": "Lyfpakke", "Co-ord Sets": "Gekoördineerde Stelle", "Dungaree Sets": "Oorpakstelle", "Loungewear Sets": "Ontspankleresterlie", "Pyjama Sets": "Pajamastelle", "Rompers & Sleepsuits": "Rompertjies en Slaappakke", "Shirt & Shorts Sets": "Hemp en Kortbroekstelle", "Shirts": "Hemde", "Trousers & Jeans": "Broeke en Jeans", "Tshirt & Shorts Sets": "T-hemp en Kortbroekstelle", "Shorts & Bermudas": "Kortbroeke en Bermudas", "Frock 2pc Sets": "Rok 2-stuk Stelle", "Frocks & Dresses": "Rokke", "Top & Leggings Sets": "Bostuk en Leggingstelle", "Top & Shorts Sets": "Bostuk en Kortbroekstelle", "Leggings": "Leggings", "Palazzo Sets": "Palazzostelle"
-    //     // },
-    //     // sq: {
-    //     //     "Bodysuit Sets": "Sete Kostumi Trupi", "Bodysuits": "Kostume Trupi", "Co-ord Sets": "Sete të Koordinuara", "Dungaree Sets": "Sete Kombinezonash", "Loungewear Sets": "Sete Veshje Shtëpie", "Pyjama Sets": "Sete Pizhame", "Rompers & Sleepsuits": "Romper dhe Kostume Gjumi", "Shirt & Shorts Sets": "Sete Këmishë dhe Pantallona të Shkurtra", "Shirts": "Këmisha", "Trousers & Jeans": "Pantallona dhe Xhinse", "Tshirt & Shorts Sets": "Sete Bluzë dhe Pantallona të Shkurtra", "Shorts & Bermudas": "Pantallona të Shkurtra dhe Bermuda", "Frock 2pc Sets": "Sete Fustanesh 2 Pjesë", "Frocks & Dresses": "Fustane", "Top & Leggings Sets": "Sete Bluzë dhe Tajice", "Top & Shorts Sets": "Sete Bluzë dhe Pantallona të Shkurtra", "Leggings": "Tajice", "Palazzo Sets": "Sete Palazzo"
-    //     // },
-    //     // am: {
-    //     //     "Bodysuit Sets": "የቦዲሱት ስብስቦች", "Bodysuits": "ቦዲሱቶች", "Co-ord Sets": "ተመሳሳይ ስብስቦች", "Dungaree Sets": "የዳንጋሪ ስብስቦች", "Loungewear Sets": "የቤት ልብስ ስብስቦች", "Pyjama Sets": "የፒጃማ ስብስቦች", "Rompers & Sleepsuits": "ሮምፐሮች እና የእንቅልፍ ልብሶች", "Shirt & Shorts Sets": "ሸሚዝ እና ሾርት ስብስቦች", "Shirts": "ሸሚዞች", "Trousers & Jeans": "ሱሪዎች እና ጂንሶች", "Tshirt & Shorts Sets": "ቲሸርት እና ሾርት ስብስቦች", "Shorts & Bermudas": "ሾርቶች እና በርሙዳዎች", "Frock 2pc Sets": "የቀሚስ 2 ቁራጭ ስብስቦች", "Frocks & Dresses": "ቀሚሶች", "Top & Leggings Sets": "የላይኛው እና ሌጊንግስ ስብስቦች", "Top & Shorts Sets": "የላይኛው እና ሾርት ስብስቦች", "Leggings": "ሌጊንግስ", "Palazzo Sets": "ፓላዞ ስብስቦች"
-    //     // },
-    //     // hy: {
-    //     //     "Bodysuit Sets": "Բdelays Սdelays", "Bodysuits": "Delays", "Co-ord Sets": "Հdelays Սdelays", "Dungaree Sets": "Дdelays Сdelays", "Loungewear Sets": "Տdelays Սdelays", "Pyjama Sets": "Գdelays Սdelays", "Rompers & Sleepsuits": "Delays & Delays", "Shirt & Shorts Sets": "Delays & Delays", "Shirts": "Delays", "Trousers & Jeans": "Delays & Delays", "Tshirt & Shorts Sets": "Delays & Delays", "Shorts & Bermudas": "Delays & Delays", "Frock 2pc Sets": "Delays 2 Delays", "Frocks & Dresses": "Delays", "Top & Leggings Sets": "Delays & Delays", "Top & Shorts Sets": "Delays & Delays", "Leggings": "Delays", "Palazzo Sets": "Delays Delays"
-    //     // },
-    //     // az: {
-    //     //     "Bodysuit Sets": "Bodi Dəstləri", "Bodysuits": "Bodilər", "Co-ord Sets": "Uyğun Dəstlər", "Dungaree Sets": "Kombinezon Dəstləri", "Loungewear Sets": "Ev Geyimi Dəstləri", "Pyjama Sets": "Pijama Dəstləri", "Rompers & Sleepsuits": "Tulumlar və Yuxu Paltarları", "Shirt & Shorts Sets": "Köynək və Şort Dəstləri", "Shirts": "Köynəklər", "Trousers & Jeans": "Şalvarlar və Cinslər", "Tshirt & Shorts Sets": "Futbolka və Şort Dəstləri", "Shorts & Bermudas": "Şortlar və Bermudalar", "Frock 2pc Sets": "Don 2 Parça Dəstlər", "Frocks & Dresses": "Donlar", "Top & Leggings Sets": "Üst və Tayt Dəstləri", "Top & Shorts Sets": "Üst və Şort Dəstləri", "Leggings": "Taytlar", "Palazzo Sets": "Palazzo Dəstləri"
-    //     // },
-    //     // gu: {
-    //     //     "Bodysuit Sets": "બોડીસૂટ સેટ", "Bodysuits": "બોડીસૂટ", "Co-ord Sets": "કો-ઓર્ડ સેટ", "Dungaree Sets": "ડંગરી સેટ", "Loungewear Sets": "લાઉન્જવેર સેટ", "Pyjama Sets": "પાયજામા સેટ", "Rompers & Sleepsuits": "રોમ્પર અને સ્લીપસૂટ", "Shirt & Shorts Sets": "શર્ટ અને શોર્ટ્સ સેટ", "Shirts": "શર્ટ", "Trousers & Jeans": "ટ્રાઉઝર અને જીન્સ", "Tshirt & Shorts Sets": "ટીશર્ટ અને શોર્ટ્સ સેટ", "Shorts & Bermudas": "શોર્ટ્સ અને બર્મુડા", "Frock 2pc Sets": "ફ્રોક 2 પીસ સેટ", "Frocks & Dresses": "ફ્રોક અને ડ્રેસ", "Top & Leggings Sets": "ટોપ અને લેગિંગ્સ સેટ", "Top & Shorts Sets": "ટોપ અને શોર્ટ્સ સેટ", "Leggings": "લેગિંગ્સ", "Palazzo Sets": "પલાઝો સેટ"
-    //     // },
-    //     // ha: {
-    //     //     "Bodysuit Sets": "Saitin Bodysuit", "Bodysuits": "Bodysuit", "Co-ord Sets": "Saitin Daidaita", "Dungaree Sets": "Saitin Dungaree", "Loungewear Sets": "Saitin Kayan Hutu", "Pyjama Sets": "Saitin Pajama", "Rompers & Sleepsuits": "Rompa da Kayan Barci", "Shirt & Shorts Sets": "Saitin Riga da Wando Gajere", "Shirts": "Riguna", "Trousers & Jeans": "Wanduna da Jinsi", "Tshirt & Shorts Sets": "Saitin Tshirt da Wando Gajere", "Shorts & Bermudas": "Wanduna Gajere da Bermuda", "Frock 2pc Sets": "Saitin Riga Guda 2", "Frocks & Dresses": "Riguna", "Top & Leggings Sets": "Saitin Sama da Leggings", "Top & Shorts Sets": "Saitin Sama da Wando Gajere", "Leggings": "Leggings", "Palazzo Sets": "Saitin Palazzo"
-    //     // },
-    //     // hi: {
-    //     //     "Bodysuit Sets": "बॉडीसूट सेट", "Bodysuits": "बॉडीसूट", "Co-ord Sets": "को-ऑर्ड सेट", "Dungaree Sets": "डंगरी सेट", "Loungewear Sets": "लाउंजवियर सेट", "Pyjama Sets": "पायजामा सेट", "Rompers & Sleepsuits": "रोम्पर और स्लीपसूट", "Shirt & Shorts Sets": "शर्ट और शॉर्ट्स सेट", "Shirts": "शर्ट", "Trousers & Jeans": "ट्राउजर और जींस", "Tshirt & Shorts Sets": "टीशर्ट और शॉर्ट्स सेट", "Shorts & Bermudas": "शॉर्ट्स और बरमूडा", "Frock 2pc Sets": "फ्रॉक 2 पीस सेट", "Frocks & Dresses": "फ्रॉक और ड्रेस", "Top & Leggings Sets": "टॉप और लेगिंग्स सेट", "Top & Shorts Sets": "टॉप और शॉर्ट्स सेट", "Leggings": "लेगिंग्स", "Palazzo Sets": "पलाज़ो सेट"
-    //     // },
-    //     // kk: {
-    //     //     "Bodysuit Sets": "Боди жиынтықтары", "Bodysuits": "Бодилер", "Co-ord Sets": "Сәйкес жиынтықтар", "Dungaree Sets": "Комбинезон жиынтықтары", "Loungewear Sets": "Үй киімі жиынтықтары", "Pyjama Sets": "Пижама жиынтықтары", "Rompers & Sleepsuits": "Ромперлер мен ұйқы киімдері", "Shirt & Shorts Sets": "Жейде мен шорт жиынтықтары", "Shirts": "Жейделер", "Trousers & Jeans": "Шалбарлар мен джинсы", "Tshirt & Shorts Sets": "Футболка мен шорт жиынтықтары", "Shorts & Bermudas": "Шорттар мен бермудалар", "Frock 2pc Sets": "Көйлек 2 бөлік жиынтықтары", "Frocks & Dresses": "Көйлектер", "Top & Leggings Sets": "Үстіңгі және лосиндер жиынтықтары", "Top & Shorts Sets": "Үстіңгі мен шорт жиынтықтары", "Leggings": "Лосиндер", "Palazzo Sets": "Палаццо жиынтықтары"
-    //     // },
-    //     // ku: {
-    //     //     "Bodysuit Sets": "Setên Bodysuit", "Bodysuits": "Bodysuit", "Co-ord Sets": "Setên Hevaheng", "Dungaree Sets": "Setên Dungaree", "Loungewear Sets": "Setên Cilên Malê", "Pyjama Sets": "Setên Pîjama", "Rompers & Sleepsuits": "Romper û Cilên Xewê", "Shirt & Shorts Sets": "Setên Kiras û Pantolên Kurt", "Shirts": "Kiras", "Trousers & Jeans": "Pantol û Cins", "Tshirt & Shorts Sets": "Setên Tshirt û Pantolên Kurt", "Shorts & Bermudas": "Pantolên Kurt û Bermuda", "Frock 2pc Sets": "Setên Cilê 2 Perçe", "Frocks & Dresses": "Cil", "Top & Leggings Sets": "Setên Jorîn û Legîn", "Top & Shorts Sets": "Setên Jorîn û Pantolên Kurt", "Leggings": "Legîn", "Palazzo Sets": "Setên Palazzo"
-    //     // },
-    //     // mn: {
-    //     //     "Bodysuit Sets": "Бодисүйт багц", "Bodysuits": "Бодисүйт", "Co-ord Sets": "Иж бүрдэл", "Dungaree Sets": "Комбинезон багц", "Loungewear Sets": "Гэрийн хувцас багц", "Pyjama Sets": "Пижама багц", "Rompers & Sleepsuits": "Ромпер ба унтлагын хувцас", "Shirt & Shorts Sets": "Цамц ба богино өмд багц", "Shirts": "Цамц", "Trousers & Jeans": "Өмд ба жинс", "Tshirt & Shorts Sets": "Футболк ба богино өмд багц", "Shorts & Bermudas": "Богино өмд ба бермуда", "Frock 2pc Sets": "Даашинз 2 хэсэг багц", "Frocks & Dresses": "Даашинз", "Top & Leggings Sets": "Топ ба леггинс багц", "Top & Shorts Sets": "Топ ба богино өмд багц", "Leggings": "Леггинс", "Palazzo Sets": "Палаццо багц"
-    //     // },
-    //     // ps: {
-    //     //     "Bodysuit Sets": "د بډي سوټ سیټونه", "Bodysuits": "بډي سوټ", "Co-ord Sets": "مساوي سیټونه", "Dungaree Sets": "د ډنګري سیټونه", "Loungewear Sets": "د کور جامو سیټونه", "Pyjama Sets": "د پاجامې سیټونه", "Rompers & Sleepsuits": "رومپر او د خوب جامې", "Shirt & Shorts Sets": "بوش او نیکر سیټونه", "Shirts": "بوش", "Trousers & Jeans": "پتلون او جینز", "Tshirt & Shorts Sets": "ټي شرټ او نیکر سیټونه", "Shorts & Bermudas": "نیکر او برمودا", "Frock 2pc Sets": "کمیس 2 ټوټه سیټونه", "Frocks & Dresses": "کمیسونه", "Top & Leggings Sets": "پورتنۍ او لیګنګز سیټونه", "Top & Shorts Sets": "پورتنۍ او نیکر سیټونه", "Leggings": "لیګنګز", "Palazzo Sets": "پلازو سیټونه"
-    //     // },
-    //     // pt: {
-    //     //     "Bodysuit Sets": "Conjuntos de Body", "Bodysuits": "Bodies", "Co-ord Sets": "Conjuntos Coordenados", "Dungaree Sets": "Conjuntos de Jardineira", "Loungewear Sets": "Conjuntos de Roupa Confortável", "Pyjama Sets": "Conjuntos de Pijama", "Rompers & Sleepsuits": "Macacões e Pijamas Inteiros", "Shirt & Shorts Sets": "Conjuntos Camisa e Calção", "Shirts": "Camisas", "Trousers & Jeans": "Calças e Jeans", "Tshirt & Shorts Sets": "Conjuntos Camiseta e Calção", "Shorts & Bermudas": "Calções e Bermudas", "Frock 2pc Sets": "Conjuntos Vestido 2 Peças", "Frocks & Dresses": "Vestidos", "Top & Leggings Sets": "Conjuntos Blusa e Leggings", "Top & Shorts Sets": "Conjuntos Blusa e Calção", "Leggings": "Leggings", "Palazzo Sets": "Conjuntos Palazzo"
-    //     // },
-    //     // so: {
-    //     //     "Bodysuit Sets": "Setiyada Bodysuit", "Bodysuits": "Bodysuit", "Co-ord Sets": "Setiyada Isku Eg", "Dungaree Sets": "Setiyada Dungaree", "Loungewear Sets": "Setiyada Dharka Guriga", "Pyjama Sets": "Setiyada Bijaamo", "Rompers & Sleepsuits": "Romper iyo Dharka Hurdo", "Shirt & Shorts Sets": "Setiyada Shaadh iyo Surwaal Gaab", "Shirts": "Shaadh", "Trousers & Jeans": "Surwaal iyo Jiin", "Tshirt & Shorts Sets": "Setiyada Funaanado iyo Surwaal Gaab", "Shorts & Bermudas": "Surwaal Gaab iyo Bermuda", "Frock 2pc Sets": "Setiyada Dharaar 2 Qayb", "Frocks & Dresses": "Dharaar", "Top & Leggings Sets": "Setiyada Koor iyo Leegings", "Top & Shorts Sets": "Setiyada Koor iyo Surwaal Gaab", "Leggings": "Leegings", "Palazzo Sets": "Setiyada Palazzo"
-    //     // },
-    //     // tr: {
-    //     //     "Bodysuit Sets": "Badi Setleri", "Bodysuits": "Badiler", "Co-ord Sets": "Takım Setleri", "Dungaree Sets": "Salopet Setleri", "Loungewear Sets": "Ev Giyim Setleri", "Pyjama Sets": "Pijama Setleri", "Rompers & Sleepsuits": "Tulumlar ve Uyku Tulumları", "Shirt & Shorts Sets": "Gömlek ve Şort Setleri", "Shirts": "Gömlekler", "Trousers & Jeans": "Pantolonlar ve Kotlar", "Tshirt & Shorts Sets": "Tişört ve Şort Setleri", "Shorts & Bermudas": "Şortlar ve Bermudalar", "Frock 2pc Sets": "Elbise 2 Parça Setler", "Frocks & Dresses": "Elbiseler", "Top & Leggings Sets": "Üst ve Tayt Setleri", "Top & Shorts Sets": "Üst ve Şort Setleri", "Leggings": "Taytlar", "Palazzo Sets": "Palazzo Setleri"
-    //     // },
-    //     // ur: {
-    //     //     "Bodysuit Sets": "باڈی سوٹ سیٹ", "Bodysuits": "باڈی سوٹ", "Co-ord Sets": "میچنگ سیٹ", "Dungaree Sets": "ڈنگری سیٹ", "Loungewear Sets": "گھریلو لباس سیٹ", "Pyjama Sets": "پاجامہ سیٹ", "Rompers & Sleepsuits": "رومپر اور نیند کے کپڑے", "Shirt & Shorts Sets": "قمیض اور شارٹس سیٹ", "Shirts": "قمیصیں", "Trousers & Jeans": "پتلون اور جینز", "Tshirt & Shorts Sets": "ٹی شرٹ اور شارٹس سیٹ", "Shorts & Bermudas": "شارٹس اور برمودا", "Frock 2pc Sets": "فراک 2 پیس سیٹ", "Frocks & Dresses": "فراک", "Top & Leggings Sets": "ٹاپ اور لیگنگز سیٹ", "Top & Shorts Sets": "ٹاپ اور شارٹس سیٹ", "Leggings": "لیگنگز", "Palazzo Sets": "پلازو سیٹ"
-    //     // },
-    //     // uz: {
-    //     //     "Bodysuit Sets": "Bodisyut to'plamlari", "Bodysuits": "Bodisyutlar", "Co-ord Sets": "Mos to'plamlar", "Dungaree Sets": "Kombinezon to'plamlari", "Loungewear Sets": "Uy kiyimi to'plamlari", "Pyjama Sets": "Pijama to'plamlari", "Rompers & Sleepsuits": "Romperlar va uyqu kiyimlari", "Shirt & Shorts Sets": "Ko'ylak va shim to'plamlari", "Shirts": "Ko'ylaklar", "Trousers & Jeans": "Shimlar va djinslar", "Tshirt & Shorts Sets": "Futbolka va shim to'plamlari", "Shorts & Bermudas": "Shimlar va bermudalar", "Frock 2pc Sets": "Ko'ylak 2 qism to'plamlari", "Frocks & Dresses": "Ko'ylaklar", "Top & Leggings Sets": "Ustki va legins to'plamlari", "Top & Shorts Sets": "Ustki va shim to'plamlari", "Leggings": "Leginslar", "Palazzo Sets": "Palazzo to'plamlari"
-    //     // },
-    //     // yo: {
-    //     //     "Bodysuit Sets": "Àwọn Ẹ̀rọ Aṣọ Ara", "Bodysuits": "Aṣọ Ara", "Co-ord Sets": "Àwọn Ẹ̀rọ Tó Bára Mu", "Dungaree Sets": "Àwọn Ẹ̀rọ Dungaree", "Loungewear Sets": "Àwọn Ẹ̀rọ Aṣọ Ilé", "Pyjama Sets": "Àwọn Ẹ̀rọ Pajama", "Rompers & Sleepsuits": "Rompa àti Aṣọ Oorun", "Shirt & Shorts Sets": "Àwọn Ẹ̀rọ Ṣẹẹti àti Sokoto Kúrú", "Shirts": "Àwọn Ṣẹẹti", "Trousers & Jeans": "Sokoto àti Jínì", "Tshirt & Shorts Sets": "Àwọn Ẹ̀rọ T-ṣẹẹti àti Sokoto Kúrú", "Shorts & Bermudas": "Sokoto Kúrú àti Bermuda", "Frock 2pc Sets": "Àwọn Ẹ̀rọ Aṣọ Mẹ́ta 2", "Frocks & Dresses": "Àwọn Aṣọ", "Top & Leggings Sets": "Àwọn Ẹ̀rọ Oke àti Leggings", "Top & Shorts Sets": "Àwọn Ẹ̀rọ Oke àti Sokoto Kúrú", "Leggings": "Leggings", "Palazzo Sets": "Àwọn Ẹ̀rọ Palazzo"
-    //     // },
-    //     // zu: {
-    //     //     "Bodysuit Sets": "Amaseti e-Bodysuit", "Bodysuits": "Ama-Bodysuit", "Co-ord Sets": "Amaseti Ahambisanayo", "Dungaree Sets": "Amaseti e-Dungaree", "Loungewear Sets": "Amaseti Ezingubo Zasekhaya", "Pyjama Sets": "Amaseti Amaphijama", "Rompers & Sleepsuits": "Ama-Romper Nezingubo Zokulala", "Shirt & Shorts Sets": "Amaseti Amahembe Namabhulukwe Amafushane", "Shirts": "Amahembe", "Trousers & Jeans": "Amabhulukwe Nama-Jeans", "Tshirt & Shorts Sets": "Amaseti Ama-T-shirt Namabhulukwe Amafushane", "Shorts & Bermudas": "Amabhulukwe Amafushane Nama-Bermuda", "Frock 2pc Sets": "Amaseti Ezingubo Izingxenye Ezimbili", "Frocks & Dresses": "Izingubo", "Top & Leggings Sets": "Amaseti Okuphezulu Nama-Leggings", "Top & Shorts Sets": "Amaseti Okuphezulu Namabhulukwe Amafushane", "Leggings": "Ama-Leggings", "Palazzo Sets": "Amaseti e-Palazzo"
-    //     // }
-    // };
-
-    const productTranslations = @json($productTranslations);
+    const productTranslations = {
+        en: {
+            "Bodysuit Sets": "Bodysuit Sets", "Bodysuits": "Bodysuits", "Co-ord Sets": "Co-ord Sets", "Dungaree Sets": "Dungaree Sets", "Loungewear Sets": "Loungewear Sets", "Pyjama Sets": "Pyjama Sets", "Rompers & Sleepsuits": "Rompers & Sleepsuits", "Shirt & Shorts Sets": "Shirt & Shorts Sets", "Shirts": "Shirts", "Trousers & Jeans": "Trousers & Jeans", "Tshirt & Shorts Sets": "Tshirt & Shorts Sets", "Shorts & Bermudas": "Shorts & Bermudas", "Frock 2pc Sets": "Frock 2pc Sets", "Frocks & Dresses": "Frocks & Dresses", "Top & Leggings Sets": "Top & Leggings Sets", "Top & Shorts Sets": "Top & Shorts Sets", "Leggings": "Leggings", "Palazzo Sets": "Palazzo Sets"
+        },
+        ar: {
+            "Bodysuit Sets": "أطقم بودي سوت", "Bodysuits": "بودي سوت", "Co-ord Sets": "أطقم متناسقة", "Dungaree Sets": "أطقم سالوبيت", "Loungewear Sets": "أطقم ملابس منزلية", "Pyjama Sets": "أطقم بيجاما", "Rompers & Sleepsuits": "رومبر وملابس نوم", "Shirt & Shorts Sets": "أطقم قميص وشورت", "Shirts": "قمصان", "Trousers & Jeans": "بناطيل وجينز", "Tshirt & Shorts Sets": "أطقم تيشيرت وشورت", "Shorts & Bermudas": "شورتات وبرمودا", "Frock 2pc Sets": "أطقم فستان قطعتين", "Frocks & Dresses": "فساتين", "Top & Leggings Sets": "أطقم بلوزة وليقنز", "Top & Shorts Sets": "أطقم بلوزة وشورت", "Leggings": "ليقنز", "Palazzo Sets": "أطقم بلازو"
+        },
+        fa: {
+            "Bodysuit Sets": "ست بادی سوت", "Bodysuits": "بادی سوت", "Co-ord Sets": "ست هماهنگ", "Dungaree Sets": "ست سرهمی", "Loungewear Sets": "ست لباس راحتی", "Pyjama Sets": "ست پیژامه", "Rompers & Sleepsuits": "رامپر و لباس خواب", "Shirt & Shorts Sets": "ست پیراهن و شلوارک", "Shirts": "پیراهن", "Trousers & Jeans": "شلوار و جین", "Tshirt & Shorts Sets": "ست تیشرت و شلوارک", "Shorts & Bermudas": "شلوارک و برمودا", "Frock 2pc Sets": "ست لباس دو تکه", "Frocks & Dresses": "پیراهن و لباس", "Top & Leggings Sets": "ست بلوز و ساپورت", "Top & Shorts Sets": "ست بلوز و شلوارک", "Leggings": "ساپورت", "Palazzo Sets": "ست پالازو"
+        },
+        fr: {
+            "Bodysuit Sets": "Ensembles Body", "Bodysuits": "Bodies", "Co-ord Sets": "Ensembles Coordonnés", "Dungaree Sets": "Ensembles Salopette", "Loungewear Sets": "Ensembles Détente", "Pyjama Sets": "Ensembles Pyjama", "Rompers & Sleepsuits": "Barboteuses et Grenouillères", "Shirt & Shorts Sets": "Ensembles Chemise et Short", "Shirts": "Chemises", "Trousers & Jeans": "Pantalons et Jeans", "Tshirt & Shorts Sets": "Ensembles T-shirt et Short", "Shorts & Bermudas": "Shorts et Bermudas", "Frock 2pc Sets": "Ensembles Robe 2 pièces", "Frocks & Dresses": "Robes", "Top & Leggings Sets": "Ensembles Haut et Leggings", "Top & Shorts Sets": "Ensembles Haut et Short", "Leggings": "Leggings", "Palazzo Sets": "Ensembles Palazzo"
+        },
+        ru: {
+            "Bodysuit Sets": "Комплекты боди", "Bodysuits": "Боди", "Co-ord Sets": "Комплекты", "Dungaree Sets": "Комплекты комбинезонов", "Loungewear Sets": "Домашние комплекты", "Pyjama Sets": "Пижамные комплекты", "Rompers & Sleepsuits": "Ромперы и слипы", "Shirt & Shorts Sets": "Комплекты рубашка+шорты", "Shirts": "Рубашки", "Trousers & Jeans": "Брюки и джинсы", "Tshirt & Shorts Sets": "Комплекты футболка+шорты", "Shorts & Bermudas": "Шорты и бермуды", "Frock 2pc Sets": "Платья из 2 частей", "Frocks & Dresses": "Платья", "Top & Leggings Sets": "Комплекты топ+леггинсы", "Top & Shorts Sets": "Комплекты топ+шорты", "Leggings": "Леггинсы", "Palazzo Sets": "Комплекты палаццо"
+        },
+        es: {
+            "Bodysuit Sets": "Conjuntos de Body", "Bodysuits": "Bodies", "Co-ord Sets": "Conjuntos Coordinados", "Dungaree Sets": "Conjuntos de Peto", "Loungewear Sets": "Conjuntos de Ropa Cómoda", "Pyjama Sets": "Conjuntos de Pijama", "Rompers & Sleepsuits": "Peleles y Pijamas Enteros", "Shirt & Shorts Sets": "Conjuntos Camisa y Pantalón Corto", "Shirts": "Camisas", "Trousers & Jeans": "Pantalones y Vaqueros", "Tshirt & Shorts Sets": "Conjuntos Camiseta y Pantalón Corto", "Shorts & Bermudas": "Pantalones Cortos y Bermudas", "Frock 2pc Sets": "Conjuntos Vestido 2 Piezas", "Frocks & Dresses": "Vestidos", "Top & Leggings Sets": "Conjuntos Top y Leggings", "Top & Shorts Sets": "Conjuntos Top y Pantalón Corto", "Leggings": "Leggings", "Palazzo Sets": "Conjuntos Palazzo"
+        },
+        sw: {
+            "Bodysuit Sets": "Seti za Bodysuit", "Bodysuits": "Bodysuit", "Co-ord Sets": "Seti Zinazolingana", "Dungaree Sets": "Seti za Dungaree", "Loungewear Sets": "Seti za Nguo za Nyumbani", "Pyjama Sets": "Seti za Pijama", "Rompers & Sleepsuits": "Rompa na Nguo za Kulala", "Shirt & Shorts Sets": "Seti za Shati na Suruali Fupi", "Shirts": "Mashati", "Trousers & Jeans": "Suruali na Jinsi", "Tshirt & Shorts Sets": "Seti za Fulana na Suruali Fupi", "Shorts & Bermudas": "Suruali Fupi na Bermuda", "Frock 2pc Sets": "Seti za Gauni Vipande 2", "Frocks & Dresses": "Mavazi", "Top & Leggings Sets": "Seti za Juu na Leginzi", "Top & Shorts Sets": "Seti za Juu na Suruali Fupi", "Leggings": "Leginzi", "Palazzo Sets": "Seti za Palazzo"
+        },
+        af: {
+            "Bodysuit Sets": "Lyfpakstelle", "Bodysuits": "Lyfpakke", "Co-ord Sets": "Gekoördineerde Stelle", "Dungaree Sets": "Oorpakstelle", "Loungewear Sets": "Ontspankleresterlie", "Pyjama Sets": "Pajamastelle", "Rompers & Sleepsuits": "Rompertjies en Slaappakke", "Shirt & Shorts Sets": "Hemp en Kortbroekstelle", "Shirts": "Hemde", "Trousers & Jeans": "Broeke en Jeans", "Tshirt & Shorts Sets": "T-hemp en Kortbroekstelle", "Shorts & Bermudas": "Kortbroeke en Bermudas", "Frock 2pc Sets": "Rok 2-stuk Stelle", "Frocks & Dresses": "Rokke", "Top & Leggings Sets": "Bostuk en Leggingstelle", "Top & Shorts Sets": "Bostuk en Kortbroekstelle", "Leggings": "Leggings", "Palazzo Sets": "Palazzostelle"
+        },
+        sq: {
+            "Bodysuit Sets": "Sete Kostumi Trupi", "Bodysuits": "Kostume Trupi", "Co-ord Sets": "Sete të Koordinuara", "Dungaree Sets": "Sete Kombinezonash", "Loungewear Sets": "Sete Veshje Shtëpie", "Pyjama Sets": "Sete Pizhame", "Rompers & Sleepsuits": "Romper dhe Kostume Gjumi", "Shirt & Shorts Sets": "Sete Këmishë dhe Pantallona të Shkurtra", "Shirts": "Këmisha", "Trousers & Jeans": "Pantallona dhe Xhinse", "Tshirt & Shorts Sets": "Sete Bluzë dhe Pantallona të Shkurtra", "Shorts & Bermudas": "Pantallona të Shkurtra dhe Bermuda", "Frock 2pc Sets": "Sete Fustanesh 2 Pjesë", "Frocks & Dresses": "Fustane", "Top & Leggings Sets": "Sete Bluzë dhe Tajice", "Top & Shorts Sets": "Sete Bluzë dhe Pantallona të Shkurtra", "Leggings": "Tajice", "Palazzo Sets": "Sete Palazzo"
+        },
+        am: {
+            "Bodysuit Sets": "የቦዲሱት ስብስቦች", "Bodysuits": "ቦዲሱቶች", "Co-ord Sets": "ተመሳሳይ ስብስቦች", "Dungaree Sets": "የዳንጋሪ ስብስቦች", "Loungewear Sets": "የቤት ልብስ ስብስቦች", "Pyjama Sets": "የፒጃማ ስብስቦች", "Rompers & Sleepsuits": "ሮምፐሮች እና የእንቅልፍ ልብሶች", "Shirt & Shorts Sets": "ሸሚዝ እና ሾርት ስብስቦች", "Shirts": "ሸሚዞች", "Trousers & Jeans": "ሱሪዎች እና ጂንሶች", "Tshirt & Shorts Sets": "ቲሸርት እና ሾርት ስብስቦች", "Shorts & Bermudas": "ሾርቶች እና በርሙዳዎች", "Frock 2pc Sets": "የቀሚስ 2 ቁራጭ ስብስቦች", "Frocks & Dresses": "ቀሚሶች", "Top & Leggings Sets": "የላይኛው እና ሌጊንግስ ስብስቦች", "Top & Shorts Sets": "የላይኛው እና ሾርት ስብስቦች", "Leggings": "ሌጊንግስ", "Palazzo Sets": "ፓላዞ ስብስቦች"
+        },
+        hy: {
+            "Bodysuit Sets": "Բdelays Սdelays", "Bodysuits": "Delays", "Co-ord Sets": "Հdelays Սdelays", "Dungaree Sets": "Дdelays Сdelays", "Loungewear Sets": "Տdelays Սdelays", "Pyjama Sets": "Գdelays Սdelays", "Rompers & Sleepsuits": "Delays & Delays", "Shirt & Shorts Sets": "Delays & Delays", "Shirts": "Delays", "Trousers & Jeans": "Delays & Delays", "Tshirt & Shorts Sets": "Delays & Delays", "Shorts & Bermudas": "Delays & Delays", "Frock 2pc Sets": "Delays 2 Delays", "Frocks & Dresses": "Delays", "Top & Leggings Sets": "Delays & Delays", "Top & Shorts Sets": "Delays & Delays", "Leggings": "Delays", "Palazzo Sets": "Delays Delays"
+        },
+        az: {
+            "Bodysuit Sets": "Bodi Dəstləri", "Bodysuits": "Bodilər", "Co-ord Sets": "Uyğun Dəstlər", "Dungaree Sets": "Kombinezon Dəstləri", "Loungewear Sets": "Ev Geyimi Dəstləri", "Pyjama Sets": "Pijama Dəstləri", "Rompers & Sleepsuits": "Tulumlar və Yuxu Paltarları", "Shirt & Shorts Sets": "Köynək və Şort Dəstləri", "Shirts": "Köynəklər", "Trousers & Jeans": "Şalvarlar və Cinslər", "Tshirt & Shorts Sets": "Futbolka və Şort Dəstləri", "Shorts & Bermudas": "Şortlar və Bermudalar", "Frock 2pc Sets": "Don 2 Parça Dəstlər", "Frocks & Dresses": "Donlar", "Top & Leggings Sets": "Üst və Tayt Dəstləri", "Top & Shorts Sets": "Üst və Şort Dəstləri", "Leggings": "Taytlar", "Palazzo Sets": "Palazzo Dəstləri"
+        },
+        gu: {
+            "Bodysuit Sets": "બોડીસૂટ સેટ", "Bodysuits": "બોડીસૂટ", "Co-ord Sets": "કો-ઓર્ડ સેટ", "Dungaree Sets": "ડંગરી સેટ", "Loungewear Sets": "લાઉન્જવેર સેટ", "Pyjama Sets": "પાયજામા સેટ", "Rompers & Sleepsuits": "રોમ્પર અને સ્લીપસૂટ", "Shirt & Shorts Sets": "શર્ટ અને શોર્ટ્સ સેટ", "Shirts": "શર્ટ", "Trousers & Jeans": "ટ્રાઉઝર અને જીન્સ", "Tshirt & Shorts Sets": "ટીશર્ટ અને શોર્ટ્સ સેટ", "Shorts & Bermudas": "શોર્ટ્સ અને બર્મુડા", "Frock 2pc Sets": "ફ્રોક 2 પીસ સેટ", "Frocks & Dresses": "ફ્રોક અને ડ્રેસ", "Top & Leggings Sets": "ટોપ અને લેગિંગ્સ સેટ", "Top & Shorts Sets": "ટોપ અને શોર્ટ્સ સેટ", "Leggings": "લેગિંગ્સ", "Palazzo Sets": "પલાઝો સેટ"
+        },
+        ha: {
+            "Bodysuit Sets": "Saitin Bodysuit", "Bodysuits": "Bodysuit", "Co-ord Sets": "Saitin Daidaita", "Dungaree Sets": "Saitin Dungaree", "Loungewear Sets": "Saitin Kayan Hutu", "Pyjama Sets": "Saitin Pajama", "Rompers & Sleepsuits": "Rompa da Kayan Barci", "Shirt & Shorts Sets": "Saitin Riga da Wando Gajere", "Shirts": "Riguna", "Trousers & Jeans": "Wanduna da Jinsi", "Tshirt & Shorts Sets": "Saitin Tshirt da Wando Gajere", "Shorts & Bermudas": "Wanduna Gajere da Bermuda", "Frock 2pc Sets": "Saitin Riga Guda 2", "Frocks & Dresses": "Riguna", "Top & Leggings Sets": "Saitin Sama da Leggings", "Top & Shorts Sets": "Saitin Sama da Wando Gajere", "Leggings": "Leggings", "Palazzo Sets": "Saitin Palazzo"
+        },
+        hi: {
+            "Bodysuit Sets": "बॉडीसूट सेट", "Bodysuits": "बॉडीसूट", "Co-ord Sets": "को-ऑर्ड सेट", "Dungaree Sets": "डंगरी सेट", "Loungewear Sets": "लाउंजवियर सेट", "Pyjama Sets": "पायजामा सेट", "Rompers & Sleepsuits": "रोम्पर और स्लीपसूट", "Shirt & Shorts Sets": "शर्ट और शॉर्ट्स सेट", "Shirts": "शर्ट", "Trousers & Jeans": "ट्राउजर और जींस", "Tshirt & Shorts Sets": "टीशर्ट और शॉर्ट्स सेट", "Shorts & Bermudas": "शॉर्ट्स और बरमूडा", "Frock 2pc Sets": "फ्रॉक 2 पीस सेट", "Frocks & Dresses": "फ्रॉक और ड्रेस", "Top & Leggings Sets": "टॉप और लेगिंग्स सेट", "Top & Shorts Sets": "टॉप और शॉर्ट्स सेट", "Leggings": "लेगिंग्स", "Palazzo Sets": "पलाज़ो सेट"
+        },
+        kk: {
+            "Bodysuit Sets": "Боди жиынтықтары", "Bodysuits": "Бодилер", "Co-ord Sets": "Сәйкес жиынтықтар", "Dungaree Sets": "Комбинезон жиынтықтары", "Loungewear Sets": "Үй киімі жиынтықтары", "Pyjama Sets": "Пижама жиынтықтары", "Rompers & Sleepsuits": "Ромперлер мен ұйқы киімдері", "Shirt & Shorts Sets": "Жейде мен шорт жиынтықтары", "Shirts": "Жейделер", "Trousers & Jeans": "Шалбарлар мен джинсы", "Tshirt & Shorts Sets": "Футболка мен шорт жиынтықтары", "Shorts & Bermudas": "Шорттар мен бермудалар", "Frock 2pc Sets": "Көйлек 2 бөлік жиынтықтары", "Frocks & Dresses": "Көйлектер", "Top & Leggings Sets": "Үстіңгі және лосиндер жиынтықтары", "Top & Shorts Sets": "Үстіңгі мен шорт жиынтықтары", "Leggings": "Лосиндер", "Palazzo Sets": "Палаццо жиынтықтары"
+        },
+        ku: {
+            "Bodysuit Sets": "Setên Bodysuit", "Bodysuits": "Bodysuit", "Co-ord Sets": "Setên Hevaheng", "Dungaree Sets": "Setên Dungaree", "Loungewear Sets": "Setên Cilên Malê", "Pyjama Sets": "Setên Pîjama", "Rompers & Sleepsuits": "Romper û Cilên Xewê", "Shirt & Shorts Sets": "Setên Kiras û Pantolên Kurt", "Shirts": "Kiras", "Trousers & Jeans": "Pantol û Cins", "Tshirt & Shorts Sets": "Setên Tshirt û Pantolên Kurt", "Shorts & Bermudas": "Pantolên Kurt û Bermuda", "Frock 2pc Sets": "Setên Cilê 2 Perçe", "Frocks & Dresses": "Cil", "Top & Leggings Sets": "Setên Jorîn û Legîn", "Top & Shorts Sets": "Setên Jorîn û Pantolên Kurt", "Leggings": "Legîn", "Palazzo Sets": "Setên Palazzo"
+        },
+        mn: {
+            "Bodysuit Sets": "Бодисүйт багц", "Bodysuits": "Бодисүйт", "Co-ord Sets": "Иж бүрдэл", "Dungaree Sets": "Комбинезон багц", "Loungewear Sets": "Гэрийн хувцас багц", "Pyjama Sets": "Пижама багц", "Rompers & Sleepsuits": "Ромпер ба унтлагын хувцас", "Shirt & Shorts Sets": "Цамц ба богино өмд багц", "Shirts": "Цамц", "Trousers & Jeans": "Өмд ба жинс", "Tshirt & Shorts Sets": "Футболк ба богино өмд багц", "Shorts & Bermudas": "Богино өмд ба бермуда", "Frock 2pc Sets": "Даашинз 2 хэсэг багц", "Frocks & Dresses": "Даашинз", "Top & Leggings Sets": "Топ ба леггинс багц", "Top & Shorts Sets": "Топ ба богино өмд багц", "Leggings": "Леггинс", "Palazzo Sets": "Палаццо багц"
+        },
+        ps: {
+            "Bodysuit Sets": "د بډي سوټ سیټونه", "Bodysuits": "بډي سوټ", "Co-ord Sets": "مساوي سیټونه", "Dungaree Sets": "د ډنګري سیټونه", "Loungewear Sets": "د کور جامو سیټونه", "Pyjama Sets": "د پاجامې سیټونه", "Rompers & Sleepsuits": "رومپر او د خوب جامې", "Shirt & Shorts Sets": "بوش او نیکر سیټونه", "Shirts": "بوش", "Trousers & Jeans": "پتلون او جینز", "Tshirt & Shorts Sets": "ټي شرټ او نیکر سیټونه", "Shorts & Bermudas": "نیکر او برمودا", "Frock 2pc Sets": "کمیس 2 ټوټه سیټونه", "Frocks & Dresses": "کمیسونه", "Top & Leggings Sets": "پورتنۍ او لیګنګز سیټونه", "Top & Shorts Sets": "پورتنۍ او نیکر سیټونه", "Leggings": "لیګنګز", "Palazzo Sets": "پلازو سیټونه"
+        },
+        pt: {
+            "Bodysuit Sets": "Conjuntos de Body", "Bodysuits": "Bodies", "Co-ord Sets": "Conjuntos Coordenados", "Dungaree Sets": "Conjuntos de Jardineira", "Loungewear Sets": "Conjuntos de Roupa Confortável", "Pyjama Sets": "Conjuntos de Pijama", "Rompers & Sleepsuits": "Macacões e Pijamas Inteiros", "Shirt & Shorts Sets": "Conjuntos Camisa e Calção", "Shirts": "Camisas", "Trousers & Jeans": "Calças e Jeans", "Tshirt & Shorts Sets": "Conjuntos Camiseta e Calção", "Shorts & Bermudas": "Calções e Bermudas", "Frock 2pc Sets": "Conjuntos Vestido 2 Peças", "Frocks & Dresses": "Vestidos", "Top & Leggings Sets": "Conjuntos Blusa e Leggings", "Top & Shorts Sets": "Conjuntos Blusa e Calção", "Leggings": "Leggings", "Palazzo Sets": "Conjuntos Palazzo"
+        },
+        so: {
+            "Bodysuit Sets": "Setiyada Bodysuit", "Bodysuits": "Bodysuit", "Co-ord Sets": "Setiyada Isku Eg", "Dungaree Sets": "Setiyada Dungaree", "Loungewear Sets": "Setiyada Dharka Guriga", "Pyjama Sets": "Setiyada Bijaamo", "Rompers & Sleepsuits": "Romper iyo Dharka Hurdo", "Shirt & Shorts Sets": "Setiyada Shaadh iyo Surwaal Gaab", "Shirts": "Shaadh", "Trousers & Jeans": "Surwaal iyo Jiin", "Tshirt & Shorts Sets": "Setiyada Funaanado iyo Surwaal Gaab", "Shorts & Bermudas": "Surwaal Gaab iyo Bermuda", "Frock 2pc Sets": "Setiyada Dharaar 2 Qayb", "Frocks & Dresses": "Dharaar", "Top & Leggings Sets": "Setiyada Koor iyo Leegings", "Top & Shorts Sets": "Setiyada Koor iyo Surwaal Gaab", "Leggings": "Leegings", "Palazzo Sets": "Setiyada Palazzo"
+        },
+        tr: {
+            "Bodysuit Sets": "Badi Setleri", "Bodysuits": "Badiler", "Co-ord Sets": "Takım Setleri", "Dungaree Sets": "Salopet Setleri", "Loungewear Sets": "Ev Giyim Setleri", "Pyjama Sets": "Pijama Setleri", "Rompers & Sleepsuits": "Tulumlar ve Uyku Tulumları", "Shirt & Shorts Sets": "Gömlek ve Şort Setleri", "Shirts": "Gömlekler", "Trousers & Jeans": "Pantolonlar ve Kotlar", "Tshirt & Shorts Sets": "Tişört ve Şort Setleri", "Shorts & Bermudas": "Şortlar ve Bermudalar", "Frock 2pc Sets": "Elbise 2 Parça Setler", "Frocks & Dresses": "Elbiseler", "Top & Leggings Sets": "Üst ve Tayt Setleri", "Top & Shorts Sets": "Üst ve Şort Setleri", "Leggings": "Taytlar", "Palazzo Sets": "Palazzo Setleri"
+        },
+        ur: {
+            "Bodysuit Sets": "باڈی سوٹ سیٹ", "Bodysuits": "باڈی سوٹ", "Co-ord Sets": "میچنگ سیٹ", "Dungaree Sets": "ڈنگری سیٹ", "Loungewear Sets": "گھریلو لباس سیٹ", "Pyjama Sets": "پاجامہ سیٹ", "Rompers & Sleepsuits": "رومپر اور نیند کے کپڑے", "Shirt & Shorts Sets": "قمیض اور شارٹس سیٹ", "Shirts": "قمیصیں", "Trousers & Jeans": "پتلون اور جینز", "Tshirt & Shorts Sets": "ٹی شرٹ اور شارٹس سیٹ", "Shorts & Bermudas": "شارٹس اور برمودا", "Frock 2pc Sets": "فراک 2 پیس سیٹ", "Frocks & Dresses": "فراک", "Top & Leggings Sets": "ٹاپ اور لیگنگز سیٹ", "Top & Shorts Sets": "ٹاپ اور شارٹس سیٹ", "Leggings": "لیگنگز", "Palazzo Sets": "پلازو سیٹ"
+        },
+        uz: {
+            "Bodysuit Sets": "Bodisyut to'plamlari", "Bodysuits": "Bodisyutlar", "Co-ord Sets": "Mos to'plamlar", "Dungaree Sets": "Kombinezon to'plamlari", "Loungewear Sets": "Uy kiyimi to'plamlari", "Pyjama Sets": "Pijama to'plamlari", "Rompers & Sleepsuits": "Romperlar va uyqu kiyimlari", "Shirt & Shorts Sets": "Ko'ylak va shim to'plamlari", "Shirts": "Ko'ylaklar", "Trousers & Jeans": "Shimlar va djinslar", "Tshirt & Shorts Sets": "Futbolka va shim to'plamlari", "Shorts & Bermudas": "Shimlar va bermudalar", "Frock 2pc Sets": "Ko'ylak 2 qism to'plamlari", "Frocks & Dresses": "Ko'ylaklar", "Top & Leggings Sets": "Ustki va legins to'plamlari", "Top & Shorts Sets": "Ustki va shim to'plamlari", "Leggings": "Leginslar", "Palazzo Sets": "Palazzo to'plamlari"
+        },
+        yo: {
+            "Bodysuit Sets": "Àwọn Ẹ̀rọ Aṣọ Ara", "Bodysuits": "Aṣọ Ara", "Co-ord Sets": "Àwọn Ẹ̀rọ Tó Bára Mu", "Dungaree Sets": "Àwọn Ẹ̀rọ Dungaree", "Loungewear Sets": "Àwọn Ẹ̀rọ Aṣọ Ilé", "Pyjama Sets": "Àwọn Ẹ̀rọ Pajama", "Rompers & Sleepsuits": "Rompa àti Aṣọ Oorun", "Shirt & Shorts Sets": "Àwọn Ẹ̀rọ Ṣẹẹti àti Sokoto Kúrú", "Shirts": "Àwọn Ṣẹẹti", "Trousers & Jeans": "Sokoto àti Jínì", "Tshirt & Shorts Sets": "Àwọn Ẹ̀rọ T-ṣẹẹti àti Sokoto Kúrú", "Shorts & Bermudas": "Sokoto Kúrú àti Bermuda", "Frock 2pc Sets": "Àwọn Ẹ̀rọ Aṣọ Mẹ́ta 2", "Frocks & Dresses": "Àwọn Aṣọ", "Top & Leggings Sets": "Àwọn Ẹ̀rọ Oke àti Leggings", "Top & Shorts Sets": "Àwọn Ẹ̀rọ Oke àti Sokoto Kúrú", "Leggings": "Leggings", "Palazzo Sets": "Àwọn Ẹ̀rọ Palazzo"
+        },
+        zu: {
+            "Bodysuit Sets": "Amaseti e-Bodysuit", "Bodysuits": "Ama-Bodysuit", "Co-ord Sets": "Amaseti Ahambisanayo", "Dungaree Sets": "Amaseti e-Dungaree", "Loungewear Sets": "Amaseti Ezingubo Zasekhaya", "Pyjama Sets": "Amaseti Amaphijama", "Rompers & Sleepsuits": "Ama-Romper Nezingubo Zokulala", "Shirt & Shorts Sets": "Amaseti Amahembe Namabhulukwe Amafushane", "Shirts": "Amahembe", "Trousers & Jeans": "Amabhulukwe Nama-Jeans", "Tshirt & Shorts Sets": "Amaseti Ama-T-shirt Namabhulukwe Amafushane", "Shorts & Bermudas": "Amabhulukwe Amafushane Nama-Bermuda", "Frock 2pc Sets": "Amaseti Ezingubo Izingxenye Ezimbili", "Frocks & Dresses": "Izingubo", "Top & Leggings Sets": "Amaseti Okuphezulu Nama-Leggings", "Top & Shorts Sets": "Amaseti Okuphezulu Namabhulukwe Amafushane", "Leggings": "Ama-Leggings", "Palazzo Sets": "Amaseti e-Palazzo"
+        }
+    };
 
     // Function to get translated product name
     function getProductName(productKey) {
@@ -3174,10 +3165,10 @@
         // Build product type section
         let productTypeSection = '';
         if (selectedProducts.length > 0) {
-            // const productsList = selectedProducts.map(p => `- ${p}`).join('\n');
-            const productsList = selectedProducts.map(p => p).join(', ');
-            // productTypeSection = `Product Type:${productsList}`;
-            productTypeSection = productsList;
+            const productsList = selectedProducts.map(p => `- ${p}`).join('\n');
+            productTypeSection = `
+Product Type:
+${productsList}`;
         }
 
         // Build message/notes section
@@ -3225,34 +3216,25 @@ Age: ${agesTextPlain}
 ${productTypeSection}${notesSection}
 Language: ${langName}`;
 
-        // NEW LINE ADDED START
-        document.getElementById('messageContent').value = message;
-        document.getElementById('languageSelect').value = langName;
-        document.getElementById('selected_gender').value = genderTextPlain;
-        document.getElementById('selected_age').value = agesTextPlain;
-        document.getElementById('selected_product').value = productTypeSection;
-        form.submit();
-        // NEW LINE ADDED END
+        // Encode message for URL
+        const encodedMessage = encodeURIComponent(message);
 
-        // // Encode message for URL
-        // const encodedMessage = encodeURIComponent(message);
+        // Marhaba WhatsApp number (without +)
+        const marhabaNumber = '971569233052';
 
-        // // Marhaba WhatsApp number (without +)
-        // const marhabaNumber = '971569233052';
-
-        // // Open WhatsApp
-        // const whatsappURL = `https://wa.me/${marhabaNumber}?text=${encodedMessage}`;
+        // Open WhatsApp
+        const whatsappURL = `https://wa.me/${marhabaNumber}?text=${encodedMessage}`;
 
 
-        // // Show success message with WhatsApp link
-        // form.style.display = 'none';
-        // successMessage.classList.add('show');
+        // Show success message with WhatsApp link
+        form.style.display = 'none';
+        successMessage.classList.add('show');
 
-        // // Update success message with clickable link as fallback
-        // document.getElementById('whatsappLink').href = whatsappURL;
+        // Update success message with clickable link as fallback
+        document.getElementById('whatsappLink').href = whatsappURL;
 
-        // // Try to open WhatsApp
-        // window.location.href = whatsappURL;
+        // Try to open WhatsApp
+        window.location.href = whatsappURL;
     });
 
     // Initialize counts on page load

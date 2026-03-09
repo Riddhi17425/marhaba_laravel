@@ -11,9 +11,10 @@ use App\Models\GlobalPresence;
 use App\Models\Brand;
 use App\Models\Product;
 use App\Models\Category;
-use App\Models\{ClothSize, CatalogueImage, TrustedBy, WhyChooseUs, Contact, HomeSliderImage, WhatsappInquiry};
+use App\Models\{ClothSize, CatalogueImage, TrustedBy, WhyChooseUs, Contact, HomeSliderImage, WhatsappInquiry, ProductInquiry};
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Http;
+use Carbon\Carbon;
 
 class dashboardController extends Controller
 {
@@ -41,7 +42,7 @@ class dashboardController extends Controller
         $ageSections = config('global_values.age_section');
         $homeSliderImgs = HomeSliderImage::whereNull('deleted_at')->get();
         
-        $products = Product::select('id', 'type', 'category_id','name','url','image','product_brand_size')->orderBy('created_at', 'desc')->whereNull('deleted_at')->get();
+        $products = Product::select('id', 'type', 'brand_id', 'category_id','name','url','image','product_brand_size', 'translations')->orderBy('created_at', 'desc')->whereNull('deleted_at')->get();
         
         // Collect size IDs from products
         $sizeIds = collect();
@@ -79,7 +80,139 @@ class dashboardController extends Controller
             $productsByAge[$group] = $query->distinct()->get();
         }
 
-        return view('front.home', compact('brand', 'boysCollection', 'girlsCollection', 'globalpresence', 'ageSections', 'groupedSizes', 'productsByAge', 'catImgs', 'trustedBy', 'whyChooseUs', 'homeSliderImgs'));
+        // FOR ENQUIRY POPUP
+        $filterProducts = [];
+        $clothsizes = Clothsize::all()->keyBy('id');
+        $enquiryPopupAgeSections = config('global_values.inquiry_popup_age_section');
+        $data = ['baby' => 0,  'toddler' => 0, 'kids' => 0];
+        foreach ($products as $product) {
+            $brandSizes = json_decode($product->product_brand_size, true);
+            if (!is_array($brandSizes)) {
+                continue;
+            }
+            $brandSizes = collect($brandSizes)->groupBy('size_id');
+            // Check all sizes in product_brand_size
+            foreach ($brandSizes as $bk => $bs) {
+                $sizeId = $bk ? (int)$bk : null;
+                if (!$sizeId || !isset($clothsizes[$sizeId])) {
+                    continue;
+                }
+                $size = $clothsizes[$sizeId];
+                $sizeName = trim($size->name); 
+                $range = $this->sizeToMonths($sizeName);
+                if (!$range) {
+                    continue;
+                }
+                // Check if size fits into any age section
+                foreach ($enquiryPopupAgeSections as $sectionKey => $section) {
+                    // If any overlap between size range and section range
+                    if ($range['min'] >= $section['min'] && $range['max'] <= $section['max']) {
+                        if(strtolower($sectionKey) == 'baby'){
+                            $data['baby'] += 1;
+                        }elseif(strtolower($sectionKey) == 'toddler'){
+                            $data['toddler'] += 1;
+                        }elseif(strtolower($sectionKey) == 'kids'){
+                            $data['kids'] += 1;
+                        }
+                        // Assign product to this age section if not already assigned
+                            $filterProducts['products'][][$sizeName] = $product;
+                        // Optional: break if you want product only in one section
+                        break;
+                    }
+                }
+            }
+        }
+        
+        //Sorted by age range
+        if (!empty($filterProducts['products'])) {
+            usort($filterProducts['products'], function ($itemA, $itemB) {
+                $sizeA = array_key_first($itemA);
+                $sizeB = array_key_first($itemB);
+                $rangeA = $this->sizeToMonths($sizeA);
+                $rangeB = $this->sizeToMonths($sizeB);
+
+                return ($rangeA['min'] ?? 0) <=> ($rangeB['min'] ?? 0);
+            });
+        }
+
+        $productData = [
+            'boy' => [
+                'baby' => [],
+                'toddlers' => [],
+                'kids' => []
+            ],
+            'girl' => [
+                'baby' => [],
+                'toddlers' => [],
+                'kids' => []
+            ]
+        ];
+        foreach ($filterProducts['products'] as $productGroup) {
+            foreach ($productGroup as $size => $product) {
+                $type = strtolower($product->type);
+                $name = $product->name;
+                $range = $this->sizeToMonths($size);
+                if (!$range) {
+                    continue;
+                }
+                $maxMonths = $range['max'];
+                foreach ($enquiryPopupAgeSections as $sectionKey => $section) {
+                    if ($maxMonths >= $section['min'] && $maxMonths <= $section['max']) {
+                        $productData[$type][$sectionKey][] = $name. ' ('.$size.')';
+                        break;
+                    }
+                }
+            }
+        }
+        
+        foreach ($productData as $type => $groups) {
+            foreach ($groups as $ageGroup => $products) {
+                $productData[$type][$ageGroup] = array_values(array_unique($products));
+            }
+        }
+
+        // LANGUAGE TRANSLATION ARRAY
+        $productNames = [];
+        // Loop through boys and girls and all age groups
+        foreach ($productData as $gender => $groups) {
+            foreach ($groups as $ageGroup => $names) {
+                foreach ($names as $fullName) {
+                    // Remove size info if stored like "Romper (0m-9m)"
+                    $name = preg_replace('/\s*\(.*?\)$/', '', $fullName);
+                    $productNames[] = $name;
+                }
+            }
+        }
+        // Remove duplicates
+        $productNames = array_unique($productNames);
+        $productNamesData = Product::select('id', 'type', 'category_id','name','translations')->whereIn('name', $productNames)->get();
+        $languages = config('global_values.languages');
+        $productTranslations = [];
+        // English initialization
+        $productTranslations['en'] = [];
+        foreach ($productNames as $name) {
+            $productTranslations['en'][$name] = $name;
+        }
+        // Initialize other languages
+        foreach ($languages as $lang) {
+            $productTranslations[$lang] = [];
+        }
+        // Fill translations
+        foreach ($productNamesData as $product) {
+            $translations = json_decode($product->translations, true); // decode DB JSON
+
+            foreach ($languages as $lang) {
+                if (isset($translations[$lang][$product->name])) {
+                    // assign the actual translated string, not array
+                    $productTranslations[$lang][$product->name] = $translations[$lang][$product->name];
+                } else {
+                    // fallback to English
+                    $productTranslations[$lang][$product->name] = $product->name;
+                }
+            }
+        }
+
+        return view('front.home', compact('brand', 'boysCollection', 'girlsCollection', 'globalpresence', 'ageSections', 'groupedSizes', 'productsByAge', 'catImgs', 'trustedBy', 'whyChooseUs', 'homeSliderImgs', 'productData', 'productTranslations'));
     }
 
     private function groupSizesByAge(array $sizes, array $ageSections)
@@ -446,9 +579,142 @@ class dashboardController extends Controller
         $largest  = $sizeListLast->name;
         $smallest = explode('-', $smallest);
         $largest = explode('-', $largest);
+
+        // FOR ENQUIRY POPUP
+        $filterProducts = [];
+        $clothsizes = Clothsize::all()->keyBy('id');
+        $enquiryPopupAgeSections = config('global_values.inquiry_popup_age_section');
+        $data = ['baby' => 0,  'toddler' => 0, 'kids' => 0];
+        $products = Product::select('id', 'type', 'brand_id', 'category_id','name','url','image','product_brand_size')->orderBy('created_at', 'desc')->whereNull('deleted_at')->get();
+
+        foreach ($products as $product) {
+            $brandSizes = json_decode($product->product_brand_size, true);
+            if (!is_array($brandSizes)) {
+                continue;
+            }
+            $brandSizes = collect($brandSizes)->groupBy('size_id');
+            // Check all sizes in product_brand_size
+            foreach ($brandSizes as $bk => $bs) {
+                $sizeId = $bk ? (int)$bk : null;
+                if (!$sizeId || !isset($clothsizes[$sizeId])) {
+                    continue;
+                }
+                $size = $clothsizes[$sizeId];
+                $sizeName = trim($size->name); 
+                $range = $this->sizeToMonths($sizeName);
+                if (!$range) {
+                    continue;
+                }
+                // Check if size fits into any age section
+                foreach ($enquiryPopupAgeSections as $sectionKey => $section) {
+                    // If any overlap between size range and section range
+                    if ($range['min'] >= $section['min'] && $range['max'] <= $section['max']) {
+                        if(strtolower($sectionKey) == 'baby'){
+                            $data['baby'] += 1;
+                        }elseif(strtolower($sectionKey) == 'toddler'){
+                            $data['toddler'] += 1;
+                        }elseif(strtolower($sectionKey) == 'kids'){
+                            $data['kids'] += 1;
+                        }
+                        // Assign product to this age section if not already assigned
+                            $filterProducts['products'][][$sizeName] = $product;
+                        // Optional: break if you want product only in one section
+                        break;
+                    }
+                }
+            }
+        }
         
+        //Sorted by age range
+        if (!empty($filterProducts['products'])) {
+            usort($filterProducts['products'], function ($itemA, $itemB) {
+                $sizeA = array_key_first($itemA);
+                $sizeB = array_key_first($itemB);
+                $rangeA = $this->sizeToMonths($sizeA);
+                $rangeB = $this->sizeToMonths($sizeB);
+
+                return ($rangeA['min'] ?? 0) <=> ($rangeB['min'] ?? 0);
+            });
+        }
+
+        $productData = [
+            'boy' => [
+                'baby' => [],
+                'toddlers' => [],
+                'kids' => []
+            ],
+            'girl' => [
+                'baby' => [],
+                'toddlers' => [],
+                'kids' => []
+            ]
+        ];
+        foreach ($filterProducts['products'] as $productGroup) {
+            foreach ($productGroup as $size => $product) {
+                $type = strtolower($product->type);
+                $name = $product->name;
+                $range = $this->sizeToMonths($size);
+                if (!$range) {
+                    continue;
+                }
+                $maxMonths = $range['max'];
+                foreach ($enquiryPopupAgeSections as $sectionKey => $section) {
+                    if ($maxMonths >= $section['min'] && $maxMonths <= $section['max']) {
+                        $productData[$type][$sectionKey][] = $name. ' ('.$size.')';
+                        break;
+                    }
+                }
+            }
+        }
+        foreach ($productData as $type => $groups) {
+            foreach ($groups as $ageGroup => $products) {
+                $productData[$type][$ageGroup] = array_values(array_unique($products));
+            }
+        }
+
+        // LANGUAGE TRANSLATION ARRAY
+        $productNames = [];
+        // Loop through boys and girls and all age groups
+        foreach ($productData as $gender => $groups) {
+            foreach ($groups as $ageGroup => $names) {
+                foreach ($names as $fullName) {
+                    // Remove size info if stored like "Romper (0m-9m)"
+                    $name = preg_replace('/\s*\(.*?\)$/', '', $fullName);
+                    $productNames[] = $name;
+                }
+            }
+        }
+        // Remove duplicates
+        $productNames = array_unique($productNames);
+        $productNamesData = Product::select('id', 'type', 'category_id','name','translations')->whereIn('name', $productNames)->get();
+        $languages = config('global_values.languages');
+        $productTranslations = [];
+        // English initialization
+        $productTranslations['en'] = [];
+        foreach ($productNames as $name) {
+            $productTranslations['en'][$name] = $name;
+        }
+        // Initialize other languages
+        foreach ($languages as $lang) {
+            $productTranslations[$lang] = [];
+        }
+        // Fill translations
+        foreach ($productNamesData as $product) {
+            $translations = json_decode($product->translations, true); // decode DB JSON
+
+            foreach ($languages as $lang) {
+                if (isset($translations[$lang][$product->name])) {
+                    // assign the actual translated string, not array
+                    $productTranslations[$lang][$product->name] = $translations[$lang][$product->name];
+                } else {
+                    // fallback to English
+                    $productTranslations[$lang][$product->name] = $product->name;
+                }
+            }
+        }
+
         return view('front.product', compact(
-            'product', 'similarProducts', 'sizeList', 'smallest', 'largest'
+            'product', 'similarProducts', 'sizeList', 'smallest', 'largest', 'productData', 'productTranslations'
         ));
     }
 
@@ -543,15 +809,11 @@ class dashboardController extends Controller
 
     public function whatsappInquiry(Request $request){
         WhatsappInquiry::create([
-           
             'number'  => $request->number,
             'message'  => $request->message,
         ]);
     
         $timestamp = Carbon::now()->format('Y-m-d H:i:s');
-    
-        // Google Sheet expects:
-        // form_type, contact, message, date
         $sheetsData = [
             'form_type' => 'whatsapp inquiry',
             'contact'   => $request->number,
@@ -578,6 +840,127 @@ class dashboardController extends Controller
         $message = 'Inquiry from the website.';
         $whatsappUrl = "https://api.whatsapp.com/send/?phone={$number}&text=" . urlencode($message);
     
+        return redirect()->away($whatsappUrl);
+    }
+
+    public function storeProductInquiry(Request $request){
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+            'businessName' => 'required',
+            'businessType' => 'nullable',
+            'countryCode' => 'required',
+            'whatsapp' => 'required',
+            'gender' => 'nullable',
+            'age' => 'nullable',
+            'productTypes' => 'nullable',
+            'message' => 'nullable'
+        ]);
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+        $inquiry = ProductInquiry::create([
+            'name' => $request->name?? null,
+            'business_name' => $request->businessName ?? null,
+            'business_type' => $request->businessType ?? null,
+            'country_code' => $request->countryCode ?? null,
+            'whatsapp' => $request->whatsapp ?? null,
+            'gender' => $request->selected_gender ?? null,
+            'age' => $request->selected_age ?? null,
+            'product_types' => $request->selected_product ?? null,
+            'message_note' => $request->message ?? null
+        ]);
+        
+        // STORE IN GOOGLE SHEET
+        $timestamp = Carbon::now()->format('Y-m-d H:i:s');
+        $passedData = [
+            'name' => $request->name?? null,
+            'business_name' => $request->businessName ?? null,
+            'business_type' => $request->businessType ?? null,
+            'country_code' => $request->countryCode ?? null,
+            'whatsapp' => $request->whatsapp ?? null,
+            'gender' => $request->selected_gender ?? null,
+            'age' => $request->selected_age ?? null,
+            'product_types' => $request->selected_product ?? null,
+            'message_note' => $request->message ?? null,
+            'date'      => $timestamp,
+        ];
+       
+        // Send to Google Sheets
+       try {
+            Http::withBody(json_encode($passedData), 'application/json')
+                    ->post('https://script.google.com/macros/s/AKfycbw3mLCXGC6TUiHBCNHchZ9S6JZerm0YitYVJYZrowlckrqYdBDh5CeVVowTYaeVjGtE/exec');
+           
+        } catch (\Exception $e) {
+            \Log::error('Google Sheets Exception (WhatsApp Inquiry):', [
+                'message'   => $e->getMessage(),
+                'trace'     => $e->getTraceAsString(),
+                'data_sent' => $passedData
+            ]);
+        }
+    
+        $message = "*New Product Inquiry Received*\n\n" .
+            "*Name:* {$request->name}\n" .
+            "*Business Name:* {$request->businessName}\n" .
+            "*Business Type:* {$request->businessType}\n" .
+            "*Country Code.:* {$request->countryCode}\n" .
+            "*Whatsapp No.:* {$request->whatsapp}\n" .
+            "*Gender:* {$request->selected_gender}\n" .
+            "*Age:* {$request->selected_age}\n" .
+            "*Product Types:* {$request->selected_product}\n" .
+            "*Message:* " . ($request->message ?? '') . "\n\n" .
+            "— Marhaba Fashion";
+
+        // Redirect to WhatsApp
+        $number = config('global_values.admin_whatsapp_number');
+        $whatsappUrl = "https://api.whatsapp.com/send/?phone={$number}&text=" . urlencode($message);
+    
+        return redirect()->away($whatsappUrl);
+        
+    }
+
+    public function whatsaapInquiry(Request $request){
+        // $validator = Validator::make($request->all(), [
+        //     'number' => 'required',
+        //     'message' => 'required',
+        // ]);
+        // if ($validator->fails()) {
+        //     return redirect()->back()->withErrors($validator)->withInput();
+        // }
+        WhatsappInquiry::create([
+            'number'  => $request->number,
+            'message'  => $request->message,
+        ]);
+    
+        $timestamp = Carbon::now()->format('Y-m-d H:i:s');
+        // Google Sheet expects:
+        $sheetsData = [
+            'form_type' => 'whatsapp inquiry',
+            'contact'   => $request->number,
+            'message'  => $request->message,
+            'date'      => $timestamp,
+        ];
+        // Send to Google Sheets
+        try { 
+            $response =  Http::withBody(json_encode($sheetsData), 'application/json')
+                    ->post('https://script.google.com/macros/s/AKfycbyTWZnYVejCiY9xiZRPEe_zNS-OA8okFRuYDLMwl2aJ_b-LKwZ5jGI9Qsx4Ot6vE2kF/exec');
+            if ($response->failed()) {
+                \Log::error('Google Sheet request failed: '.$response->body());
+            }
+        } catch (\Exception $e) {
+            \Log::error('Google Sheets Exception (WhatsApp Inquiry):', [
+                'message'   => $e->getMessage(),
+                'trace'     => $e->getTraceAsString(),
+                'data_sent' => $sheetsData
+            ]);
+        }
+
+        // Redirect to WhatsApp
+        $number = config('global_values.admin_whatsapp_number');
+        $message = 'Inquiry from the website with Phone No. - '. $number.' and Message - '. $request->message;
+        $whatsappUrl = "https://api.whatsapp.com/send/?phone={$number}&text=" . urlencode($message);
+   
         return redirect()->away($whatsappUrl);
     }
     

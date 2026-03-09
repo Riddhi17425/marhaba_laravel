@@ -560,7 +560,7 @@
                     <div class="btn_wrapper">
                         <a href="javascript:void(0);" class="btn_1" data-bs-toggle="modal" data-bs-target="#enquiryModal">Request Latest Catalogues <img loading="lazy"
                                 src="{{ asset('public/front/img/Home/blue-arr.svg') }}" alt="" height="10" width="10"></a>
-                        <a href="https://www.instagram.com/marhabafashionuae?igsh=cTluY2lzYTRpM2pp" class="btn_1"><img
+                        <a href="https://www.instagram.com/marhabafashionuae?igsh=cTluY2lzYTRpM2pp" class="btn_1" target="_blank"><img
                                 loading="lazy" src="{{ asset('public/front/img/Home/purple-insta.png') }}" alt="insta"
                                 height="21" width="21"> Follow us on Instagram</a>
                     </div>
