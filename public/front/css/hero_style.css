@@ -657,6 +657,11 @@ a {
     width: 100%;
 }
 
+.product_img {
+    object-fit: contain;
+    height: 450px;
+}
+
 .ym_slide_img {
     width: 450px;
     object-fit: contain;
@@ -679,6 +684,7 @@ a {
 .ym_slider {
     opacity: 0;
     transition: all .8s cubic-bezier(.5, 0, 0, 1) 0s;
+    height: 450px;
 }
 
 /* Show slider on hover */
@@ -745,7 +751,7 @@ a {
     align-items: center;
     /* gap: 8px; */
     padding: 0;
-    bottom: 26.5% !important;
+    bottom: 0% !important;
 }
 
 .ym_slider .slick-dots li {
