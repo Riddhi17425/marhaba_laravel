@@ -945,11 +945,11 @@ select:focus {
     background: linear-gradient(0deg, #FBFBFB 0%, #FBFBFB 100%), linear-gradient(134deg, #FFF 9%, #DDD 93.94%);
 }
 
-header .btn svg rect {
+header .btn svg.home_menu rect {
     fill: white;
 }
 
-header.sticky .btn svg rect {
+header.sticky .btn svg.home_menu rect {
     fill: #452667;
 }
 
