@@ -331,7 +331,7 @@ document.addEventListener("DOMContentLoaded", () => {
             dots: true,
             infinite: true,
             speed: 400,
-            autoplay:true,
+            autoplay:false,
             autoplaySpeed: 2000,
             pauseOnHover: false,
             responsive: [
