@@ -123,6 +123,9 @@ $subcatVal = preg_replace('/[\#].*$/', '', $subcatVal);
                                             <!-- ✅ SLICK SLIDER -->
                                             <div class="ym_slider">
                                                 @foreach($filteredImages as $k => $v)
+                                                    @if($k == 0)
+                                                        @continue
+                                                    @endif
                                                     @if($k == 4)
                                                         @break
                                                     @endif
@@ -206,6 +209,9 @@ $subcatVal = preg_replace('/[\#].*$/', '', $subcatVal);
                                             <!-- ✅ SLICK SLIDER -->
                                             <div class="ym_slider">
                                                 @foreach($filteredImages as $k => $v)
+                                                    @if($k == 0)
+                                                        @continue
+                                                    @endif
                                                     @if($k == 4)
                                                         @break
                                                     @endif
@@ -302,6 +308,9 @@ $subcatVal = preg_replace('/[\#].*$/', '', $subcatVal);
                                             <!-- ✅ SLICK SLIDER -->
                                             <div class="ym_slider">
                                                 @foreach($filteredImages as $k => $v)
+                                                    @if($k == 0)
+                                                        @continue
+                                                    @endif
                                                     @if($k == 4)
                                                         @break
                                                     @endif

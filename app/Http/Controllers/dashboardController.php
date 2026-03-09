@@ -392,7 +392,6 @@ class dashboardController extends Controller
                 'totalProducts' => $totalProducts,
                 'html' => view('front.product_list_ajax', compact('filterProducts'))->render()
             ]);
-            //return view('front.product_list_ajax', compact('filterProducts', 'totalProducts'));
         }
         
         return view('front.product_list', compact('groupedProducts', 'totalProducts', 'type', 'data', 'brands', 'categories', 'ageSection'));
