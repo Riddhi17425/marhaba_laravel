@@ -158,7 +158,8 @@ class dashboardController extends Controller
                 $maxMonths = $range['max'];
                 foreach ($enquiryPopupAgeSections as $sectionKey => $section) {
                     if ($maxMonths >= $section['min'] && $maxMonths <= $section['max']) {
-                        $productData[$type][$sectionKey][] = $name. ' ('.$size.')';
+                        // $productData[$type][$sectionKey][] = $name. ' ('.$size.')';
+                        $productData[$type][$sectionKey][] = $name;
                         break;
                     }
                 }
@@ -659,7 +660,8 @@ class dashboardController extends Controller
                 $maxMonths = $range['max'];
                 foreach ($enquiryPopupAgeSections as $sectionKey => $section) {
                     if ($maxMonths >= $section['min'] && $maxMonths <= $section['max']) {
-                        $productData[$type][$sectionKey][] = $name. ' ('.$size.')';
+                        // $productData[$type][$sectionKey][] = $name. ' ('.$size.')';
+                        $productData[$type][$sectionKey][] = $name;
                         break;
                     }
                 }
