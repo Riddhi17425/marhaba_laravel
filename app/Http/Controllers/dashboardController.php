@@ -585,9 +585,8 @@ class dashboardController extends Controller
         $clothsizes = Clothsize::all()->keyBy('id');
         $enquiryPopupAgeSections = config('global_values.inquiry_popup_age_section');
         $data = ['baby' => 0,  'toddler' => 0, 'kids' => 0];
-        $products = Product::select('id', 'type', 'brand_id', 'category_id','name','url','image','product_brand_size')->orderBy('created_at', 'desc')->whereNull('deleted_at')->get();
-
-        foreach ($products as $product) {
+        $productsArr = Product::select('id', 'type', 'brand_id', 'category_id','name','url','image','product_brand_size')->orderBy('created_at', 'desc')->whereNull('deleted_at')->get();
+        foreach ($productsArr as $product) {
             $brandSizes = json_decode($product->product_brand_size, true);
             if (!is_array($brandSizes)) {
                 continue;
@@ -684,9 +683,10 @@ class dashboardController extends Controller
                 }
             }
         }
+        
         // Remove duplicates
         $productNames = array_unique($productNames);
-        $productNamesData = Product::select('id', 'type', 'category_id','name','translations')->whereIn('name', $productNames)->get();
+        $productNamesData = Product::select('id', 'type', 'category_id','name','translations', 'product_brand_size')->whereIn('name', $productNames)->get();
         $languages = config('global_values.languages');
         $productTranslations = [];
         // English initialization
@@ -698,17 +698,18 @@ class dashboardController extends Controller
         foreach ($languages as $lang) {
             $productTranslations[$lang] = [];
         }
+        
         // Fill translations
-        foreach ($productNamesData as $product) {
-            $translations = json_decode($product->translations, true); // decode DB JSON
+        foreach ($productNamesData as $v) {
+            $translations = json_decode($v->translations, true); // decode DB JSON
 
             foreach ($languages as $lang) {
-                if (isset($translations[$lang][$product->name])) {
+                if (isset($translations[$lang][$v->name])) {
                     // assign the actual translated string, not array
-                    $productTranslations[$lang][$product->name] = $translations[$lang][$product->name];
+                    $productTranslations[$lang][$v->name] = $translations[$lang][$v->name];
                 } else {
                     // fallback to English
-                    $productTranslations[$lang][$product->name] = $product->name;
+                    $productTranslations[$lang][$v->name] = $v->name;
                 }
             }
         }
