@@ -529,6 +529,7 @@ class dashboardController extends Controller
             $product = $product->where('id', $id);        
         }        
         $product = $product->firstOrFail();
+        
         $similarProducts = Product::where('category_id', $product->category_id)
             ->where('id', '!=', $product->id)
             ->whereNull('deleted_at')
@@ -545,16 +546,7 @@ class dashboardController extends Controller
         $productVariants = json_decode($product->product_brand_size, true);
         $sizeIds = array_unique(array_column($productVariants, 'size_id'));
         $sizeList = ClothSize::select('id', 'name')->whereIn('id', $sizeIds)->get();
-
-    //    $sizeList = ClothSize::select('id', 'name')->whereIn('id', $sizeIds)->get()
-    //     ->sortBy(function ($item) {
-    //         preg_match('/(\d+)Y-(\d+)Y/', $item->name, $matches);
-    //         return (int) $matches[1]; // start age
-    //     })
-    //     ->values();
-    //     $smallest = $sizeList->first();
-    //     $largest  = $sizeList->last();
-            $sizeList = ClothSize::select('id', 'name')->whereIn('id', $sizeIds)->get()
+        $sizeList = ClothSize::select('id', 'name')->whereIn('id', $sizeIds)->get()
             ->map(function ($item) {
                 preg_match('/(\d+)(m|Y)-(\d+)(m|Y)/i', $item->name, $matches);
                 if (!empty($matches)) {
@@ -650,9 +642,9 @@ class dashboardController extends Controller
             ]
         ];
         foreach ($filterProducts['products'] as $productGroup) {
-            foreach ($productGroup as $size => $product) {
-                $type = strtolower($product->type);
-                $name = $product->name;
+            foreach ($productGroup as $size => $v) {
+                $type = strtolower($v->type);
+                $name = $v->name;
                 $range = $this->sizeToMonths($size);
                 if (!$range) {
                     continue;
