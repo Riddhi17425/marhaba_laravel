@@ -408,14 +408,15 @@
                         <span class="card_title">Baby</span>
                         <p class="card_desc">Age Range : {{$ageSections['baby']['label']}}</p>
                     </div>
-                    <img loading="lazy" src="{{ asset('public/front/img/bannerKids_banner_3.png') }}" class="category-img"
-                        alt="Baby"
-                        data-alt='[
+                    <img loading="lazy" src="{{ asset('public/front/img/bannerKids_banner_3.png') }}"
+                        class="category-img" alt="Baby" data-alt='[
                             "{{ asset('public/front/img/bannerKids_banner_3a.png') }}",
                             "{{ asset('public/front/img/bannerKids_banner_3b.png') }}",
                             "{{ asset('public/front/img/bannerKids_banner_3.png') }}"
                         ]'>
-                        {{-- data-alt='["https://marhabafashion.com/public/front/img/bannerKids_banner_3a.png", "https://marhabafashion.com/public/front/img/bannerKids_banner_3b.png", "https://marhabafashion.com/public/front/img/bannerKids_banner_3.png"]'> --}}
+                    {{-- data-alt='["https://marhabafashion.com/public/front/img/bannerKids_banner_3a.png",
+                    "https://marhabafashion.com/public/front/img/bannerKids_banner_3b.png",
+                    "https://marhabafashion.com/public/front/img/bannerKids_banner_3.png"]'> --}}
                 </div>
                 <!-- <img loading="lazy" src="./images/baby_girl-1.png" class="category-img" alt="Baby"> -->
             </div>
@@ -472,13 +473,14 @@
                         <p class="card_desc">Age Range : {{$ageSections['kids']['label']}}</p>
                     </div>
                     <img loading="lazy" src="{{ asset('public/front/img/Home/tlk.png') }}" class="category-img"
-                        alt="Toddler"
-                        {{-- data-alt='["https://marhabafashion.com/public/front/img/bannerKids_banner_1a.png", "https://marhabafashion.com/public/front/img/bannerKids_banner_1b.png", "https://marhabafashion.com/public/front/img/bannerKids_banner_1.png"]'> --}}
-                        data-alt='[
-                            "{{ asset('public/front/img/bannerKids_banner_1a.png') }}",
-                            "{{ asset('public/front/img/bannerKids_banner_1b.png') }}",
-                            "{{ asset('public/front/img/bannerKids_banner_1.png') }}"
-                        ]'>
+                        alt="Toddler" {{--
+                        data-alt='["https://marhabafashion.com/public/front/img/bannerKids_banner_1a.png", "https://marhabafashion.com/public/front/img/bannerKids_banner_1b.png", "https://marhabafashion.com/public/front/img/bannerKids_banner_1.png"]'>
+                    --}}
+                    data-alt='[
+                    "{{ asset('public/front/img/bannerKids_banner_1a.png') }}",
+                    "{{ asset('public/front/img/bannerKids_banner_1b.png') }}",
+                    "{{ asset('public/front/img/bannerKids_banner_1.png') }}"
+                    ]'>
                 </div>
             </div>
 
@@ -533,13 +535,14 @@
                         <p class="card_desc">Age Range : {{$ageSections['junior']['label']}}</p>
                     </div>
                     <img loading="lazy" src="{{ asset('public/front/img/Home/ky.png') }}" class="category-img"
-                        alt="Kids & Youth"
-                        {{-- data-alt='["https://marhabafashion.com/public/front/img/bannerKids_banner_4a.png", "https://marhabafashion.com/public/front/img/bannerKids_banner_4b.png", "https://marhabafashion.com/public/front/img/bannerKids_banner_4.png"]'> --}}
-                        data-alt='[
-                            "{{ asset('public/front/img/bannerKids_banner_4a.png') }}",
-                            "{{ asset('public/front/img/bannerKids_banner_4b.png') }}",
-                            "{{ asset('public/front/img/bannerKids_banner_4.png') }}"
-                        ]'>
+                        alt="Kids & Youth" {{--
+                        data-alt='["https://marhabafashion.com/public/front/img/bannerKids_banner_4a.png", "https://marhabafashion.com/public/front/img/bannerKids_banner_4b.png", "https://marhabafashion.com/public/front/img/bannerKids_banner_4.png"]'>
+                    --}}
+                    data-alt='[
+                    "{{ asset('public/front/img/bannerKids_banner_4a.png') }}",
+                    "{{ asset('public/front/img/bannerKids_banner_4b.png') }}",
+                    "{{ asset('public/front/img/bannerKids_banner_4.png') }}"
+                    ]'>
                 </div>
             </div>
 
@@ -551,18 +554,19 @@
     <section class="home_mt-100">
         <div class="hero_cat yellow-gradient">
             <div class="ym-container">
-                <div class="hero_catologue_head col-lg-6">
+                <div class="hero_catologue_head col-lg-8">
                     <h2 class="title_60lora text-center">View Our Catalogues</h2>
                     <p class="title_24-raleway mt-4 mt-xl-5">Stay updated on our newest arrivals. Select your
                         preferred products and our wholesale team will be in touch with curated children's clothing
                         collections for your business.
                     </p>
                     <div class="btn_wrapper">
-                        <a href="javascript:void(0);" class="btn_1" data-bs-toggle="modal" data-bs-target="#enquiryModal">Request Latest Catalogues <img loading="lazy"
+                        <a href="javascript:void(0);" class="btn_1" data-bs-toggle="modal"
+                            data-bs-target="#enquiryModal">Request Latest Catalogues <img loading="lazy"
                                 src="{{ asset('public/front/img/Home/blue-arr.svg') }}" alt="" height="10" width="10"></a>
-                        <a href="https://www.instagram.com/marhabafashionuae?igsh=cTluY2lzYTRpM2pp" class="btn_1" target="_blank"><img
-                                loading="lazy" src="{{ asset('public/front/img/Home/purple-insta.png') }}" alt="insta"
-                                height="21" width="21"> Follow us on Instagram</a>
+                        <a href="https://www.instagram.com/marhabafashionuae?igsh=cTluY2lzYTRpM2pp" class="btn_1"
+                            target="_blank"><img loading="lazy" src="{{ asset('public/front/img/Home/purple-insta.png') }}"
+                                alt="insta" height="21" width="21"> Follow us on Instagram</a>
                     </div>
                 </div>
             </div>
@@ -571,7 +575,7 @@
                     @foreach ($catImgs as $val)
                         <div class="swiper-slide">
                             <img loading="lazy" src="{{ asset('public/catalogue_images/' . $val->image) }}" class="img-fluid">
-                        </div>                        
+                        </div>
                     @endforeach
                 </div>
             </div>
@@ -584,18 +588,22 @@
     <section class="home_mt-100">
         <div class="ym-container">
             <h2 class="title_60lora text-center">Trusted by</h2>
-            <p class="text-center mt-3 title_24-raleway">Whether you run a boutique, supply a regional network, or sell online—there's a place for
+            <p class="text-center mt-3 title_24-raleway">Whether you run a boutique, supply a regional network, or sell
+                online—there's a place for
                 you here.<br> Marhaba partners with businesses of every size, with terms shaped around your needs.</p>
-            <a href="#" class="btn_1 mx-auto" data-bs-toggle="modal" data-bs-target="#enquiryModal">Enquire Now <img loading="lazy"
-                    src="{{ asset('public/front/img/Home/blue-arr.svg') }}" alt="" height="10" width="10"></a>
+            <a href="#" class="btn_1 mx-auto" data-bs-toggle="modal" data-bs-target="#enquiryModal">Enquire Now <img
+                    loading="lazy" src="{{ asset('public/front/img/Home/blue-arr.svg') }}" alt="" height="10"
+                    width="10"></a>
             <div class="core_wrapper mt-5">
                 @foreach($trustedBy as $key => $val)
                     <div class="comp_bus_child">
                         <div class="comp_bus_front">
                             <div class="comp_bus_fronts">
                                 <span>
-                                    {{-- <img loading="lazy" src="{{ asset('public/front/img/Home/ccs.png') }}" alt="" height="113" width="186"> --}}
-                                    <img loading="lazy" src="{{ asset('public/trusted_by_images/' . $val->image) }}" alt="" height="113" width="186">
+                                    {{-- <img loading="lazy" src="{{ asset('public/front/img/Home/ccs.png') }}" alt=""
+                                        height="113" width="186"> --}}
+                                    <img loading="lazy" src="{{ asset('public/trusted_by_images/' . $val->image) }}" alt=""
+                                        height="113" width="186">
                                 </span>
                                 <h6 class="comp_bus_num">{{$val->title ?? ''}}</h6>
                             </div>
@@ -611,7 +619,7 @@
                             </div>
                         </div>
                     </div>
-                @endforeach                
+                @endforeach
             </div>
 
         </div>
@@ -622,7 +630,8 @@
     <section class="home_mt-100">
         <div class="ym-container">
             <h2 class="title_60lora text-center">Why Choose Us</h2>
-            <p class="text-center title_24-raleway mt-3 ">Everything to build a children's department that sells — ages 0–14Y, from one
+            <p class="text-center title_24-raleway mt-3 ">Everything to build a children's department that sells — ages
+                0–14Y, from one
                 trusted source.</p>
             <div class="hero_why_wrapper">
                 <div class="d-flex align-items-center">
@@ -644,7 +653,7 @@
                                             <p>{{ $v->desc ?? '' }}</p>
                                         </div>
                                     </div>
-                                @endforeach                                
+                                @endforeach
                             </div>
                             <div class="swiper-pagination"></div>
                         </div>
@@ -658,18 +667,21 @@
 <section class="home_mt-100">
     <div class="grow_wrapper yellow-gradient">
         <div class="ym-container">
-            <h2 class="title_60lora text-center">Let’s Grow Your Fashion Business Together</h2>
-            <p class="title_24-raleway mt-4 mt-xl-5">Looking for premium baby and toddler wear that your
-                customers will love? Marhaba Fashion partners with retailers, distributors, and wholesalers
-                worldwide to deliver high-quality, trend-led children’s apparel at competitive wholesale prices.
-            </p>
-            <p class="title_24-raleway">Share your requirements with us, and our team will get back to you with
-                catalogs, pricing, MOQs, and customization options.</p>
-            <div class="btn_wrapper">
-                <a href="" class="btn_1" data-bs-toggle="modal" data-bs-target="#enquiryModal">Enquire Now <img loading="lazy"
-                        src="{{ asset('public/front/img/Home/blue-arr.svg') }}" alt="" height="10" width="10"></a>
-                <a href="{{ route('contact') }}" class="btn_1">Become a Distributor <img loading="lazy"
-                        src="{{ asset('public/front/img/Home/blue-arr.svg') }}" alt="" height="10" width="10"></a>
+            <div class="col-lg-10 mx-auto">
+                <h2 class="title_60lora text-center">Let’s Grow Your Fashion Business Together</h2>
+                <p class="title_24-raleway mt-4 mt-xl-5">Looking for premium baby and toddler wear that your
+                    customers will love? Marhaba Fashion partners with retailers, distributors, and wholesalers
+                    worldwide to deliver high-quality, trend-led children’s apparel at competitive wholesale prices.
+                </p>
+                <p class="title_24-raleway">Share your requirements with us, and our team will get back to you with
+                    catalogs, pricing, MOQs, and customization options.</p>
+                <div class="btn_wrapper">
+                    <a href="" class="btn_1" data-bs-toggle="modal" data-bs-target="#enquiryModal">Enquire Now <img
+                            loading="lazy" src="{{ asset('public/front/img/Home/blue-arr.svg') }}" alt="" height="10"
+                            width="10"></a>
+                    <a href="{{ route('contact') }}" class="btn_1">Become a Distributor <img loading="lazy"
+                            src="{{ asset('public/front/img/Home/blue-arr.svg') }}" alt="" height="10" width="10"></a>
+                </div>
             </div>
         </div>
     </div>

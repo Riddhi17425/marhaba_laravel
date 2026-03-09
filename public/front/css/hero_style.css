@@ -475,8 +475,8 @@ a {
 }
 
 .project-card {
-    max-height: 700px;
-    min-height: 700px;
+    max-height: 615px;
+    min-height: 615px;
     overflow: hidden;
     display: flex;
     align-items: flex-end;
