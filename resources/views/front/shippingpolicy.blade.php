@@ -15,7 +15,7 @@
         </div>
     </div>
 </section>
-<section class="section_pt">
+<section class="section_pt section_mb">
     <div class="container-fluid">
          <div class="row">
              <p>At Marhaba Fashion, we are committed to providing a reliable shopping experience while protecting your privacy. This combined Shipping & Privacy Policy explains how we deliver your orders and handle your personal information.</p>
