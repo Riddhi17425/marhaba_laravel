@@ -258,7 +258,7 @@ class dashboardController extends Controller
             $products = $products->whereIn('category_id', $categoryFilter);
         }
         $products = $products->whereNull('deleted_at')->get();
-       
+        
         $categories = Category::select('id', 'name', 'url')->whereNull('deleted_at')->get();
         if(isset($categories) && is_countable($categories) && count($categories)){
             foreach($categories as $key => $val){
@@ -320,6 +320,7 @@ class dashboardController extends Controller
                 foreach ($ageSections as $sectionKey => $section) {
                     // If any overlap between size range and section range
                     if ($range['min'] >= $section['min'] && $range['max'] <= $section['max']) {
+                    //if ($section['min'] >= $range['min'] && $range['max'] <= $section['max']) {
                         if(strtolower($sectionKey) == 'baby'){
                             $data['baby'] += 1;
                         }elseif(strtolower($sectionKey) == 'kids'){
@@ -337,6 +338,21 @@ class dashboardController extends Controller
                         break;
                     }
                 }
+                // foreach ($ageSections as $sectionKey => $section) {
+                //     if ($range['max'] >= $section['min'] && $range['min'] <= $section['max']) {
+                //         if (strtolower($sectionKey) == 'baby') {
+                //             $data['baby'] += 1;
+                //         } elseif (strtolower($sectionKey) == 'kids') {
+                //             $data['kids'] += 1;
+                //         } elseif (strtolower($sectionKey) == 'junior') {
+                //             $data['junior'] += 1;
+                //         }
+                //         $totalProducts += 1;
+                //         $groupedProducts[$sectionKey]['products'][][$sizeName] = $product;
+                //         $filterProducts['products'][][$sizeName] = $product;
+                //         break; // remove this if you want product in multiple sections
+                //     }
+                // }
             }
         }
         
