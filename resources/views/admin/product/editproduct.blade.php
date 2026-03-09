@@ -140,6 +140,17 @@
                                                 <input type="file" name="product_image[{{$index}}]" class="form-control dropify" data-default-file="{{ $item['product_image'] ? asset('public/product_images/'.$item['product_image']) : '' }}">
                                                 <input type="hidden" name="old_product_image[{{$index}}]" value="{{ $item['product_image'] }}">
                                             </div>
+                                            <div class="col-md-2">
+                                                <input class="form-check-input"
+                                                    type="checkbox"
+                                                    name="is_human_image[{{$index}}]"
+                                                    value="1"
+                                                    {{ $item['is_human_image'] == 1 ? 'checked' : '' }}>
+                                                <label class="form-check-label">
+                                                Is Human Image ?
+                                                </label>
+                                            </div>
+
                                             <div class="col-md-1 d-flex gap-2">
                                                 <button type="button" class="btn btn-success add-more">+</button>
                                                 <button type="button" class="btn btn-danger remove" style="display:none">-</button>
@@ -187,6 +198,7 @@ $(document).ready(function(){
         
         // Reset select values
         clone.find('select').val('');
+        clone.find('input[type="checkbox"]').prop('checked', false);
         clone.find('.brand-preview').hide().attr('src', '');
         
         // Destroy dropify instance and clean up wrapper

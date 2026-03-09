@@ -152,6 +152,11 @@
                                     <input type="file" name="product_image[0]" class="form-control dropify">
                                     @error('product_image.0') <span class="text-danger">{{ $message }}</span> @enderror
                                 </div>
+                                <div class="col-md-2">
+                                    <input class="form-check-input" type="checkbox" name="is_human_image[0]"
+                                        value="1">
+                                    <label class="form-check-label"> Is Human Image ? </label>
+                                </div>
                                 <div class="col-md-1 d-flex align-items-end">
                                     <button type="button" class="btn btn-success add-more">+</button>
                                     <button type="button" class="btn btn-danger remove" style="display:none">-</button>
@@ -197,6 +202,7 @@ $(document).ready(function(){
         let newIndex = $('.brand-size-row').length;
         let clone = $('.brand-size-row:first').clone();
         clone.find('select').val('');
+        clone.find('input[type="checkbox"]').prop('checked', false);
         clone.find('.brand-preview').hide().attr('src', '');
         clone.find('.dropify').attr('data-default-file', '');
         clone.find('.dropify-wrapper').removeClass('has-preview');

@@ -32,7 +32,7 @@ class ProductController extends Controller
 
     public function store(Request $request)
     {
-        try {
+        //try {
             $validator = Validator::make($request->all(), [
                 'product_type' => 'required|string|max:255',
                 'category_id' => 'nullable|string|max:255',
@@ -88,6 +88,7 @@ class ProductController extends Controller
                         'product_image' => $productImage,
                         //'brand_id' => $brandId,
                         'size_id' => $sizeId,
+                        'is_human_image' => isset($request->is_human_image[$key]) ? 1 : 0,
                         //'color_id' => $colorId
                     ];
                 }
@@ -119,13 +120,13 @@ class ProductController extends Controller
             // PRODUCT NAME TRANSLATION END
 
             return redirect()->route('product.index')->with('success', 'Product added successfully.');
-        } catch (\Exception $e) {
-            Log::error('Product store failed: ' . $e->getMessage(), [
-                'request_data' => $request->all(),
-                'files' => $request->file()
-            ]);
-            return redirect()->back()->withInput()->with('error', 'Failed to add product: ' . $e->getMessage());
-        }
+        // } catch (\Exception $e) {
+        //     Log::error('Product store failed: ' . $e->getMessage(), [
+        //         'request_data' => $request->all(),
+        //         'files' => $request->file()
+        //     ]);
+        //     return redirect()->back()->withInput()->with('error', 'Failed to add product: ' . $e->getMessage());
+        // }
     }
 
     public function edit($id)
@@ -186,7 +187,6 @@ class ProductController extends Controller
             if ($request->has('size_id') && is_array($request->size_id)) {
                 foreach ($request->size_id as $index => $sizeId) {
                     $productImage = $request->old_product_image[$index] ?? null;
-
                     if ($request->hasFile("product_image.$index")) {
                         $imgFile = $request->file("product_image.$index");
                         $imgName = $imgFile->getClientOriginalName();
@@ -199,6 +199,7 @@ class ProductController extends Controller
                         //'brand_id' => $brandId,
                         //'size_id' => $request->size_id[$index],
                         'size_id' => $sizeId,
+                        'is_human_image' => isset($request->is_human_image[$index]) ? 1 : 0,
                         //'color_id' => $request->color_id[$index]
                     ];
                 }
