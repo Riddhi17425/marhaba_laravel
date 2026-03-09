@@ -532,6 +532,8 @@ class dashboardController extends Controller
         $similarProducts = Product::where('category_id', $product->category_id)
             ->where('id', '!=', $product->id)
             ->whereNull('deleted_at')
+            ->latest()
+            ->take(10)
             ->get()
             ->map(function($p) {
                 $pbsArray = json_decode($p->product_brand_size, true);
@@ -542,6 +544,7 @@ class dashboardController extends Controller
                     'image' => $pbsArray[1]['product_image'] ?? $pbsArray[0]['product_image'] ?? null, // second image if exists
                 ];
             });
+
         $productVariants = json_decode($product->product_brand_size, true);
         $sizeIds = array_unique(array_column($productVariants, 'size_id'));
         $sizeList = ClothSize::select('id', 'name')->whereIn('id', $sizeIds)->get();

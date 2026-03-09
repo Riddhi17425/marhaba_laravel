@@ -145,7 +145,7 @@
                                                     type="checkbox"
                                                     name="is_human_image[{{$index}}]"
                                                     value="1"
-                                                    {{ $item['is_human_image'] == 1 ? 'checked' : '' }}>
+                                                    {{ isset($item['is_human_image']) && $item['is_human_image'] == 1 ? 'checked' : '' }}>
                                                 <label class="form-check-label">
                                                 Is Human Image ?
                                                 </label>
