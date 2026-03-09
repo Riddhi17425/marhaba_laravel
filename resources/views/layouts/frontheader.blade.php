@@ -150,11 +150,11 @@
                         <button class="btn p-0 border-0" type="button" data-bs-toggle="offcanvas"
                             data-bs-target="#sidebarMenu" aria-controls="sidebarMenu">
                             <i>
-                                <svg width="34" height="30" viewBox="0 0 34 30" fill="none"
+                                <svg width="34" height="30" viewBox="0 0 34 30" fill=""
                                     xmlns="http://www.w3.org/2000/svg">
-                                    <rect y="2" width="34" height="2" fill="white" />
-                                    <rect y="14" width="34" height="2" fill="white" />
-                                    <rect y="26" width="34" height="2" fill="white" />
+                                    <rect y="2" width="34" height="2" />
+                                    <rect y="14" width="34" height="2" />
+                                    <rect y="26" width="34" height="2" />
                                 </svg>
 
                             </i>

@@ -1848,6 +1848,9 @@
         align-items: center;
         margin-bottom: 30px;
       }
+      .product_head > div{flex:1;}
+      .items-count{text-align: center;}
+      .filter-button{text-align: right;}
 
       .lora_24 {
         font-size: 24px;
