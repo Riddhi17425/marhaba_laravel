@@ -4,7 +4,7 @@
 <link rel="stylesheet" href="{{ asset('public/front/css/hero_responsive.css') }}">
 <script src="https://unpkg.com/@zoom-image/core"></script>
 @php 
-            $productImages = json_decode($product->product_brand_size);
+    $productImages = json_decode($product->product_brand_size);
     $filteredImages = collect($productImages)->values();
 @endphp
 

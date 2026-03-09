@@ -529,7 +529,6 @@ class dashboardController extends Controller
             $product = $product->where('id', $id);        
         }        
         $product = $product->firstOrFail();
-        
         $similarProducts = Product::where('category_id', $product->category_id)
             ->where('id', '!=', $product->id)
             ->whereNull('deleted_at')
@@ -579,8 +578,8 @@ class dashboardController extends Controller
         $enquiryPopupAgeSections = config('global_values.inquiry_popup_age_section');
         $data = ['baby' => 0,  'toddler' => 0, 'kids' => 0];
         $productsArr = Product::select('id', 'type', 'brand_id', 'category_id','name','url','image','product_brand_size')->orderBy('created_at', 'desc')->whereNull('deleted_at')->get();
-        foreach ($productsArr as $product) {
-            $brandSizes = json_decode($product->product_brand_size, true);
+        foreach ($productsArr as $pv) {
+            $brandSizes = json_decode($pv->product_brand_size, true);
             if (!is_array($brandSizes)) {
                 continue;
             }
@@ -609,7 +608,7 @@ class dashboardController extends Controller
                             $data['kids'] += 1;
                         }
                         // Assign product to this age section if not already assigned
-                            $filterProducts['products'][][$sizeName] = $product;
+                            $filterProducts['products'][][$sizeName] = $pv;
                         // Optional: break if you want product only in one section
                         break;
                     }
