@@ -147,7 +147,7 @@ class ProductController extends Controller
             $validator = Validator::make($request->all(), [
                 'product_type' => 'required|string|max:255',
                 'category_id' => 'nullable|string|max:255',
-                'brand_id' => 'nullable|string|max:255',
+                'brand_id' => 'required|string|max:255',
                 'name' => 'required|string|max:255',
                 'url' => 'required|string|max:255',
                 'meta_title' => 'nullable|string|max:255',
@@ -166,6 +166,7 @@ class ProductController extends Controller
             $product->type = $request->product_type;
             $product->name = $request->name;
             $product->url = $request->url;
+            if(isset($request->brand_id))
             $product->brand_id = $request->brand_id;
             $product->category_id = $request->category_id;
             $product->description = $request->description;
