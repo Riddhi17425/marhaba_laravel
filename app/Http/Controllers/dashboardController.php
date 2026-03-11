@@ -504,7 +504,7 @@ class dashboardController extends Controller
     {   
         return view('front.serve');
     }
-     public function product($url, $id = null)
+     public function product($url, $listSizeId = 0, $id = null)
     {   
         // OLD
         // $product = Product::where('url', $url);
@@ -726,7 +726,7 @@ class dashboardController extends Controller
         }
 
         return view('front.product', compact(
-            'product', 'similarProducts', 'sizeList', 'smallest', 'largest', 'productData', 'productTranslations'
+            'product', 'similarProducts', 'sizeList', 'smallest', 'largest', 'productData', 'productTranslations', 'listSizeId'
         ));
     }
 
