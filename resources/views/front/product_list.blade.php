@@ -118,12 +118,12 @@ $subcatVal = preg_replace('/[\#].*$/', '', $subcatVal);
                                                 @endforeach
                                             </div> --}}
                                             <!-- ✅ COVER IMAGE (FIRST IMAGE ONLY) -->
-                                            <img src="{{ asset('public/product_images/' . $filteredImages[0]->product_image) }}"
+                                            <img src="{{ asset('public/product_images/' . $filteredImages[1]->product_image) }}"
                                                 alt="{{ $vv->name }}" class="ym_cover_slider" loading="lazy">
                                             <!-- ✅ SLICK SLIDER -->
                                             <div class="ym_slider">
                                                 @foreach($filteredImages as $k => $v)
-                                                    @if($k == 0)
+                                                    @if($k == 1)
                                                         @continue
                                                     @endif
                                                     @if($k == 4)
@@ -204,12 +204,12 @@ $subcatVal = preg_replace('/[\#].*$/', '', $subcatVal);
                                                 @endforeach
                                             </div> --}}
                                             <!-- ✅ COVER IMAGE (FIRST IMAGE ONLY) -->
-                                            <img src="{{ asset('public/product_images/' . $filteredImages[0]->product_image) }}"
+                                            <img src="{{ asset('public/product_images/' . $filteredImages[1]->product_image) }}"
                                                 alt="{{ $vv->name }}" class="ym_cover_slider">
                                             <!-- ✅ SLICK SLIDER -->
                                             <div class="ym_slider">
                                                 @foreach($filteredImages as $k => $v)
-                                                    @if($k == 0)
+                                                    @if($k == 1)
                                                         @continue
                                                     @endif
                                                     @if($k == 4)
@@ -303,12 +303,12 @@ $subcatVal = preg_replace('/[\#].*$/', '', $subcatVal);
                                                 @endforeach
                                             </div> --}}
                                             <!-- ✅ COVER IMAGE (FIRST IMAGE ONLY) -->
-                                            <img src="{{ asset('public/product_images/' . $filteredImages[0]->product_image) }}"
+                                            <img src="{{ asset('public/product_images/' . $filteredImages[1]->product_image) }}"
                                                 alt="{{ $vv->name }}" class="ym_cover_slider">
                                             <!-- ✅ SLICK SLIDER -->
                                             <div class="ym_slider">
                                                 @foreach($filteredImages as $k => $v)
-                                                    @if($k == 0)
+                                                    @if($k == 1)
                                                         @continue
                                                     @endif
                                                     @if($k == 4)

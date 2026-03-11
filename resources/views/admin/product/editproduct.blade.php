@@ -152,7 +152,7 @@
                                             </div> --}}
                                             <div class="col-md-2">
                                                 <label>Product Image</label>
-                                                <input type="file" name="product_image[{{$index}}]" class="form-control dropify" data-default-file="{{ $item['product_image'] ? asset('public/product_images/'.$item['product_image']) : '' }}">
+                                                <input type="file" name="product_image[{{$index}}]" class="form-control dropify"  data-default-file="{{ $item['product_image'] ? asset('public/product_images/'.$item['product_image']) : '' }}">
                                                 <input type="hidden" name="old_product_image[{{$index}}]" value="{{ $item['product_image'] }}">
                                             </div>
                                             <div class="col-md-2">
@@ -197,9 +197,56 @@
 <script src="{{ asset('public/admin_public/dist/assets/bundles/dropify.bundle.js') }}"></script>
 <script>
 $(document).ready(function(){
+    // Replace this:
     $('.dropify').dropify();
-    $('.summernote').summernote({ height: 200 });
 
+    // With this function:
+    function initDropifyWithWebP(selector) {
+        $(selector).each(function() {
+            let $input = $(this);
+            let defaultFile = $input.data('default-file') || '';
+            // Initialize dropify normally
+            let drInstance = $input.dropify({
+                messages: {
+                    'default': 'Drag and drop a file here or click',
+                    'replace': 'Drag and drop or click to replace',
+                    'remove':  'Remove',
+                    'error':   'Ooops, something wrong happened.'
+                }
+            });
+            // If default file is WebP, manually force the preview
+            if (defaultFile && defaultFile.toLowerCase().includes('.webp')) {
+                let dr = drInstance.data('dropify');
+                // Wait for dropify to finish rendering
+                setTimeout(function() {
+                    let $wrapper = $input.closest('.dropify-wrapper');
+                    // Remove any broken preview state
+                    $wrapper.removeClass('dropify-file-preview-error');
+                    
+                    // Find or create the preview image
+                    let $previewImg = $wrapper.find('.dropify-render img');
+                    if ($previewImg.length === 0) {
+                        $wrapper.find('.dropify-render').html('<img>');
+                        $previewImg = $wrapper.find('.dropify-render img');
+                    }
+                    
+                    // Set the image src directly
+                    $previewImg.attr('src', defaultFile);
+                    
+                    // Show the preview container
+                    $wrapper.find('.dropify-preview').css('display', 'block');
+                    $wrapper.addClass('has-preview');
+                    $wrapper.find('.dropify-message').hide();
+                    
+                }, 100);
+            }
+        });
+    }
+
+    // Use this instead of $('.dropify').dropify()
+    initDropifyWithWebP('.dropify');
+
+    $('.summernote').summernote({ height: 200 });
     function updateButtons() {
         $('.brand-size-row').each(function(index) {
             $(this).find('.add-more').toggle(index === $('.brand-size-row').length - 1);
@@ -240,29 +287,40 @@ $(document).ready(function(){
     $(document).on('click', '.add-more', function(){
         let newIndex = $('.brand-size-row').length;
         let clone = $('.brand-size-row:first').clone();
+        // reset selects
         clone.find('select').val('');
+        // reset checkbox
         clone.find('input[type="checkbox"]').prop('checked', false);
-        // Reset file input
-        let fileInput = clone.find('input[type=file]');
+        // destroy dropify
+        clone.find('.dropify').each(function(){
+            let drEvent = $(this).dropify();
+            drEvent = drEvent.data('dropify');
+            if(drEvent){
+                drEvent.destroy();
+            }
+        });
+        // remove wrapper and recreate file input
         clone.find('.dropify-wrapper').remove();
-        fileInput.removeClass('dropify');
-        fileInput.val('');
-        fileInput.removeAttr('data-default-file');
-        fileInput.attr('name', 'product_image[' + newIndex + ']');
-        // reset hidden old image
+        let fileInput = $('<input>', {
+            type: 'file',
+            name: 'product_image['+newIndex+']',
+            class: 'form-control dropify'
+        });
+        clone.find('.col-md-2').eq(1).html(fileInput);
+        // reset hidden image
         clone.find('input[name^="old_product_image"]')
             .val('')
             .attr('name','old_product_image['+newIndex+']');
+        // reset size
         clone.find('select[name^="size_id"]')
             .attr('name','size_id['+newIndex+']');
+        // reset checkbox name
         clone.find('input[name^="is_human_image"]')
             .attr('name','is_human_image['+newIndex+']');
         $('#dynamic-fields').append(clone);
         // reinitialize dropify
-        clone.find('input[type=file]')
-            .addClass('dropify')
-            .dropify();
-
+       // clone.find('.dropify').dropify();
+        initDropifyWithWebP(clone.find('.dropify'));
         updateButtons();
     });
 
