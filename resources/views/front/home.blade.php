@@ -2,7 +2,7 @@
 
 <link rel="stylesheet" href="{{ asset('public/front/css/hero_style.css') }}">
 <link rel="stylesheet" href="{{ asset('public/front/css/hero_responsive.css') }}">
-
+@php $param = 0; @endphp
 <section class="ym_hero">
     <div class="ym_hero_slider_wrapper">
         <div class="gallery-container">
@@ -213,7 +213,7 @@
                                                 <div class="ym_slider">
                                                     @foreach($productImages as $k => $v)
                                                         <div>
-                                                            <a href="{{ url('products-details/' . $val['url'] . '/' . $val['id'])}}"
+                                                            <a href="{{ url('products-details/' . $val['url'] .'/'. $param . '/' . $val['id']) }}"
                                                                 target="_blank">
                                                                 <img loading="lazy"
                                                                     src="{{ asset('public/product_images/' . $v->product_image) }}"
@@ -242,7 +242,7 @@
                                     </div>
 
                                     <div>
-                                        <a class="ym_info" href="{{ url('products-details/' . $val['url'] . '/' . $val['id'])}}"
+                                        <a class="ym_info" href="{{ url('products-details/' . $val['url'] . '/' . $param . '/' . $val['id']) }}"
                                             target="_blank">
                                             <h3 class="ym_prod_name">{{$val->name ?? ''}}</h3>
                                         </a>
@@ -289,7 +289,7 @@
                                                 <div class="ym_slider">
                                                     @foreach($productImages as $k => $v)
                                                         <div>
-                                                            <a href="{{ url('products-details/' . $val['url'] . '/' . $val['id'])}}"
+                                                            <a href="{{ url('products-details/' . $val['url'] . '/' . $param . '/' . $val['id']) }}"
                                                                 target="_blank">
                                                                 <img loading="lazy"
                                                                     src="{{ asset('public/product_images/' . $v->product_image) }}"
@@ -318,7 +318,7 @@
                                     </div>
 
                                     <div>
-                                        <a class="ym_info" href="{{ url('products-details/' . $val['url'] . '/' . $val['id'])}}"
+                                        <a class="ym_info" href="{{ url('products-details/' . $val['url'] . '/' . $param . '/' . $val['id']) }}"
                                             target="_blank">
                                             <h3 class="ym_prod_name">{{$val->name ?? ''}}</h3>
                                         </a>
@@ -383,7 +383,7 @@
                                     @if($key == 9)
                                         @break
                                     @endif
-                                    <a href="{{ url('products-details/' . $val['url'] . '/' . $val['id'])}}"
+                                    <a href="{{ url('products-details/' . $val['url'] .'/' . $param . '/' . $val['id']) }}"
                                         target="_blank"><span class="p_type">{{$val->name}}</span></a>
                                 @endforeach
                             @endif
@@ -446,7 +446,7 @@
                                     @if($key == 9)
                                         @break
                                     @endif
-                                    <a href="{{ url('products-details/' . $val['url'] . '/' . $val['id'])}}"
+                                    <a href="{{ url('products-details/' . $val['url'] .'/'. $param . '/' . $val['id']) }}"
                                         target="_blank"><span class="p_type">{{$val->name}}</span></a>
                                 @endforeach
                             @endif
@@ -509,7 +509,7 @@
                                     @if($key == 9)
                                         @break
                                     @endif
-                                    <a href="{{ url('products-details/' . $val['url'] . '/' . $val['id'])}}"
+                                    <a href="{{ url('products-details/' . $val['url'] . '/' . $param . '/' . $val['id']) }}"
                                         target="_blank"><span class="p_type">{{$val->name}}</span></a>
                                 @endforeach
                             @endif

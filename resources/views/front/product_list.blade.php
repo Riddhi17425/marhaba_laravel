@@ -107,16 +107,6 @@ $subcatVal = preg_replace('/[\#].*$/', '', $subcatVal);
                                 <div class="Product_item">
                                     <div class="ym_card_img">
                                         @if($filteredImages->count() > 0)
-                                            {{-- <div class="swiper-wrapper">
-                                                @foreach($filteredImages as $v)
-                                                    <div class="swiper-slide">
-                                                        <a href="{{ url('products-details/' . $vv['url'].'/'. $vv['id']) }}" target="_blank">
-                                                            <img loading="lazy" src="{{ asset('public/product_images/' . $v->product_image) }}"
-                                                                alt="{{ $vv->name }}" class="img-fluid product_img w-100">
-                                                        </a>
-                                                    </div>
-                                                @endforeach
-                                            </div> --}}
                                             <!-- ✅ COVER IMAGE (FIRST IMAGE ONLY) -->
                                             <img src="{{ asset('public/product_images/' . $filteredImages[1]->product_image) }}"
                                                 alt="{{ $vv->name }}" class="ym_cover_slider" loading="lazy">
@@ -130,9 +120,8 @@ $subcatVal = preg_replace('/[\#].*$/', '', $subcatVal);
                                                         @break
                                                     @endif
                                                     <div>
-                                                        <a href="{{ url('products-details/' . $vv['url'].'/'. $vv['id']) }}" target="_blank">
-                                                            <img loading="lazy" src="{{ asset('public/product_images/' . $v->product_image) }}"
-                                                                alt="{{ $vv->name }}" class="img-fluid product_img w-100">
+                                                        <a href="{{ url('products-details/' . $vv['url'].'/'. $sizeId . '/' . $vv['id']) }}" target="_blank">
+                                                            <img loading="lazy" src="{{ asset('public/product_images/' . $v->product_image) }}" alt="{{ $vv->name }}" class="img-fluid product_img w-100">
                                                         </a>
                                                     </div>
                                                 @endforeach
@@ -148,17 +137,11 @@ $subcatVal = preg_replace('/[\#].*$/', '', $subcatVal);
                                                         class="ym_slide_img">
                                                 </div>
                                             </div>
-                                            {{-- <div class="swiper-wrapper">
-                                                <div class="swiper-slide">
-                                                    <img loading="lazy" src="{{ asset('public/front/img/product-not-found.png') }}"
-                                                        alt="not found" class="img-fluid product_img w-100">
-                                                </div>
-                                            </div> --}}
                                         @endif
                                     </div>
                                 </div>
                                 <div>
-                                    <a href="{{ url('products-details/' . $vv['url'].'/'. $vv['id']) }}" target="_blank" class="prod_list_title">
+                                    <a href="{{ url('products-details/' . $vv['url'].'/'. $sizeId .'/' . $vv['id']) }}" target="_blank" class="prod_list_title">
                                         <h4 class="mb-0" style="font-weight:500;">{{$vv->name ?? ''}}</h4>
                                         <p class="mb-0">{{$vk ?? ''}}</p>
                                     </a>                                
@@ -193,16 +176,6 @@ $subcatVal = preg_replace('/[\#].*$/', '', $subcatVal);
                                 <div class="Product_item">
                                     <div class="ym_card_img">
                                         @if($filteredImages->count() > 0)
-                                            {{-- <div class="swiper-wrapper">
-                                                @foreach($filteredImages as $v)
-                                                    <div class="swiper-slide">
-                                                        <a href="{{ url('products-details/' . $vv['url'].'/'. $vv['id']) }}" target="_blank">
-                                                            <img loading="lazy" src="{{ asset('public/product_images/' . $v->product_image) }}"
-                                                                alt="{{ $vv->name }}" class="img-fluid product_img w-100">
-                                                        </a>
-                                                    </div>
-                                                @endforeach
-                                            </div> --}}
                                             <!-- ✅ COVER IMAGE (FIRST IMAGE ONLY) -->
                                             <img src="{{ asset('public/product_images/' . $filteredImages[1]->product_image) }}"
                                                 alt="{{ $vv->name }}" class="ym_cover_slider">
@@ -216,7 +189,7 @@ $subcatVal = preg_replace('/[\#].*$/', '', $subcatVal);
                                                         @break
                                                     @endif
                                                     <div>
-                                                        <a href="{{ url('products-details/' . $vv['url'].'/'. $vv['id']) }}" target="_blank">
+                                                        <a href="{{ url('products-details/' . $vv['url'].'/'. $sizeId . '/' . $vv['id']) }}" target="_blank">
                                                             <img loading="lazy" src="{{ asset('public/product_images/' . $v->product_image) }}"
                                                                 alt="{{ $vv->name }}" class="img-fluid product_img w-100">
                                                         </a>
@@ -224,12 +197,6 @@ $subcatVal = preg_replace('/[\#].*$/', '', $subcatVal);
                                                 @endforeach
                                             </div>
                                         @else
-                                            {{-- <div class="swiper-wrapper">
-                                                <div class="swiper-slide">
-                                                    <img loading="lazy" src="{{ asset('public/front/img/product-not-found.png') }}"
-                                                        alt="not found" class="img-fluid product_img w-100">
-                                                </div>
-                                            </div> --}}
                                             <!-- ✅ NO IMAGE CASE -->
                                             <img src="{{ asset('public/front/img/product-not-found.png') }}" alt="not found"
                                                 class="ym_cover_slider">
@@ -244,7 +211,7 @@ $subcatVal = preg_replace('/[\#].*$/', '', $subcatVal);
                                     </div>
                                 </div>
                                 <div>
-                                    <a href="{{ url('products-details/' . $vv['url'].'/'. $vv['id']) }}" target="_blank" class="prod_list_title">
+                                    <a href="{{ url('products-details/' . $vv['url'].'/'. $sizeId . '/' . $vv['id']) }}" target="_blank" class="prod_list_title">
                                         <h4 class="mb-0" style="font-weight:500;">{{$vv->name ?? ''}}</h4>
                                         <p class="mb-0">{{$vk ?? ''}}</p>
                                     </a>                                
@@ -276,32 +243,7 @@ $subcatVal = preg_replace('/[\#].*$/', '', $subcatVal);
                             <div class="ym_card">
                                 <div class="Product_item">
                                     <div class="ym_card_img">
-                                        {{-- @if(isset($productImages) && is_countable($productImages) && count($productImages) > 0) 
-                                            <div class="swiper-wrapper">
-                                                @foreach($productImages as $k => $v)
-                                                <div class="swiper-slide">
-                                                        <a href="{{ url('products-details/' . $vv['url']) }}"><img loading="lazy" src="{{ asset('public/product_images/' . $v->product_image) }}" alt="{{ $vv->name }}" class="img-fluid product_img w-100"></a>
-                                                </div>
-                                                @endforeach
-                                            </div>
-                                        @else
-                                            <div class="swiper-wrapper">
-                                                <div class="swiper-slide">
-                                                    <img loading="lazy" src="{{ asset('public/front/img/product-not-found.png') }}" alt="not found" class="img-fluid product_img w-100">
-                                                </div>
-                                            </div>
-                                        @endif --}}
                                         @if($filteredImages->count() > 0)
-                                            {{-- <div class="swiper-wrapper">
-                                                @foreach($filteredImages as $v)
-                                                    <div class="swiper-slide">
-                                                        <a href="{{ url('products-details/' . $vv['url'].'/'. $vv['id']) }}" target="_blank">
-                                                            <img loading="lazy" src="{{ asset('public/product_images/' . $v->product_image) }}"
-                                                                alt="{{ $vv->name }}" class="img-fluid product_img w-100">
-                                                        </a>
-                                                    </div>
-                                                @endforeach
-                                            </div> --}}
                                             <!-- ✅ COVER IMAGE (FIRST IMAGE ONLY) -->
                                             <img src="{{ asset('public/product_images/' . $filteredImages[1]->product_image) }}"
                                                 alt="{{ $vv->name }}" class="ym_cover_slider">
@@ -315,7 +257,7 @@ $subcatVal = preg_replace('/[\#].*$/', '', $subcatVal);
                                                         @break
                                                     @endif
                                                     <div>
-                                                        <a href="{{ url('products-details/' . $vv['url'].'/'. $vv['id']) }}" target="_blank">
+                                                        <a href="{{ url('products-details/' . $vv['url'].'/'.$sizeId .'/'. $vv['id']) }}" target="_blank">
                                                             <img loading="lazy" src="{{ asset('public/product_images/' . $v->product_image) }}"
                                                                 alt="{{ $vv->name }}" class="img-fluid product_img w-100">
                                                         </a>
@@ -323,12 +265,6 @@ $subcatVal = preg_replace('/[\#].*$/', '', $subcatVal);
                                                 @endforeach
                                             </div>
                                         @else
-                                            {{-- <div class="swiper-wrapper">
-                                                <div class="swiper-slide">
-                                                    <img loading="lazy" src="{{ asset('public/front/img/product-not-found.png') }}"
-                                                        alt="not found" class="img-fluid product_img w-100">
-                                                </div>
-                                            </div> --}}
                                             <!-- ✅ NO IMAGE CASE -->
                                             <img src="{{ asset('public/front/img/product-not-found.png') }}" alt="not found" class="ym_cover_slider">
                                             <div class="ym_slider">
@@ -339,13 +275,9 @@ $subcatVal = preg_replace('/[\#].*$/', '', $subcatVal);
                                             </div>
                                         @endif
                                     </div>
-                                    {{-- <a
-                                        href="https://www.intelliworkz.co/marhaba_laravel/products-details/shirt-shorts-co-ord-set">
-                                        <img src="https://www.intelliworkz.co/marhaba_laravel/public/product_images/Shirt-Shorts-Co-ord-set-2-5Y-1.png" alt="Shirt Shorts Co-ord Set" class="img-fluid product_img w-100" onerror="this.src='https://www.intelliworkz.co/marhaba_laravel/public/front/img/default-product.jpg'">
-                                    </a> --}}
                                 </div>
                                 <div>
-                                    <a href="{{ url('products-details/' . $vv['url'].'/'. $vv['id']) }}" target="_blank" class="prod_list_title">
+                                    <a href="{{ url('products-details/' . $vv['url'].'/'.$sizeId .'/'. $vv['id']) }}" target="_blank" class="prod_list_title">
                                         <h4 class="mb-0" style="font-weight:500;">{{$vv->name ?? ''}}</h4>
                                         <p class="mb-0">{{$vk ?? ''}}</p>
                                     </a>                                
@@ -355,48 +287,6 @@ $subcatVal = preg_replace('/[\#].*$/', '', $subcatVal);
                     </div>
                     @endforeach
                     @endforeach
-                    {{-- <div>
-                        <div class="product_wrapper">
-                            <div class="Product_item">
-                                <a
-                                    href="https://www.intelliworkz.co/marhaba_laravel/products-details/shirt-shorts-co-ord-set">
-                                    <img src="https://www.intelliworkz.co/marhaba_laravel/public/product_images/Shirt-Shorts-Co-ord-set-2-5Y-1.png"
-                                        alt="Shirt Shorts Co-ord Set" class="img-fluid product_img w-100"
-                                        onerror="this.src='https://www.intelliworkz.co/marhaba_laravel/public/front/img/default-product.jpg'">
-                                </a>
-                            </div>
-                            <p class="mb-0" style="font-weight:500;">Smart Kids Comfort Bodysuit Set</p>
-                            <p class="raleway_14 mb-0">3m-12m</p>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="product_wrapper">
-                            <div class="Product_item">
-                                <a
-                                    href="https://www.intelliworkz.co/marhaba_laravel/products-details/shirt-shorts-co-ord-set">
-                                    <img src="https://www.intelliworkz.co/marhaba_laravel/public/product_images/Shirt-Shorts-Co-ord-set-2-5Y-1.png"
-                                        alt="Shirt Shorts Co-ord Set" class="img-fluid product_img w-100"
-                                        onerror="this.src='https://www.intelliworkz.co/marhaba_laravel/public/front/img/default-product.jpg'">
-                                </a>
-                            </div>
-                            <p class="mb-0" style="font-weight:500;">Smart Kids Comfort Bodysuit Set</p>
-                            <p class="raleway_14 mb-0">3m-12m</p>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="product_wrapper">
-                            <div class="Product_item">
-                                <a
-                                    href="https://www.intelliworkz.co/marhaba_laravel/products-details/shirt-shorts-co-ord-set">
-                                    <img src="https://www.intelliworkz.co/marhaba_laravel/public/product_images/Shirt-Shorts-Co-ord-set-2-5Y-1.png"
-                                        alt="Shirt Shorts Co-ord Set" class="img-fluid product_img w-100"
-                                        onerror="this.src='https://www.intelliworkz.co/marhaba_laravel/public/front/img/default-product.jpg'">
-                                </a>
-                            </div>
-                            <p class="mb-0" style="font-weight:500;">Smart Kids Comfort Bodysuit Set</p>
-                            <p class="raleway_14 mb-0">3m-12m</p>
-                        </div>
-                    </div> --}}
                 </div>
             </section>
             @endif

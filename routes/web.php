@@ -50,7 +50,7 @@ Route::post('/post-contact-us', [dashboardController::class, 'postContact'])->na
 Route::get('/shipping-policy', [dashboardController::class, 'shippingpolicy'])->name('shippingpolicy');
 Route::get('/products/{categoryUrl}', [ProductFrontController::class, 'index'])->name('products');
 // Route::get('/products-details/{url}/{id?}', [ProductFrontController::class, 'productdetails'])->name('productdetails');
-Route::get('/products-details/{url}/{id?}', [dashboardController::class, 'product'])->name('productdetails');
+Route::get('/products-details/{url}/{sizeid?}/{id?}', [dashboardController::class, 'product'])->name('productdetails');
 Route::get('/product-page/{url}/{id?}', [dashboardController::class, 'product'])->name('product');
 // Route::get('/landing', [dashboardController::class, 'landing'])->name('landing');
 Route::get('/test-filter', [dashboardController::class, 'filter'])->name('filter');

@@ -5,7 +5,12 @@
 <script src="https://unpkg.com/@zoom-image/core"></script>
 @php 
     $productImages = json_decode($product->product_brand_size);
-    $filteredImages = collect($productImages)->values();
+    if($listSizeId != 0){
+        $filteredImages = collect($productImages)->where('size_id', (string)$listSizeId)->values();
+    }else{
+        $filteredImages = collect($productImages)->values();
+    }
+    
 @endphp
 
 <section class="product_detail_intro">

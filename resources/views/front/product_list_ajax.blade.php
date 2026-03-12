@@ -38,7 +38,7 @@
                                             @break
                                         @endif
                                         <div>
-                                            <a href="{{ url('products-details/' . $vv['url'].'/'. $vv['id']) }}" target="_blank">
+                                            <a href="{{ url('products-details/' . $vv['url'].'/'.$sizeId . '/' . $vv['id']) }}" target="_blank">
                                                 <img loading="lazy" src="{{ asset('public/product_images/' . $v->product_image) }}"
                                                     alt="{{ $vv->name }}" class="img-fluid product_img w-100">
                                             </a>
@@ -64,7 +64,7 @@
                         </div>
                     </div>
                     <div>
-                        <a href="{{ url('products-details/' . $vv['url'].'/'. $vv['id']) }}" target="_blank" class="prod_list_title">                            
+                        <a href="{{ url('products-details/' . $vv['url'].'/'.$sizeId. '/'. $vv['id']) }}" target="_blank" class="prod_list_title">                            
                             <h4 class="mb-0" style="font-weight:500;">{{$vv->name ?? ''}}</h4>
                             <p class="mb-0">{{$vk ?? ''}}</p>
                         </a>
