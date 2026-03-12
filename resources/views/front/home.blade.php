@@ -848,47 +848,95 @@
     //     });
     // });
 
+    // OLD CODE
+    // document.addEventListener('DOMContentLoaded', function () {
+    //     const modalEl = document.getElementById('globalPresenceModal');
+    //     const modalContent = document.getElementById('globalPresenceModalContent');
+    //     const globalButtons = document.querySelectorAll('.global_tab_item .nav-link');
+
+    //     function handleClick(button) {
+    //         if (window.innerWidth <= 992) {
+    //             const region = button.getAttribute('data-region');
+    //             let content = '';
+
+    //             if (region === 'africa') {
+    //                 content = document.querySelector('#pills-home').innerHTML;
+    //             } else if (region === 'east') {
+    //                 content = document.querySelector('#pills-profile').innerHTML;
+    //             } else if (region === 'asia') {
+    //                 content = document.querySelector('#pills-contact').innerHTML;
+    //             }
+
+    //             modalContent.innerHTML = content;
+    //             const modal = new bootstrap.Modal(modalEl);
+    //             modal.show();
+    //         } else {
+    //             // Desktop: show tab normally
+    //             const tab = new bootstrap.Tab(button);
+    //             tab.show();
+    //         }
+    //     }
+
+    //     globalButtons.forEach(button => {
+    //         button.addEventListener('click', function (e) {
+    //             e.preventDefault();
+    //             handleClick(button);
+    //         });
+    //     });
+
+    //     const defaultButton = document.querySelector('[data-region="africa"]');
+    //     if (defaultButton) {
+    //         handleClick(defaultButton);
+    //     }
+    // });
+    // NEW CODE
     document.addEventListener('DOMContentLoaded', function () {
-        const modalEl = document.getElementById('globalPresenceModal');
-        const modalContent = document.getElementById('globalPresenceModalContent');
-        const globalButtons = document.querySelectorAll('.global_tab_item .nav-link');
+    const modalEl = document.getElementById('globalPresenceModal');
+    const modalContent = document.getElementById('globalPresenceModalContent');
+    const globalButtons = document.querySelectorAll('.global_tab_item .nav-link');
 
-        function handleClick(button) {
-            // For mobile view — open modal
-            if (window.innerWidth <= 992) {
-                const region = button.getAttribute('data-region');
-                let content = '';
+    function handleClick(button) {
+        const region = button.getAttribute('data-region'); 
+        let content = ''; 
 
-                if (region === 'africa') {
-                    content = document.querySelector('#pills-home').innerHTML;
-                } else if (region === 'east') {
-                    content = document.querySelector('#pills-profile').innerHTML;
-                } else if (region === 'asia') {
-                    content = document.querySelector('#pills-contact').innerHTML;
-                }
-
-                modalContent.innerHTML = content;
-                const modal = new bootstrap.Modal(modalEl);
-                modal.show();
-            } else {
-                // Desktop: show tab normally
-                const tab = new bootstrap.Tab(button);
-                tab.show();
-            }
+        if (region === 'africa') { 
+            content = document.querySelector('#pills-home').innerHTML;
+        } else if (region === 'east') { 
+            content = document.querySelector('#pills-profile').innerHTML;
+        } else if (region === 'asia') { 
+            content = document.querySelector('#pills-contact').innerHTML;
         }
 
-        globalButtons.forEach(button => {
-            button.addEventListener('click', function (e) {
+        // CHANGED CONDITION (separate desktop & mobile behaviour)
+        if (window.innerWidth <= 992) {
+            modalContent.innerHTML = content;
+            const modal = new bootstrap.Modal(modalEl);
+            modal.show();
+        } else {
+            const tab = new bootstrap.Tab(button);
+            tab.show();
+        }
+    }
+
+    globalButtons.forEach(button => {
+        button.addEventListener('mouseenter', function () {
+            if (window.innerWidth > 992) {
+                handleClick(button);
+            }
+        });
+        button.addEventListener('click', function (e) {
+            if (window.innerWidth <= 992) {
                 e.preventDefault();
                 handleClick(button);
-            });
+            }
         });
-
-        // ✅ Trigger Africa by default on page load
-        const defaultButton = document.querySelector('[data-region="africa"]');
-        if (defaultButton) {
-            handleClick(defaultButton);
-        }
     });
+
+    // existing default logic
+    const defaultButton = document.querySelector('[data-region="africa"]');
+    if (defaultButton) {
+        handleClick(defaultButton);
+    }
+});
 </script>
 @include('layouts.frontfooter')
