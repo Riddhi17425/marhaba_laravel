@@ -95,11 +95,11 @@
                 <h1 class="hero_overlay_ctnt_h1">Wholesale Children's Clothing</h1>
                 <h1 class="hero_overlay_ctnt_h1"><em>Quality & Value</em></h1>
                 <div class="hero_breadcrumb">
-                    <span><a href="#">Complete range from newborn to 14 years</a></span>
+                    <span><a>Complete range from newborn to 14 years</a></span>
                     <span>|</span>
-                    <span><a href="#">Quality overseen from fabric to finish</a></span>
+                    <span><a>Quality overseen from fabric to finish</a></span>
                     <span>|</span>
-                    <span><a href="#">Children's fashion — from Dubai to the world.</a></span>
+                    <span><a>Children's fashion — from Dubai to the world.</a></span>
                 </div>
                 <div class="btn_wrapper">
                     <a href="" class="btn_1" data-bs-toggle="modal" data-bs-target="#enquiryModal">Enquire Now <img
@@ -353,9 +353,7 @@
 </section>
 <!-- ----------------range------------ -->
 <section id="categories" class="projects-section home_mt-100">
-    <h2 class="title_60lora mx-atuo">
-        <h2 class="title_60lora text-center">Age Ranges</h2>
-    </h2>
+    <h2 class="title_60lora text-center">Age Ranges</h2>
     <div class="ym-container">
         <div class="projects-desktop">
             <!-- Baby -->

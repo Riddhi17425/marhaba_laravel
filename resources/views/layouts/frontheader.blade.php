@@ -354,24 +354,24 @@
     <script>
         // gsap
         const header = document.querySelector("header");
-
         let lastScroll = 0;
-        let headerHeight = header.offsetHeight;
+        // Use a fixed value or get offset height once
+        const headerHeight = header.offsetHeight;
 
         window.addEventListener("scroll", () => {
             const currentScroll = window.pageYOffset;
 
-            // SCROLL DOWN â†’ HIDE
-            if (currentScroll > lastScroll && currentScroll > headerHeight + 100) {
+            // 1. SCROLL DOWN -> HIDE IMMEDIATELY
+            if (currentScroll > lastScroll && currentScroll > headerHeight) {
                 gsap.to(header, {
-                    y: -(headerHeight + 100),
+                    y: -headerHeight, // Simply slide up by its own height
                     duration: 0.35,
                     ease: "power2.out"
                 });
             }
 
-            // SCROLL UP â†’ SHOW + GLASS
-            if (currentScroll < lastScroll) {
+            // 2. SCROLL UP -> SHOW IMMEDIATELY
+            else if (currentScroll < lastScroll) {
                 gsap.to(header, {
                     y: 0,
                     duration: 0.35,
@@ -380,13 +380,11 @@
                 header.classList.add("sticky");
             }
 
-            // TOP â†’ RESET
+            // 3. AT TOP -> RESET
             if (currentScroll <= 10) {
                 header.classList.remove("sticky");
-                gsap.to(header, {
-                    y: 0,
-                    duration: 0.2
-                });
+                // Ensure the header is visible at the very top
+                gsap.to(header, { y: 0, duration: 0.2 });
             }
 
             lastScroll = currentScroll;

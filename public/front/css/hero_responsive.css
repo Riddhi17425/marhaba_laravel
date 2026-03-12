@@ -20,6 +20,7 @@
     .hero_cat_slider .swiper-slide {overflow: hidden;}
     .stats_des{margin-bottom:0;}
     .slider-wrapper {height: calc(100vh - 33vh);}
+    .hero_img_wrapper img{height:450px;}
     /* .ym_slider .slick-dots{bottom: 36% !important;} */
 }
 @media (max-width: 1441px) {

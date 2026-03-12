@@ -101,6 +101,10 @@ document.addEventListener("DOMContentLoaded", () => {
         new Swiper('.why_slider', {
             slidesPerView: 1,
             pagination: { el: '.swiper-pagination', clickable: true },
+            autoplay: {
+            delay: 3000,
+            disableOnInteraction: false,
+            },
             on: {
                 init(swiper) {
                     const total = swiper.slides.length;

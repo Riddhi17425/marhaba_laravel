@@ -569,7 +569,7 @@ a {
     gap: 15px;
     margin-bottom: 30px;
 }
-
+.p_type{font-size: 14px;}
 /* card css */
 /* gender slider */
 /* Main Layout Container */
@@ -883,7 +883,7 @@ select:focus {
 .brand-overlay {
     position: absolute;
     inset: 0;
-    background: #d7c7e99e;
+    background: #afafaf4a;
     display: flex;
     align-items: flex-end;
     justify-content: center;
