@@ -504,7 +504,8 @@ class dashboardController extends Controller
     {   
         return view('front.serve');
     }
-     public function product($url, $listSizeId = 0, $id = null)
+    
+    public function product($url, $listSizeId = 0, $id = null)
     {   
         // OLD
         // $product = Product::where('url', $url);
