@@ -943,6 +943,7 @@
       /*.global_presence_tabcontent{*/
       /*  margin-top: -133px;*/
       /*}*/
+      .global_tab_east:hover #pills-profile.tab-pane{display: block;opacity: 1;}
       .global_presence_tabcontent .tab-pane {
         border-radius: 10px;
         background: rgba(255, 255, 255, 0.70);
@@ -1722,7 +1723,7 @@
       }
 
       header {
-        transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.4s ease-in-out;
+        transition: box-shadow 0.4s ease-in-out;
         z-index: 1030;
         position: fixed;
         top: 0;
