@@ -889,54 +889,55 @@
     //         handleClick(defaultButton);
     //     }
     // });
+    
     // NEW CODE
     document.addEventListener('DOMContentLoaded', function () {
-    const modalEl = document.getElementById('globalPresenceModal');
-    const modalContent = document.getElementById('globalPresenceModalContent');
-    const globalButtons = document.querySelectorAll('.global_tab_item .nav-link');
+        const modalEl = document.getElementById('globalPresenceModal');
+        const modalContent = document.getElementById('globalPresenceModalContent');
+        const globalButtons = document.querySelectorAll('.global_tab_item .nav-link');
 
-    function handleClick(button) {
-        const region = button.getAttribute('data-region'); 
-        let content = ''; 
+        function handleClick(button) {
+            const region = button.getAttribute('data-region'); 
+            let content = ''; 
 
-        if (region === 'africa') { 
-            content = document.querySelector('#pills-home').innerHTML;
-        } else if (region === 'east') { 
-            content = document.querySelector('#pills-profile').innerHTML;
-        } else if (region === 'asia') { 
-            content = document.querySelector('#pills-contact').innerHTML;
-        }
-
-        // CHANGED CONDITION (separate desktop & mobile behaviour)
-        if (window.innerWidth <= 992) {
-            modalContent.innerHTML = content;
-            const modal = new bootstrap.Modal(modalEl);
-            modal.show();
-        } else {
-            const tab = new bootstrap.Tab(button);
-            tab.show();
-        }
-    }
-
-    globalButtons.forEach(button => {
-        button.addEventListener('mouseenter', function () {
-            if (window.innerWidth > 992) {
-                handleClick(button);
+            if (region === 'africa') { 
+                content = document.querySelector('#pills-home').innerHTML;
+            } else if (region === 'east') { 
+                content = document.querySelector('#pills-profile').innerHTML;
+            } else if (region === 'asia') { 
+                content = document.querySelector('#pills-contact').innerHTML;
             }
-        });
-        button.addEventListener('click', function (e) {
+
+            // CHANGED CONDITION (separate desktop & mobile behaviour)
             if (window.innerWidth <= 992) {
-                e.preventDefault();
-                handleClick(button);
+                modalContent.innerHTML = content;
+                const modal = new bootstrap.Modal(modalEl);
+                modal.show();
+            } else {
+                const tab = new bootstrap.Tab(button);
+                tab.show();
             }
-        });
-    });
+        }
 
-    // existing default logic
-    const defaultButton = document.querySelector('[data-region="africa"]');
-    if (defaultButton) {
-        handleClick(defaultButton);
-    }
-});
+        globalButtons.forEach(button => {
+            button.addEventListener('mouseenter', function () {
+                if (window.innerWidth > 992) {
+                    handleClick(button);
+                }
+            });
+            button.addEventListener('click', function (e) {
+                if (window.innerWidth <= 992) {
+                    e.preventDefault();
+                    handleClick(button);
+                }
+            });
+        });
+
+        // existing default logic
+        const defaultButton = document.querySelector('[data-region="africa"]');
+        if (defaultButton) {
+            handleClick(defaultButton);
+        }
+    });
 </script>
 @include('layouts.frontfooter')
