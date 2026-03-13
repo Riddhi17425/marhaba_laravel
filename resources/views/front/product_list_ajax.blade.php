@@ -86,6 +86,10 @@
                 $size = \App\Models\Product::getSizeId($vk);
                 $sizeId = $size->id;
                 $filteredImages = collect($productImages)->where('size_id', (string)$sizeId)->values();
+                if($filteredImages->count() > 1){
+                    $humanImage = $filteredImages->pull(0); // remove human image
+                    $filteredImages->splice(1, 0, [$humanImage]); // insert it at 2nd position
+                }
             @endphp
             <div>
                 <div class="product_wrapper">
@@ -104,14 +108,11 @@
                                         @endforeach
                                     </div> --}}
                                     <!-- ✅ COVER IMAGE (FIRST IMAGE ONLY) -->
-                                    <img src="{{ asset('public/product_images/' . $filteredImages[1]->product_image) }}"
+                                    <img src="{{ asset('public/product_images/' . $filteredImages[0]->product_image) }}"
                                         alt="{{ $vv->name }}" class="ym_cover_slider">
                                     <!-- ✅ SLICK SLIDER -->
                                     <div class="ym_slider">
                                         @foreach($filteredImages as $k => $v)
-                                            @if($k == 1)
-                                                @continue
-                                            @endif
                                             @if($k == 4)
                                                 @break
                                             @endif
