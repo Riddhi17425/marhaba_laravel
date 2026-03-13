@@ -344,6 +344,7 @@ document.addEventListener("DOMContentLoaded", () => {
                                 settings: {                                    
                                     arrows: false,
                                     dots:true,
+                                    autoplay:false
                                 }
                             }
                         ]
@@ -431,7 +432,7 @@ function initYmSlider() {
         dots: true,
         infinite: true,
         speed: 400,
-        autoplay: true,
+        autoplay: false,
         autoplaySpeed: 2000,
         pauseOnHover: false,
         responsive: [
@@ -440,6 +441,7 @@ function initYmSlider() {
                 settings: {
                     arrows: false,
                     dots: true,
+                    autoplay:false
                 }
             }
         ]
