@@ -636,7 +636,7 @@ a {
     height: 510px;
     /* border: 1px solid red; */
     overflow: hidden;
-    /* 🔥 prevents overflow */
+    /* ðŸ”¥ prevents overflow */
     background: #fff;
     position: relative;
     transition: 0.3s;
@@ -646,7 +646,7 @@ a {
     position: relative;
     overflow: hidden;
     height: 450px;
-    /* 🔥 prevents slider overflow */
+    /* ðŸ”¥ prevents slider overflow */
 }
 
 .ym_cover_slider {
@@ -758,7 +758,7 @@ a {
     margin: 0 !important;
     padding: 0 !important;
     width: 126px;
-    height: 5px;
+    height: 3px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -771,14 +771,14 @@ a {
 
 .ym_slider .slick-dots li button {
     width: 126px;
-    height: 5px;
+    height: 3px;
     background-color: #d7c7e9;
     padding: 0;
     transition: all 0.3s ease;
 }
 
 .ym_slider .slick-dots li.slick-active button {
-    height: 5px;
+    height: 3px;
     background-color: #452667;
     border-radius: 0px;
     transition: all 0.3s ease;
@@ -860,7 +860,7 @@ select:focus {
     border-bottom: none;
 }
 
-/* The image wrapper — this rotates together with overlay */
+/* The image wrapper â€” this rotates together with overlay */
 .brand-inner {
     position: absolute;
     inset: 0;

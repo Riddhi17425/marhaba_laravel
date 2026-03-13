@@ -303,6 +303,7 @@ class dashboardController extends Controller
                 continue;
             }
             $brandSizes = collect($brandSizes)->groupBy('size_id');
+            
             // Check all sizes in product_brand_size
             foreach ($brandSizes as $bk => $bs) {
                 $sizeId = $bk ? (int)$bk : null;

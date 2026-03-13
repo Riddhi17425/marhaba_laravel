@@ -121,7 +121,7 @@
             <p class="title_30-raleway">From baby essentials and casual wear to occasion pieces, versatile
                 separates, and cozy homewear—our collections cover every moment of childhood, from first onesies
                 to age 14.</p>
-            <p class="title_30-raleway">Built on long-term partnerships. That's how we've operated since 1974.
+            <p class="title_30-raleway mb-0">Built on long-term partnerships. That's how we've operated since 1974.
                 Ready inventory. Reliable supply. An experienced team. We're here to make sourcing simpler so
                 you can focus on growing your business. Serving retailers across the Middle East, Africa, and
                 Asia.</p>
