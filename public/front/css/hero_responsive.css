@@ -359,6 +359,8 @@
     .product_head .lora_24{font-size: 18px;line-height: 24px;}
     #slideCounter{max-width: 35px;width:35px;display: inline-block;}
     .slid_bottom, .slid_pagination_number{right:10px;}
+    .desk_grid{display: none;}
+    .mobile_grid{display:block;}
 }
 @media screen and (min-width: 377px) and (max-width: 429px) {
     .comp_bus_back {padding: 20px;}

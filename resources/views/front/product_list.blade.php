@@ -92,65 +92,129 @@ $subcatVal = preg_replace('/[\#].*$/', '', $subcatVal);
                 <h2 class="title_48lora mb-0"
                     style="background: linear-gradient(90deg, rgba(243, 242, 231, 0) 0%, #F3F2E7 50%, rgba(243, 242, 231, 0) 100%);">
                     Baby</h2>
-                <div class="products_filter_grid">
-                    @foreach($groupedProducts['baby']['products'] as $key => $val)
-                    @foreach($val as $vk => $vv)
-                    @php 
-                        $productImages = json_decode($vv->product_brand_size); 
-                        $size = \App\Models\Product::getSizeId($vk);
-                        $sizeId = $size->id;
-                        $filteredImages = collect($productImages)->where('size_id', (string)$sizeId)->values();
-                    @endphp
-                    <div>
-                        <div class="product_wrapper">
-                            <div class="ym_card">
-                                <div class="Product_item">
-                                    <div class="ym_card_img">
-                                        @if($filteredImages->count() > 0)
-                                            <!-- ✅ COVER IMAGE (FIRST IMAGE ONLY) -->
-                                            <img src="{{ asset('public/product_images/' . $filteredImages[1]->product_image) }}"
-                                                alt="{{ $vv->name }}" class="ym_cover_slider" loading="lazy">
-                                            <!-- ✅ SLICK SLIDER -->
-                                            <div class="ym_slider">
-                                                @foreach($filteredImages as $k => $v)
-                                                    @if($k == 1)
-                                                        @continue
-                                                    @endif
-                                                    @if($k == 4)
-                                                        @break
-                                                    @endif
-                                                    <div>
-                                                        <a href="{{ url('products-details/' . $vv['url'].'/'. $sizeId . '/' . $vv['id']) }}" target="_blank">
-                                                            <img loading="lazy" src="{{ asset('public/product_images/' . $v->product_image) }}" alt="{{ $vv->name }}" class="img-fluid product_img w-100">
-                                                        </a>
-                                                    </div>
-                                                @endforeach
-                                            </div>
-                                        @else
-                                            <!-- ✅ NO IMAGE CASE -->
-                                            <img src="{{ asset('public/front/img/product-not-found.png') }}" alt="not found"
-                                                class="ym_cover_slider">
-
-                                            <div class="ym_slider">
-                                                <div>
-                                                    <img src="{{ asset('public/front/img/product-not-found.png') }}"
-                                                        class="ym_slide_img">
+                <div class="desk_grid">
+                    <div class="products_filter_grid">
+                        @foreach($groupedProducts['baby']['products'] as $key => $val)
+                        @foreach($val as $vk => $vv)
+                        @php 
+                            $productImages = json_decode($vv->product_brand_size); 
+                            $size = \App\Models\Product::getSizeId($vk);
+                            $sizeId = $size->id;
+                            $filteredImages = collect($productImages)->where('size_id', (string)$sizeId)->values();
+                        @endphp
+                        <div>
+                            <div class="product_wrapper">
+                                <div class="ym_card">
+                                    <div class="Product_item">
+                                        <div class="ym_card_img">
+                                            @if($filteredImages->count() > 0)
+                                                <!-- ✅ COVER IMAGE (FIRST IMAGE ONLY) -->
+                                                <img src="{{ asset('public/product_images/' . $filteredImages[1]->product_image) }}"
+                                                    alt="{{ $vv->name }}" class="ym_cover_slider" loading="lazy">
+                                                <!-- ✅ SLICK SLIDER -->
+                                                <div class="ym_slider">
+                                                    @foreach($filteredImages as $k => $v)
+                                                        @if($k == 1)
+                                                            @continue
+                                                        @endif
+                                                        @if($k == 4)
+                                                            @break
+                                                        @endif
+                                                        <div>
+                                                            <a href="{{ url('products-details/' . $vv['url'].'/'. $sizeId . '/' . $vv['id']) }}" target="_blank">
+                                                                <img loading="lazy" src="{{ asset('public/product_images/' . $v->product_image) }}" alt="{{ $vv->name }}" class="img-fluid product_img w-100">
+                                                            </a>
+                                                        </div>
+                                                    @endforeach
                                                 </div>
-                                            </div>
-                                        @endif
+                                            @else
+                                                <!-- ✅ NO IMAGE CASE -->
+                                                <img src="{{ asset('public/front/img/product-not-found.png') }}" alt="not found"
+                                                    class="ym_cover_slider">
+
+                                                <div class="ym_slider">
+                                                    <div>
+                                                        <img src="{{ asset('public/front/img/product-not-found.png') }}"
+                                                            class="ym_slide_img">
+                                                    </div>
+                                                </div>
+                                            @endif
+                                        </div>
                                     </div>
-                                </div>
-                                <div>
-                                    <a href="{{ url('products-details/' . $vv['url'].'/'. $sizeId .'/' . $vv['id']) }}" target="_blank" class="prod_list_title">
-                                        <h4 class="mb-0" style="font-weight:500;">{{$vv->name ?? ''}}</h4>
-                                        <p class="mb-0">{{$vk ?? ''}}</p>
-                                    </a>                                
+                                    <div>
+                                        <a href="{{ url('products-details/' . $vv['url'].'/'. $sizeId .'/' . $vv['id']) }}" target="_blank" class="prod_list_title">
+                                            <h4 class="mb-0" style="font-weight:500;">{{$vv->name ?? ''}}</h4>
+                                            <p class="mb-0">{{$vk ?? ''}}</p>
+                                        </a>                                
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                        @endforeach
+                        @endforeach
                     </div>
-                    @endforeach
-                    @endforeach
+                </div>
+                <div class="mobile_grid">
+                    <div class="products_filter_grid">
+                        @foreach($groupedProducts['baby']['products'] as $key => $val)
+                        @foreach($val as $vk => $vv)
+                        @php 
+                            $productImages = json_decode($vv->product_brand_size); 
+                            $size = \App\Models\Product::getSizeId($vk);
+                            $sizeId = $size->id;
+                            $filteredImages = collect($productImages)->where('size_id', (string)$sizeId)->values();
+                        @endphp
+                        <div>
+                            <div class="product_wrapper">
+                                <div class="ym_card">
+                                    <div class="Product_item">
+                                        <div class="ym_card_img">
+                                            @if($filteredImages->count() > 0)
+                                                <!-- ✅ COVER IMAGE (FIRST IMAGE ONLY) -->
+                                                <img src="{{ asset('public/product_images/' . $filteredImages[1]->product_image) }}"
+                                                    alt="{{ $vv->name }}" class="ym_cover_slider" loading="lazy">
+                                                <!-- ✅ SLICK SLIDER -->
+                                                <div class="ym_slider">
+                                                    @foreach($filteredImages as $k => $v)
+                                                        @if($k == 1)
+                                                            @continue
+                                                        @endif
+                                                        @if($k == 4)
+                                                            @break
+                                                        @endif
+                                                        <div>
+                                                            <a href="{{ url('products-details/' . $vv['url'].'/'. $sizeId . '/' . $vv['id']) }}" target="_blank">
+                                                                <img loading="lazy" src="{{ asset('public/product_images/' . $v->product_image) }}" alt="{{ $vv->name }}" class="img-fluid product_img w-100">
+                                                            </a>
+                                                        </div>
+                                                    @endforeach
+                                                </div>
+                                            @else
+                                                <!-- ✅ NO IMAGE CASE -->
+                                                <img src="{{ asset('public/front/img/product-not-found.png') }}" alt="not found"
+                                                    class="ym_cover_slider">
+
+                                                <div class="ym_slider">
+                                                    <div>
+                                                        <img src="{{ asset('public/front/img/product-not-found.png') }}"
+                                                            class="ym_slide_img">
+                                                    </div>
+                                                </div>
+                                            @endif
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <a href="{{ url('products-details/' . $vv['url'].'/'. $sizeId .'/' . $vv['id']) }}" target="_blank" class="prod_list_title">
+                                            <h4 class="mb-0" style="font-weight:500;">{{$vv->name ?? ''}}</h4>
+                                            <p class="mb-0">{{$vk ?? ''}}</p>
+                                        </a>                                
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @endforeach
+                        @endforeach
+                    </div>
                 </div>
             </section>
             @endif
@@ -161,66 +225,131 @@ $subcatVal = preg_replace('/[\#].*$/', '', $subcatVal);
                 <h2 class="title_48lora mb-0"
                     style="background: linear-gradient(90deg, rgba(239, 230, 240, 0) 0%, #EFE6F0 50%, rgba(239, 230, 240, 0) 100%);">
                     Toddler & Little Kids</h2>
-                <div class="products_filter_grid">
-                    @foreach($groupedProducts['kids']['products'] as $key => $val)
-                    @foreach($val as $vk => $vv)
-                    @php 
-                        $productImages = json_decode($vv->product_brand_size);
-                        $size = \App\Models\Product::getSizeId($vk);
-                        $sizeId = $size->id;
-                        $filteredImages = collect($productImages)->where('size_id', (string)$sizeId)->values();
-                    @endphp
-                    <div>
-                        <div class="product_wrapper">
-                            <div class="ym_card">
-                                <div class="Product_item">
-                                    <div class="ym_card_img">
-                                        @if($filteredImages->count() > 0)
-                                            <!-- ✅ COVER IMAGE (FIRST IMAGE ONLY) -->
-                                            <img src="{{ asset('public/product_images/' . $filteredImages[1]->product_image) }}"
-                                                alt="{{ $vv->name }}" class="ym_cover_slider">
-                                            <!-- ✅ SLICK SLIDER -->
-                                            <div class="ym_slider">
-                                                @foreach($filteredImages as $k => $v)
-                                                    @if($k == 1)
-                                                        @continue
-                                                    @endif
-                                                    @if($k == 4)
-                                                        @break
-                                                    @endif
-                                                    <div>
-                                                        <a href="{{ url('products-details/' . $vv['url'].'/'. $sizeId . '/' . $vv['id']) }}" target="_blank">
-                                                            <img loading="lazy" src="{{ asset('public/product_images/' . $v->product_image) }}"
-                                                                alt="{{ $vv->name }}" class="img-fluid product_img w-100">
-                                                        </a>
-                                                    </div>
-                                                @endforeach
-                                            </div>
-                                        @else
-                                            <!-- ✅ NO IMAGE CASE -->
-                                            <img src="{{ asset('public/front/img/product-not-found.png') }}" alt="not found"
-                                                class="ym_cover_slider">
-
-                                            <div class="ym_slider">
-                                                <div>
-                                                    <img src="{{ asset('public/front/img/product-not-found.png') }}"
-                                                        class="ym_slide_img">
+                <div class="desk_grid">
+                    <div class="products_filter_grid">
+                        @foreach($groupedProducts['kids']['products'] as $key => $val)
+                        @foreach($val as $vk => $vv)
+                        @php 
+                            $productImages = json_decode($vv->product_brand_size);
+                            $size = \App\Models\Product::getSizeId($vk);
+                            $sizeId = $size->id;
+                            $filteredImages = collect($productImages)->where('size_id', (string)$sizeId)->values();
+                        @endphp
+                        <div>
+                            <div class="product_wrapper">
+                                <div class="ym_card">
+                                    <div class="Product_item">
+                                        <div class="ym_card_img">
+                                            @if($filteredImages->count() > 0)
+                                                <!-- ✅ COVER IMAGE (FIRST IMAGE ONLY) -->
+                                                <img src="{{ asset('public/product_images/' . $filteredImages[1]->product_image) }}"
+                                                    alt="{{ $vv->name }}" class="ym_cover_slider">
+                                                <!-- ✅ SLICK SLIDER -->
+                                                <div class="ym_slider">
+                                                    @foreach($filteredImages as $k => $v)
+                                                        @if($k == 1)
+                                                            @continue
+                                                        @endif
+                                                        @if($k == 4)
+                                                            @break
+                                                        @endif
+                                                        <div>
+                                                            <a href="{{ url('products-details/' . $vv['url'].'/'. $sizeId . '/' . $vv['id']) }}" target="_blank">
+                                                                <img loading="lazy" src="{{ asset('public/product_images/' . $v->product_image) }}"
+                                                                    alt="{{ $vv->name }}" class="img-fluid product_img w-100">
+                                                            </a>
+                                                        </div>
+                                                    @endforeach
                                                 </div>
-                                            </div>
-                                        @endif
+                                            @else
+                                                <!-- ✅ NO IMAGE CASE -->
+                                                <img src="{{ asset('public/front/img/product-not-found.png') }}" alt="not found"
+                                                    class="ym_cover_slider">
+
+                                                <div class="ym_slider">
+                                                    <div>
+                                                        <img src="{{ asset('public/front/img/product-not-found.png') }}"
+                                                            class="ym_slide_img">
+                                                    </div>
+                                                </div>
+                                            @endif
+                                        </div>
                                     </div>
-                                </div>
-                                <div>
-                                    <a href="{{ url('products-details/' . $vv['url'].'/'. $sizeId . '/' . $vv['id']) }}" target="_blank" class="prod_list_title">
-                                        <h4 class="mb-0" style="font-weight:500;">{{$vv->name ?? ''}}</h4>
-                                        <p class="mb-0">{{$vk ?? ''}}</p>
-                                    </a>                                
+                                    <div>
+                                        <a href="{{ url('products-details/' . $vv['url'].'/'. $sizeId . '/' . $vv['id']) }}" target="_blank" class="prod_list_title">
+                                            <h4 class="mb-0" style="font-weight:500;">{{$vv->name ?? ''}}</h4>
+                                            <p class="mb-0">{{$vk ?? ''}}</p>
+                                        </a>                                
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                        @endforeach
+                        @endforeach
                     </div>
-                    @endforeach
-                    @endforeach
+                </div>
+                <div class="mobile_grid">
+                    <div class="products_filter_grid">
+                        @foreach($groupedProducts['kids']['products'] as $key => $val)
+                        @foreach($val as $vk => $vv)
+                        @php 
+                            $productImages = json_decode($vv->product_brand_size);
+                            $size = \App\Models\Product::getSizeId($vk);
+                            $sizeId = $size->id;
+                            $filteredImages = collect($productImages)->where('size_id', (string)$sizeId)->values();
+                        @endphp
+                        <div>
+                            <div class="product_wrapper">
+                                <div class="ym_card">
+                                    <div class="Product_item">
+                                        <div class="ym_card_img">
+                                            @if($filteredImages->count() > 0)
+                                                <!-- ✅ COVER IMAGE (FIRST IMAGE ONLY) -->
+                                                <img src="{{ asset('public/product_images/' . $filteredImages[1]->product_image) }}"
+                                                    alt="{{ $vv->name }}" class="ym_cover_slider">
+                                                <!-- ✅ SLICK SLIDER -->
+                                                <div class="ym_slider">
+                                                    @foreach($filteredImages as $k => $v)
+                                                        @if($k == 1)
+                                                            @continue
+                                                        @endif
+                                                        @if($k == 4)
+                                                            @break
+                                                        @endif
+                                                        <div>
+                                                            <a href="{{ url('products-details/' . $vv['url'].'/'. $sizeId . '/' . $vv['id']) }}" target="_blank">
+                                                                <img loading="lazy" src="{{ asset('public/product_images/' . $v->product_image) }}"
+                                                                    alt="{{ $vv->name }}" class="img-fluid product_img w-100">
+                                                            </a>
+                                                        </div>
+                                                    @endforeach
+                                                </div>
+                                            @else
+                                                <!-- ✅ NO IMAGE CASE -->
+                                                <img src="{{ asset('public/front/img/product-not-found.png') }}" alt="not found"
+                                                    class="ym_cover_slider">
+
+                                                <div class="ym_slider">
+                                                    <div>
+                                                        <img src="{{ asset('public/front/img/product-not-found.png') }}"
+                                                            class="ym_slide_img">
+                                                    </div>
+                                                </div>
+                                            @endif
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <a href="{{ url('products-details/' . $vv['url'].'/'. $sizeId . '/' . $vv['id']) }}" target="_blank" class="prod_list_title">
+                                            <h4 class="mb-0" style="font-weight:500;">{{$vv->name ?? ''}}</h4>
+                                            <p class="mb-0">{{$vk ?? ''}}</p>
+                                        </a>                                
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @endforeach
+                        @endforeach
+                    </div>
                 </div>
             </section>
             @endif
@@ -229,7 +358,70 @@ $subcatVal = preg_replace('/[\#].*$/', '', $subcatVal);
             @if(isset($groupedProducts['junior']['products']) && is_countable($groupedProducts['junior']['products']) && count($groupedProducts['junior']['products']) > 0)
             <section id="kids" class="age_section" data-age="kids">
                 <h2 class="title_48lora mb-0" style="background: linear-gradient(90deg, rgba(230, 239, 242, 0) 0%, rgb(230, 239, 242) 50%, rgba(230, 239, 242, 0) 100%);"> Kids & Youth</h2>
-                <div class="products_filter_grid">
+                <div class="desk_grid">
+                    <div class="products_filter_grid">
+                        @foreach($groupedProducts['junior']['products'] as $key => $val)
+                        @foreach($val as $vk => $vv)
+                        @php 
+                            $productImages = json_decode($vv->product_brand_size); 
+                            $size = \App\Models\Product::getSizeId($vk);
+                            $sizeId = $size->id;
+                            $filteredImages = collect($productImages)->where('size_id', (string)$sizeId)->values();
+                        @endphp
+                        <div>
+                            <div class="product_wrapper">
+                                <div class="ym_card">
+                                    <div class="Product_item">
+                                        <div class="ym_card_img">
+                                            @if($filteredImages->count() > 0)
+                                                <!-- ✅ COVER IMAGE (FIRST IMAGE ONLY) -->
+                                                <img src="{{ asset('public/product_images/' . $filteredImages[1]->product_image) }}"
+                                                    alt="{{ $vv->name }}" class="ym_cover_slider">
+                                                <!-- ✅ SLICK SLIDER -->
+                                                <div class="ym_slider">
+                                                    @foreach($filteredImages as $k => $v)
+                                                        @if($k == 1)
+                                                            @continue
+                                                        @endif
+                                                        @if($k == 4)
+                                                            @break
+                                                        @endif
+                                                        <div>
+                                                            <a href="{{ url('products-details/' . $vv['url'].'/'.$sizeId .'/'. $vv['id']) }}" target="_blank">
+                                                                <img loading="lazy" src="{{ asset('public/product_images/' . $v->product_image) }}"
+                                                                    alt="{{ $vv->name }}" class="img-fluid product_img w-100">
+                                                            </a>
+                                                        </div>
+                                                    @endforeach
+                                                </div>
+                                            @else
+                                                <!-- ✅ NO IMAGE CASE -->
+                                                <img src="{{ asset('public/front/img/product-not-found.png') }}" alt="not found" class="ym_cover_slider">
+                                                <div class="ym_slider">
+                                                    <div>
+                                                        <img src="{{ asset('public/front/img/product-not-found.png') }}"
+                                                            class="ym_slide_img">
+                                                    </div>
+                                                </div>
+                                            @endif
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <a href="{{ url('products-details/' . $vv['url'].'/'.$sizeId .'/'. $vv['id']) }}" target="_blank" class="prod_list_title">
+                                            <h4 class="mb-0" style="font-weight:500;">{{$vv->name ?? ''}}</h4>
+                                            <p class="mb-0">{{$vk ?? ''}}</p>
+                                        </a>                                
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @endforeach
+                        @endforeach
+                    </div>
+                </div>
+                <!-- mobile grid -->
+                 <div class="mobile_grid">
+                 <div class="products_filter_grid">
                     @foreach($groupedProducts['junior']['products'] as $key => $val)
                     @foreach($val as $vk => $vv)
                     @php 
@@ -287,6 +479,7 @@ $subcatVal = preg_replace('/[\#].*$/', '', $subcatVal);
                     </div>
                     @endforeach
                     @endforeach
+                </div>
                 </div>
             </section>
             @endif

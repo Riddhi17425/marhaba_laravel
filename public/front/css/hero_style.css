@@ -977,3 +977,5 @@ header.sticky .btn svg.home_menu rect {
 .ym_slider .slick-next.slick-arrow {
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16' fill='none'%3E%3Cpath d='M6 12L10 8L6 4' stroke='%23452667' stroke-width='1.5' stroke-linejoin='round'/%3E%3C/svg%3E");
 }
+
+.mobile_grid{display:none;}
