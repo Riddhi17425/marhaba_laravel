@@ -1,4 +1,6 @@
 @include('layouts.frontheader')
+<link rel="stylesheet" href="{{ asset('public/front/css/hero_style.css') }}">
+<link rel="stylesheet" href="{{ asset('public/front/css/hero_responsive.css') }}">
 <section class="banner_head_section section_gradientbg  ">
     <div class="container">
         <div class="row">

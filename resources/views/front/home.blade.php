@@ -2,6 +2,11 @@
 
 <link rel="stylesheet" href="{{ asset('public/front/css/hero_style.css') }}">
 <link rel="stylesheet" href="{{ asset('public/front/css/hero_responsive.css') }}">
+<style>
+    @media (max-width: 1281px) and (min-width: 1020px) {
+    .ym-container{max-width: calc(100% - 200px);}
+    }
+</style>
 @php $param = 0; @endphp
 <section class="ym_hero">
     <div class="ym_hero_slider_wrapper">
@@ -364,10 +369,10 @@
                 <div class="project-bg bg-cream"></div>
 
                 <div class="project-content">
-                    <span class="card_title">Baby</span>
-                    <p class="card_desc">Age Range : {{$ageSections['baby']['label']}}</p>
-
-                    <div class="ym-project">
+                    <div>
+                        <span class="card_title">Baby</span>
+                        <p class="card_desc mt-2">Age Range : {{$ageSections['baby']['label']}}</p>
+                        <div class="ym-project">
                         <h3 class="card_subtitle">Size Groups</h3>
                         <div class="tags">
                             @if(isset($groupedSizes) && is_countable($groupedSizes) && count($groupedSizes) > 0)
@@ -388,7 +393,9 @@
                                 @endforeach
                             @endif
                         </div>
-
+                    </div>
+                    </div>
+                    <div>
                         <div class="btn_wrapper">
                             <a href="{{ route('get.products', ['type' => 'boy', 'size_range' => 'baby']) }}"
                                 class="btn_1" target="_blank">Explore Baby Boy <img loading="lazy"
@@ -427,10 +434,10 @@
                 <div class="project-bg bg-light"></div>
 
                 <div class="project-content">
-                    <span class="card_title">Toddler & Little Kids</span>
-                    <p class="card_desc">Age Range : {{$ageSections['kids']['label']}}</p>
-
-                    <div class="ym-project">
+                    <div>
+                        <span class="card_title">Toddler & Little Kids</span>
+                        <p class="card_desc mt-2">Age Range : {{$ageSections['kids']['label']}}</p>
+                        <div class="ym-project">
                         <h3 class="card_subtitle">Size Groups</h3>
                         <div class="tags">
                             @if(isset($groupedSizes) && is_countable($groupedSizes) && count($groupedSizes) > 0)
@@ -451,7 +458,9 @@
                                 @endforeach
                             @endif
                         </div>
-
+                    </div>
+                    </div>
+                    <div>
                         <div class="btn_wrapper">
                             <a href="{{ route('get.products', ['type' => 'boy', 'size_range' => 'kids']) }}"
                                 class="btn_1" target="_blank">Explore Boy <img loading="lazy"
@@ -490,10 +499,10 @@
                 <div class="project-bg bg-soft"></div>
 
                 <div class="project-content">
-                    <span class="card_title">Kids & Youth</span>
-                    <p class="card_desc">Age Range : {{$ageSections['junior']['label']}}</p>
-
-                    <div class="ym-project">
+                    <div>
+                        <span class="card_title">Kids & Youth</span>
+                        <p class="card_desc mt-2">Age Range : {{$ageSections['junior']['label']}}</p>
+                        <div class="ym-project">
                         <h3 class="card_subtitle">Size Groups</h3>
                         <div class="tags">
                             @if(isset($groupedSizes) && is_countable($groupedSizes) && count($groupedSizes) > 0)
@@ -514,6 +523,9 @@
                                 @endforeach
                             @endif
                         </div>
+                    </div>
+                    </div>
+                    <div>
                         <div class="btn_wrapper">
                             <a href="{{ route('get.products', ['type' => 'boy', 'size_range' => 'junior']) }}"
                                 class="btn_1" target="_blank">Explore Boy <img loading="lazy"
@@ -648,7 +660,7 @@
                                     <div class="swiper-slide">
                                         <div class="why_slide">
                                             <h3 class="title_60lora">{{ $v->title ?? '' }}</h3>
-                                            <p>{{ $v->desc ?? '' }}</p>
+                                            <p class="mb-0">{{ $v->desc ?? '' }}</p>
                                         </div>
                                     </div>
                                 @endforeach
@@ -667,12 +679,15 @@
         <div class="ym-container">
             <div class="col-lg-10 mx-auto">
                 <h2 class="title_60lora text-center">Let’s Grow Your Fashion Business Together</h2>
-                <p class="title_24-raleway mt-4 mt-xl-5">Looking for premium baby and toddler wear that your
-                    customers will love? Marhaba Fashion partners with retailers, distributors, and wholesalers
+                <div class="ym_para_home">
+                    <p class="title_24-raleway mt-3 mt-xl-4">Looking for premium baby and toddler wear that your
+                    customers will love? </p> 
+                <p class="title_24-raleway"> Marhaba Fashion partners with retailers, distributors, and wholesalers
                     worldwide to deliver high-quality, trend-led children’s apparel at competitive wholesale prices.
                 </p>
                 <p class="title_24-raleway">Share your requirements with us, and our team will get back to you with
                     catalogs, pricing, MOQs, and customization options.</p>
+                </div>
                 <div class="btn_wrapper">
                     <a href="" class="btn_1" data-bs-toggle="modal" data-bs-target="#enquiryModal">Enquire Now <img
                             loading="lazy" src="{{ asset('public/front/img/Home/blue-arr.svg') }}" alt="" height="10"

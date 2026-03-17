@@ -1,4 +1,6 @@
 @include('layouts.frontheader')
+<link rel="stylesheet" href="{{ asset('public/front/css/hero_style.css') }}">
+<link rel="stylesheet" href="{{ asset('public/front/css/hero_responsive.css') }}">
 <section class="banner_head_section section_gradientbg  ">
     <div class="container">
         <div class="row">
@@ -17,10 +19,10 @@
         </div>
     </div>
 </section>
-<section class="section_pt">
+<section class="section_pt" style="overflow: hidden;">
     <div class="container">
         <div class="row align-items-center">
-            <div class="col-md-6 ">
+            <div class="col-md-6 mb-3 mb-xl-0">
                 <div class="overflow-hidden">
                     <img loading="lazy" src="{{ asset('public/front/img/our_story.png') }}" alt="Our Story"
                         animation="3" class="img-fluid scroll-image" data-animate-on-scroll>
@@ -39,14 +41,14 @@
         </div>
     </div>
 </section>
-<section class="section_pt">
+<section class="section_pt" style="overflow: hidden;">
     <div class="container">
         <div class="position-relative mission_vision">
             <div class="mission_text order-1 ">
                 <div class="row">
-                    <div class="col-md-12 col-lg-4">
-                        <h3 class="title_36 scroll-text" data-animate-on-scroll>Mission:</h3>
-                        <p class="scroll-subtext " data-animate-on-scroll>Our mission is to design and distribute
+                    <div class="col-md-12 col-lg-4 mb-3 mb-xl-0">
+                        <h3 class="title_36 scroll-text mb-3 mb-xl-0" data-animate-on-scroll>Mission:</h3>
+                        <p >Our mission is to design and distribute
                             high-quality children’s apparel that meets the needs of diverse markets across Africa, the
                             Middle East, and beyond. We are committed to offering durable fabrics, trend-conscious
                             designs, and reliable inventory at competitive wholesale prices. By building lasting
@@ -56,11 +58,11 @@
                     </div>
                 </div>
             </div>
-            <div class="vision_text order-3">
+            <div class="vision_text order-3" style="overflow: hidden;">
                 <div class="row justify-content-end">
                     <div class="col-md-12 col-lg-4">
-                        <h3 class="title_36 scroll-text" data-animate-on-scroll>Vision:</h3>
-                        <p class="scroll-subtext " data-animate-on-scroll>At Marhaba Fashion, our vision is to become
+                        <h3 class="title_36 scroll-text mb-3 mb-xl-0" data-animate-on-scroll>Vision:</h3>
+                        <p>At Marhaba Fashion, our vision is to become
                             the most trusted name in children’s fashion worldwide. We aspire to deliver clothing that
                             blends comfort, style, and affordability—bringing joy to children and confidence to
                             parents—while empowering retailers with collections that drive growth and long-term success.
@@ -68,7 +70,7 @@
                     </div>
                 </div>
             </div>
-            <div class="row justify-content-center justify-content-lg-start order-2">
+            <div class="row justify-content-center justify-content-lg-start order-2" style="overflow: hidden;">
                 <div class="col-md-7 col-lg-9">
                     <div class="">
                         <img src="{{ asset('public/front/img/mission_vision.png') }}" alt="mission vision" animation="3"
@@ -79,7 +81,7 @@
         </div>
     </div>
 </section>
-<section class="section_mt brand_bg">
+<section class="section_mt brand_bg" style="overflow: hidden;">
     <div class="container">
         <div class="row py-5 gap-5 d-none d-md-flex gy-4 justify-content-center">
             <div class="col-md-2 d-flex justify-content-center align-items-center mb-3 wow animate__animated animate__fadeInDown"
@@ -116,7 +118,7 @@
         </div>
     </div>
 </section>
-<section class="section_mt">
+<section class="section_mt" style="overflow: hidden;">
     <div class="container">
         <h2 class="mean_head text-center scroll-text" data-animate-on-scroll>Our Values</h2>
         <div class="row g-4">
@@ -189,7 +191,7 @@
         </div>
     </div>
 </section>
-<section class="section_mt section_mb">
+<section class="section_mt section_mb" style="overflow: hidden;">
     <div class="container">
         <div class="swiper about-slider mt-5">
             <div class="swiper-wrapper">

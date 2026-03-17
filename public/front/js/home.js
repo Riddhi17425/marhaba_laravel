@@ -100,11 +100,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
         new Swiper('.why_slider', {
             slidesPerView: 1,
-            pagination: { el: '.swiper-pagination', clickable: true },
             autoplay: {
-            delay: 3000,
-            disableOnInteraction: false,
+                delay: 1000,
+                disableOnInteraction: false,
             },
+            pagination: { el: '.swiper-pagination', clickable: true },
             on: {
                 init(swiper) {
                     const total = swiper.slides.length;
@@ -344,7 +344,6 @@ document.addEventListener("DOMContentLoaded", () => {
                                 settings: {                                    
                                     arrows: false,
                                     dots:true,
-                                    autoplay:false
                                 }
                             }
                         ]
@@ -432,7 +431,7 @@ function initYmSlider() {
         dots: true,
         infinite: true,
         speed: 400,
-        autoplay: false,
+        autoplay: true,
         autoplaySpeed: 2000,
         pauseOnHover: false,
         responsive: [
@@ -441,7 +440,6 @@ function initYmSlider() {
                 settings: {
                     arrows: false,
                     dots: true,
-                    autoplay:false
                 }
             }
         ]

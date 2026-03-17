@@ -187,8 +187,8 @@ a {
 }
 
 .stats_box {
-    width: 350px;
-    height: 290px;
+    /*width: 350px;*/
+    /*height: 290px;*/
     padding: 40px 65px;
     display: grid;
     gap: 10px;
@@ -266,7 +266,7 @@ a {
 .comp_bus_child.expanded,
 .comp_bus_child:hover {
     flex: 2.5;
-    height: 450px;
+    height: 490px;
     /*max-width: 420px;*/
     padding: 37px 0px 30px 46px;
     /*border-radius: 10px;*/
@@ -502,7 +502,7 @@ a {
     transform: translateX(50%);
     transition: all 0.8s ease-in;
 }
-
+.project-content .btn_wrapper{justify-content: start;}
 .project-card.active .card_top_head {
     display: none;
     transition: all 0.5s ease;
@@ -512,6 +512,8 @@ a {
     display: flex;
     transform: translateX(0%);
     transition: all 0.8s ease-out;
+    height:100%;
+    justify-content:space-between;
 }
 
 .card_title {
@@ -558,7 +560,7 @@ a {
     line-height: 18px;
     letter-spacing: -0.01em;
     padding: 10px 25px;
-    border-radius: 200px;
+    border-radius: 5px;
     background-color: white;
     color: black;
 }
@@ -737,12 +739,12 @@ a {
 
 .ym_slider .slick-prev {
     left: 0px;
-    top: 35%;
+    top: 50%;
 }
 
 .ym_slider .slick-next {
     right: 0px;
-    top: 35%;
+    top: 50%;
 }
 
 .ym_slider .slick-dots {
@@ -961,7 +963,7 @@ header.sticky .btn svg.home_menu rect {
     fill: #452667;
 }
 
-.ym_slider .slick-prev.slick-arrow {
+.ym_slider .slick-prev.slick-arrow, .simple-slider .slick-prev.slick-arrow{
     /* width: 32px;
     height: 32px; */
     background-repeat: no-repeat;
@@ -970,12 +972,16 @@ header.sticky .btn svg.home_menu rect {
 }
 
 .ym_slider .slick-next:before,
-.ym_slider .slick-prev:before {
+.ym_slider .slick-prev:before,
+.simple-slider .slick-next:before,
+.simple-slider .slick-prev:before {
     content: '' !important;
 }
 
-.ym_slider .slick-next.slick-arrow {
+.ym_slider .slick-next.slick-arrow, .simple-slider .slick-next.slick-arrow {
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16' fill='none'%3E%3Cpath d='M6 12L10 8L6 4' stroke='%23452667' stroke-width='1.5' stroke-linejoin='round'/%3E%3C/svg%3E");
 }
 
 .mobile_grid{display:none;}
+
+.ym_para_home{padding:0 50px;}
