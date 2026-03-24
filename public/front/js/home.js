@@ -367,7 +367,6 @@ document.querySelectorAll('.stat_counter').forEach(animateCounter);
                                 settings: {                                    
                                     arrows: false,
                                     dots:true,
-                                    autoplay:false
                                 }
                             }
                         ]
@@ -479,7 +478,7 @@ function initYmSlider() {
         dots: true,
         infinite: true,
         speed: 400,
-        autoplay: false,
+        autoplay: true,
         autoplaySpeed: 2000,
         pauseOnHover: false,
         responsive: [
@@ -488,7 +487,6 @@ function initYmSlider() {
                 settings: {
                     arrows: false,
                     dots: true,
-                    autoplay:false
                 }
             }
         ]

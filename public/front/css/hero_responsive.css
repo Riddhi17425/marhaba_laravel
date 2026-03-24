@@ -109,16 +109,9 @@
     .btn_wrapper{margin-top:40px;}
     .home_brand_bg{margin-top:40px;}
     .ft_icons svg{height:24px;width:24px;}
-    .home_brand_bg{gap:80px;padding:30px;}
-    .home_brand_bg img {width: 150px;}
+    .home_brand_bg{gap:80px;}
+    .home_brand_bg img {width: 180px;}
     footer p{line-height:22px;}
-    .hero_catologue_head p {margin: 20px 0;}
-    .hero_cat_slider .swiper-slide.swiper-slide-active{margin-inline:5px}
-    .hero_cat_slider .swiper-slide{max-width:80%;}
-    .btn_wrapper{gap:10px;}
-    .tags{grid-template-columns: repeat(2, minmax(min-content, max-content));}
-    .offcanvas.offcanvas-end{padding:40px;width: 500px !important;}
-    .gallery-container{transform: translate(-30%, -30%) rotate(-27deg);scale: 0.9;height: 100vh;}
     /*homepage css*/
 }
 @media (max-width: 992px) {
@@ -421,7 +414,7 @@
     .hero_why_wrapper img{width:100%;height:auto;}
     .p_type{padding:6px 0;}
     .project-content .btn_wrapper{flex-direction:row;}
-        .btn_1 {padding: 8px 16px;}
+    .btn_1 {padding: 8px 16px;}
 }
 @media screen and (min-width: 377px) and (max-width: 429px) {
     .comp_bus_back {padding: 20px;}
