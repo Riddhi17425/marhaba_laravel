@@ -155,7 +155,7 @@
 <!-- copied section -->
 <section class="section_pt  section_mb">
     <div class="container-fluid">
-        <div class="row">
+        <div >
             <h2 class="mean_head text-center scroll-text mb-4" data-animate-on-scroll>Similar Products</h2>
             <div class="simple-slider">
                 @forelse($similarProducts as $simProduct)

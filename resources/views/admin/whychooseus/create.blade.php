@@ -17,12 +17,16 @@
         @csrf
         <div class="row g-3">
 
-            <div class="col-md-4">
+            <div class="col-md-6">
                 <label class="form-label">Title</label><span class="text-danger">*</span>
                 <input type="text" name="title" class="form-control" value="{{ old('title') }}">
                 @error('title') <span class="text-danger">{{ $message }}</span> @enderror
             </div>
-
+            <div class="col-md-6">
+                <label class="form-label">Select Image</label><span class="text-danger">*</span>
+                <input type="file" name="image" class="form-control" value="{{ old('image') }}">
+                @error('image') <span class="text-danger">{{ $message }}</span> @enderror
+            </div>
             <div class="col-md-12">
                 <label class="form-label">Description</label><span class="text-danger">*</span>
                 <textarea name="description" rows="5" id="description" class="form-control">{{ old('description') }}</textarea>

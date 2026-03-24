@@ -108,7 +108,6 @@ class HomeSliderImageController extends Controller
             'image.*.max' => 'Each image size must not exceed 2MB.',
         ]);
         if ($validator->fails()) {
-            echo "<pre>"; print_r($validators->error()); die;
             return redirect()->back()->withErrors($validator)->withInput();
         }
     
@@ -129,15 +128,15 @@ class HomeSliderImageController extends Controller
 
     public function updateBySlider(Request $request, $slider)
     {
-        $validator = Validator::make($request->all(), [
-            'image' => 'nullable|array',
-            'image.*' => 'image|mimes:jpeg,png,jpg,gif|max:4096',
-        ], [
-            'image.array' => 'Images must be in array format.',
-            'image.*.image' => 'Each file must be an image.',
-            'image.*.mimes' => 'Each image must be jpeg, png, jpg, or gif format.',
-            'image.*.max' => 'Each image size must not exceed 4MB.',
-        ]);
+        // $validator = Validator::make($request->all(), [
+        //     'image' => 'nullable|array',
+        //     'image.*' => 'image|mimes:jpeg,png,jpg,gif|max:4096',
+        // ], [
+        //     'image.array' => 'Images must be in array format.',
+        //     'image.*.image' => 'Each file must be an image.',
+        //     'image.*.mimes' => 'Each image must be jpeg, png, jpg, or gif format.',
+        //     'image.*.max' => 'Each image size must not exceed 4MB.',
+        // ]);
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }

@@ -11,7 +11,7 @@ use App\Models\GlobalPresence;
 use App\Models\Brand;
 use App\Models\Product;
 use App\Models\Category;
-use App\Models\{ClothSize, CatalogueImage, TrustedBy, WhyChooseUs, Contact, HomeSliderImage, WhatsappInquiry, ProductInquiry};
+use App\Models\{ClothSize, CatalogueImage, TrustedBy, WhyChooseUs, Contact, HomeSliderImage, WhatsappInquiry, ProductInquiry, CollectionRandomImage};
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Http;
 use Carbon\Carbon;
@@ -31,9 +31,9 @@ class dashboardController extends Controller
     }
     
     public function landing(){  
-        $catImgs = CatalogueImage::select('id', 'image')->get();
+        $catImgs = CatalogueImage::select('id', 'image', 'name')->get();
         $trustedBy = TrustedBy::select('id', 'image', 'title', 'desc')->take(5)->get();
-        $whyChooseUs = WhyChooseUs::select('id', 'title', 'desc')->get();
+        $whyChooseUs = WhyChooseUs::select('id', 'title', 'desc', 'image')->get();
         $brand = Brand::select('id', 'name', 'image')->where('deleted_at', null)->limit(3)->get();
          $collection = Product::select('id', 'type', 'category_id','name','url','image','product_brand_size')->whereNull('deleted_at')->where('show_homepage', 1)->latest()->take(6);
         $boysCollection = (clone $collection)->where('type', 'boy')->get();
@@ -61,10 +61,25 @@ class dashboardController extends Controller
         $sizes = ClothSize::whereIn('id', $sizeIds->unique())->pluck('name')->toArray();
         // Group sizes by age section
         $groupedSizes = $this->groupSizesByAge($sizes, $ageSections);
-        
         $allSizes = collect($groupedSizes)->flatten()->unique()->values();
         $sizes = ClothSize::whereIn('name', $allSizes)->pluck('id', 'name'); 
         $productsByAge = [];
+        // SORTED AGE GROUP
+        foreach ($groupedSizes as $group => $sizesArr) {
+            usort($sizesArr, function ($a, $b) {
+                $getStartAgeInMonths = function ($size) {
+                    preg_match('/(\d+)(m|Y)-(\d+)(m|Y)/', $size, $matches);
+                    if (!$matches) return 0;
+                    $start = (int) $matches[1];
+                    $unit  = strtolower($matches[2]);
+                    // Convert to months
+                    return $unit === 'y' ? $start * 12 : $start;
+                };
+                return $getStartAgeInMonths($a) <=> $getStartAgeInMonths($b);
+            });
+            $groupedSizes[$group] = $sizesArr;
+        }
+
         foreach ($groupedSizes as $group => $sizesArr) {
             $sizeIds = collect($sizesArr)->map(fn ($size) => $sizes[$size] ?? null)->filter()->values();
             if ($sizeIds->isEmpty()) {
@@ -79,6 +94,7 @@ class dashboardController extends Controller
             });
             $productsByAge[$group] = $query->distinct()->get();
         }
+        
 
         // FOR ENQUIRY POPUP
         $filterProducts = [];
@@ -212,8 +228,43 @@ class dashboardController extends Controller
                 }
             }
         }
+        
+        $girlCollectionRandomImage = CollectionRandomImage::select('id', 'image', 'name')->where('section', 1)->get();
+        $boyCollectionRandomImage = CollectionRandomImage::select('id', 'image', 'name')->where('section', 2)->get();
 
-        return view('front.home', compact('brand', 'boysCollection', 'girlsCollection', 'globalpresence', 'ageSections', 'groupedSizes', 'productsByAge', 'catImgs', 'trustedBy', 'whyChooseUs', 'homeSliderImgs', 'productData', 'productTranslations'));
+        $boysRandomImg = $boyCollectionRandomImage->map(function($item){
+            return [
+                'src' => asset('public/collection_random_image/'.$item->image),
+                'name' => $item->name
+            ];
+        })->toArray();
+        $girlsRandomImg = $girlCollectionRandomImage->map(function($item){
+            return [
+                'src' => asset('public/collection_random_image/'.$item->image),
+                'name' => $item->name
+            ];
+        })->toArray();
+
+        // $boysRandomImg = [
+        //     ["src" => asset('public/front/img/Home/Classic-Shirt-Shorts.png'), "name" => "Classic Shirt Shorts"],
+        //     ["src" => asset('public/front/img/Home/Comfort-Tshirt-Shorts.png'),"name" => "Comfort T-shirt Shorts"],
+        //     ["src" => asset('public/front/img/Home/Loungewear-Set.png'),"name" => "Loungewear Set"],
+        //     ["src" => asset('public/front/img/Home/Pyjama-Set-boy.png'),"name" => "Pyjama Set"],
+        //     ["src" => asset('public/front/img/Home/Shirt-Shorts-Co-ord-Set.png'),"name" => "Shirt Shorts Co-ord Set"],
+        //     ["src" => asset('public/front/img/Home/Classic-Shirt-Shorts-Set.png'),"name" => "Classic Shirt Shorts Set"],
+        //     ["src" => asset('public/front/img/Home/Smart-Kids-Comfort-Bodysuit-Set.png'),"name" => "Smart Kids Comfort Bodysuit Set"],
+        // ];
+        // $girlsRandomImg = [
+        //     ["src" => asset('public/front/img/Home/Comfort-Palazzo-Set.png'), "name" => "Comfort Palazzo Set"],
+        //     ["src" => asset('public/front/img/Home/Loungewear-Set-girl.png'),"name" => "Loungewear Set"],
+        //     ["src" => asset('public/front/img/Home/Pyjama-Set.png'),"name" => "Pyjama-Set"],
+        //     ["src" => asset('public/front/img/Home/classic-dress.png'),"name" => "Classic Dress"],
+        //     ["src" => asset('public/front/img/Home/Top-Leggings-Set.png'),"name" => "Top & Leggings Set"],
+        //     ["src" => asset('public/front/img/Home/Classic-Palazzo-Set.png'),"name" => "Classic-Palazzo-Set"],
+        //     ["src" => asset('public/front/img/Home/Casual-Dungaree-Set.png'),"name" => "Casual-Dungaree-Set"],
+        // ];
+      
+        return view('front.home', compact('brand', 'boysCollection', 'girlsCollection', 'globalpresence', 'ageSections', 'groupedSizes', 'productsByAge', 'catImgs', 'trustedBy', 'whyChooseUs', 'homeSliderImgs', 'productData', 'productTranslations', 'boysRandomImg', 'girlsRandomImg'));
     }
 
     private function groupSizesByAge(array $sizes, array $ageSections)
@@ -798,6 +849,7 @@ class dashboardController extends Controller
             'mobile'  => $request->contact_no ?? null,
             'email' => $request->email ?? null,
             'message'     => $request->message_note ?? NULL,
+            'is_distributor' => $request->distributor ? 1 : 0,
         ]);
 
         // SEND MAIL TO ADMIN

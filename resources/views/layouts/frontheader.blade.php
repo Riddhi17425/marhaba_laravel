@@ -54,21 +54,28 @@
             <!-- Mobile Header -->
             <div class="row text-center heder_section d-flex d-md-none align-items-center">
                 <div class="col-6 text-start">
+                @if (url()->current() === url('/'))
                     <a href="{{ url('/') }}">
-                        <img src="{{ asset('public/front/img/logo.svg') }}" alt="marhaba" class="img-fluid nav_logo">
+                        <img src="{{ asset('public/front/img/logo.svg') }}" alt="marhaba" class="img-fluid nav_logo color-head">
+                        <img src="{{ asset('public/front/img/mobile-white-logo.png') }}" alt="marhaba" class="img-fluid nav_logo white-head">
                         <!--<img src="{{ asset('public/front/img/Home/white-logo.svg') }}" alt="marhaba" class="img-fluid nav_logo">-->
                     </a>
+                    @else
+                    <a href="{{ url('/') }}">
+                        <img src="{{ asset('public/front/img/logo.svg') }}" alt="marhaba" class="img-fluid nav_logo color-head d-block">
+                    </a>
+                    @endif
                 </div>
                 <div class="col-6 text-end">
                     @if (url()->current() === url('/'))
                         <button class="btn p-0 border-0" type="button" data-bs-toggle="offcanvas"
                             data-bs-target="#sidebarMenu" aria-controls="sidebarMenu">
                             <i class="">
-                                <svg width="34" height="30" viewBox="0 0 34 30" fill="none"
+                                <svg class="home_menu" width="30" height="30" viewBox="0 0 34 30" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
-                                    <rect y="2" width="34" height="2" fill="white" />
-                                    <rect y="14" width="34" height="2" fill="white" />
-                                    <rect y="26" width="34" height="2" fill="white" />
+                                    <rect y="2" width="34" height="2" />
+                                    <rect y="14" width="34" height="2" />
+                                    <rect y="26" width="34" height="2" />
                                 </svg>
 
                             </i>
@@ -142,15 +149,15 @@
                     </a>
                 </div>
                 @if (url()->current() === url('/'))
-                    <div class="d-flex align-items-center gap-3">
+                    <div class="d-flex align-items-center gap-4">
                         <div class="d-flex align-items-center gap-3 boy_girl">
-                            <a href="{{ route('get.products', ['type' => 'boy']) }}">Boy</a>
-                            <a href="{{ route('get.products', ['type' => 'girl']) }}">Girl</a>
+                            <a href="{{ route('get.products', ['type' => 'boy']) }}">Boys</a>
+                            <a href="{{ route('get.products', ['type' => 'girl']) }}">Girls</a>
                         </div>
                         <button class="btn p-0 border-0" type="button" data-bs-toggle="offcanvas"
                             data-bs-target="#sidebarMenu" aria-controls="sidebarMenu">
                             <i>
-                                <svg class="home_menu" width="34" height="30" viewBox="0 0 34 30" fill=""
+                                <svg class="home_menu" width="30" height="30" viewBox="0 0 34 30" fill=""
                                     xmlns="http://www.w3.org/2000/svg">
                                     <rect y="2" width="34" height="2" />
                                     <rect y="14" width="34" height="2" />
@@ -161,15 +168,15 @@
                         </button>
                     </div>
                 @else
-                    <div class="d-flex gap-3">
+                    <div class="d-flex gap-4">
                         <div class="d-flex align-items-center gap-3 boy_girl">
-                            <a href="{{ route('get.products', ['type' => 'boy']) }}" style=" color: #452667; ">Boy</a>
-                            <a href="{{ route('get.products', ['type' => 'girl']) }}" style=" color: #452667; ">Girl</a>
+                            <a href="{{ route('get.products', ['type' => 'boy']) }}" style=" color: #452667; ">Boys</a>
+                            <a href="{{ route('get.products', ['type' => 'girl']) }}" style=" color: #452667; ">Girls</a>
                         </div>
                         <button class="btn p-0 border-0" type="button" data-bs-toggle="offcanvas"
                             data-bs-target="#sidebarMenu" aria-controls="sidebarMenu">
                             <i>
-                                <svg width="34" height="30" viewBox="0 0 34 30" fill="none"
+                                <svg width="30" height="30" viewBox="0 0 34 30" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
                                     <rect y="2" width="34" height="2" fill="#452667" />
                                     <rect y="14" width="34" height="2" fill="#452667" />
@@ -393,4 +400,3 @@
     </script>
     <!-- header script -->
 
-</body>

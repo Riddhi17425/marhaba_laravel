@@ -1,4 +1,4 @@
-<section class="home_mt-100">
+<section class="home_mt-100" id="collection">
     <div class="ym-container">
         <div class="container_main_boy">
             <div class="col_small">
@@ -61,16 +61,17 @@
 <script>
 document.addEventListener('DOMContentLoaded', () => {
 
-  const brands = [
-    { src: "{{ asset('public/front/img/Home/Classic-Shirt-Shorts.png') }}",            name: "Classic Shirt Shorts" },
-    { src: "{{ asset('public/front/img/Home/Comfort-Tshirt-Shorts.png') }}",           name: "Comfort T-shirt Shorts" },
-    { src: "{{ asset('public/front/img/Home/Loungewear-Set.png') }}",                  name: "Loungewear Set" },
-    { src: "{{ asset('public/front/img/Home/Pyjama-Set-boy.png') }}",                      name: "Pyjama Set" },
-    { src: "{{ asset('public/front/img/Home/Shirt-Shorts-Co-ord-Set.png') }}",        name: "Shirt Shorts Co-ord Set" },
-    { src: "{{ asset('public/front/img/Home/Classic-Shirt-Shorts-Set.png') }}",        name: "Classic Shirt Shorts Set" },
-    { src: "{{ asset('public/front/img/Home/Smart-Kids-Comfort-Bodysuit-Set.png') }}",  name: "Smart Kids Comfort Bodysuit Set" },
-  ];
-
+//   const brands = [
+//     { src: "{{ asset('public/front/img/Home/Classic-Shirt-Shorts.png') }}",            name: "Classic Shirt Shorts" },
+//     { src: "{{ asset('public/front/img/Home/Comfort-Tshirt-Shorts.png') }}",           name: "Comfort T-shirt Shorts" },
+//     { src: "{{ asset('public/front/img/Home/Loungewear-Set.png') }}",                  name: "Loungewear Set" },
+//     { src: "{{ asset('public/front/img/Home/Pyjama-Set-boy.png') }}",                      name: "Pyjama Set" },
+//     { src: "{{ asset('public/front/img/Home/Shirt-Shorts-Co-ord-Set.png') }}",        name: "Shirt Shorts Co-ord Set" },
+//     { src: "{{ asset('public/front/img/Home/Classic-Shirt-Shorts-Set.png') }}",        name: "Classic Shirt Shorts Set" },
+//     { src: "{{ asset('public/front/img/Home/Smart-Kids-Comfort-Bodysuit-Set.png') }}",  name: "Smart Kids Comfort Bodysuit Set" },
+//   ];
+  
+  const brands = @json($boysRandomImg);
   const cells = document.querySelectorAll('#brand-grid .brand-cell');
   const TOTAL = cells.length; // 6
 

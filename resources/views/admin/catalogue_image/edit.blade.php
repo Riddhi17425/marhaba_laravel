@@ -25,6 +25,11 @@
                 @endif
                 @error('image') <span class="text-danger">{{ $message }}</span> @enderror
             </div>
+            <div class="col-md-6">
+                <label class="form-label">Enater Name</label><span class="text-danger">*</span>
+                <input type="text" name="name" class="form-control" value="{{ old('name', $catImg->name ?? '') }}">
+                @error('name') <span class="text-danger">{{ $message }}</span> @enderror
+            </div>
 
             <div class="col-md-12">
                 <button type="submit" class="btn btn-primary">Save Images</button>

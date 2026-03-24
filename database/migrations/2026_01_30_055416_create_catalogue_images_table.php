@@ -16,6 +16,7 @@ class CreateCatalogueImagesTable extends Migration
         Schema::create('catalogue_images', function (Blueprint $table) {
             $table->id();
             $table->string('image')->nullable();
+            $table->string('name')->nullable();
             $table->tinyInteger('is_active')->default(1)->comment("0 = Active 1 = In-active");
             $table->softDeletes();
             $table->timestamps();

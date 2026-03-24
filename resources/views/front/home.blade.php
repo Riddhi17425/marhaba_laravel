@@ -2,6 +2,11 @@
 
 <link rel="stylesheet" href="{{ asset('public/front/css/hero_style.css') }}">
 <link rel="stylesheet" href="{{ asset('public/front/css/hero_responsive.css') }}">
+<style>
+    @media (max-width: 1281px) and (min-width: 1020px) {
+    .ym-container{max-width: calc(100% - 200px);}
+    }
+</style>
 @php $param = 0; @endphp
 <section class="ym_hero">
     <div class="ym_hero_slider_wrapper">
@@ -102,10 +107,10 @@
                     <span><a>Children's fashion — from Dubai to the world.</a></span>
                 </div>
                 <div class="btn_wrapper">
-                    <a href="" class="btn_1" data-bs-toggle="modal" data-bs-target="#enquiryModal">Enquire Now <img
+                    <a href="#collection" class="btn_1" >Browse Collections<img
                             loading="lazy" src="{{ asset('public/front/img/Home/blue-arr.svg') }}" alt="" height="10"
                             width="10"></a>
-                    <a href="{{ route('contact') }}" class="btn_1">Become a Distributor <img loading="lazy"
+                    <a href="#catalogue" class="btn_1">Request Latest Catalogues<img loading="lazy"
                             src="{{ asset('public/front/img/Home/blue-arr.svg') }}" alt="" height="10" width="10"></a>
                 </div>
             </div>
@@ -364,10 +369,10 @@
                 <div class="project-bg bg-cream"></div>
 
                 <div class="project-content">
-                    <span class="card_title">Baby</span>
-                    <p class="card_desc">Age Range : {{$ageSections['baby']['label']}}</p>
-
-                    <div class="ym-project">
+                    <div>
+                        <span class="card_title">Baby</span>
+                        <p class="card_desc mt-2">Age Range : {{$ageSections['baby']['label']}}</p>
+                        <div class="ym-project">
                         <h3 class="card_subtitle">Size Groups</h3>
                         <div class="tags">
                             @if(isset($groupedSizes) && is_countable($groupedSizes) && count($groupedSizes) > 0)
@@ -383,12 +388,13 @@
                                     @if($key == 9)
                                         @break
                                     @endif
-                                    <a href="{{ url('products-details/' . $val['url'] .'/' . $param . '/' . $val['id']) }}"
-                                        target="_blank"><span class="p_type">{{$val->name}}</span></a>
+                                    <a><span class="p_type">{{$val->name}}</span></a>
                                 @endforeach
                             @endif
                         </div>
-
+                    </div>
+                    </div>
+                    <div>
                         <div class="btn_wrapper">
                             <a href="{{ route('get.products', ['type' => 'boy', 'size_range' => 'baby']) }}"
                                 class="btn_1" target="_blank">Explore Baby Boy <img loading="lazy"
@@ -427,10 +433,10 @@
                 <div class="project-bg bg-light"></div>
 
                 <div class="project-content">
-                    <span class="card_title">Toddler & Little Kids</span>
-                    <p class="card_desc">Age Range : {{$ageSections['kids']['label']}}</p>
-
-                    <div class="ym-project">
+                    <div>
+                        <span class="card_title">Toddler & Little Kids</span>
+                        <p class="card_desc mt-2">Age Range : {{$ageSections['kids']['label']}}</p>
+                        <div class="ym-project">
                         <h3 class="card_subtitle">Size Groups</h3>
                         <div class="tags">
                             @if(isset($groupedSizes) && is_countable($groupedSizes) && count($groupedSizes) > 0)
@@ -446,12 +452,13 @@
                                     @if($key == 9)
                                         @break
                                     @endif
-                                    <a href="{{ url('products-details/' . $val['url'] .'/'. $param . '/' . $val['id']) }}"
-                                        target="_blank"><span class="p_type">{{$val->name}}</span></a>
+                                    <a><span class="p_type">{{$val->name}}</span></a>
                                 @endforeach
                             @endif
                         </div>
-
+                    </div>
+                    </div>
+                    <div>
                         <div class="btn_wrapper">
                             <a href="{{ route('get.products', ['type' => 'boy', 'size_range' => 'kids']) }}"
                                 class="btn_1" target="_blank">Explore Boy <img loading="lazy"
@@ -490,10 +497,10 @@
                 <div class="project-bg bg-soft"></div>
 
                 <div class="project-content">
-                    <span class="card_title">Kids & Youth</span>
-                    <p class="card_desc">Age Range : {{$ageSections['junior']['label']}}</p>
-
-                    <div class="ym-project">
+                    <div>
+                        <span class="card_title">Kids & Youth</span>
+                        <p class="card_desc mt-2">Age Range : {{$ageSections['junior']['label']}}</p>
+                        <div class="ym-project">
                         <h3 class="card_subtitle">Size Groups</h3>
                         <div class="tags">
                             @if(isset($groupedSizes) && is_countable($groupedSizes) && count($groupedSizes) > 0)
@@ -509,11 +516,13 @@
                                     @if($key == 9)
                                         @break
                                     @endif
-                                    <a href="{{ url('products-details/' . $val['url'] . '/' . $param . '/' . $val['id']) }}"
-                                        target="_blank"><span class="p_type">{{$val->name}}</span></a>
+                                    <a><span class="p_type">{{$val->name}}</span></a>
                                 @endforeach
                             @endif
                         </div>
+                    </div>
+                    </div>
+                    <div>
                         <div class="btn_wrapper">
                             <a href="{{ route('get.products', ['type' => 'boy', 'size_range' => 'junior']) }}"
                                 class="btn_1" target="_blank">Explore Boy <img loading="lazy"
@@ -549,30 +558,40 @@
 </section>
 <!-- ----------------catalogues------------ -->
 @if(isset($catImgs) && is_countable($catImgs) && count($catImgs) > 0)
-    <section class="home_mt-100">
+    <section class="home_mt-100" id="catalogue">
         <div class="hero_cat yellow-gradient">
             <div class="ym-container">
                 <div class="hero_catologue_head col-lg-8">
                     <h2 class="title_60lora text-center">View Our Catalogues</h2>
-                    <p class="title_24-raleway mt-4 mt-xl-5">Stay updated on our newest arrivals. Select your
-                        preferred products and our wholesale team will be in touch with curated children's clothing
-                        collections for your business.
+                    <p class="title_24-raleway">Explore our newest collections, including Casual Wear Sets, Occasion Wear Sets, Homewear Sets, and Separates. Select your preferred styles and our wholesale team will connect with curated options tailored for your business.
                     </p>
-                    <div class="btn_wrapper">
+                    <div class="btn_wrapper mt-0">
                         <a href="javascript:void(0);" class="btn_1" data-bs-toggle="modal"
                             data-bs-target="#enquiryModal">Request Latest Catalogues <img loading="lazy"
                                 src="{{ asset('public/front/img/Home/blue-arr.svg') }}" alt="" height="10" width="10"></a>
                         <a href="https://www.instagram.com/marhabafashionuae?igsh=cTluY2lzYTRpM2pp" class="btn_1"
                             target="_blank"><img loading="lazy" src="{{ asset('public/front/img/Home/purple-insta.png') }}"
-                                alt="insta" height="21" width="21"> Follow us on Instagram</a>
+                                alt="insta" height="16" width="16"> Follow us on Instagram</a>
                     </div>
                 </div>
             </div>
-            <div class="swiper hero_cat_slider">
-                <div class="swiper-wrapper">
+            <!--<div class="swiper hero_cat_slider d-none">-->
+            <!--    <div class="swiper-wrapper">-->
+            <!--        @foreach ($catImgs as $val)-->
+            <!--            <div class="swiper-slide">-->
+            <!--                <img loading="lazy" src="{{ asset('public/catalogue_images/' . $val->image) }}" class="img-fluid">-->
+            <!--            </div>-->
+            <!--        @endforeach-->
+            <!--    </div>-->
+            <!--</div>-->
+            <div class="ym_Cat_wrapper">
+                <div class="ym_cat">
                     @foreach ($catImgs as $val)
-                        <div class="swiper-slide">
-                            <img loading="lazy" src="{{ asset('public/catalogue_images/' . $val->image) }}" class="img-fluid">
+                        <div class="div">
+                            <div class="cat_img_parent">
+                                <img loading="lazy" src="{{ asset('public/catalogue_images/' . $val->image) }}" class="img-fluid">
+                                <div class="cat_overlay">{{$val->name ?? ''}}</div>
+                            </div>
                         </div>
                     @endforeach
                 </div>
@@ -631,7 +650,7 @@
             <p class="text-center title_24-raleway mt-3 ">Everything to build a children's department that sells — ages
                 0–14Y, from one
                 trusted source.</p>
-            <div class="hero_why_wrapper">
+            <div class="hero_why_wrapper d-none">
                 <div class="d-flex align-items-center">
                     <img loading="lazy" src="{{ asset('public/front/img/Home/hero-why.png') }}" alt="img-fluid"
                         class="img-fluid">
@@ -648,11 +667,60 @@
                                     <div class="swiper-slide">
                                         <div class="why_slide">
                                             <h3 class="title_60lora">{{ $v->title ?? '' }}</h3>
-                                            <p>{{ $v->desc ?? '' }}</p>
+                                            <p class="mb-0">{{ $v->desc ?? '' }}</p>
                                         </div>
                                     </div>
                                 @endforeach
                             </div>
+                            <div class="swiper-pagination"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="hero_why_wrapper">
+                <div class="d-flex align-items-center">
+                    <!--<img id="main-why-img" loading="lazy" src="{{ asset('public/front/img/Home/hero-why.png') }}" alt="Main Illustration" class="img-fluid">-->
+                    <img id="main-why-img" loading="lazy" src="{{ asset('public/why_chooseus/' . $whyChooseUs[0]->image) }}" alt="Main Illustration" class="img-fluid">
+                    <div class="hero_why_content">
+                        <div class="swiper why_slider">
+                            <div class="swiper_number_pagination">
+                                <span id="current-num">01</span>
+                                <span class="separator">-</span>
+                                <span id="total-num">@if(count($whyChooseUs) < 10){{'0'}}@endif{{ count($whyChooseUs) }}</span>
+                            </div>
+            
+                            <div class="swiper-wrapper">
+                                @foreach($whyChooseUs as $k => $v)
+                                <!--<div class="swiper-slide" data-img="{{ asset('public/front/img/Home/hero-why.png') }}">-->
+                                <div class="swiper-slide" data-img="{{ asset('public/why_chooseus/' . $v->image) }}">
+                                    <div class="why_slide">
+                                        <h3 class="title_60lora">{{ $v->title ?? '' }}</h3>
+                                        <p class="mb-0">{{ $v->desc ?? '' }}</p>
+                                    </div>
+                                </div>
+                                @endforeach
+                                <!--<div class="swiper-slide" data-img="{{ asset('public/front/img/Home/hero-why.png') }}">-->
+                                <!--    <div class="why_slide">-->
+                                <!--        <h3 class="title_60lora">Global Reach</h3>-->
+                                <!--        <p class="mb-0">Trusted by wholesale partners across 45 countries.</p>-->
+                                <!--    </div>-->
+                                <!--</div>-->
+            
+                                <!--<div class="swiper-slide" data-img="{{ asset('public/front/img/Home/hero-why.png') }}">-->
+                                <!--    <div class="why_slide">-->
+                                <!--        <h3 class="title_60lora">Quality Build</h3>-->
+                                <!--        <p class="mb-0">Designed and manufactured by our in-house brands.</p>-->
+                                <!--    </div>-->
+                                <!--</div>-->
+            
+                                <!--<div class="swiper-slide" data-img="{{ asset('public/front/img/Home/hero-why.png') }}">-->
+                                <!--    <div class="why_slide">-->
+                                <!--        <h3 class="title_60lora">Heritage</h3>-->
+                                <!--        <p class="mb-0">Three generations of expertise in children's fashion.</p>-->
+                                <!--    </div>-->
+                                <!--</div>-->
+                            </div>
+            
                             <div class="swiper-pagination"></div>
                         </div>
                     </div>
@@ -667,12 +735,15 @@
         <div class="ym-container">
             <div class="col-lg-10 mx-auto">
                 <h2 class="title_60lora text-center">Let’s Grow Your Fashion Business Together</h2>
-                <p class="title_24-raleway mt-4 mt-xl-5">Looking for premium baby and toddler wear that your
-                    customers will love? Marhaba Fashion partners with retailers, distributors, and wholesalers
+                <div class="ym_para_home">
+                    <p class="title_24-raleway mt-3 mt-xl-4">Looking for premium baby and toddler wear that your
+                    customers will love? </p> 
+                <p class="title_24-raleway"> Marhaba Fashion partners with retailers, distributors, and wholesalers
                     worldwide to deliver high-quality, trend-led children’s apparel at competitive wholesale prices.
                 </p>
                 <p class="title_24-raleway">Share your requirements with us, and our team will get back to you with
                     catalogs, pricing, MOQs, and customization options.</p>
+                </div>
                 <div class="btn_wrapper">
                     <a href="" class="btn_1" data-bs-toggle="modal" data-bs-target="#enquiryModal">Enquire Now <img
                             loading="lazy" src="{{ asset('public/front/img/Home/blue-arr.svg') }}" alt="" height="10"

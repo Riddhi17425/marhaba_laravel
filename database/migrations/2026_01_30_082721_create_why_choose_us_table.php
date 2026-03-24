@@ -17,6 +17,7 @@ class CreateWhyChooseUsTable extends Migration
             $table->id();
             $table->string('title')->nullable();
             $table->string('desc')->nullable();
+            $table->string('image')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

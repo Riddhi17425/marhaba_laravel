@@ -1,5 +1,14 @@
 @include('layouts.frontheader')
-<section class="section_pt banner_head_section section_gradientbg  ">
+<link rel="stylesheet" href="{{ asset('public/front/css/hero_style.css') }}">
+<link rel="stylesheet" href="{{ asset('public/front/css/hero_responsive.css') }}">
+<style>
+    @media screen and (max-width:480px){
+        .banner_head_section{
+            padding-top:80px;
+        }
+    }
+</style>
+<section class="section_pt banner_head_section section_gradientbg">
     <div class="container">
         <div class="row">
             <div class="col-md-12 text-center">

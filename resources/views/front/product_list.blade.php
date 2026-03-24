@@ -7,9 +7,12 @@ $categoryId = $segments[1] ?? null; // index may vary
 $subcatVal = $segments[2] ?? '';
 $subcatVal = preg_replace('/[\#].*$/', '', $subcatVal);
 @endphp
+<style>
+    .btn-loading{opacity:0.5;}
+</style>
 <section class="banner_head_section section_gradientbg">
     <div class="filter_banner">
-        Explore product samples. MOQ — 12 pcs per design.
+        Explore product samples. MOQ — Only 12 pcs per design.
     </div>
 </section>
 <div class="main_container">
@@ -21,10 +24,10 @@ $subcatVal = preg_replace('/[\#].*$/', '', $subcatVal);
                     <nav style="--bs-breadcrumb-divider: '|';" aria-label="breadcrumb">
                         <ol class="breadcrumb mb-1">
                             <li class="breadcrumb-item"><a href="{{ url('/') }}">Home</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">{{$type}}</li>
+                            <li class="breadcrumb-item active" aria-current="page">{{$type}}s</li>
                         </ol>
                     </nav>
-                    <h1 class="lora_24">{{$type}} Wholesale Collection</h1>
+                    <h1 class="lora_24">{{$type}}s Wholesale Collection</h1>
                 </div>
                 <!-- Total Items Count -->
                 <div>
@@ -63,7 +66,7 @@ $subcatVal = preg_replace('/[\#].*$/', '', $subcatVal);
             <div class="age_range_box" style="background-color: rgb(239, 230, 240);">
                 <div class="age-card" data-scroll-to="toddler">
                     <h3 class="lora_24">Toddler & Little Kids ({{$data['kids'] ?? 0}})</h3>
-                    <p class="raleway_14 mb-0">Age Range: 2 Years to 7 Years</p>
+                    <p class="raleway_14 mb-0">Age Range: 2 Years to 6 Years</p>
                 </div>
             </div>
             <div class="age_range_box" style="background-color: rgb(230, 239, 242);">
@@ -143,7 +146,7 @@ $subcatVal = preg_replace('/[\#].*$/', '', $subcatVal);
                                     </div>
                                     <div>
                                         <a href="{{ url('products-details/' . $vv['url'].'/'. $sizeId .'/' . $vv['id']) }}" target="_blank" class="prod_list_title">
-                                            <h4 class="mb-0" style="font-weight:500;">{{$vv->name ?? ''}}</h4>
+                                            <h4 class="mb-0" style="font-weight:500;">@if(strtolower($vv->brand->name) != 'marhaba'){{$vv->brand->name ?? ''}}@endif {{$vv->name ?? ''}}</h4>
                                             <p class="mb-0">{{$vk ?? ''}}</p>
                                         </a>                                
                                     </div>
@@ -584,6 +587,26 @@ $subcatVal = preg_replace('/[\#].*$/', '', $subcatVal);
 </div>
 
 <script>
+document.addEventListener("DOMContentLoaded", function () {
+    const accordions = document.querySelectorAll("#accordionExample .accordion-collapse");
+
+    accordions.forEach((item) => {
+        item.addEventListener("show.bs.collapse", function () {
+            accordions.forEach((other) => {
+                if (other !== item) {
+                    let bsCollapse = bootstrap.Collapse.getInstance(other);
+                    if (!bsCollapse) {
+                        bsCollapse = new bootstrap.Collapse(other, { toggle: false });
+                    }
+                    bsCollapse.hide();
+                }
+            });
+        });
+    });
+});
+</script>
+
+<script>
 
 // State Management
 const filterState = {
@@ -700,8 +723,10 @@ function updateApplyButtonText() {
     );
     if (checkedBoxes.length === 0) {
         applyFiltersBtn.textContent = `Show ${totalProducts} Items`;
+        applyFiltersBtn.classList.remove('btn-loading');  
     } else {
         applyFiltersBtn.textContent = `Loading...`;
+        applyFiltersBtn.classList.add('btn-loading');     
     }
 }
 
@@ -732,11 +757,17 @@ function applyFilters() {
     }
 }
 
-function loadFilterProducts(){
+function loadFilterProducts() {
     var ageFilter = filterState.ageRange;
     var brandFilter = filterStateValue.brand;
     var categoryFilter = filterStateValue.category;
     var type = @json($type).toLowerCase();
+
+    // ← Set loading state BEFORE ajax starts
+    applyFiltersBtn.textContent = 'Loading...';
+    applyFiltersBtn.classList.add('btn-loading');
+    applyFiltersBtn.disabled = true;
+
     $.ajax({
         url: "{{ route('get.products', ['type' => '__type__']) }}".replace('__type__', type),
         type: "GET",
@@ -744,18 +775,23 @@ function loadFilterProducts(){
             ageFilter: ageFilter,
             brandFilter: brandFilter,
             categoryFilter: categoryFilter,
-            //_token: $('meta[name="csrf-token"]').attr('content')
         },
         success: function (response) {
-            // withFilterProduct.innerHTML = response;
             withFilterProduct.innerHTML = response.html;
             totalItemsElement.textContent = response.totalProducts + ' Items';
 
-            // Update Show Item button text
+            // ← Remove loading state AFTER ajax completes
             applyFiltersBtn.textContent = 'Show ' + response.totalProducts + ' Items';
+            applyFiltersBtn.classList.remove('btn-loading');
+            applyFiltersBtn.disabled = false;
         },
         error: function (error) {
             console.log(error);
+
+            // ← Also remove on error so button doesn't stay stuck
+            applyFiltersBtn.textContent = `Show ${totalProducts} Items`;
+            applyFiltersBtn.classList.remove('btn-loading');
+            applyFiltersBtn.disabled = false;
         }
     });
 }

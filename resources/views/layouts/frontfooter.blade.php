@@ -8,7 +8,7 @@
                 </a>
             </div>
             <div class="col-md-8">
-                <p class="mb-0">
+                <p class="mb-0" style="color: #D7C7E9;">
                     Since 1974, Najmuddin LLC has supplied thoughtfully designed children’s
                     apparel to retailers and boutique owners across the Middle East and Africa.
                     Blending regional aesthetics with practical durability, our collections are
@@ -72,7 +72,7 @@
                 <div class="text_ft col-6 col-md-4 col-lg-2">
                     <div class="ft_menu">
                         <h3 class="ft_menu_title">Follow Us</h3>
-                        <div class="d-flex gap-3">
+                        <div class="d-flex gap-3 ft_icons">
                             <a href="https://www.linkedin.com/company/marhaba-llc/" target="_blank">
                                 <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M33.3352 0H2.65781C1.18828 0 0 1.16016 0 2.59453V33.3984C0 34.8328 1.18828 36 2.65781 36H33.3352C34.8047 36 36 34.8328 36 33.4055V2.59453C36 1.16016 34.8047 0 33.3352 0ZM10.6805 30.6773H5.33672V13.493H10.6805V30.6773ZM8.00859 11.1516C6.29297 11.1516 4.90781 9.76641 4.90781 8.05781C4.90781 6.34922 6.29297 4.96406 8.00859 4.96406C9.71719 4.96406 11.1023 6.34922 11.1023 8.05781C11.1023 9.75937 9.71719 11.1516 8.00859 11.1516ZM30.6773 30.6773H25.3406V22.3242C25.3406 20.3344 25.3055 17.768 22.5633 17.768C19.7859 17.768 19.3641 19.9406 19.3641 22.1836V30.6773H14.0344V13.493H19.1531V15.8414H19.2234C19.9336 14.4914 21.6773 13.0641 24.2719 13.0641C29.6789 13.0641 30.6773 16.6219 30.6773 21.2484V30.6773V30.6773Z" fill="#D7C7E9"/>
@@ -106,10 +106,10 @@
                         </div>
                         <div>
                             <b>Address :</b>
-                            <p><a href="https://maps.app.goo.gl/yNsyj9FukmZHos4K9">Shop No. 2 & 3, Maeen Hotel Building
+                            <p><a href="https://maps.app.goo.gl/yNsyj9FukmZHos4K9" style=" color: #D7C7E9; ">Shop No. 2 & 3, Maeen Hotel Building
                                 Murshid Bazar, Deira, Dubai – U.A.E</a></p>
-                            <p><b>Landline:</b> <a href="tel:+97142264582" class="">+971 4 226 4582</a></p>
-                            <p><b>Email:</b> <a href="mailto:info@marhabafashion.com" class="">info@marhabafashion.com</a></p>
+                            <p><b>Landline:</b> <a href="tel:+97142264582" class="" style=" color: #D7C7E9; ">+971 4 226 4582</a></p>
+                            <p><b>Email:</b> <a href="mailto:info@marhabafashion.com" class="" style=" color: #D7C7E9; ">info@marhabafashion.com</a></p>
                         </div>
                     </div>
                 </div>
@@ -207,4 +207,5 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrollSmoother.min.js"></script>
 <script src="{{ asset('public/front/js/main.js') }}"></script>
 <script src="{{ asset('public/front/js/home.js') }}"></script>
-
+</body>
+</html>

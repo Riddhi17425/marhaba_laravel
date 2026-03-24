@@ -25,6 +25,7 @@
                     <tr>
                         <th>#</th>
                         <th>Image</th>
+                        <th>Name</th>
                         <th class="text-center">Action</th>
                     </tr>
                 </thead>
@@ -39,6 +40,7 @@
                                     -
                                 @endif  
                             </td>
+                            <td>{{ $catImg->name ?? '' }}</td>
                             <td class="text-center">
                                 <a href="{{ route('catalogue-image.edit', $catImg->id) }}" class="btn btn-sm btn-warning">Edit</a>
                                 <form action="{{ route('catalogue-image.destroy', $catImg->id) }}" method="POST" style="display:inline;">

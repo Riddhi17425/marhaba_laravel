@@ -4,23 +4,30 @@ document.addEventListener("DOMContentLoaded", () => {
     /* =========================
        COUNTER (IntersectionObserver)
     ========================= */
-    function animateCounter(el) {
-        const target = +el.dataset.target;
-        const speed = 200;
-        const increment = target / speed;
-        let count = 0;
+function animateCounter(el) {
+    const target = +el.dataset.target;
+    // Check if the HTML already has a "+" sign
+    const hasPlus = el.textContent.includes('+'); 
+    const speed = 200;
+    const increment = target / speed;
+    let count = 0;
 
-        function update() {
-            count += increment;
-            if (count < target) {
-                el.textContent = Math.floor(count) + "+";
-                requestAnimationFrame(update);
-            } else {
-                el.textContent = target + "+";
-            }
+    function update() {
+        count += increment;
+        if (count < target) {
+            // Add "+" only if hasPlus is true
+            el.textContent = Math.floor(count) + (hasPlus ? "+" : "");
+            requestAnimationFrame(update);
+        } else {
+            // Final state
+            el.textContent = target + (hasPlus ? "+" : "");
         }
-        update();
     }
+    update();
+}
+
+// Initialize all counters
+document.querySelectorAll('.stat_counter').forEach(animateCounter);
 
     const counters = document.querySelectorAll('.stat_counter');
     if (counters.length) {
@@ -43,7 +50,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const marqueeConfig = {
         slidesPerView: 'auto',
         spaceBetween: 20,
-        speed: 3000,
+        speed: 5000,
         loop: true,
         allowTouchMove: false,
         freeMode: { enabled: true, momentum: false },
@@ -95,28 +102,44 @@ document.addEventListener("DOMContentLoaded", () => {
        WHY SLIDER WITH COUNTER
     ========================= */
     if (document.querySelector('.why_slider')) {
-        const currentNum = document.getElementById('current-num');
-        const totalNum = document.getElementById('total-num');
+    const currentNum = document.getElementById('current-num');
+    const totalNum = document.getElementById('total-num');
+    const mainImg = document.getElementById('main-why-img'); // Target the main image
 
-        new Swiper('.why_slider', {
-            slidesPerView: 1,
-            pagination: { el: '.swiper-pagination', clickable: true },
-            autoplay: {
-            delay: 3000,
+    new Swiper('.why_slider', {
+        slidesPerView: 1,
+        pagination: { el: '.swiper-pagination', clickable: true },
+        autoplay: {
+            delay: 4000,
             disableOnInteraction: false,
+        },
+        on: {
+            init(swiper) {
+                const total = swiper.slides.length;
+                totalNum.textContent = total.toString().padStart(2, '0');
+                currentNum.textContent = '01';
             },
-            on: {
-                init(swiper) {
-                    const total = swiper.slides.length;
-                    totalNum.textContent = total.toString().padStart(2, '0');
-                    currentNum.textContent = '01';
-                },
-                slideChange(swiper) {
-                    currentNum.textContent = (swiper.activeIndex + 1).toString().padStart(2, '0');
+            slideChange(swiper) {
+                // 1. Update the number counter
+                const index = swiper.activeIndex;
+                currentNum.textContent = (index + 1).toString().padStart(2, '0');
+
+                // 2. Get the image URL from the active slide's data attribute
+                const activeSlide = swiper.slides[index];
+                const newImgSrc = activeSlide.getAttribute('data-img');
+
+                // 3. Update the main image with a smooth fade effect (optional)
+                if (newImgSrc) {
+                    mainImg.style.opacity = '0.5'; // Start fade out
+                    setTimeout(() => {
+                        mainImg.src = newImgSrc;
+                        mainImg.style.opacity = '1'; // Fade back in
+                    }, 200);
                 }
             }
-        });
-    }
+        }
+    });
+}
 
 
     /* =========================
@@ -127,7 +150,7 @@ document.addEventListener("DOMContentLoaded", () => {
             loop: true,
             centeredSlides: false,
             autoplay: {
-                delay: 2000,
+                delay: 3000,
                 disableOnInteraction: false,
             },
             breakpoints: {
@@ -139,13 +162,13 @@ document.addEventListener("DOMContentLoaded", () => {
                     spaceBetween: 10,
                 },
                 1280: {
-                    slidesPerView: 2.5,
+                    slidesPerView: 3,
                 },
                 1536: {
                     slidesPerView: 3,
                 },
                 1600: {
-                    slidesPerView: 2.8,
+                    slidesPerView: 3,
                 },
             }
         });
@@ -172,7 +195,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             // Expand only on desktop
             if (isDesktop) {
-                card.style.flex = i === index ? '1.1' : '0.5';
+                card.style.flex = i === index ? '1.2' : '0.5';
             } else {
                 card.style.flex = '';
             }
@@ -274,7 +297,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     arrows: false,
                     dots: false,
                     infinite: false,
-                    autoplay: false,
+                    autoplay: true,
                     autoplaySpeed: 2000,
                     responsive: [
                         {
@@ -354,13 +377,13 @@ document.addEventListener("DOMContentLoaded", () => {
     /* =========================
        PROJECT CARDS GIF EFFECT
     ========================= */
-    document.querySelectorAll('.project-card').forEach(card => {
+document.querySelectorAll('.project-card').forEach(card => {
     const img = card.querySelector('.category-img');
     if (!img) return;
 
     const originalSrc = img.src;
     let altImages = [];
-    let interval;
+    let interval = null;
     let index = 0;
 
     // 1. Data Parsing & Preloading
@@ -377,17 +400,7 @@ document.addEventListener("DOMContentLoaded", () => {
         console.error("Invalid data-alt:", img);
     }
 
-    // 2. Animation Logic Functions
-    const startAnimation = () => {
-        if (!altImages.length || interval) return;
-        index = 0;
-        
-        interval = setInterval(() => {
-            img.src = altImages[index];
-            index = (index + 1) % altImages.length;
-        }, 800);
-    };
-
+    // 2. Stop Animation
     const stopAnimation = () => {
         if (interval) {
             clearInterval(interval);
@@ -396,35 +409,69 @@ document.addEventListener("DOMContentLoaded", () => {
         img.src = originalSrc;
     };
 
-    // 3. Execution Logic
+    // ✅ NEW: Stop if active
+    const isActive = () => card.classList.contains('active');
+
+    // 3. Start Animation
+    const startAnimation = () => {
+        if (!altImages.length || interval || isActive()) return;
+
+        index = 0;
+        interval = setInterval(() => {
+            img.src = altImages[index];
+            index = (index + 1) % altImages.length;
+        }, 800);
+    };
+
+    // 4. Execution Logic
     const handleDisplay = () => {
+        if (isActive()) {
+            stopAnimation(); // ✅ STOP if active
+            return;
+        }
+
         if (window.innerWidth <= 577) {
-            // Auto-run on mobile
-            startAnimation();
+            startAnimation(); // mobile auto
         } else {
-            // Ensure animation is stopped on desktop unless hovering
-            stopAnimation();
+            stopAnimation(); // desktop default
         }
     };
 
-    // Run immediately on load
+    // Init
     handleDisplay();
 
-    // --- DESKTOP HOVER EVENTS ---
+    // --- DESKTOP HOVER ---
     card.addEventListener('mouseenter', () => {
-        if (window.innerWidth > 577) startAnimation();
+        if (window.innerWidth > 577 && !isActive()) {
+            startAnimation();
+        }
     });
 
     card.addEventListener('mouseleave', () => {
-        if (window.innerWidth > 577) stopAnimation();
+        if (window.innerWidth > 577) {
+            stopAnimation();
+        }
     });
 
-    // Handle window resizing (if user flips phone or resizes browser)
+    // --- RESIZE ---
     window.addEventListener('resize', handleDisplay);
-});
 
-});
+    // ✅ NEW: Watch active class change (IMPORTANT)
+    const observer = new MutationObserver(() => {
+        if (isActive()) {
+            stopAnimation();
+        } else {
+            handleDisplay();
+        }
+    });
 
+    observer.observe(card, {
+        attributes: true,
+        attributeFilter: ['class']
+    });
+});
+});
+// ---------------------------------------------------------------------
 function initYmSlider() {
 
     $('.ym_slider').not('.slick-initialized').slick({
@@ -454,4 +501,39 @@ $(document).ready(function () {
 
 $(document).ajaxComplete(function () {
     initYmSlider();
+});
+
+
+// catalogue slider
+$('.ym_cat').slick({
+    arrows: false,
+    dots: true,
+    infinite: true,
+    speed: 400,
+    slidesToShow: 3,        // Default: 3 slides (Desktop > 1200px)
+    slidesToScroll: 1,
+    autoplay: true,
+    cssEase: 'linear',
+    autoplaySpeed: 3000,
+    pauseOnHover: true,
+    responsive: [
+        {
+            // At 1200px and below -> Show 2 slides
+            breakpoint: 1201, 
+            settings: {
+                slidesToShow: 2,
+                slidesToScroll: 1
+            }
+        },
+        {
+            // At 576px and below -> Show 1 slide
+            breakpoint: 577, 
+            settings: {
+                slidesToShow: 1,
+                slidesToScroll: 1,
+                arrows: false, // Hiding arrows on mobile as per your previous code
+                dots: false
+            }
+        }
+    ]
 });

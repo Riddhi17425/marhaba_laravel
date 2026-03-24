@@ -18,7 +18,7 @@ use App\Http\Controllers\admin\ClothSizeController;
 use App\Http\Controllers\admin\ClothColorController;
 use App\Http\Controllers\admin\AboutImageController;
 use App\Http\Controllers\admin\MenuImageController;
-use App\Http\Controllers\admin\{CatalogueImageController, TrustedByController, WhyChooseUsController, HomeSliderImageController};
+use App\Http\Controllers\admin\{CatalogueImageController, TrustedByController, WhyChooseUsController, HomeSliderImageController, CollectionRandomImageController};
 
 
 /*
@@ -88,6 +88,10 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('homeslider-image', HomeSliderImageController::class)->except(['update']);
 	Route::delete('homeslider-image/delete/{id}', [HomeSliderImageController::class, 'deleteImage'])->name('homeslider-image.delete');
 	Route::put('homeslider-image/update/{slider}', [HomeSliderImageController::class, 'updateBySlider'])->name('homeslider-image.update');
+	
+	Route::resource('collection-random-image', CollectionRandomImageController::class)->except(['update']);
+	Route::delete('collection-random-image/delete/{id}', [CollectionRandomImageController::class, 'deleteRandomImage'])->name('collection-random-image.delete');
+	Route::put('collection-random-image/update/{slider}', [CollectionRandomImageController::class, 'updateBySlider'])->name('collection-random-image.update');
 
  
 Route::prefix('backend')->group(function () {

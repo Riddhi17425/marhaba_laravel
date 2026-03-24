@@ -1,4 +1,16 @@
 @include('layouts.frontheader')
+<link rel="stylesheet" href="{{ asset('public/front/css/hero_style.css') }}">
+<link rel="stylesheet" href="{{ asset('public/front/css/hero_responsive.css') }}">
+<style>
+    input[type=checkbox] {
+  accent-color: #452667;
+}
+.checkbox-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+</style>
 <section class="banner_head_section section_gradientbg  ">
     <div class="container">
         <div class="row">
@@ -78,7 +90,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-12">
+                    <div class="col-md-12 mb-2">
                         <div class="form_floating_contect">
                             <div class="form-floating">
                                 <input type="text" class="form-control" id="Message" value="{{old('message_note')}}" name="message_note" placeholder="Message">
@@ -86,6 +98,16 @@
                                 @error('message_note')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="">
+                            <div>
+                                <div class="checkbox-item">
+                                        <input type="checkbox" id="Distributor" name="distributor" value="Distributor">
+                                        <label for="Distributor">Become a Distributor</label>
+                                    </div>
                             </div>
                         </div>
                     </div>

@@ -61,16 +61,16 @@
 <script>
 document.addEventListener('DOMContentLoaded', () => {
 
-  const brands = [
-    { src: "{{ asset('public/front/img/Home/Comfort-Palazzo-Set.png') }}",            name: "Comfort Palazzo Set" },
-    { src: "{{ asset('public/front/img/Home/Loungewear-Set-girl.png') }}",                  name: "Loungewear Set" },
-    { src: "{{ asset('public/front/img/Home/Pyjama-Set.png') }}",        name: "Pyjama-Set" },
-    { src: "{{ asset('public/front/img/Home/classic-dress.png') }}",        name: "Classic Dress" },
-    { src: "{{ asset('public/front/img/Home/Top-Leggings-Set.png') }}",                      name: "Top & Leggings Set" },
-    { src: "{{ asset('public/front/img/Home/Classic-Palazzo-Set.png') }}",           name: "Classic-Palazzo-Set" },
-    { src: "{{ asset('public/front/img/Home/Casual-Dungaree-Set.png') }}",  name: "Casual-Dungaree-Set" },
-  ];
-
+//   const brands = [
+//     { src: "{{ asset('public/front/img/Home/Comfort-Palazzo-Set.png') }}",            name: "Comfort Palazzo Set" },
+//     { src: "{{ asset('public/front/img/Home/Loungewear-Set-girl.png') }}",                  name: "Loungewear Set" },
+//     { src: "{{ asset('public/front/img/Home/Pyjama-Set.png') }}",        name: "Pyjama-Set" },
+//     { src: "{{ asset('public/front/img/Home/classic-dress.png') }}",        name: "Classic Dress" },
+//     { src: "{{ asset('public/front/img/Home/Top-Leggings-Set.png') }}",                      name: "Top & Leggings Set" },
+//     { src: "{{ asset('public/front/img/Home/Classic-Palazzo-Set.png') }}",           name: "Classic-Palazzo-Set" },
+//     { src: "{{ asset('public/front/img/Home/Casual-Dungaree-Set.png') }}",  name: "Casual-Dungaree-Set" },
+//   ];
+  const brands = @json($girlsRandomImg);
   const cells = document.querySelectorAll('#brand-grid-girl .brand-cell');
   const TOTAL = cells.length; // 6
 

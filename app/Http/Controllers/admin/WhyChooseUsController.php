@@ -25,12 +25,19 @@ class WhyChooseUsController extends Controller
         $validator = Validator::make($request->all(), [
             'title'       => 'required|string|max:255',
             'description' => 'required|string',
+            'image'   => 'required|array',          // ensure it's an array
+            'image.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048', // each file
         ], [
             'title.required'       => 'The title is required.',
             'title.string'         => 'The title must be a valid text.',
             'title.max'            => 'The title may not be greater than 255 characters.',
             'description.required' => 'The description is required.',
             'description.string'   => 'The description must be valid text.',
+            'image.required'       => 'Please upload at least one image.',
+            'image.array'          => 'Invalid image input.',
+            'image.*.image'        => 'Each file must be an image.',
+            'image.*.mimes'        => 'Each image must be jpeg, png, jpg, gif, or svg.',
+            'image.*.max'          => 'Each image may not be greater than 2MB.',
         ]);
 
         if ($validator->fails()) {
@@ -40,6 +47,13 @@ class WhyChooseUsController extends Controller
         $whyChooseUs = new WhyChooseUs();
         $whyChooseUs->title = $request->title ?? null;
         $whyChooseUs->desc = $request->description ?? null;
+        if ($request->hasFile('image')) {
+            foreach ($request->file('image') as $image) {
+                $imageName = $image->getClientOriginalName();
+                $image->move(public_path('why_chooseus'), $imageName);
+                $whyChooseUs->image = $imageName;
+            }
+        }
         $whyChooseUs->save();
 
         return redirect()->route('whychoose-us.index')->with('success', 'Trusted By added successfully!');
@@ -47,8 +61,8 @@ class WhyChooseUsController extends Controller
 
     public function edit(string $id)
     {
-        $trustedBy = WhyChooseUs::find($id);
-        return view('admin.whychooseus.edit', compact('trustedBy'));
+        $whyChooseData = WhyChooseUs::find($id);
+        return view('admin.whychooseus.edit', compact('whyChooseData'));
     }
 
     public function update(Request $request, string $id)
@@ -57,6 +71,7 @@ class WhyChooseUsController extends Controller
         $validator = Validator::make($request->all(), [
             'title'       => 'required|string|max:255',
             'description' => 'required|string',
+            'image'       => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ], [
             'title.required'       => 'The title is required.',
             'title.string'         => 'The title must be a valid text.',
@@ -64,6 +79,9 @@ class WhyChooseUsController extends Controller
 
             'description.required' => 'The description is required.',
             'description.string'   => 'The description must be valid text.',
+            'image.image'          => 'The uploaded file must be an image.',
+            'image.mimes'          => 'The image must be jpeg, png, jpg, or gif.',
+            'image.max'            => 'The image size may not be greater than 2MB.',
         ]);
 
         if ($validator->fails()) {
@@ -72,6 +90,12 @@ class WhyChooseUsController extends Controller
 
         $WhyChooseUs->title = $request->title;
         $WhyChooseUs->desc = $request->description;
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $imageName = $image->getClientOriginalName();
+            $image->move(public_path('why_chooseus'), $imageName);
+            $WhyChooseUs->image = $imageName;
+        }
         $WhyChooseUs->save();
 
         return redirect()->route('whychoose-us.index')->with('success', 'Data updated successfully!');

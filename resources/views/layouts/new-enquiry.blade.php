@@ -17,6 +17,11 @@
         color: var(--charcoal);
         line-height: 1.6;
     }
+    .enquiry_modal .modal-content {
+        border-radius: 30px;
+        background-color: transparent;
+        border: 1px transparent;
+    }
 
     .enquiry_modal .language-selector {
         display: flex;

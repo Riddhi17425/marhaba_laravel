@@ -161,6 +161,7 @@ a {
     font-size: 90px;
     line-height: 100px;
     letter-spacing: -0.01em;
+    font-weight:300;
 }
 
 .hero_breadcrumb {
@@ -187,8 +188,8 @@ a {
 }
 
 .stats_box {
-    width: 350px;
-    height: 290px;
+    /*width: 350px;*/
+    /*height: 290px;*/
     padding: 40px 65px;
     display: grid;
     gap: 10px;
@@ -261,12 +262,13 @@ a {
     overflow: hidden;
     flex: 1;
     height: 280px;
+    box-shadow: 0px 20px 20px rgba(69, 38, 103, 0.15);
 }
 
 .comp_bus_child.expanded,
 .comp_bus_child:hover {
     flex: 2.5;
-    height: 450px;
+    height: 490px;
     /*max-width: 420px;*/
     padding: 37px 0px 30px 46px;
     /*border-radius: 10px;*/
@@ -420,6 +422,48 @@ a {
     box-shadow: 0px 20px 20px rgba(69, 38, 103, 0.15);
 }
 
+/*ym cat slider dots*/
+.ym_cat .slick-dots {
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+     /*gap: 8px; */
+    padding: 0;
+    border-radius: 10px;
+}
+
+.ym_cat .slick-dots li {
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 30px;
+    height: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+}
+
+.ym_cat .slick-dots li button:before {
+    display: none;
+}
+
+.ym_cat .slick-dots li button {
+    width: 14px;
+    height: 8px;
+    border-radius: 10px;
+    background-color: #e7d2ff;
+    padding: 0;
+    transition: all 0.3s ease;
+}
+
+.ym_cat .slick-dots li.slick-active button {
+     width: 30px;
+    background-color: #452667;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    cursor: none;
+}
+/*ym cat slider dots*/
 .swiper-pagination {
     bottom: 0px !important;
     width: fit-content !important;
@@ -502,7 +546,7 @@ a {
     transform: translateX(50%);
     transition: all 0.8s ease-in;
 }
-
+.project-content .btn_wrapper{justify-content: start;}
 .project-card.active .card_top_head {
     display: none;
     transition: all 0.5s ease;
@@ -512,6 +556,8 @@ a {
     display: flex;
     transform: translateX(0%);
     transition: all 0.8s ease-out;
+    height:100%;
+    justify-content:space-between;
 }
 
 .card_title {
@@ -520,11 +566,12 @@ a {
     font-size: 32px;
     line-height: 40px;
     letter-spacing: -0.01em;
+    font-weight:600;
 }
 
 .card_desc {
     font-family: var(--font-ralwway);
-    font-size: 16px;
+    font-size: 14px;
     line-height: 20px;
     letter-spacing: -0.01em;
     margin-bottom: 40px;
@@ -554,11 +601,11 @@ a {
 
 .card_pill {
     font-family: var(--font-ralwway);
-    font-size: 18px;
-    line-height: 18px;
-    letter-spacing: -0.01em;
+    font-size: 14px;
+    line-height: 16px;
+    letter-spacing: 1px;
     padding: 10px 25px;
-    border-radius: 200px;
+    border-radius: 5px;
     background-color: white;
     color: black;
 }
@@ -570,6 +617,7 @@ a {
     margin-bottom: 30px;
 }
 .p_type{font-size: 14px;}
+.p_type:hover{color:#111;font-weight:500;}
 /* card css */
 /* gender slider */
 /* Main Layout Container */
@@ -737,12 +785,12 @@ a {
 
 .ym_slider .slick-prev {
     left: 0px;
-    top: 35%;
+    top: 50%;
 }
 
 .ym_slider .slick-next {
     right: 0px;
-    top: 35%;
+    top: 50%;
 }
 
 .ym_slider .slick-dots {
@@ -786,7 +834,7 @@ a {
 }
 
 .prod_list_title {
-    height: 50px;
+    height: 30px;
     margin-top: 10px;
     display: flex;
     flex-direction: column;
@@ -794,8 +842,14 @@ a {
 }
 
 .prod_list_title h4 {
-    font-size: 18px;
+    font-size: 14px;
+    line-height:14px;
 }
+.prod_list_title p {
+    font-size: 12px;
+    line-height:12px;
+}
+
 
 /* ================= ym CARD ================= */
 
@@ -833,8 +887,9 @@ select:focus {
 .brand-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 0;
-    border: 1px solid #ddd;
+    column-gap: 15px;
+    row-gap: 30px;
+    /*border: 1px solid #ddd;*/
     overflow: hidden;
     background: #fff;
 }
@@ -845,20 +900,20 @@ select:focus {
     display: flex;
     align-items: center;
     justify-content: center;
-    border-right: 1px solid #ddd;
-    border-bottom: 1px solid #ddd;
+    /*border-right: 1px solid #ddd;*/
+    /*border-bottom: 1px solid #ddd;*/
     overflow: hidden;
     cursor: pointer;
-    background: linear-gradient(0deg, #FBFBFB 0%, #FBFBFB 100%), linear-gradient(134deg, #FFF 9%, #DDD 93.94%);
+    /*background: linear-gradient(0deg, #FBFBFB 0%, #FBFBFB 100%), linear-gradient(134deg, #FFF 9%, #DDD 93.94%);*/
 }
 
-.brand-cell:nth-child(3n) {
-    border-right: none;
-}
+/*.brand-cell:nth-child(3n) {*/
+/*    border-right: none;*/
+/*}*/
 
-.brand-cell:nth-child(n+4) {
-    border-bottom: none;
-}
+/*.brand-cell:nth-child(n+4) {*/
+/*    border-bottom: none;*/
+/*}*/
 
 /* The image wrapper â€” this rotates together with overlay */
 .brand-inner {
@@ -866,7 +921,9 @@ select:focus {
     inset: 0;
     display: flex;
     align-items: center;
+    flex-direction:column;
     justify-content: center;
+    height:92%;
 }
 
 .brand-img {
@@ -883,56 +940,58 @@ select:focus {
 
 /* Overlay */
 .brand-overlay {
-    position: absolute;
-    inset: 0;
-    background: #afafaf4a;
+    /*position: absolute;*/
+    /*inset: 0;*/
+    /*background: #afafaf4a;*/
     display: flex;
-    align-items: flex-end;
+    /*align-items: flex-end;*/
     justify-content: center;
-    opacity: 0;
-    transition: opacity 0.35s ease;
+    opacity: 1;
+    /*transition: opacity 0.35s ease;*/
     pointer-events: none;
+    height:7%;
+    margin-top:3%;
 }
 
 .brand-overlay span {
     color: #452667;
-    font-size: clamp(13px, 1.5vw, 18px);
+    font-size: 14px;
     font-weight: 600;
     text-align: center;
-    padding: 0 12px;
-    padding-bottom: 15px;
+    /*padding: 0 12px;*/
+    /*padding-bottom: 15px;*/
 }
 
 /* Desktop hover */
-@media (min-width: 1240px) {
-    .brand-cell:hover .brand-overlay {
-        opacity: 1;
-    }
-}
+/*@media (min-width: 1240px) {*/
+/*    .brand-cell:hover .brand-overlay {*/
+/*        opacity: 1;*/
+/*    }*/
+/*}*/
 
 /* Mobile tap */
-.brand-cell.tapped .brand-overlay {
-    opacity: 1;
-}
+/*.brand-cell.tapped .brand-overlay {*/
+/*    opacity: 1;*/
+/*}*/
 
 @media (max-width: 600px) {
     .brand-grid {
         grid-template-columns: repeat(1, 1fr);
-        border: 1px solid #ddd;
+        /*border: 1px solid #ddd;*/
     }
 
-    .brand-cell {
-        border-bottom: 1px solid #ddd;
-        border-right: none;
-    }
+    /*.brand-cell {*/
+    /*    border-bottom: 1px solid #ddd;*/
+    /*    border-right: none;*/
+    /*}*/
 
-    .brand-cell:last-child {
-        border-bottom: none;
-    }
+    /*.brand-cell:last-child {*/
+    /*    border-bottom: none;*/
+    /*}*/
 
-    .brand-cell:nth-child(n+4) {
-        border-bottom: 1px solid #ddd;
-    }
+    /*.brand-cell:nth-child(n+4) {*/
+    /*    border-bottom: 1px solid #ddd;*/
+    /*}*/
 }
 
 /* brand grid image */
@@ -961,7 +1020,7 @@ header.sticky .btn svg.home_menu rect {
     fill: #452667;
 }
 
-.ym_slider .slick-prev.slick-arrow {
+.ym_slider .slick-prev.slick-arrow, .simple-slider .slick-prev.slick-arrow{
     /* width: 32px;
     height: 32px; */
     background-repeat: no-repeat;
@@ -970,12 +1029,38 @@ header.sticky .btn svg.home_menu rect {
 }
 
 .ym_slider .slick-next:before,
-.ym_slider .slick-prev:before {
+.ym_slider .slick-prev:before,
+.simple-slider .slick-next:before,
+.simple-slider .slick-prev:before {
     content: '' !important;
 }
 
-.ym_slider .slick-next.slick-arrow {
+.ym_slider .slick-next.slick-arrow, .simple-slider .slick-next.slick-arrow {
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16' fill='none'%3E%3Cpath d='M6 12L10 8L6 4' stroke='%23452667' stroke-width='1.5' stroke-linejoin='round'/%3E%3C/svg%3E");
 }
 
 .mobile_grid{display:none;}
+
+.ym_para_home{padding:0 50px;}
+/*-------------17-3-26 client changes--------------------------*/
+.cat_img_parent{position:relative;}
+.cat_overlay {
+    position: absolute;
+    inset: 0;
+    padding:10px;
+    background:  linear-gradient(180deg, rgba(0, 0, 0, 0) 64.6%, #000000ba 95.93%);
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.35s ease;
+    pointer-events: none;
+    color: white;
+    font-size: 14px;
+    font-weight: 600;
+    text-align: center
+}
+.cat_img_parent:hover .cat_overlay{opacity:1;transition: opacity 0.35s ease;}
+.project-card.active{justify-content:space-between;}
+.project-card.active .card_top {width: 32%;}
+.project-card.active img.category-img {width: 100%;margin-left: auto;}

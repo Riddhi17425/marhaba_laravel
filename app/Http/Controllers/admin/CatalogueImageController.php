@@ -23,6 +23,7 @@ class CatalogueImageController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
+            'name' => 'required|max:200',
             'image'   => 'required|array',          // ensure it's an array
             'image.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048', // each file
         ], [
@@ -43,6 +44,7 @@ class CatalogueImageController extends Controller
                 $image->move(public_path('catalogue_images'), $imageName);
                 CatalogueImage::create([
                     'image'     => $imageName,
+                    'name'      => $request->name ?? null,
                 ]);
             }
         }
@@ -60,6 +62,7 @@ class CatalogueImageController extends Controller
     public function update(Request $request, string $id)
     { 
         $validator = Validator::make($request->all(), [
+            'name' => 'required|max:200',
             'image'       => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ], [
             'image.image'          => 'The uploaded file must be an image.',
@@ -75,9 +78,10 @@ class CatalogueImageController extends Controller
             $imageName = $image->getClientOriginalName();
             $image->move(public_path('catalogue_images'), $imageName);
             $catImg->image = $imageName;
-            $catImg->save();
         }
-
+        $catImg->name = $request->name ?? null;
+        $catImg->save();
+            
         return redirect()->route('catalogue-image.index')->with('success', 'Catalogue Image updated successfully!');
     }
 

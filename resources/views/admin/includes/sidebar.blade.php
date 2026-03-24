@@ -109,6 +109,13 @@
                 </a>
             </li>
             <li>
+                <a class="m-link{{ Request::routeIs('collection-random-image.*') ? ' active' : '' }}"
+                   href="{{ route('collection-random-image.index') }}">
+                   <i class="icofont-image fs-5"></i>
+                   <span>Boys/Girls Collection Random Images</span>
+                </a>
+            </li>
+            <li>
                 <a class="m-link{{ Request::routeIs('trusted-by.*') ? ' active' : '' }}"
                    href="{{ route('trusted-by.index') }}">
                    <i class="icofont-image fs-5"></i>
