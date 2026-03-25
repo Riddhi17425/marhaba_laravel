@@ -67,15 +67,19 @@ class dashboardController extends Controller
         // SORTED AGE GROUP
         foreach ($groupedSizes as $group => $sizesArr) {
             usort($sizesArr, function ($a, $b) {
-                $getStartAgeInMonths = function ($size) {
-                    preg_match('/(\d+)(m|Y)-(\d+)(m|Y)/', $size, $matches);
-                    if (!$matches) return 0;
-                    $start = (int) $matches[1];
-                    $unit  = strtolower($matches[2]);
-                    // Convert to months
-                    return $unit === 'y' ? $start * 12 : $start;
+                $toMinMax = function ($size) {
+                    if (!preg_match('/^(\d+)(m|Y)?\s*-\s*(\d+)(m|Y)?$/i', trim($size), $matches)) {
+                        return [0, 0];
+                    }
+                    $minUnit = !empty($matches[2]) ? strtolower($matches[2]) : 'y';
+                    $maxUnit = !empty($matches[4]) ? strtolower($matches[4]) : 'y';
+                    $min = $minUnit === 'y' ? (int)$matches[1] * 12 : (int)$matches[1];
+                    $max = $maxUnit === 'y' ? (int)$matches[3] * 12 : (int)$matches[3];
+                    return [$min, $max];
                 };
-                return $getStartAgeInMonths($a) <=> $getStartAgeInMonths($b);
+                [$minA, $maxA] = $toMinMax($a);
+                [$minB, $maxB] = $toMinMax($b);
+                return $minA !== $minB ? $minA <=> $minB : $maxA <=> $maxB;
             });
             $groupedSizes[$group] = $sizesArr;
         }
@@ -95,7 +99,6 @@ class dashboardController extends Controller
             $productsByAge[$group] = $query->distinct()->get();
         }
         
-
         // FOR ENQUIRY POPUP
         $filterProducts = [];
         $clothsizes = Clothsize::all()->keyBy('id');
