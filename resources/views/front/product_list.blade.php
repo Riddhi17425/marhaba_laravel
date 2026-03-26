@@ -550,7 +550,7 @@ $subcatVal = preg_replace('/[\#].*$/', '', $subcatVal);
                     <h2 class="accordion-header" id="headingAge">
                         <button class="accordion-button ps-0" type="button" data-bs-toggle="collapse"
                             data-bs-target="#collapseAge" aria-expanded="true" aria-controls="collapseAge">
-                            <svg class=" " xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 16 16"
+                            <svg  class="svg_filt_dot" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 16 16"
                                 fill="none" aria-hidden="true">
                                 <circle cx="8" cy="8" r="4" fill="#452667"></circle>
                             </svg><span> Age Range</span>
@@ -581,7 +581,7 @@ $subcatVal = preg_replace('/[\#].*$/', '', $subcatVal);
                         <button class="accordion-button collapsed ps-0" type="button" data-bs-toggle="collapse"
                             data-bs-target="#collapseBrand" aria-expanded="false" aria-controls="collapseBrand">
                            
-                             <svg class=" " xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 16 16"
+                             <svg class="svg_filt_dot" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 16 16"
                                 fill="none" aria-hidden="true">
                                 <circle cx="8" cy="8" r="4" fill="#452667"></circle>
                             </svg><span> Brand</span>
@@ -611,7 +611,7 @@ $subcatVal = preg_replace('/[\#].*$/', '', $subcatVal);
                         <button class="accordion-button collapsed ps-0" type="button" data-bs-toggle="collapse"
                             data-bs-target="#collapseCategory" aria-expanded="false" aria-controls="collapseCategory">
                            
-                             <svg class=" " xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 16 16"
+                             <svg  class="svg_filt_dot" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 16 16"
                                 fill="none" aria-hidden="true">
                                 <circle cx="8" cy="8" r="4" fill="#452667"></circle>
                             </svg><span> Category</span>
@@ -647,37 +647,17 @@ $subcatVal = preg_replace('/[\#].*$/', '', $subcatVal);
 </div>
 
 <script>
-document.addEventListener("DOMContentLoaded", function() {
+function updateAccordionActiveState() {
+    document.querySelectorAll(".accordion-item").forEach(item => {
+        const checked = item.querySelector("input[type='checkbox']:checked");
 
-    function updateAccordionIcons() {
-        document.querySelectorAll('.accordion-item').forEach(function(item) {
-
-            let checkboxes = item.querySelectorAll('input[type="checkbox"]');
-            let isChecked = false;
-
-            checkboxes.forEach(function(checkbox) {
-                if (checkbox.checked) {
-                    isChecked = true;
-                }
-            });
-
-            if (isChecked) {
-                item.classList.add('active');
-            } else {
-                item.classList.remove('active');
-            }
-        });
-    }
-
-    // run on load
-    updateAccordionIcons();
-
-    // run on checkbox change
-    document.querySelectorAll('.accordion-item input[type="checkbox"]').forEach(function(checkbox) {
-        checkbox.addEventListener('change', updateAccordionIcons);
+        if (checked) {
+            item.classList.add("active");
+        } else {
+            item.classList.remove("active");
+        }
     });
-
-});
+}
 </script>
 
 <script>
@@ -767,6 +747,7 @@ function initEventListeners() {
         checkbox.addEventListener('change', function() {
             updateApplyButtonText();
             applyFilters(); // ✅ ADD THIS LINE
+              updateAccordionActiveState();
         });
     });
 }
@@ -1024,6 +1005,10 @@ function clearAllFilters() {
     showAllSections();
 
     totalItemsElement.textContent = totalProducts + ' Items';
+
+
+    // ✅ ADD THIS
+    updateAccordionActiveState();
 }
 
 // Show All Sections
