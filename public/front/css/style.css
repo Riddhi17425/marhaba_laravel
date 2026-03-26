@@ -1038,52 +1038,6 @@
   flex: 0 0 auto; 
 } */
 
-      .WhatsAppButton {
-        position: relative;
-        /* transform: translate(120px, 0); */
-        /* width: 170px; */
-        background-color: #25d366;
-        color: #fff;
-        border-radius: 10px 0 0 10px;
-        transition: all .5s ease-in-out;
-        vertical-align: middle;
-        cursor: pointer;
-      }
-
-      .float-buttons {
-        position: fixed;
-        top: 60%;
-        right: 0;
-        z-index: 2;
-      }
-
-      .WhatsAppButton i {
-        font-size: 30px;
-        color: #fff;
-        line-height: 30px;
-        margin-left: 4px;
-        padding: 10px;
-        transform: rotate(0);
-        transition: all .5s ease-in-out;
-        text-align: center !important;
-      }
-
-      .WhatsAppButton a span {
-        color: #fff;
-        font-size: 15px;
-        padding-top: 8px;
-        padding-bottom: 10px;
-        position: absolute;
-        line-height: 16px;
-        font-weight: bolder;
-      }
-
-      /* .WhatsAppButton:hover {
-        color: #fff;
-        background-color: var(--wb-purple);
-        transform: translate(0, 0);
-      } */
-
       .offcanvas .btn:first-child:active {
 
         border-color: transparent;

@@ -965,6 +965,8 @@
     // });
     
     // NEW CODE
+
+    
     document.addEventListener('DOMContentLoaded', function () {
         const modalEl = document.getElementById('globalPresenceModal');
         const modalContent = document.getElementById('globalPresenceModalContent');
