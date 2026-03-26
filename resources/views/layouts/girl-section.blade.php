@@ -42,18 +42,17 @@
                     </div>
                 </div>
             </div>
-            <div class="col_small">
+            <a href="{{ route('get.products', ['type' => 'girl']) }}" target="_blank" class="col_small">
                 <div>
                     <h2 class="title_60lora" style=" white-space: nowrap; ">Girls Collection </h2>
-                    <a href="{{ route('get.products', ['type' => 'girl']) }}" class="btn_1 mx-auto" target="_blank">All
+                    <span  class="btn_1 mx-auto" >All
                         Girls Products<img loading="lazy" src="{{ asset('public/front/img/Home/blue-arr.svg') }}" alt=""
-                            height="10" width="10"></a>
+                            height="10" width="10"></span>
                 </div>
                 <div class="hero_img_wrapper">
                     <img loading="lazy" src="{{ asset('public/front/img/Home/all-girl.png') }}" alt="all-girl">
                 </div>
-            </div>
-            
+            </a>
         </div>
     </div>
 </section>

@@ -271,7 +271,7 @@
 @include('layouts.boy-section')
 @include('layouts.girl-section')
 <!-- -------------girl slider--------------- -->
-<section class="home_mt-100 d-none">
+<section class="home_mt-100 d-none ">
     <div class="ym-container">
         <div class="container_main_girl">
             <div class="col_big">

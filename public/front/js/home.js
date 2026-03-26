@@ -353,23 +353,38 @@ document.querySelectorAll('.stat_counter').forEach(animateCounter);
 
     // YM Slider (Slick) the product slider
     if (typeof $ !== 'undefined' && $('.ym_slider').length) {
-        $('.ym_slider').slick({
+        var $ymSlider = $('.ym_slider');
+
+        function ymSliderUpdateDotWidth($slider) {
+            var $dots = $slider.find('.slick-dots li');
+            var count = $dots.length;
+            if (count > 0) {
+                var width = (100 / count) + '%';
+                $dots.css({ width: width });
+            }
+        }
+
+        $ymSlider.on('init reInit afterChange', function (event, slick, currentSlide) {
+            ymSliderUpdateDotWidth($(this));
+        });
+
+        $ymSlider.slick({
             arrows: true,
             dots: true,
             infinite: true,
             speed: 400,
-            autoplay:false,
+            autoplay: false,
             autoplaySpeed: 2000,
             pauseOnHover: false,
             responsive: [
-                            {
-                                breakpoint: 576,
-                                settings: {                                    
-                                    arrows: false,
-                                    dots:true,
-                                }
-                            }
-                        ]
+                {
+                    breakpoint: 576,
+                    settings: {
+                        arrows: false,
+                        dots: true,
+                    }
+                }
+            ]
         });
     }
 

@@ -59,20 +59,20 @@ $subcatVal = preg_replace('/[\#].*$/', '', $subcatVal);
         <section id="ageRangeLinks" class="age_range_section">
             <div class="age_range_box" style="background-color: rgb(243, 242, 231);">
                 <div class="age-card" data-scroll-to="baby">
-                    <h3 class="lora_24" stlye="background: linear-gradient(90deg, rgba(243, 242, 231, 0) 0%, #F3F2E7 50%, rgba(243, 242, 231, 0) 100%);"> Baby ({{$data['baby'] ?? 0}})</h3>
-                    <p class="raleway_14 mb-0">Age Range: 0 Months to 3 Years</p>
+                    <!-- <h3 class="lora_24" stlye="background: linear-gradient(90deg, rgba(243, 242, 231, 0) 0%, #F3F2E7 50%, rgba(243, 242, 231, 0) 100%);"> Baby ({{$data['baby'] ?? 0}})</h3> -->
+                    <p class="raleway_14 mb-0"><b class="me-1">Baby ({{$data['baby'] ?? 0}}) :</b>Age Range: 0 Months to 3 Years</p>
                 </div>
             </div>
             <div class="age_range_box" style="background-color: rgb(239, 230, 240);">
                 <div class="age-card" data-scroll-to="toddler">
-                    <h3 class="lora_24">Toddler & Little Kids ({{$data['kids'] ?? 0}})</h3>
-                    <p class="raleway_14 mb-0">Age Range: 2 Years to 6 Years</p>
+                    <!-- <h3 class="lora_24">Toddler & Little Kids ({{$data['kids'] ?? 0}})</h3> -->
+                    <p class="raleway_14 mb-0"> <b class="me-1">Toddler & Little Kids ({{$data['kids'] ?? 0}}) :</b> Age Range: 2 Years to 6 Years</p>
                 </div>
             </div>
             <div class="age_range_box" style="background-color: rgb(230, 239, 242);">
                 <div class="age-card" data-scroll-to="kids">
-                    <h3 class="lora_24">Kids & Youth ({{$data['junior'] ?? 0}})</h3>
-                    <p class="raleway_14 mb-0">Age Range: 6 Years to 14 Years</p>
+                    <!-- <h3 class="lora_24">Kids & Youth ({{$data['junior'] ?? 0}})</h3> -->
+                    <p class="raleway_14 mb-0"> <b class="me-1">Kids & Youth ({{$data['junior'] ?? 0}}) :</b> Age Range: 6 Years to 14 Years</p>
                 </div>
             </div>
         </section>
@@ -146,8 +146,8 @@ $subcatVal = preg_replace('/[\#].*$/', '', $subcatVal);
                                     </div>
                                     <div>
                                         <a href="{{ url('products-details/' . $vv['url'].'/'. $sizeId .'/' . $vv['id']) }}" target="_blank" class="prod_list_title">
-                                            <h4 class="mb-0" style="font-weight:500;">@if(strtolower($vv->brand->name) != 'marhaba'){{$vv->brand->name ?? ''}}@endif {{$vv->name ?? ''}}</h4>
-                                            <p class="mb-0">{{$vk ?? ''}}</p>
+                                            <h4 style="font-weight:500;">@if(strtolower($vv->brand->name) != 'marhaba'){{$vv->brand->name ?? ''}}@endif {{$vv->name ?? ''}}</h4>
+                                            <p class="mb-0">{{$vk ?? ''}} <span class="mx-1">|</span>  home</p>
                                         </a>                                
                                     </div>
                                 </div>
@@ -209,8 +209,8 @@ $subcatVal = preg_replace('/[\#].*$/', '', $subcatVal);
                                     </div>
                                     <div>
                                         <a href="{{ url('products-details/' . $vv['url'].'/'. $sizeId .'/' . $vv['id']) }}" target="_blank" class="prod_list_title">
-                                            <h4 class="mb-0" style="font-weight:500;">{{$vv->name ?? ''}}</h4>
-                                            <p class="mb-0">{{$vk ?? ''}}</p>
+                                            <h4 style="font-weight:500;">{{$vv->name ?? ''}}</h4>
+                                            <p class="mb-0">{{$vk ?? ''}} <span class="mx-1">|</span></p>
                                         </a>                                
                                     </div>
                                 </div>
@@ -281,8 +281,8 @@ $subcatVal = preg_replace('/[\#].*$/', '', $subcatVal);
                                     </div>
                                     <div>
                                         <a href="{{ url('products-details/' . $vv['url'].'/'. $sizeId . '/' . $vv['id']) }}" target="_blank" class="prod_list_title">
-                                            <h4 class="mb-0" style="font-weight:500;">{{$vv->name ?? ''}}</h4>
-                                            <p class="mb-0">{{$vk ?? ''}}</p>
+                                            <h4 style="font-weight:500;">{{$vv->name ?? ''}}</h4>
+                                            <p class="mb-0">{{$vk ?? ''}} <span class="mx-1">|</span>  home</p>
                                         </a>                                
                                     </div>
                                 </div>
@@ -346,8 +346,8 @@ $subcatVal = preg_replace('/[\#].*$/', '', $subcatVal);
                                     </div>
                                     <div>
                                         <a href="{{ url('products-details/' . $vv['url'].'/'. $sizeId . '/' . $vv['id']) }}" target="_blank" class="prod_list_title">
-                                            <h4 class="mb-0" style="font-weight:500;">{{$vv->name ?? ''}}</h4>
-                                            <p class="mb-0">{{$vk ?? ''}}</p>
+                                            <h4 style="font-weight:500;">{{$vv->name ?? ''}}</h4>
+                                            <p class="mb-0">{{$vk ?? ''}} <span class="mx-1">|</span>  home</p>
                                         </a>                                
                                     </div>
                                 </div>
@@ -414,8 +414,8 @@ $subcatVal = preg_replace('/[\#].*$/', '', $subcatVal);
                                     </div>
                                     <div>
                                         <a href="{{ url('products-details/' . $vv['url'].'/'.$sizeId .'/'. $vv['id']) }}" target="_blank" class="prod_list_title">
-                                            <h4 class="mb-0" style="font-weight:500;">{{$vv->name ?? ''}}</h4>
-                                            <p class="mb-0">{{$vk ?? ''}}</p>
+                                            <h4 style="font-weight:500;">{{$vv->name ?? ''}}</h4>
+                                            <p class="mb-0">{{$vk ?? ''}} <span class="mx-1">|</span>  home</p>
                                         </a>                                
                                     </div>
                                 </div>
@@ -477,8 +477,8 @@ $subcatVal = preg_replace('/[\#].*$/', '', $subcatVal);
                                 </div>
                                 <div>
                                     <a href="{{ url('products-details/' . $vv['url'].'/'.$sizeId .'/'. $vv['id']) }}" target="_blank" class="prod_list_title">
-                                        <h4 class="mb-0" style="font-weight:500;">{{$vv->name ?? ''}}</h4>
-                                        <p class="mb-0">{{$vk ?? ''}}</p>
+                                        <h4 style="font-weight:500;">{{$vv->name ?? ''}}</h4>
+                                        <p class="mb-0">{{$vk ?? ''}} <span class="mx-1">|</span>  home</p>
                                     </a>                                
                                 </div>
                             </div>
@@ -511,7 +511,7 @@ $subcatVal = preg_replace('/[\#].*$/', '', $subcatVal);
                     <h2 class="accordion-header" id="headingAge">
                         <button class="accordion-button ps-0" type="button" data-bs-toggle="collapse"
                             data-bs-target="#collapseAge" aria-expanded="true" aria-controls="collapseAge">
-                            Age Range
+                           <svg class=" " xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="4" fill="#111"></circle></svg> Age Range
                         </button>
                     </h2>
                     <div id="collapseAge" class="accordion-collapse collapse show" aria-labelledby="headingAge" data-bs-parent="#accordionExample">

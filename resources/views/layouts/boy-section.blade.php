@@ -1,17 +1,17 @@
 <section class="home_mt-100" id="collection">
     <div class="ym-container">
         <div class="container_main_boy">
-            <div class="col_small">
+            <a href="{{ route('get.products', ['type' => 'boy']) }}" class="col_small" target="_blank" >
                 <div>
                     <h2 class="title_60lora" style=" white-space: nowrap; ">Boys Collection </h2>
-                    <a href="{{ route('get.products', ['type' => 'boy']) }}" class="btn_1 mx-auto" target="_blank">All
-                        Boys Products<img loading="lazy" src="{{ asset('public/front/img/Home/blue-arr.svg') }}" alt=""
-                            height="10" width="10"></a>
+                    <span class="btn_1 mx-auto" >All
+                        Boys Products<img loading="lazy" src="{{ asset('public/front/img/Home/blue-arr.svg') }}"  alt=""
+                            height="10" width="10"></span>
                 </div>
                 <div class="hero_img_wrapper">
                     <img loading="lazy" src="{{ asset('public/front/img/Home/all-boy.png') }}" alt="Boy jumping">
                 </div>
-            </div>
+            </a>
 
             <div class="col_big">
                 <div class="brand-grid" id="brand-grid">

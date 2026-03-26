@@ -17,6 +17,13 @@
           /*.nav_logo { width: 60px;}*/
         .cloth_drower_height {height: 184px;}
     .container-fluid {max-width: 1460px;}
+
+    .offcanvas.offcanvas-end {
+            width: 500px !important;
+        padding: 40px;
+    }
+
+
      }
      @media screen and (max-width:1441px){
          .right_breadcrumb p {font-size: 12px;}
@@ -57,6 +64,50 @@
         .serve_grid, .serve_grid_2{grid-template-columns: 1fr 1fr;}
         .serve_grid .title_24-raleway {margin: 15px 0 10px;}
         .ft_list li{font-size:14px;}
+
+        .filter_banner {
+        line-height: 20px;
+        font-size: 14px;
+            padding: 10px 0;
+        margin-bottom: 30px;
+    }
+
+        .product_head
+        {
+            margin-bottom: 20px;
+        }
+
+        .lora_24
+        {
+            font-size: 18px;
+                line-height: 26px;
+
+        }
+
+            .age_range_box {
+                padding: 15px 15px;
+            }
+
+            .age_section .title_48lora {
+                padding: 12px;
+                font-size: 38px;
+            }
+
+                .offcanvas.offcanvas-end {
+                width: 360px !important;
+                padding: 25px;
+            }
+
+            .raleway_24 {
+            font-size: 18px;
+            line-height: 18px;
+            font-weight: 600;
+        }
+
+        .form-check-label {
+    font-size: 14px;
+}
+
      } 
          @media screen and (max-width:1280px){
                  .right_breadcrumb { width: 355px;}

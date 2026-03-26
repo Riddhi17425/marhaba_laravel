@@ -1466,8 +1466,8 @@
       }
 
       .menu_body .accordion-item:before {
-        background: #D7C7E9;
-        bottom: 0;
+        background: #D7C7E9 !important;
+        bottom: 0px;
         content: "";
         height: 1px;
         position: absolute;
@@ -1477,8 +1477,8 @@
 
       .menu_body .accordion-item:after {
         transition: width .8s cubic-bezier(.5, 0, 0, 1) 0s;
-        background: var(--wb-purple);
-        bottom: 0;
+        background: var(--wb-purple) !important;
+        bottom: 0px;
         content: "";
         height: 1px;
         left: 50%;
@@ -1495,7 +1495,7 @@
       .menu_body .accordion-item {
         border: unset;
         position: relative;
-        padding-bottom: 12px;
+        /* padding-bottom: 12px; */
       }
 
       .accordion-button:not(.collapsed) {
@@ -1625,8 +1625,8 @@
       }
 
       .offcanvas.offcanvas-end {
-        width: 600px !important;
-        padding: 80px;
+        width: 550px !important;
+        padding: 60px;
       }
 
       .section_gradientbg_product {
