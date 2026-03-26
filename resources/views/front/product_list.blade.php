@@ -147,7 +147,7 @@ $subcatVal = preg_replace('/[\#].*$/', '', $subcatVal);
                                     <div>
                                         <a href="{{ url('products-details/' . $vv['url'].'/'. $sizeId .'/' . $vv['id']) }}" target="_blank" class="prod_list_title">
                                             <h4 style="font-weight:500;">@if(strtolower($vv->brand->name) != 'marhaba'){{$vv->brand->name ?? ''}}@endif {{$vv->name ?? ''}}</h4>
-                                            <p class="mb-0">{{$vk ?? ''}} <span class="mx-1">|</span>  home</p>
+                                            <p class="mb-0">{{$vk ?? ''}} <span class="mx-1">|</span>  {{$vv->category->name ?? ''}}</p>
                                         </a>                                
                                     </div>
                                 </div>
@@ -210,7 +210,7 @@ $subcatVal = preg_replace('/[\#].*$/', '', $subcatVal);
                                     <div>
                                         <a href="{{ url('products-details/' . $vv['url'].'/'. $sizeId .'/' . $vv['id']) }}" target="_blank" class="prod_list_title">
                                             <h4 style="font-weight:500;">{{$vv->name ?? ''}}</h4>
-                                            <p class="mb-0">{{$vk ?? ''}} <span class="mx-1">|</span></p>
+                                            <p class="mb-0">{{$vk ?? ''}} <span class="mx-1">|</span> {{$vv->category->name ?? ''}}</p>
                                         </a>                                
                                     </div>
                                 </div>
@@ -282,7 +282,7 @@ $subcatVal = preg_replace('/[\#].*$/', '', $subcatVal);
                                     <div>
                                         <a href="{{ url('products-details/' . $vv['url'].'/'. $sizeId . '/' . $vv['id']) }}" target="_blank" class="prod_list_title">
                                             <h4 style="font-weight:500;">{{$vv->name ?? ''}}</h4>
-                                            <p class="mb-0">{{$vk ?? ''}} <span class="mx-1">|</span>  home</p>
+                                            <p class="mb-0">{{$vk ?? ''}} <span class="mx-1">|</span>  {{$vv->category->name ?? ''}}</p>
                                         </a>                                
                                     </div>
                                 </div>
@@ -347,7 +347,7 @@ $subcatVal = preg_replace('/[\#].*$/', '', $subcatVal);
                                     <div>
                                         <a href="{{ url('products-details/' . $vv['url'].'/'. $sizeId . '/' . $vv['id']) }}" target="_blank" class="prod_list_title">
                                             <h4 style="font-weight:500;">{{$vv->name ?? ''}}</h4>
-                                            <p class="mb-0">{{$vk ?? ''}} <span class="mx-1">|</span>  home</p>
+                                            <p class="mb-0">{{$vk ?? ''}} <span class="mx-1">|</span>  {{$vv->category->name ?? ''}}</p>
                                         </a>                                
                                     </div>
                                 </div>
@@ -415,7 +415,7 @@ $subcatVal = preg_replace('/[\#].*$/', '', $subcatVal);
                                     <div>
                                         <a href="{{ url('products-details/' . $vv['url'].'/'.$sizeId .'/'. $vv['id']) }}" target="_blank" class="prod_list_title">
                                             <h4 style="font-weight:500;">{{$vv->name ?? ''}}</h4>
-                                            <p class="mb-0">{{$vk ?? ''}} <span class="mx-1">|</span>  home</p>
+                                            <p class="mb-0">{{$vk ?? ''}} <span class="mx-1">|</span>  {{$vv->category->name ?? ''}}</p>
                                         </a>                                
                                     </div>
                                 </div>
@@ -478,7 +478,7 @@ $subcatVal = preg_replace('/[\#].*$/', '', $subcatVal);
                                 <div>
                                     <a href="{{ url('products-details/' . $vv['url'].'/'.$sizeId .'/'. $vv['id']) }}" target="_blank" class="prod_list_title">
                                         <h4 style="font-weight:500;">{{$vv->name ?? ''}}</h4>
-                                        <p class="mb-0">{{$vk ?? ''}} <span class="mx-1">|</span>  home</p>
+                                        <p class="mb-0">{{$vk ?? ''}} <span class="mx-1">|</span> {{$vv->category->name ?? ''}}</p>
                                     </a>                                
                                 </div>
                             </div>
