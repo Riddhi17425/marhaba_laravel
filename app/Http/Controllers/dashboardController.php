@@ -372,10 +372,10 @@ class dashboardController extends Controller
                 }
 
                 // Check if size fits into any age section
+                $sectionMatched = false;
                 foreach ($ageSections as $sectionKey => $section) {
-                    // If any overlap between size range and section range
+                    // Strict containment: size must be fully within section
                     if ($range['min'] >= $section['min'] && $range['max'] <= $section['max']) {
-                    //if ($section['min'] >= $range['min'] && $range['max'] <= $section['max']) {
                         if(strtolower($sectionKey) == 'baby'){
                             $data['baby'] += 1;
                         }elseif(strtolower($sectionKey) == 'kids'){
@@ -383,14 +383,32 @@ class dashboardController extends Controller
                         }elseif(strtolower($sectionKey) == 'junior'){
                             $data['junior'] += 1;
                         }
-                        // Assign product to this age section if not already assigned
-                        //if (!in_array($product, $groupedProducts[$sectionKey]['products'], true)) {
-                            $totalProducts += 1; 
+                        $totalProducts += 1; 
+                        $groupedProducts[$sectionKey]['products'][][$sizeName] = $product;
+                        $filterProducts['products'][][$sizeName] = $product;
+                        $sectionMatched = true;
+                        break;
+                    }
+                }
+
+                // Fallback for wide-spanning sizes (e.g. 1-10Y, 4-14Y):
+                // assign to the section whose range contains the midpoint of the size range
+                if (!$sectionMatched) {
+                    $midpoint = ($range['min'] + $range['max']) / 2;
+                    foreach ($ageSections as $sectionKey => $section) {
+                        if ($midpoint >= $section['min'] && $midpoint <= $section['max']) {
+                            if(strtolower($sectionKey) == 'baby'){
+                                $data['baby'] += 1;
+                            }elseif(strtolower($sectionKey) == 'kids'){
+                                $data['kids'] += 1;
+                            }elseif(strtolower($sectionKey) == 'junior'){
+                                $data['junior'] += 1;
+                            }
+                            $totalProducts += 1;
                             $groupedProducts[$sectionKey]['products'][][$sizeName] = $product;
                             $filterProducts['products'][][$sizeName] = $product;
-                        //}
-                        // Optional: break if you want product only in one section
-                        break;
+                            break;
+                        }
                     }
                 }
             }
