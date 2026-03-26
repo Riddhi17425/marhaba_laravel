@@ -520,8 +520,33 @@ class dashboardController extends Controller
             ->whereIn('id', $availableBrandIds)
             ->whereNull('deleted_at')
             ->get()
-            ->map(function ($brand) use ($brandsBase) {
-                $brand->count = $brandsBase->where('brand_id', $brand->id)->count();
+            ->map(function ($brand) use ($brandsBase, $clothsizes, $ageSections) {
+                $count = 0;
+                foreach ($brandsBase->where('brand_id', $brand->id) as $product) {
+                    $brandSizes = json_decode($product->product_brand_size, true);
+                    if (!is_array($brandSizes)) continue;
+                    foreach (collect($brandSizes)->groupBy('size_id') as $sizeId => $bs) {
+                        $sizeId = (int)$sizeId;
+                        if (!$sizeId || !isset($clothsizes[$sizeId])) continue;
+                        $range = $this->sizeToMonths(trim($clothsizes[$sizeId]->name));
+                        if (!$range) continue;
+                        $matched = false;
+                        foreach ($ageSections as $section) {
+                            if ($range['min'] >= $section['min'] && $range['max'] <= $section['max']) {
+                                $count++; $matched = true; break;
+                            }
+                        }
+                        if (!$matched) {
+                            $mid = ($range['min'] + $range['max']) / 2;
+                            foreach ($ageSections as $section) {
+                                if ($mid >= $section['min'] && $mid <= $section['max']) {
+                                    $count++; break;
+                                }
+                            }
+                        }
+                    }
+                }
+                $brand->count = $count;
                 return $brand;
             })
             ->values();
@@ -540,8 +565,33 @@ class dashboardController extends Controller
             ->whereIn('id', $availableCatIds)
             ->whereNull('deleted_at')
             ->get()
-            ->map(function ($cat) use ($catsBase) {
-                $cat->count = $catsBase->where('category_id', $cat->id)->count();
+            ->map(function ($cat) use ($catsBase, $clothsizes, $ageSections) {
+                $count = 0;
+                foreach ($catsBase->where('category_id', $cat->id) as $product) {
+                    $brandSizes = json_decode($product->product_brand_size, true);
+                    if (!is_array($brandSizes)) continue;
+                    foreach (collect($brandSizes)->groupBy('size_id') as $sizeId => $bs) {
+                        $sizeId = (int)$sizeId;
+                        if (!$sizeId || !isset($clothsizes[$sizeId])) continue;
+                        $range = $this->sizeToMonths(trim($clothsizes[$sizeId]->name));
+                        if (!$range) continue;
+                        $matched = false;
+                        foreach ($ageSections as $section) {
+                            if ($range['min'] >= $section['min'] && $range['max'] <= $section['max']) {
+                                $count++; $matched = true; break;
+                            }
+                        }
+                        if (!$matched) {
+                            $mid = ($range['min'] + $range['max']) / 2;
+                            foreach ($ageSections as $section) {
+                                if ($mid >= $section['min'] && $mid <= $section['max']) {
+                                    $count++; break;
+                                }
+                            }
+                        }
+                    }
+                }
+                $cat->count = $count;
                 return $cat;
             })
             ->values();
