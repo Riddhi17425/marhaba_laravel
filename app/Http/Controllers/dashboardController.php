@@ -67,15 +67,19 @@ class dashboardController extends Controller
         // SORTED AGE GROUP
         foreach ($groupedSizes as $group => $sizesArr) {
             usort($sizesArr, function ($a, $b) {
-                $getStartAgeInMonths = function ($size) {
-                    preg_match('/(\d+)(m|Y)-(\d+)(m|Y)/', $size, $matches);
-                    if (!$matches) return 0;
-                    $start = (int) $matches[1];
-                    $unit  = strtolower($matches[2]);
-                    // Convert to months
-                    return $unit === 'y' ? $start * 12 : $start;
+                $toMinMax = function ($size) {
+                    if (!preg_match('/^(\d+)(m|Y)?\s*-\s*(\d+)(m|Y)?$/i', trim($size), $matches)) {
+                        return [0, 0];
+                    }
+                    $minUnit = !empty($matches[2]) ? strtolower($matches[2]) : 'y';
+                    $maxUnit = !empty($matches[4]) ? strtolower($matches[4]) : 'y';
+                    $min = $minUnit === 'y' ? (int)$matches[1] * 12 : (int)$matches[1];
+                    $max = $maxUnit === 'y' ? (int)$matches[3] * 12 : (int)$matches[3];
+                    return [$min, $max];
                 };
-                return $getStartAgeInMonths($a) <=> $getStartAgeInMonths($b);
+                [$minA, $maxA] = $toMinMax($a);
+                [$minB, $maxB] = $toMinMax($b);
+                return $minA !== $minB ? $minA <=> $minB : $maxA <=> $maxB;
             });
             $groupedSizes[$group] = $sizesArr;
         }
@@ -95,7 +99,6 @@ class dashboardController extends Controller
             $productsByAge[$group] = $query->distinct()->get();
         }
         
-
         // FOR ENQUIRY POPUP
         $filterProducts = [];
         $clothsizes = Clothsize::all()->keyBy('id');
@@ -390,21 +393,6 @@ class dashboardController extends Controller
                         break;
                     }
                 }
-                // foreach ($ageSections as $sectionKey => $section) {
-                //     if ($range['max'] >= $section['min'] && $range['min'] <= $section['max']) {
-                //         if (strtolower($sectionKey) == 'baby') {
-                //             $data['baby'] += 1;
-                //         } elseif (strtolower($sectionKey) == 'kids') {
-                //             $data['kids'] += 1;
-                //         } elseif (strtolower($sectionKey) == 'junior') {
-                //             $data['junior'] += 1;
-                //         }
-                //         $totalProducts += 1;
-                //         $groupedProducts[$sectionKey]['products'][][$sizeName] = $product;
-                //         $filterProducts['products'][][$sizeName] = $product;
-                //         break; // remove this if you want product in multiple sections
-                //     }
-                // }
             }
         }
         
@@ -419,14 +407,18 @@ class dashboardController extends Controller
                 $sizeB = array_key_first($itemB);
                 $rangeA = $this->sizeToMonths($sizeA);
                 $rangeB = $this->sizeToMonths($sizeB);
-                return ($rangeA['min'] ?? 0) <=> ($rangeB['min'] ?? 0);
+                $minA = $rangeA['min'] ?? 0;
+                $minB = $rangeB['min'] ?? 0;
+                if ($minA !== $minB) {
+                    return $minA <=> $minB;
+                }
+                return ($rangeA['max'] ?? 0) <=> ($rangeB['max'] ?? 0);
             });
         }
         unset($sectionData);
         $ageSection = config('global_values.age_section');
 
         if($request->ajax()){
-            
             //Sorted by age range
             if (!empty($filterProducts['products'])) {
                 usort($filterProducts['products'], function ($itemA, $itemB) {
@@ -434,8 +426,12 @@ class dashboardController extends Controller
                     $sizeB = array_key_first($itemB);
                     $rangeA = $this->sizeToMonths($sizeA);
                     $rangeB = $this->sizeToMonths($sizeB);
-
-                    return ($rangeA['min'] ?? 0) <=> ($rangeB['min'] ?? 0);
+                    $minA = $rangeA['min'] ?? 0;
+                    $minB = $rangeB['min'] ?? 0;
+                    if ($minA !== $minB) {
+                        return $minA <=> $minB;
+                    }
+                    return ($rangeA['max'] ?? 0) <=> ($rangeB['max'] ?? 0);
                 });
             }
 
@@ -445,7 +441,7 @@ class dashboardController extends Controller
                 'html' => view('front.product_list_ajax', compact('filterProducts'))->render()
             ]);
         }
-        
+       // echo "<pre>"; print_r($groupedProducts); die;
         return view('front.product_list', compact('groupedProducts', 'totalProducts', 'type', 'data', 'brands', 'categories', 'ageSection'));
     }
 
