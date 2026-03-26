@@ -2036,6 +2036,34 @@
         color: #452667;
       }
 
-     
+
+      .menu_body .accordion-button svg {
+    display: none; /* default hidden */
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+}
+
+/* jab checkbox select ho */
+.menu_body .accordion-item.active .accordion-button svg {
+    display: block;
+}
+
+.menu_body .accordion-button {
+    transition: all 0.3s ease;
+}
+
+/* text ko target karne ke liye */
+.menu_body .accordion-button span {
+    display: inline-block;
+    transition: all 0.3s ease;
+}
+
+/* jab active ho */
+.menu_body .accordion-item.active .accordion-button span {
+    transform: translateX(20px); /* right shift */
+}
+    
 
       /* who we serve page css */

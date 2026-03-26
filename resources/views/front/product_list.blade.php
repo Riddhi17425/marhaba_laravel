@@ -1,14 +1,16 @@
 @include('layouts.frontheader')
 <link rel="stylesheet" href="{{ asset('public/front/css/hero_style.css') }}">
 <link rel="stylesheet" href="{{ asset('public/front/css/hero_responsive.css') }}">
-@php 
+@php
 $segments = request()->segments();
 $categoryId = $segments[1] ?? null; // index may vary
 $subcatVal = $segments[2] ?? '';
 $subcatVal = preg_replace('/[\#].*$/', '', $subcatVal);
 @endphp
 <style>
-    .btn-loading{opacity:0.5;}
+.btn-loading {
+    opacity: 0.5;
+}
 </style>
 <section class="banner_head_section section_gradientbg">
     <div class="filter_banner">
@@ -60,19 +62,22 @@ $subcatVal = preg_replace('/[\#].*$/', '', $subcatVal);
             <div class="age_range_box" style="background-color: rgb(243, 242, 231);">
                 <div class="age-card" data-scroll-to="baby">
                     <!-- <h3 class="lora_24" stlye="background: linear-gradient(90deg, rgba(243, 242, 231, 0) 0%, #F3F2E7 50%, rgba(243, 242, 231, 0) 100%);"> Baby ({{$data['baby'] ?? 0}})</h3> -->
-                    <p class="raleway_14 mb-0"><b class="me-1">Baby ({{$data['baby'] ?? 0}}) :</b>Age Range: 0 Months to 3 Years</p>
+                    <p class="raleway_14 mb-0"><b class="me-1">Baby ({{$data['baby'] ?? 0}}) :</b>Age Range: 0 Months to
+                        3 Years</p>
                 </div>
             </div>
             <div class="age_range_box" style="background-color: rgb(239, 230, 240);">
                 <div class="age-card" data-scroll-to="toddler">
                     <!-- <h3 class="lora_24">Toddler & Little Kids ({{$data['kids'] ?? 0}})</h3> -->
-                    <p class="raleway_14 mb-0"> <b class="me-1">Toddler & Little Kids ({{$data['kids'] ?? 0}}) :</b> Age Range: 2 Years to 6 Years</p>
+                    <p class="raleway_14 mb-0"> <b class="me-1">Toddler & Little Kids ({{$data['kids'] ?? 0}}) :</b> Age
+                        Range: 2 Years to 6 Years</p>
                 </div>
             </div>
             <div class="age_range_box" style="background-color: rgb(230, 239, 242);">
                 <div class="age-card" data-scroll-to="kids">
                     <!-- <h3 class="lora_24">Kids & Youth ({{$data['junior'] ?? 0}})</h3> -->
-                    <p class="raleway_14 mb-0"> <b class="me-1">Kids & Youth ({{$data['junior'] ?? 0}}) :</b> Age Range: 6 Years to 14 Years</p>
+                    <p class="raleway_14 mb-0"> <b class="me-1">Kids & Youth ({{$data['junior'] ?? 0}}) :</b> Age Range:
+                        6 Years to 14 Years</p>
                 </div>
             </div>
         </section>
@@ -84,13 +89,14 @@ $subcatVal = preg_replace('/[\#].*$/', '', $subcatVal);
         </section>
 
         <div id="withFilterProduct" class="d-none">
-           
+
         </div>
     </div>
     <div class="ym-container mob_ym_container">
         <div id="withoutFilterProducts">
             <!-- Baby Section -->
-            @if(isset($groupedProducts['baby']['products']) && is_countable($groupedProducts['baby']['products']) && count($groupedProducts['baby']['products']) > 0)
+            @if(isset($groupedProducts['baby']['products']) && is_countable($groupedProducts['baby']['products']) &&
+            count($groupedProducts['baby']['products']) > 0)
             <section id="baby" class="age_section" data-age="baby">
                 <h2 class="title_48lora mb-0"
                     style="background: linear-gradient(90deg, rgba(243, 242, 231, 0) 0%, #F3F2E7 50%, rgba(243, 242, 231, 0) 100%);">
@@ -99,11 +105,11 @@ $subcatVal = preg_replace('/[\#].*$/', '', $subcatVal);
                     <div class="products_filter_grid">
                         @foreach($groupedProducts['baby']['products'] as $key => $val)
                         @foreach($val as $vk => $vv)
-                        @php 
-                            $productImages = json_decode($vv->product_brand_size); 
-                            $size = \App\Models\Product::getSizeId($vk);
-                            $sizeId = $size->id;
-                            $filteredImages = collect($productImages)->where('size_id', (string)$sizeId)->values();
+                        @php
+                        $productImages = json_decode($vv->product_brand_size);
+                        $size = \App\Models\Product::getSizeId($vk);
+                        $sizeId = $size->id;
+                        $filteredImages = collect($productImages)->where('size_id', (string)$sizeId)->values();
                         @endphp
                         <div>
                             <div class="product_wrapper">
@@ -111,44 +117,50 @@ $subcatVal = preg_replace('/[\#].*$/', '', $subcatVal);
                                     <div class="Product_item">
                                         <div class="ym_card_img">
                                             @if($filteredImages->count() > 0)
-                                                <!-- ✅ COVER IMAGE (FIRST IMAGE ONLY) -->
-                                                <img src="{{ asset('public/product_images/' . $filteredImages[1]->product_image) }}"
-                                                    alt="{{ $vv->name }}" class="ym_cover_slider" loading="lazy">
-                                                <!-- ✅ SLICK SLIDER -->
-                                                <div class="ym_slider">
-                                                    @foreach($filteredImages as $k => $v)
-                                                        @if($k == 1)
-                                                            @continue
-                                                        @endif
-                                                        @if($k == 4)
-                                                            @break
-                                                        @endif
-                                                        <div>
-                                                            <a href="{{ url('products-details/' . $vv['url'].'/'. $sizeId . '/' . $vv['id']) }}" target="_blank">
-                                                                <img loading="lazy" src="{{ asset('public/product_images/' . $v->product_image) }}" alt="{{ $vv->name }}" class="img-fluid product_img w-100">
-                                                            </a>
-                                                        </div>
-                                                    @endforeach
+                                            <!-- ✅ COVER IMAGE (FIRST IMAGE ONLY) -->
+                                            <img src="{{ asset('public/product_images/' . $filteredImages[1]->product_image) }}"
+                                                alt="{{ $vv->name }}" class="ym_cover_slider" loading="lazy">
+                                            <!-- ✅ SLICK SLIDER -->
+                                            <div class="ym_slider">
+                                                @foreach($filteredImages as $k => $v)
+                                                @if($k == 1)
+                                                @continue
+                                                @endif
+                                                @if($k == 4)
+                                                @break
+                                                @endif
+                                                <div>
+                                                    <a href="{{ url('products-details/' . $vv['url'].'/'. $sizeId . '/' . $vv['id']) }}"
+                                                        target="_blank">
+                                                        <img loading="lazy"
+                                                            src="{{ asset('public/product_images/' . $v->product_image) }}"
+                                                            alt="{{ $vv->name }}" class="img-fluid product_img w-100">
+                                                    </a>
                                                 </div>
+                                                @endforeach
+                                            </div>
                                             @else
-                                                <!-- ✅ NO IMAGE CASE -->
-                                                <img src="{{ asset('public/front/img/product-not-found.png') }}" alt="not found"
-                                                    class="ym_cover_slider">
+                                            <!-- ✅ NO IMAGE CASE -->
+                                            <img src="{{ asset('public/front/img/product-not-found.png') }}"
+                                                alt="not found" class="ym_cover_slider">
 
-                                                <div class="ym_slider">
-                                                    <div>
-                                                        <img src="{{ asset('public/front/img/product-not-found.png') }}"
-                                                            class="ym_slide_img">
-                                                    </div>
+                                            <div class="ym_slider">
+                                                <div>
+                                                    <img src="{{ asset('public/front/img/product-not-found.png') }}"
+                                                        class="ym_slide_img">
                                                 </div>
+                                            </div>
                                             @endif
                                         </div>
                                     </div>
                                     <div>
-                                        <a href="{{ url('products-details/' . $vv['url'].'/'. $sizeId .'/' . $vv['id']) }}" target="_blank" class="prod_list_title">
-                                            <h4 style="font-weight:500;">@if(strtolower($vv->brand->name) != 'marhaba'){{$vv->brand->name ?? ''}}@endif {{$vv->name ?? ''}}</h4>
-                                            <p class="mb-0">{{$vk ?? ''}} <span class="mx-1">|</span>  {{$vv->category->name ?? ''}}</p>
-                                        </a>                                
+                                        <a href="{{ url('products-details/' . $vv['url'].'/'. $sizeId .'/' . $vv['id']) }}"
+                                            target="_blank" class="prod_list_title">
+                                            <h4 style="font-weight:500;">@if(strtolower($vv->brand->name) !=
+                                                'marhaba'){{$vv->brand->name ?? ''}}@endif {{$vv->name ?? ''}}</h4>
+                                            <p class="mb-0">{{$vk ?? ''}} <span class="mx-1">|</span>
+                                                {{$vv->category->name ?? ''}}</p>
+                                        </a>
                                     </div>
                                 </div>
                             </div>
@@ -161,15 +173,15 @@ $subcatVal = preg_replace('/[\#].*$/', '', $subcatVal);
                     <div class="products_filter_grid">
                         @foreach($groupedProducts['baby']['products'] as $key => $val)
                         @foreach($val as $vk => $vv)
-                        @php 
-                            $productImages = json_decode($vv->product_brand_size); 
-                            $size = \App\Models\Product::getSizeId($vk);
-                            $sizeId = $size->id;
-                            $filteredImages = collect($productImages)->where('size_id', (string)$sizeId)->values();
-                            if($filteredImages->count() > 1){
-                                $humanImage = $filteredImages->pull(0); // remove human image
-                                $filteredImages->splice(1, 0, [$humanImage]); // insert it at 2nd position
-                            }
+                        @php
+                        $productImages = json_decode($vv->product_brand_size);
+                        $size = \App\Models\Product::getSizeId($vk);
+                        $sizeId = $size->id;
+                        $filteredImages = collect($productImages)->where('size_id', (string)$sizeId)->values();
+                        if($filteredImages->count() > 1){
+                        $humanImage = $filteredImages->pull(0); // remove human image
+                        $filteredImages->splice(1, 0, [$humanImage]); // insert it at 2nd position
+                        }
                         @endphp
                         <div>
                             <div class="product_wrapper">
@@ -177,41 +189,46 @@ $subcatVal = preg_replace('/[\#].*$/', '', $subcatVal);
                                     <div class="Product_item">
                                         <div class="ym_card_img">
                                             @if($filteredImages->count() > 0)
-                                                <!-- ✅ COVER IMAGE (FIRST IMAGE ONLY) -->
-                                                <img src="{{ asset('public/product_images/' . $filteredImages[0]->product_image) }}"
-                                                    alt="{{ $vv->name }}" class="ym_cover_slider" loading="lazy">
-                                                <!-- ✅ SLICK SLIDER -->
-                                                <div class="ym_slider">
-                                                    @foreach($filteredImages as $k => $v)
-                                                        @if($k == 4)
-                                                            @break
-                                                        @endif
-                                                        <div>
-                                                            <a href="{{ url('products-details/' . $vv['url'].'/'. $sizeId . '/' . $vv['id']) }}" target="_blank">
-                                                                <img loading="lazy" src="{{ asset('public/product_images/' . $v->product_image) }}" alt="{{ $vv->name }}" class="img-fluid product_img w-100">
-                                                            </a>
-                                                        </div>
-                                                    @endforeach
+                                            <!-- ✅ COVER IMAGE (FIRST IMAGE ONLY) -->
+                                            <img src="{{ asset('public/product_images/' . $filteredImages[0]->product_image) }}"
+                                                alt="{{ $vv->name }}" class="ym_cover_slider" loading="lazy">
+                                            <!-- ✅ SLICK SLIDER -->
+                                            <div class="ym_slider">
+                                                @foreach($filteredImages as $k => $v)
+                                                @if($k == 4)
+                                                @break
+                                                @endif
+                                                <div>
+                                                    <a href="{{ url('products-details/' . $vv['url'].'/'. $sizeId . '/' . $vv['id']) }}"
+                                                        target="_blank">
+                                                        <img loading="lazy"
+                                                            src="{{ asset('public/product_images/' . $v->product_image) }}"
+                                                            alt="{{ $vv->name }}" class="img-fluid product_img w-100">
+                                                    </a>
                                                 </div>
+                                                @endforeach
+                                            </div>
                                             @else
-                                                <!-- ✅ NO IMAGE CASE -->
-                                                <img src="{{ asset('public/front/img/product-not-found.png') }}" alt="not found"
-                                                    class="ym_cover_slider">
+                                            <!-- ✅ NO IMAGE CASE -->
+                                            <img src="{{ asset('public/front/img/product-not-found.png') }}"
+                                                alt="not found" class="ym_cover_slider">
 
-                                                <div class="ym_slider">
-                                                    <div>
-                                                        <img src="{{ asset('public/front/img/product-not-found.png') }}"
-                                                            class="ym_slide_img">
-                                                    </div>
+                                            <div class="ym_slider">
+                                                <div>
+                                                    <img src="{{ asset('public/front/img/product-not-found.png') }}"
+                                                        class="ym_slide_img">
                                                 </div>
+                                            </div>
                                             @endif
                                         </div>
                                     </div>
                                     <div>
-                                        <a href="{{ url('products-details/' . $vv['url'].'/'. $sizeId .'/' . $vv['id']) }}" target="_blank" class="prod_list_title">
+                                        <a href="{{ url('products-details/' . $vv['url'].'/'. $sizeId .'/' . $vv['id']) }}"
+                                            target="_blank" class="prod_list_title">
                                             <h4 style="font-weight:500;">{{$vv->name ?? ''}}</h4>
-                                            <p class="mb-0">{{$vk ?? ''}} <span class="mx-1">|</span> {{$vv->category->name ?? ''}}</p>
-                                        </a>                                
+                                            <p class="mb-0">{{$vk ?? ''}} <span class="mx-1">|</span>
+                                                {{$vv->category->name ?? ''}}</p>
+                                        </a>
                                     </div>
                                 </div>
                             </div>
@@ -224,7 +241,8 @@ $subcatVal = preg_replace('/[\#].*$/', '', $subcatVal);
             @endif
 
             <!-- Toddler & Little Kids Section -->
-            @if(isset($groupedProducts['kids']['products']) && is_countable($groupedProducts['kids']['products']) && count($groupedProducts['kids']['products']) > 0)
+            @if(isset($groupedProducts['kids']['products']) && is_countable($groupedProducts['kids']['products']) &&
+            count($groupedProducts['kids']['products']) > 0)
             <section id="toddler" class="age_section" data-age="toddler">
                 <h2 class="title_48lora mb-0"
                     style="background: linear-gradient(90deg, rgba(239, 230, 240, 0) 0%, #EFE6F0 50%, rgba(239, 230, 240, 0) 100%);">
@@ -233,11 +251,11 @@ $subcatVal = preg_replace('/[\#].*$/', '', $subcatVal);
                     <div class="products_filter_grid">
                         @foreach($groupedProducts['kids']['products'] as $key => $val)
                         @foreach($val as $vk => $vv)
-                        @php 
-                            $productImages = json_decode($vv->product_brand_size);
-                            $size = \App\Models\Product::getSizeId($vk);
-                            $sizeId = $size->id;
-                            $filteredImages = collect($productImages)->where('size_id', (string)$sizeId)->values();
+                        @php
+                        $productImages = json_decode($vv->product_brand_size);
+                        $size = \App\Models\Product::getSizeId($vk);
+                        $sizeId = $size->id;
+                        $filteredImages = collect($productImages)->where('size_id', (string)$sizeId)->values();
                         @endphp
                         <div>
                             <div class="product_wrapper">
@@ -245,45 +263,49 @@ $subcatVal = preg_replace('/[\#].*$/', '', $subcatVal);
                                     <div class="Product_item">
                                         <div class="ym_card_img">
                                             @if($filteredImages->count() > 0)
-                                                <!-- ✅ COVER IMAGE (FIRST IMAGE ONLY) -->
-                                                <img src="{{ asset('public/product_images/' . $filteredImages[1]->product_image) }}"
-                                                    alt="{{ $vv->name }}" class="ym_cover_slider">
-                                                <!-- ✅ SLICK SLIDER -->
-                                                <div class="ym_slider">
-                                                    @foreach($filteredImages as $k => $v)
-                                                        @if($k == 1)
-                                                            @continue
-                                                        @endif
-                                                        @if($k == 4)
-                                                            @break
-                                                        @endif
-                                                        <div>
-                                                            <a href="{{ url('products-details/' . $vv['url'].'/'. $sizeId . '/' . $vv['id']) }}" target="_blank">
-                                                                <img loading="lazy" src="{{ asset('public/product_images/' . $v->product_image) }}"
-                                                                    alt="{{ $vv->name }}" class="img-fluid product_img w-100">
-                                                            </a>
-                                                        </div>
-                                                    @endforeach
+                                            <!-- ✅ COVER IMAGE (FIRST IMAGE ONLY) -->
+                                            <img src="{{ asset('public/product_images/' . $filteredImages[1]->product_image) }}"
+                                                alt="{{ $vv->name }}" class="ym_cover_slider">
+                                            <!-- ✅ SLICK SLIDER -->
+                                            <div class="ym_slider">
+                                                @foreach($filteredImages as $k => $v)
+                                                @if($k == 1)
+                                                @continue
+                                                @endif
+                                                @if($k == 4)
+                                                @break
+                                                @endif
+                                                <div>
+                                                    <a href="{{ url('products-details/' . $vv['url'].'/'. $sizeId . '/' . $vv['id']) }}"
+                                                        target="_blank">
+                                                        <img loading="lazy"
+                                                            src="{{ asset('public/product_images/' . $v->product_image) }}"
+                                                            alt="{{ $vv->name }}" class="img-fluid product_img w-100">
+                                                    </a>
                                                 </div>
+                                                @endforeach
+                                            </div>
                                             @else
-                                                <!-- ✅ NO IMAGE CASE -->
-                                                <img src="{{ asset('public/front/img/product-not-found.png') }}" alt="not found"
-                                                    class="ym_cover_slider">
+                                            <!-- ✅ NO IMAGE CASE -->
+                                            <img src="{{ asset('public/front/img/product-not-found.png') }}"
+                                                alt="not found" class="ym_cover_slider">
 
-                                                <div class="ym_slider">
-                                                    <div>
-                                                        <img src="{{ asset('public/front/img/product-not-found.png') }}"
-                                                            class="ym_slide_img">
-                                                    </div>
+                                            <div class="ym_slider">
+                                                <div>
+                                                    <img src="{{ asset('public/front/img/product-not-found.png') }}"
+                                                        class="ym_slide_img">
                                                 </div>
+                                            </div>
                                             @endif
                                         </div>
                                     </div>
                                     <div>
-                                        <a href="{{ url('products-details/' . $vv['url'].'/'. $sizeId . '/' . $vv['id']) }}" target="_blank" class="prod_list_title">
+                                        <a href="{{ url('products-details/' . $vv['url'].'/'. $sizeId . '/' . $vv['id']) }}"
+                                            target="_blank" class="prod_list_title">
                                             <h4 style="font-weight:500;">{{$vv->name ?? ''}}</h4>
-                                            <p class="mb-0">{{$vk ?? ''}} <span class="mx-1">|</span>  {{$vv->category->name ?? ''}}</p>
-                                        </a>                                
+                                            <p class="mb-0">{{$vk ?? ''}} <span class="mx-1">|</span>
+                                                {{$vv->category->name ?? ''}}</p>
+                                        </a>
                                     </div>
                                 </div>
                             </div>
@@ -296,16 +318,16 @@ $subcatVal = preg_replace('/[\#].*$/', '', $subcatVal);
                     <div class="products_filter_grid">
                         @foreach($groupedProducts['kids']['products'] as $key => $val)
                         @foreach($val as $vk => $vv)
-                        @php 
-                            $productImages = json_decode($vv->product_brand_size);
-                            $size = \App\Models\Product::getSizeId($vk);
-                            $sizeId = $size->id;
-                            $filteredImages = collect($productImages)->where('size_id', (string)$sizeId)->values();
-                            if($filteredImages->count() > 1){
-                                $humanImage = $filteredImages->pull(0); // remove human image
-                                $filteredImages->splice(1, 0, [$humanImage]); // insert it at 2nd position
-                                
-                            }
+                        @php
+                        $productImages = json_decode($vv->product_brand_size);
+                        $size = \App\Models\Product::getSizeId($vk);
+                        $sizeId = $size->id;
+                        $filteredImages = collect($productImages)->where('size_id', (string)$sizeId)->values();
+                        if($filteredImages->count() > 1){
+                        $humanImage = $filteredImages->pull(0); // remove human image
+                        $filteredImages->splice(1, 0, [$humanImage]); // insert it at 2nd position
+
+                        }
                         @endphp
                         <div>
                             <div class="product_wrapper">
@@ -313,42 +335,46 @@ $subcatVal = preg_replace('/[\#].*$/', '', $subcatVal);
                                     <div class="Product_item">
                                         <div class="ym_card_img">
                                             @if($filteredImages->count() > 0)
-                                                <!-- ✅ COVER IMAGE (FIRST IMAGE ONLY) -->
-                                                <img src="{{ asset('public/product_images/' . $filteredImages[0]->product_image) }}"
-                                                    alt="{{ $vv->name }}" class="ym_cover_slider">
-                                                <!-- ✅ SLICK SLIDER -->
-                                                <div class="ym_slider">
-                                                    @foreach($filteredImages as $k => $v)
-                                                        @if($k == 4)
-                                                            @break
-                                                        @endif
-                                                        <div>
-                                                            <a href="{{ url('products-details/' . $vv['url'].'/'. $sizeId . '/' . $vv['id']) }}" target="_blank">
-                                                                <img loading="lazy" src="{{ asset('public/product_images/' . $v->product_image) }}"
-                                                                    alt="{{ $vv->name }}" class="img-fluid product_img w-100">
-                                                            </a>
-                                                        </div>
-                                                    @endforeach
+                                            <!-- ✅ COVER IMAGE (FIRST IMAGE ONLY) -->
+                                            <img src="{{ asset('public/product_images/' . $filteredImages[0]->product_image) }}"
+                                                alt="{{ $vv->name }}" class="ym_cover_slider">
+                                            <!-- ✅ SLICK SLIDER -->
+                                            <div class="ym_slider">
+                                                @foreach($filteredImages as $k => $v)
+                                                @if($k == 4)
+                                                @break
+                                                @endif
+                                                <div>
+                                                    <a href="{{ url('products-details/' . $vv['url'].'/'. $sizeId . '/' . $vv['id']) }}"
+                                                        target="_blank">
+                                                        <img loading="lazy"
+                                                            src="{{ asset('public/product_images/' . $v->product_image) }}"
+                                                            alt="{{ $vv->name }}" class="img-fluid product_img w-100">
+                                                    </a>
                                                 </div>
+                                                @endforeach
+                                            </div>
                                             @else
-                                                <!-- ✅ NO IMAGE CASE -->
-                                                <img src="{{ asset('public/front/img/product-not-found.png') }}" alt="not found"
-                                                    class="ym_cover_slider">
+                                            <!-- ✅ NO IMAGE CASE -->
+                                            <img src="{{ asset('public/front/img/product-not-found.png') }}"
+                                                alt="not found" class="ym_cover_slider">
 
-                                                <div class="ym_slider">
-                                                    <div>
-                                                        <img src="{{ asset('public/front/img/product-not-found.png') }}"
-                                                            class="ym_slide_img">
-                                                    </div>
+                                            <div class="ym_slider">
+                                                <div>
+                                                    <img src="{{ asset('public/front/img/product-not-found.png') }}"
+                                                        class="ym_slide_img">
                                                 </div>
+                                            </div>
                                             @endif
                                         </div>
                                     </div>
                                     <div>
-                                        <a href="{{ url('products-details/' . $vv['url'].'/'. $sizeId . '/' . $vv['id']) }}" target="_blank" class="prod_list_title">
+                                        <a href="{{ url('products-details/' . $vv['url'].'/'. $sizeId . '/' . $vv['id']) }}"
+                                            target="_blank" class="prod_list_title">
                                             <h4 style="font-weight:500;">{{$vv->name ?? ''}}</h4>
-                                            <p class="mb-0">{{$vk ?? ''}} <span class="mx-1">|</span>  {{$vv->category->name ?? ''}}</p>
-                                        </a>                                
+                                            <p class="mb-0">{{$vk ?? ''}} <span class="mx-1">|</span>
+                                                {{$vv->category->name ?? ''}}</p>
+                                        </a>
                                     </div>
                                 </div>
                             </div>
@@ -361,18 +387,21 @@ $subcatVal = preg_replace('/[\#].*$/', '', $subcatVal);
             @endif
 
             <!-- Kids & Youth Section -->
-            @if(isset($groupedProducts['junior']['products']) && is_countable($groupedProducts['junior']['products']) && count($groupedProducts['junior']['products']) > 0)
+            @if(isset($groupedProducts['junior']['products']) && is_countable($groupedProducts['junior']['products']) &&
+            count($groupedProducts['junior']['products']) > 0)
             <section id="kids" class="age_section" data-age="kids">
-                <h2 class="title_48lora mb-0" style="background: linear-gradient(90deg, rgba(230, 239, 242, 0) 0%, rgb(230, 239, 242) 50%, rgba(230, 239, 242, 0) 100%);"> Kids & Youth</h2>
+                <h2 class="title_48lora mb-0"
+                    style="background: linear-gradient(90deg, rgba(230, 239, 242, 0) 0%, rgb(230, 239, 242) 50%, rgba(230, 239, 242, 0) 100%);">
+                    Kids & Youth</h2>
                 <div class="desk_grid">
                     <div class="products_filter_grid">
                         @foreach($groupedProducts['junior']['products'] as $key => $val)
                         @foreach($val as $vk => $vv)
-                        @php 
-                            $productImages = json_decode($vv->product_brand_size); 
-                            $size = \App\Models\Product::getSizeId($vk);
-                            $sizeId = $size->id;
-                            $filteredImages = collect($productImages)->where('size_id', (string)$sizeId)->values();
+                        @php
+                        $productImages = json_decode($vv->product_brand_size);
+                        $size = \App\Models\Product::getSizeId($vk);
+                        $sizeId = $size->id;
+                        $filteredImages = collect($productImages)->where('size_id', (string)$sizeId)->values();
                         @endphp
                         <div>
                             <div class="product_wrapper">
@@ -380,43 +409,48 @@ $subcatVal = preg_replace('/[\#].*$/', '', $subcatVal);
                                     <div class="Product_item">
                                         <div class="ym_card_img">
                                             @if($filteredImages->count() > 0)
-                                                <!-- ✅ COVER IMAGE (FIRST IMAGE ONLY) -->
-                                                <img src="{{ asset('public/product_images/' . $filteredImages[1]->product_image) }}"
-                                                    alt="{{ $vv->name }}" class="ym_cover_slider">
-                                                <!-- ✅ SLICK SLIDER -->
-                                                <div class="ym_slider">
-                                                    @foreach($filteredImages as $k => $v)
-                                                        @if($k == 1)
-                                                            @continue
-                                                        @endif
-                                                        @if($k == 4)
-                                                            @break
-                                                        @endif
-                                                        <div>
-                                                            <a href="{{ url('products-details/' . $vv['url'].'/'.$sizeId .'/'. $vv['id']) }}" target="_blank">
-                                                                <img loading="lazy" src="{{ asset('public/product_images/' . $v->product_image) }}"
-                                                                    alt="{{ $vv->name }}" class="img-fluid product_img w-100">
-                                                            </a>
-                                                        </div>
-                                                    @endforeach
+                                            <!-- ✅ COVER IMAGE (FIRST IMAGE ONLY) -->
+                                            <img src="{{ asset('public/product_images/' . $filteredImages[1]->product_image) }}"
+                                                alt="{{ $vv->name }}" class="ym_cover_slider">
+                                            <!-- ✅ SLICK SLIDER -->
+                                            <div class="ym_slider">
+                                                @foreach($filteredImages as $k => $v)
+                                                @if($k == 1)
+                                                @continue
+                                                @endif
+                                                @if($k == 4)
+                                                @break
+                                                @endif
+                                                <div>
+                                                    <a href="{{ url('products-details/' . $vv['url'].'/'.$sizeId .'/'. $vv['id']) }}"
+                                                        target="_blank">
+                                                        <img loading="lazy"
+                                                            src="{{ asset('public/product_images/' . $v->product_image) }}"
+                                                            alt="{{ $vv->name }}" class="img-fluid product_img w-100">
+                                                    </a>
                                                 </div>
+                                                @endforeach
+                                            </div>
                                             @else
-                                                <!-- ✅ NO IMAGE CASE -->
-                                                <img src="{{ asset('public/front/img/product-not-found.png') }}" alt="not found" class="ym_cover_slider">
-                                                <div class="ym_slider">
-                                                    <div>
-                                                        <img src="{{ asset('public/front/img/product-not-found.png') }}"
-                                                            class="ym_slide_img">
-                                                    </div>
+                                            <!-- ✅ NO IMAGE CASE -->
+                                            <img src="{{ asset('public/front/img/product-not-found.png') }}"
+                                                alt="not found" class="ym_cover_slider">
+                                            <div class="ym_slider">
+                                                <div>
+                                                    <img src="{{ asset('public/front/img/product-not-found.png') }}"
+                                                        class="ym_slide_img">
                                                 </div>
+                                            </div>
                                             @endif
                                         </div>
                                     </div>
                                     <div>
-                                        <a href="{{ url('products-details/' . $vv['url'].'/'.$sizeId .'/'. $vv['id']) }}" target="_blank" class="prod_list_title">
+                                        <a href="{{ url('products-details/' . $vv['url'].'/'.$sizeId .'/'. $vv['id']) }}"
+                                            target="_blank" class="prod_list_title">
                                             <h4 style="font-weight:500;">{{$vv->name ?? ''}}</h4>
-                                            <p class="mb-0">{{$vk ?? ''}} <span class="mx-1">|</span>  {{$vv->category->name ?? ''}}</p>
-                                        </a>                                
+                                            <p class="mb-0">{{$vk ?? ''}} <span class="mx-1">|</span>
+                                                {{$vv->category->name ?? ''}}</p>
+                                        </a>
                                     </div>
                                 </div>
                             </div>
@@ -426,67 +460,72 @@ $subcatVal = preg_replace('/[\#].*$/', '', $subcatVal);
                     </div>
                 </div>
                 <!-- mobile grid -->
-                 <div class="mobile_grid">
-                 <div class="products_filter_grid">
-                    @foreach($groupedProducts['junior']['products'] as $key => $val)
-                    @foreach($val as $vk => $vv)
-                    @php 
-                        $productImages = json_decode($vv->product_brand_size); 
+                <div class="mobile_grid">
+                    <div class="products_filter_grid">
+                        @foreach($groupedProducts['junior']['products'] as $key => $val)
+                        @foreach($val as $vk => $vv)
+                        @php
+                        $productImages = json_decode($vv->product_brand_size);
                         $size = \App\Models\Product::getSizeId($vk);
                         $sizeId = $size->id;
                         $filteredImages = collect($productImages)->where('size_id', (string)$sizeId)->values();
                         if($filteredImages->count() > 1){
-                            $humanImage = $filteredImages->pull(0); // remove human image
-                            $filteredImages->splice(1, 0, [$humanImage]); // insert it at 2nd position
+                        $humanImage = $filteredImages->pull(0); // remove human image
+                        $filteredImages->splice(1, 0, [$humanImage]); // insert it at 2nd position
                         }
-                    @endphp
-                    <div>
-                        <div class="product_wrapper">
-                            <div class="ym_card">
-                                <div class="Product_item">
-                                    <div class="ym_card_img">
-                                        @if($filteredImages->count() > 0)
+                        @endphp
+                        <div>
+                            <div class="product_wrapper">
+                                <div class="ym_card">
+                                    <div class="Product_item">
+                                        <div class="ym_card_img">
+                                            @if($filteredImages->count() > 0)
                                             <!-- ✅ COVER IMAGE (FIRST IMAGE ONLY) -->
                                             <img src="{{ asset('public/product_images/' . $filteredImages[0]->product_image) }}"
                                                 alt="{{ $vv->name }}" class="ym_cover_slider">
                                             <!-- ✅ SLICK SLIDER -->
                                             <div class="ym_slider">
                                                 @foreach($filteredImages as $k => $v)
-                                                    @if($k == 4)
-                                                        @break
-                                                    @endif
-                                                    <div>
-                                                        <a href="{{ url('products-details/' . $vv['url'].'/'.$sizeId .'/'. $vv['id']) }}" target="_blank">
-                                                            <img loading="lazy" src="{{ asset('public/product_images/' . $v->product_image) }}"
-                                                                alt="{{ $vv->name }}" class="img-fluid product_img w-100">
-                                                        </a>
-                                                    </div>
+                                                @if($k == 4)
+                                                @break
+                                                @endif
+                                                <div>
+                                                    <a href="{{ url('products-details/' . $vv['url'].'/'.$sizeId .'/'. $vv['id']) }}"
+                                                        target="_blank">
+                                                        <img loading="lazy"
+                                                            src="{{ asset('public/product_images/' . $v->product_image) }}"
+                                                            alt="{{ $vv->name }}" class="img-fluid product_img w-100">
+                                                    </a>
+                                                </div>
                                                 @endforeach
                                             </div>
-                                        @else
+                                            @else
                                             <!-- ✅ NO IMAGE CASE -->
-                                            <img src="{{ asset('public/front/img/product-not-found.png') }}" alt="not found" class="ym_cover_slider">
+                                            <img src="{{ asset('public/front/img/product-not-found.png') }}"
+                                                alt="not found" class="ym_cover_slider">
                                             <div class="ym_slider">
                                                 <div>
                                                     <img src="{{ asset('public/front/img/product-not-found.png') }}"
                                                         class="ym_slide_img">
                                                 </div>
                                             </div>
-                                        @endif
+                                            @endif
+                                        </div>
                                     </div>
-                                </div>
-                                <div>
-                                    <a href="{{ url('products-details/' . $vv['url'].'/'.$sizeId .'/'. $vv['id']) }}" target="_blank" class="prod_list_title">
-                                        <h4 style="font-weight:500;">{{$vv->name ?? ''}}</h4>
-                                        <p class="mb-0">{{$vk ?? ''}} <span class="mx-1">|</span> {{$vv->category->name ?? ''}}</p>
-                                    </a>                                
+                                    <div>
+                                        <a href="{{ url('products-details/' . $vv['url'].'/'.$sizeId .'/'. $vv['id']) }}"
+                                            target="_blank" class="prod_list_title">
+                                            <h4 style="font-weight:500;">{{$vv->name ?? ''}}</h4>
+                                            <p class="mb-0">{{$vk ?? ''}} <span class="mx-1">|</span>
+                                                {{$vv->category->name ?? ''}}</p>
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                        @endforeach
+                        @endforeach
                     </div>
-                    @endforeach
-                    @endforeach
-                </div>
                 </div>
             </section>
             @endif
@@ -511,16 +550,23 @@ $subcatVal = preg_replace('/[\#].*$/', '', $subcatVal);
                     <h2 class="accordion-header" id="headingAge">
                         <button class="accordion-button ps-0" type="button" data-bs-toggle="collapse"
                             data-bs-target="#collapseAge" aria-expanded="true" aria-controls="collapseAge">
-                           <svg class=" " xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="4" fill="#111"></circle></svg> Age Range
+                            <svg class=" " xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 16 16"
+                                fill="none" aria-hidden="true">
+                                <circle cx="8" cy="8" r="4" fill="#452667"></circle>
+                            </svg><span> Age Range</span>
                         </button>
                     </h2>
-                    <div id="collapseAge" class="accordion-collapse collapse show" aria-labelledby="headingAge" data-bs-parent="#accordionExample">
+                    <div id="collapseAge" class="accordion-collapse collapse show" aria-labelledby="headingAge"
+                        data-bs-parent="#accordionExample">
                         <div class="accordion-body ps-0">
                             @foreach($ageSection as $key => $val)
                             <div class="form-check mb-2">
-                                <input class="form-check-input" type="checkbox" value="{{ $key }}" id="filterAge_{{ $key }}"
-                                     name="ageRange[]" data-total="{{ $data[$key] }}" @if(isset($subcatVal) && strtolower($subcatVal) == strtolower($key)) {{ 'checked' }} @else {{ '' }} @endif>
-                                <label class="form-check-label" for="filterAge_{{ $key }}">{{$val['label'] ?? ''}} ({{ $data[$key] }})</label>
+                                <input class="form-check-input" type="checkbox" value="{{ $key }}"
+                                    id="filterAge_{{ $key }}" name="ageRange[]" data-total="{{ $data[$key] }}"
+                                    @if(isset($subcatVal) && strtolower($subcatVal)==strtolower($key)) {{ 'checked' }}
+                                    @else {{ '' }} @endif>
+                                <label class="form-check-label" for="filterAge_{{ $key }}">{{$val['label'] ?? ''}}
+                                    ({{ $data[$key] }})</label>
                             </div>
                             @endforeach
                         </div>
@@ -534,7 +580,11 @@ $subcatVal = preg_replace('/[\#].*$/', '', $subcatVal);
                     <h2 class="accordion-header" id="headingBrand">
                         <button class="accordion-button collapsed ps-0" type="button" data-bs-toggle="collapse"
                             data-bs-target="#collapseBrand" aria-expanded="false" aria-controls="collapseBrand">
-                            Brand
+                           
+                             <svg class=" " xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 16 16"
+                                fill="none" aria-hidden="true">
+                                <circle cx="8" cy="8" r="4" fill="#452667"></circle>
+                            </svg><span> Brand</span>
                         </button>
                     </h2>
                     <div id="collapseBrand" class="accordion-collapse collapse" aria-labelledby="headingBrand"
@@ -542,8 +592,11 @@ $subcatVal = preg_replace('/[\#].*$/', '', $subcatVal);
                         <div class="accordion-body ps-0">
                             @foreach($brands as $key => $val)
                             <div class="form-check mb-2">
-                                <input class="form-check-input" type="checkbox" value="{{ $val->id }}" id="filterBrand_{{ $val->id }}" name="brand[]" data-total="{{ $val->total_brand_product }}" data-text="{{ $val->name }}">
-                                <label class="form-check-label" for="filterBrand_{{ $val->id }}">{{ $val->name ?? '' }} ({{ $val->total_brand_product }})</label>
+                                <input class="form-check-input" type="checkbox" value="{{ $val->id }}"
+                                    id="filterBrand_{{ $val->id }}" name="brand[]"
+                                    data-total="{{ $val->total_brand_product }}" data-text="{{ $val->name }}">
+                                <label class="form-check-label" for="filterBrand_{{ $val->id }}">{{ $val->name ?? '' }}
+                                    ({{ $val->total_brand_product }})</label>
                             </div>
                             @endforeach
                         </div>
@@ -557,7 +610,11 @@ $subcatVal = preg_replace('/[\#].*$/', '', $subcatVal);
                     <h2 class="accordion-header" id="headingCategory">
                         <button class="accordion-button collapsed ps-0" type="button" data-bs-toggle="collapse"
                             data-bs-target="#collapseCategory" aria-expanded="false" aria-controls="collapseCategory">
-                            Category
+                           
+                             <svg class=" " xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 16 16"
+                                fill="none" aria-hidden="true">
+                                <circle cx="8" cy="8" r="4" fill="#452667"></circle>
+                            </svg><span> Category</span>
                         </button>
                     </h2>
                     <div id="collapseCategory" class="accordion-collapse collapse" aria-labelledby="headingCategory"
@@ -566,7 +623,9 @@ $subcatVal = preg_replace('/[\#].*$/', '', $subcatVal);
                             @foreach($categories as $key => $val)
                             <div class="form-check mb-2">
                                 <input class="form-check-input catFilter" type="checkbox" value="{{ $val->id }}"
-                                    id="filterCategory_{{ $val->id }}" @if(isset($categoryId) && $categoryId == $val->id){{ 'checked' }} @else {{ '' }} @endif name="category[]" data-total="{{ $val->total_category_product }}" data-text="{{ $val->name }}">
+                                    id="filterCategory_{{ $val->id }}" @if(isset($categoryId) &&
+                                    $categoryId==$val->id){{ 'checked' }} @else {{ '' }} @endif name="category[]"
+                                data-total="{{ $val->total_category_product }}" data-text="{{ $val->name }}">
                                 <label class="form-check-label" for="filterCategory_{{ $val->id }}">
                                     {{ $val->name ?? '' }} ({{ $val->total_category_product }})
                                 </label>
@@ -580,23 +639,60 @@ $subcatVal = preg_replace('/[\#].*$/', '', $subcatVal);
             </div>
             <!-- Apply Button -->
             <div class="">
-                <a type="button" class="apply_btn" id="applyFilters" data-bs-dismiss="offcanvas">Show {{ $totalProducts }} Items</a>
+                <a type="button" class="apply_btn" id="applyFilters" data-bs-dismiss="offcanvas">Show
+                    {{ $totalProducts }} Items</a>
             </div>
         </div>
     </div>
 </div>
 
 <script>
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", function() {
+
+    function updateAccordionIcons() {
+        document.querySelectorAll('.accordion-item').forEach(function(item) {
+
+            let checkboxes = item.querySelectorAll('input[type="checkbox"]');
+            let isChecked = false;
+
+            checkboxes.forEach(function(checkbox) {
+                if (checkbox.checked) {
+                    isChecked = true;
+                }
+            });
+
+            if (isChecked) {
+                item.classList.add('active');
+            } else {
+                item.classList.remove('active');
+            }
+        });
+    }
+
+    // run on load
+    updateAccordionIcons();
+
+    // run on checkbox change
+    document.querySelectorAll('.accordion-item input[type="checkbox"]').forEach(function(checkbox) {
+        checkbox.addEventListener('change', updateAccordionIcons);
+    });
+
+});
+</script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
     const accordions = document.querySelectorAll("#accordionExample .accordion-collapse");
 
     accordions.forEach((item) => {
-        item.addEventListener("show.bs.collapse", function () {
+        item.addEventListener("show.bs.collapse", function() {
             accordions.forEach((other) => {
                 if (other !== item) {
                     let bsCollapse = bootstrap.Collapse.getInstance(other);
                     if (!bsCollapse) {
-                        bsCollapse = new bootstrap.Collapse(other, { toggle: false });
+                        bsCollapse = new bootstrap.Collapse(other, {
+                            toggle: false
+                        });
                     }
                     bsCollapse.hide();
                 }
@@ -607,7 +703,6 @@ document.addEventListener("DOMContentLoaded", function () {
 </script>
 
 <script>
-
 // State Management
 const filterState = {
     ageRange: [],
@@ -645,12 +740,15 @@ function initEventListeners() {
     // Age card click - scroll to section
     // Scroll on click card
     document.querySelectorAll('.age-card').forEach(card => {
-        card.addEventListener('click', function () {
+        card.addEventListener('click', function() {
             const targetSection = this.getAttribute('data-scroll-to');
             const section = document.getElementById(targetSection);
 
             if (section) {
-                section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                section.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
             }
         });
     });
@@ -666,7 +764,7 @@ function initEventListeners() {
     //     checkbox.addEventListener('change', updateApplyButtonText);
     // });
     document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
-        checkbox.addEventListener('change', function () {
+        checkbox.addEventListener('change', function() {
             updateApplyButtonText();
             applyFilters(); // ✅ ADD THIS LINE
         });
@@ -689,13 +787,13 @@ function updateFilterState() {
     });
 
     document.querySelectorAll('input[name="brand[]"]:checked').forEach(cb => {
-        const text = cb.dataset.text; 
+        const text = cb.dataset.text;
         filterState.brand.push(text);
         filterStateValue.brand.push(cb.value);
     });
 
     document.querySelectorAll('input[name="category[]"]:checked').forEach(cb => {
-        const text = cb.dataset.text; 
+        const text = cb.dataset.text;
         filterState.category.push(text);
         filterStateValue.category.push(cb.value);
     });
@@ -723,10 +821,10 @@ function updateApplyButtonText() {
     );
     if (checkedBoxes.length === 0) {
         applyFiltersBtn.textContent = `Show ${totalProducts} Items`;
-        applyFiltersBtn.classList.remove('btn-loading');  
+        applyFiltersBtn.classList.remove('btn-loading');
     } else {
         applyFiltersBtn.textContent = `Loading...`;
-        applyFiltersBtn.classList.add('btn-loading');     
+        applyFiltersBtn.classList.add('btn-loading');
     }
 }
 
@@ -776,7 +874,7 @@ function loadFilterProducts() {
             brandFilter: brandFilter,
             categoryFilter: categoryFilter,
         },
-        success: function (response) {
+        success: function(response) {
             withFilterProduct.innerHTML = response.html;
             totalItemsElement.textContent = response.totalProducts + ' Items';
 
@@ -785,7 +883,7 @@ function loadFilterProducts() {
             applyFiltersBtn.classList.remove('btn-loading');
             applyFiltersBtn.disabled = false;
         },
-        error: function (error) {
+        error: function(error) {
             console.log(error);
 
             // ← Also remove on error so button doesn't stay stuck
@@ -865,28 +963,28 @@ function createFilterPill(label, valueLabel, filterType, filterValue) {
 
 function removeFilter(filterType, filterValue) {
     // Remove from filterState arrays
-    if(filterType === 'ageRange[]') {
+    if (filterType === 'ageRange[]') {
         const idx = filterState.ageRange.indexOf(filterValue);
-        if(idx > -1) filterState.ageRange.splice(idx,1);
+        if (idx > -1) filterState.ageRange.splice(idx, 1);
     }
-    if(filterType === 'brand[]') {
+    if (filterType === 'brand[]') {
         const idx = filterStateValue.brand.indexOf(filterValue);
-        if(idx > -1) {
-            filterStateValue.brand.splice(idx,1);
-            filterState.brand.splice(idx,1); // remove text label as well
+        if (idx > -1) {
+            filterStateValue.brand.splice(idx, 1);
+            filterState.brand.splice(idx, 1); // remove text label as well
         }
     }
-    if(filterType === 'category[]') {
+    if (filterType === 'category[]') {
         const idx = filterStateValue.category.indexOf(filterValue);
-        if(idx > -1){
-            filterStateValue.category.splice(idx,1);
-            filterState.category.splice(idx,1);
+        if (idx > -1) {
+            filterStateValue.category.splice(idx, 1);
+            filterState.category.splice(idx, 1);
         }
     }
 
     // Uncheck the checkbox
     const checkbox = document.querySelector(`input[name="${filterType}"][value="${filterValue}"]`);
-    if(checkbox) checkbox.checked = false;
+    if (checkbox) checkbox.checked = false;
     // Check if no filters remain
     const noFiltersLeft =
         filterState.ageRange.length === 0 &&
@@ -918,7 +1016,7 @@ function clearAllFilters() {
     document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
         checkbox.checked = false;
     });
-    
+
     // Reset apply button text
     applyFiltersBtn.textContent = 'Show ' + totalProducts + ' Items';
 
@@ -943,7 +1041,7 @@ function showAllSections() {
     ageSections.forEach(section => {
         section.classList.remove('hidden');
         section.style.display = 'block';
-        
+
         // Show all products in each section
         const products = section.querySelectorAll('.product_wrapper');
         products.forEach(product => {
@@ -953,12 +1051,12 @@ function showAllSections() {
 }
 
 // Initialize on Page Load
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', function() {
     initEventListeners();
 });
 
 // Optional: Handle browser back button
-window.addEventListener('popstate', function () {
+window.addEventListener('popstate', function() {
     clearAllFilters();
 });
 </script>
