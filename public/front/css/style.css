@@ -2051,11 +2051,18 @@
 
 .menu_body .accordion-button span {
     display: inline-block;
-    transition: all 0.3s ease;
+    transition: all 0.5s ease;
 }
 
 .menu_body .accordion-item.active .accordion-button span {
     transform: translateX(20px);
 }
+
+.accordion-header
+{
+  padding: 1px 0;
+}
+
+
 
       /* who we serve page css */

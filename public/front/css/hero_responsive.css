@@ -103,7 +103,7 @@
     .comp_bus_back img, .comp_bus_front img{width:100%!important;;height:auto!important;margin-bottom:20px;}
     .comp_bus_child.expanded .comp_bus_num, .comp_bus_child:hover .comp_bus_num {font-size: 20px;line-height: 20px;}
     .comp_bus_ext{font-size: 14px;line-height: 18px; padding-top: 20px;margin-top: 10px;margin-bottom: 0px;}
-    .why_slide .title_60lora{font-size: 32px;line-height: 33px;}
+    .why_slide .title_60lora{font-size: 28px;line-height: 33px;}
     .project-card:not(.active) .card_top img{width:190px; height:auto;}
     .card_desc{margin-bottom:30px;}
     .tags{margin-bottom:20px;}

@@ -494,6 +494,36 @@ a {
     margin-bottom: 40px;
 }
 
+
+/* ravi jadav */
+
+#main-why-img {
+    transition: opacity .5s ease-in-out, transform .5S ease;
+    will-change: opacity, transform;
+}
+
+/* optional zoom effect */
+#main-why-img.fade-out {
+    opacity: 0.5;
+    transform: scale(1);
+}
+
+#main-why-img.fade-in {
+    opacity: 1;
+    /* transform: scale(1.03); */
+}
+
+.why_slide {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.6s ease;
+}
+
+.swiper-slide-active .why_slide {
+    opacity: 1;
+    transform: translateY(0);
+}
+
 /* why css */
 
 /* category */
@@ -1094,6 +1124,8 @@ header.sticky .btn svg.home_menu rect {
     text-align: center
 }
 .cat_img_parent:hover .cat_overlay{opacity:1;transition: opacity 0.35s ease;}
+
+
 .project-card.active{justify-content:space-between;}
 .project-card.active .card_top {width: 32%;}
 .project-card.active img.category-img {width: 100%;margin-left: auto;}

@@ -101,40 +101,98 @@ document.querySelectorAll('.stat_counter').forEach(animateCounter);
     /* =========================
        WHY SLIDER WITH COUNTER
     ========================= */
-    if (document.querySelector('.why_slider')) {
+//     if (document.querySelector('.why_slider')) {
+//     const currentNum = document.getElementById('current-num');
+//     const totalNum = document.getElementById('total-num');
+//     const mainImg = document.getElementById('main-why-img'); // Target the main image
+
+//     new Swiper('.why_slider', {
+//         slidesPerView: 1,
+//         pagination: { el: '.swiper-pagination', clickable: true },
+//         autoplay: {
+//             delay: 4000,
+//             disableOnInteraction: false,
+//         },
+//         on: {
+//             init(swiper) {
+//                 const total = swiper.slides.length;
+//                 totalNum.textContent = total.toString().padStart(2, '0');
+//                 currentNum.textContent = '01';
+//             },
+//             slideChange(swiper) {
+//                 // 1. Update the number counter
+//                 const index = swiper.activeIndex;
+//                 currentNum.textContent = (index + 1).toString().padStart(2, '0');
+
+//                 // 2. Get the image URL from the active slide's data attribute
+//                 const activeSlide = swiper.slides[index];
+//                 const newImgSrc = activeSlide.getAttribute('data-img');
+
+//                 // 3. Update the main image with a smooth fade effect (optional)
+//                 if (newImgSrc) {
+//                     mainImg.style.opacity = '0.5'; // Start fade out
+//                     setTimeout(() => {
+//                         mainImg.src = newImgSrc;
+//                         mainImg.style.opacity = '1'; // Fade back in
+//                     }, 2000);
+//                 }
+//             }
+//         }
+//     });
+// }
+
+if (document.querySelector('.why_slider')) {
+
     const currentNum = document.getElementById('current-num');
     const totalNum = document.getElementById('total-num');
-    const mainImg = document.getElementById('main-why-img'); // Target the main image
+    const mainImg = document.getElementById('main-why-img');
 
-    new Swiper('.why_slider', {
+    const swiper = new Swiper('.why_slider', {
         slidesPerView: 1,
-        pagination: { el: '.swiper-pagination', clickable: true },
+        speed: 1000, 
+        loop: true,
+
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true
+        },
+
         autoplay: {
-            delay: 4000,
+            delay: 3500,
             disableOnInteraction: false,
         },
+
         on: {
             init(swiper) {
                 const total = swiper.slides.length;
                 totalNum.textContent = total.toString().padStart(2, '0');
                 currentNum.textContent = '01';
             },
-            slideChange(swiper) {
-                // 1. Update the number counter
-                const index = swiper.activeIndex;
+
+            slideChangeTransitionStart(swiper) {
+                const index = swiper.realIndex;
                 currentNum.textContent = (index + 1).toString().padStart(2, '0');
 
-                // 2. Get the image URL from the active slide's data attribute
-                const activeSlide = swiper.slides[index];
+                const activeSlide = swiper.slides[swiper.activeIndex];
                 const newImgSrc = activeSlide.getAttribute('data-img');
 
-                // 3. Update the main image with a smooth fade effect (optional)
-                if (newImgSrc) {
-                    mainImg.style.opacity = '0.5'; // Start fade out
+                if (newImgSrc && mainImg.src !== newImgSrc) {
+
+                    // fade out
+                    mainImg.classList.add('fade-out');
+
                     setTimeout(() => {
                         mainImg.src = newImgSrc;
-                        mainImg.style.opacity = '1'; // Fade back in
-                    }, 200);
+
+                        // fade in
+                        mainImg.classList.remove('fade-out');
+                        mainImg.classList.add('fade-in');
+
+                        setTimeout(() => {
+                            mainImg.classList.remove('fade-in');
+                        }, 600);
+
+                    }, 400); // 👈 fast & smooth timing
                 }
             }
         }
