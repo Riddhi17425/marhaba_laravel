@@ -463,6 +463,134 @@ class dashboardController extends Controller
         return view('front.product_list', compact('groupedProducts', 'totalProducts', 'type', 'data', 'brands', 'categories', 'ageSection'));
     }
 
+    public function getFilterOptions(Request $request, $type)
+    {
+        $ageFilter      = $request->ageFilter      ? (array)$request->ageFilter      : [];
+        $brandFilter    = $request->brandFilter    ? (array)$request->brandFilter    : [];
+        $categoryFilter = $request->categoryFilter ? (array)$request->categoryFilter : [];
+
+        $type        = ucFirst($type);
+        $ageSections = config('global_values.age_section');
+        $clothsizes  = Clothsize::all()->keyBy('id');
+
+        // Active age sections determined by the current age filter selection
+        $activeAgeSections = !empty($ageFilter)
+            ? array_intersect_key($ageSections, array_flip(array_map('strtolower', $ageFilter)))
+            : $ageSections;
+
+        // Helper: does this product have at least one size that falls within the given age sections?
+        $matchesAge = function ($product, array $sections) use ($clothsizes) {
+            $brandSizes = json_decode($product->product_brand_size, true);
+            if (!is_array($brandSizes)) return false;
+            foreach (collect($brandSizes)->groupBy('size_id') as $sizeId => $bs) {
+                $sizeId = (int)$sizeId;
+                if (!$sizeId || !isset($clothsizes[$sizeId])) continue;
+                $range = $this->sizeToMonths(trim($clothsizes[$sizeId]->name));
+                if (!$range) continue;
+                // Strict containment
+                foreach ($sections as $section) {
+                    if ($range['min'] >= $section['min'] && $range['max'] <= $section['max']) return true;
+                }
+                // Midpoint fallback for wide-spanning sizes
+                $mid = ($range['min'] + $range['max']) / 2;
+                foreach ($sections as $section) {
+                    if ($mid >= $section['min'] && $mid <= $section['max']) return true;
+                }
+            }
+            return false;
+        };
+
+        // All non-deleted products of this gender type
+        $allProducts = Product::select('id', 'brand_id', 'category_id', 'product_brand_size')
+            ->where('type', $type)
+            ->whereNull('deleted_at')
+            ->get();
+
+        // ── Brands: filtered by active age sections + selected categories (NOT brand itself) ──
+        $brandsBase = $allProducts;
+        if (!empty($categoryFilter)) {
+            $brandsBase = $brandsBase->whereIn('category_id', $categoryFilter);
+        }
+        if (!empty($ageFilter)) {
+            $brandsBase = $brandsBase->filter(fn($p) => $matchesAge($p, $activeAgeSections));
+        }
+        $availableBrandIds = $brandsBase->pluck('brand_id')->unique()->filter()->values()->toArray();
+
+        $brands = Brand::select('id', 'name')
+            ->whereIn('id', $availableBrandIds)
+            ->whereNull('deleted_at')
+            ->get()
+            ->map(function ($brand) use ($brandsBase) {
+                $brand->count = $brandsBase->where('brand_id', $brand->id)->count();
+                return $brand;
+            })
+            ->values();
+
+        // ── Categories: filtered by active age sections + selected brands (NOT category itself) ──
+        $catsBase = $allProducts;
+        if (!empty($brandFilter)) {
+            $catsBase = $catsBase->whereIn('brand_id', $brandFilter);
+        }
+        if (!empty($ageFilter)) {
+            $catsBase = $catsBase->filter(fn($p) => $matchesAge($p, $activeAgeSections));
+        }
+        $availableCatIds = $catsBase->pluck('category_id')->unique()->filter()->values()->toArray();
+
+        $categories = Category::select('id', 'name')
+            ->whereIn('id', $availableCatIds)
+            ->whereNull('deleted_at')
+            ->get()
+            ->map(function ($cat) use ($catsBase) {
+                $cat->count = $catsBase->where('category_id', $cat->id)->count();
+                return $cat;
+            })
+            ->values();
+
+        // ── Age counts: filtered by selected brands + categories (NOT age itself) ──
+        $ageBase = $allProducts;
+        if (!empty($brandFilter)) {
+            $ageBase = $ageBase->whereIn('brand_id', $brandFilter);
+        }
+        if (!empty($categoryFilter)) {
+            $ageBase = $ageBase->whereIn('category_id', $categoryFilter);
+        }
+
+        $ageCounts = array_fill_keys(array_keys($ageSections), 0);
+        foreach ($ageBase as $product) {
+            $brandSizes = json_decode($product->product_brand_size, true);
+            if (!is_array($brandSizes)) continue;
+            foreach (collect($brandSizes)->groupBy('size_id') as $sizeId => $bs) {
+                $sizeId = (int)$sizeId;
+                if (!$sizeId || !isset($clothsizes[$sizeId])) continue;
+                $range = $this->sizeToMonths(trim($clothsizes[$sizeId]->name));
+                if (!$range) continue;
+                $matched = false;
+                foreach ($ageSections as $key => $section) {
+                    if ($range['min'] >= $section['min'] && $range['max'] <= $section['max']) {
+                        $ageCounts[$key]++;
+                        $matched = true;
+                        break;
+                    }
+                }
+                if (!$matched) {
+                    $mid = ($range['min'] + $range['max']) / 2;
+                    foreach ($ageSections as $key => $section) {
+                        if ($mid >= $section['min'] && $mid <= $section['max']) {
+                            $ageCounts[$key]++;
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+
+        return response()->json([
+            'brands'     => $brands,
+            'categories' => $categories,
+            'ageCounts'  => $ageCounts,
+        ]);
+    }
+
     protected function getTotalProductByBrand($brandId, $type)
     {
         $products = Product::where(['brand_id' => $brandId,'type' => $type])->whereNull('deleted_at')->get(['product_brand_size']);
