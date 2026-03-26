@@ -251,6 +251,8 @@
     display: block;
 }
 
+ 
+
          /*.product_img {width:320px; height:320px;}*/
       .product_wrapper .slider_arrows .slick-next {right: 3%;left: auto;}
       .product_wrapper .slider_arrows .slick-prev{left: 3%;right: auto;}
