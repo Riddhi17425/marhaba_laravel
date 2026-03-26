@@ -176,7 +176,7 @@
                         <button class="btn p-0 border-0" type="button" data-bs-toggle="offcanvas"
                             data-bs-target="#sidebarMenu" aria-controls="sidebarMenu">
                             <i>
-                                <svg width="30" height="30" viewBox="0 0 34 30" fill="none"
+                                <svg class="toggle_bars" width="30" height="30" viewBox="0 0 34 30" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
                                     <rect y="2" width="34" height="2" fill="#452667" />
                                     <rect y="14" width="34" height="2" fill="#452667" />

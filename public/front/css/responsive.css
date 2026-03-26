@@ -108,6 +108,11 @@
     font-size: 14px;
 }
 
+.toggle_bars
+      {
+        width: 25px;
+      }
+
      } 
          @media screen and (max-width:1280px){
                  .right_breadcrumb { width: 355px;}
@@ -250,6 +255,8 @@
     width: 100% !important;
     display: block;
 }
+
+ 
 
          /*.product_img {width:320px; height:320px;}*/
       .product_wrapper .slider_arrows .slick-next {right: 3%;left: auto;}
