@@ -486,12 +486,97 @@ a {
 
 .swiper_number_pagination {
     display: flex;
-    gap: 5px;
+    align-items: center;
+    justify-content: flex-start;
     font-family: var(--font-lore);
     font-size: 38px;
     color: #d7c7e9;
     line-height: 38px;
     margin-bottom: 40px;
+}
+
+.why-slider-controls {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    margin-top: 28px;
+}
+
+.why-slider-controls .swiper-pagination {
+    position: static;
+    width: auto !important;
+    display: inline-flex;
+    align-items: center;
+}
+
+.why-slider-count {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.why-slider-toggle {
+    width: 25px;
+    height: 25px;
+    border: 1px solid #d8d8de;
+    border-radius: 50%;
+    background: #f3f3f6;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    flex-shrink: 0;
+    padding: 0;
+    box-shadow: 0 2px 6px rgba(17, 17, 17, 0.08);
+    transition: transform 0.25s ease, background-color 0.25s ease, box-shadow 0.25s ease;
+    margin: 2px;
+}
+
+.why-slider-toggle:hover {
+    /* transform: scale(1.); */
+    background: #e8e8ee;
+    /* box-shadow: 0 4px 10px rgba(17, 17, 17, 0.12); */
+}
+
+.why-slider-toggle:focus-visible {
+    outline: 2px solid #452667;
+    outline-offset: 2px;
+}
+
+.why-slider-toggle-icon {
+    position: relative;
+    display: block;
+    width: 8px;
+    height: 8px;
+}
+
+.why-slider-toggle.is-playing .why-slider-toggle-icon::before,
+.why-slider-toggle.is-playing .why-slider-toggle-icon::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    width: 2px;
+    height: 9px;
+    border-radius: 2px;
+    background: #2e2e2e;
+}
+
+.why-slider-toggle.is-playing .why-slider-toggle-icon::before {
+    left: 1px;
+}
+
+.why-slider-toggle.is-playing .why-slider-toggle-icon::after {
+    right: 1px;
+}
+
+.why-slider-toggle:not(.is-playing) .why-slider-toggle-icon {
+    width: 0;
+    height: 0;
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;
+    border-left: 8px solid #2e2e2e;
+    margin-left: 3px;
 }
 
 
@@ -566,6 +651,7 @@ a {
     justify-content: space-between;
     align-items: center;
     height: 100%;
+    width: 100%;
     transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
@@ -576,6 +662,10 @@ a {
     transition: all 0.85s cubic-bezier(0.33, 0.66, 0.66, 1);
 }
 .project-content .btn_wrapper{justify-content: start;}
+.card_top_head
+{
+    width: 100%;
+}
 .project-card.active .card_top_head {
     display: none;
     transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);

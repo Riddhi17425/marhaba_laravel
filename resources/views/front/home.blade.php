@@ -687,9 +687,11 @@
                     <div class="hero_why_content">
                         <div class="swiper why_slider">
                             <div class="swiper_number_pagination">
-                                <span id="current-num">01</span>
-                                <span class="separator">-</span>
-                                <span id="total-num">@if(count($whyChooseUs) < 10){{'0'}}@endif{{ count($whyChooseUs) }}</span>
+                                <div class="why-slider-count">
+                                    <span id="current-num">01</span>
+                                    <span class="separator">-</span>
+                                    <span id="total-num">@if(count($whyChooseUs) < 10){{'0'}}@endif{{ count($whyChooseUs) }}</span>
+                                </div>
                             </div>
             
                             <div class="swiper-wrapper">
@@ -724,7 +726,12 @@
                                 <!--</div>-->
                             </div>
             
-                            <div class="swiper-pagination"></div>
+                            <div class="why-slider-controls">
+                                <div class="swiper-pagination"></div>
+                                <button type="button" class="why-slider-toggle is-playing" aria-label="Pause slider autoplay" aria-pressed="true">
+                                    <span class="why-slider-toggle-icon" aria-hidden="true"></span>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>

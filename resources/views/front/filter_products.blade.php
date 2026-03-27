@@ -511,6 +511,13 @@ function removeFilter(filterType, filterValue) {
         filterState.brand.length === 0 &&
         filterState.category.length === 0) {
         showAllSections();
+
+
+
+
+
+
+        
     }
 }
 

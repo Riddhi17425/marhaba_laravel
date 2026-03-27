@@ -138,6 +138,8 @@
 </div> --}} 
 
 @include('layouts.whatsapp-popup')
+
+
 {{-- <div class="modal fade" id="whatsappEnquiryPopup" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered custom-dialog">
     <div class="modal-content popup-box popup-box_whatsapp">
