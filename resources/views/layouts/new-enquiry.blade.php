@@ -903,8 +903,7 @@
 </style>
 <!-- Modal -->
 <div class="modal fade enquiry_modal" id="enquiryModal" tabindex="-1" aria-labelledby="enquiryModalLabel"
-    aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-    aria-labelledby="staticBackdropLabel">
+    aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-body enquiry_body">
@@ -2747,7 +2746,7 @@
     //         kids: ["Frocks & Dresses", "Leggings", "Palazzo Sets"]
     //     }
     // };
-    const productData = @json($productData);
+    // const productData = @json($productData);
     // Product Translations for 26 languages
     // const productTranslations = {
     //     en: {

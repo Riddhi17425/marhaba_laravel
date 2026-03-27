@@ -558,7 +558,7 @@ $subcatVal = preg_replace('/[\#].*$/', '', $subcatVal);
                     <h2 class="accordion-header" id="headingAge">
                         <button class="accordion-button ps-0" type="button" data-bs-toggle="collapse"
                             data-bs-target="#collapseAge" aria-expanded="true" aria-controls="collapseAge">
-                            <svg  class="svg_filt_dot" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 16 16"
+                            <svg id="ageRangeDot" class="svg_filt_dot" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 16 16"
                                 fill="none" aria-hidden="true">
                                 <circle cx="8" cy="8" r="4" fill="#452667"></circle>
                             </svg><span> Age Range</span>
@@ -589,7 +589,7 @@ $subcatVal = preg_replace('/[\#].*$/', '', $subcatVal);
                         <button class="accordion-button collapsed ps-0" type="button" data-bs-toggle="collapse"
                             data-bs-target="#collapseBrand" aria-expanded="false" aria-controls="collapseBrand">
                            
-                             <svg class="svg_filt_dot" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 16 16"
+                             <svg id="brandDot" class="svg_filt_dot" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 16 16"
                                 fill="none" aria-hidden="true">
                                 <circle cx="8" cy="8" r="4" fill="#452667"></circle>
                             </svg><span> Brand</span>
@@ -619,7 +619,7 @@ $subcatVal = preg_replace('/[\#].*$/', '', $subcatVal);
                         <button class="accordion-button collapsed ps-0" type="button" data-bs-toggle="collapse"
                             data-bs-target="#collapseCategory" aria-expanded="false" aria-controls="collapseCategory">
                            
-                             <svg  class="svg_filt_dot" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 16 16"
+                             <svg id="categoryDot" class="svg_filt_dot" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 16 16"
                                 fill="none" aria-hidden="true">
                                 <circle cx="8" cy="8" r="4" fill="#452667"></circle>
                             </svg><span> Category</span>
@@ -756,8 +756,23 @@ function initEventListeners() {
             updateApplyButtonText();
             applyFilters(); // ✅ ADD THIS LINE
               updateAccordionActiveState();
+              updateFilterDots();
         });
     });
+}
+
+function updateFilterDots() {
+    const ageRangeDot = document.getElementById('ageRangeDot');
+    const brandDot = document.getElementById('brandDot');
+    const categoryDot = document.getElementById('categoryDot');
+
+    const hasAgeRange = document.querySelectorAll('input[name="ageRange[]"]:checked').length > 0;
+    const hasBrand = document.querySelectorAll('input[name="brand[]"]:checked').length > 0;
+    const hasCategory = document.querySelectorAll('input[name="category[]"]:checked').length > 0;
+
+    if (ageRangeDot) ageRangeDot.classList.toggle('d-none', !hasAgeRange);
+    if (brandDot) brandDot.classList.toggle('d-none', !hasBrand);
+    if (categoryDot) categoryDot.classList.toggle('d-none', !hasCategory);
 }
 
 // Update Filter State from Checkboxes
@@ -975,6 +990,8 @@ function removeFilter(filterType, filterValue) {
     // Uncheck the checkbox
     const checkbox = document.querySelector(`input[name="${filterType}"][value="${filterValue}"]`);
     if (checkbox) checkbox.checked = false;
+    updateAccordionActiveState();
+    updateFilterDots();
     // Check if no filters remain
     const noFiltersLeft =
         filterState.ageRange.length === 0 &&
@@ -1019,6 +1036,7 @@ function clearAllFilters() {
 
     // ✅ ADD THIS
     updateAccordionActiveState();
+    updateFilterDots();
 }
 
 // Show All Sections
@@ -1050,6 +1068,7 @@ function showAllSections() {
 // Initialize on Page Load
 document.addEventListener('DOMContentLoaded', function() {
     initEventListeners();
+    updateFilterDots();
 });
 
 // Optional: Handle browser back button

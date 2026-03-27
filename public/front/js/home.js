@@ -141,32 +141,44 @@ document.querySelectorAll('.stat_counter').forEach(animateCounter);
 //     });
 // }
 
-if (document.querySelector('.why_slider')) {
+const visibleWhyWrapper = document.querySelector('.hero_why_wrapper:not(.d-none)');
 
-    const currentNum = document.getElementById('current-num');
-    const totalNum = document.getElementById('total-num');
-    const mainImg = document.getElementById('main-why-img');
+if (visibleWhyWrapper) {
 
-    const swiper = new Swiper('.why_slider', {
+    const sliderEl = visibleWhyWrapper.querySelector('.why_slider');
+    const currentNum = visibleWhyWrapper.querySelector('#current-num');
+    const totalNum = visibleWhyWrapper.querySelector('#total-num');
+    const mainImg = visibleWhyWrapper.querySelector('#main-why-img') || document.getElementById('main-why-img');
+    const autoplayToggle = visibleWhyWrapper.querySelector('.why-slider-toggle');
+
+    const updateWhySliderToggleState = (isPlaying) => {
+        if (!autoplayToggle) return;
+        autoplayToggle.classList.toggle('is-playing', isPlaying);
+        autoplayToggle.setAttribute('aria-pressed', String(isPlaying));
+        autoplayToggle.setAttribute('aria-label', isPlaying ? 'Pause slider autoplay' : 'Play slider autoplay');
+    };
+
+    const swiper = new Swiper(sliderEl, {
         slidesPerView: 1,
-        speed: 1000, 
+        speed: 1100, 
         loop: true,
 
         pagination: {
-            el: '.swiper-pagination',
+            el: sliderEl.querySelector('.swiper-pagination'),
             clickable: true
         },
 
         autoplay: {
-            delay: 3500,
+            delay: 4500,
             disableOnInteraction: false,
         },
 
         on: {
             init(swiper) {
-                const total = swiper.slides.length;
+                const total = sliderEl.querySelectorAll('.swiper-slide:not(.swiper-slide-duplicate)').length || swiper.slides.length;
                 totalNum.textContent = total.toString().padStart(2, '0');
                 currentNum.textContent = '01';
+                updateWhySliderToggleState(Boolean(swiper.autoplay && swiper.autoplay.running));
             },
 
             slideChangeTransitionStart(swiper) {
@@ -197,6 +209,20 @@ if (document.querySelector('.why_slider')) {
             }
         }
     });
+
+    if (autoplayToggle) {
+        autoplayToggle.addEventListener('click', function () {
+            if (!swiper.autoplay) return;
+
+            if (swiper.autoplay.running) {
+                swiper.autoplay.stop();
+                updateWhySliderToggleState(false);
+            } else {
+                swiper.autoplay.start();
+                updateWhySliderToggleState(true);
+            }
+        });
+    }
 }
 
 
