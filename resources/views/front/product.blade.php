@@ -106,14 +106,14 @@
                             <td>6m-9m</td> --}}
                         </tr>
                     </table>
-                    <p class="pd_note">3 sizes premixed per dozen (12 pc pack)</p>
+                    <p class="pd_note">3 sizes premixed per dozen (12 unit pack)</p>
                 </div>
                 <div>
                     <section class="age_range_section">
                         <div class="age_range_box d-flex align-items-center" style="background-color: rgb(239, 230, 240);cursor: default;">
                             <div class="age-card">
                                 <p class="raleway_14 mb-0">MOQ</p>
-                                <h3 class="fs_18 mb-0">12 sets per design</h3>
+                                <h3 class="fs_18 mb-0">12 units per design</h3>
                             </div>
                         </div>
                         <div class="age_range_box d-flex align-items-center" style="background-color: rgb(243, 242, 231);cursor: default;">
@@ -189,7 +189,7 @@
                                         <li>Premixed sizing: Balanced distribution for retail coverage</li>
                                         <li>12 sets per design in single or pre-assorted colours</li>
                                     </ul>
-                                    <a class="prod_detail_a" data-bs-toggle="modal" data-bs-target="#size_popup">Standard 12-Piece Assortment</a>
+                                    <a class="prod_detail_a" data-bs-toggle="modal" data-bs-target="#size_popup">Standard 12-Units Assortment</a>
                             
                                     <h6>Delivery & Shipping</h6>
                                     <ul class="pd_list">

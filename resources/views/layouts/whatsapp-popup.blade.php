@@ -182,7 +182,7 @@
         <!-- Popup Form -->
         <div class="wa_popup">
             <div class="wa_head">
-                <h3>Chat on WhatsApp</h3>
+                <h3>Contact on WhatsApp</h3>
                 <button class="close-inquiry">×</button>
             </div>
             <div class="wa-body">
@@ -201,7 +201,7 @@
                         <label for="message_note" class="form-label">Message</label>
                         <textarea class="form-control" name="message" id="message_note" rows="3" placeholder="Your Message" required></textarea>
                     </div>
-                    <button id="sendWa" class="btn w-100" type="submit">Send on WhatsApp</button>
+                    <button id="sendWa" class="btn w-100" type="submit">Start Chat With Us</button>
                 </form>
             </div>
         </div>

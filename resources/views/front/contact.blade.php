@@ -105,7 +105,7 @@
                         <div class="">
                             <div>
                                 <div class="checkbox-item">
-                                        <input type="checkbox" id="Distributor" name="distributor" value="Distributor">
+                                        <input type="checkbox" id="Distributor" name="distributor" value="Distributor" {{ request()->query('distributor') == '1' ? 'checked' : '' }}>
                                         <label for="Distributor">Become a Distributor</label>
                                     </div>
                             </div>

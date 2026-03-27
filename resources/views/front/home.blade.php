@@ -751,7 +751,7 @@
                     <a href="" class="btn_1" data-bs-toggle="modal" data-bs-target="#enquiryModal">Enquire Now <img
                             loading="lazy" src="{{ asset('public/front/img/Home/blue-arr.svg') }}" alt="" height="10"
                             width="10"></a>
-                    <a href="{{ route('contact') }}" class="btn_1">Become a Distributor <img loading="lazy"
+                    <a href="{{ route('contact') }}?distributor=1" class="btn_1">Become a Distributor <img loading="lazy"
                             src="{{ asset('public/front/img/Home/blue-arr.svg') }}" alt="" height="10" width="10"></a>
                 </div>
             </div>
