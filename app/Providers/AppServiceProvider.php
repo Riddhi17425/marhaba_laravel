@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\View;
-use App\Models\Product;
+use App\Models\{Product, Clothsize};
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -49,8 +49,9 @@ class AppServiceProvider extends ServiceProvider
         $clothsizes = Clothsize::all()->keyBy('id');
         $enquiryPopupAgeSections = config('global_values.inquiry_popup_age_section');
         $data = ['baby' => 0,  'toddler' => 0, 'kids' => 0];
-        foreach ($products as $product) {
-            $brandSizes = json_decode($product->product_brand_size, true);
+        $productsArr = Product::select('id', 'type', 'brand_id', 'category_id','name','url','image','product_brand_size')->orderBy('created_at', 'desc')->whereNull('deleted_at')->get();
+        foreach ($productsArr as $pv) {
+            $brandSizes = json_decode($pv->product_brand_size, true);
             if (!is_array($brandSizes)) {
                 continue;
             }
@@ -79,7 +80,7 @@ class AppServiceProvider extends ServiceProvider
                             $data['kids'] += 1;
                         }
                         // Assign product to this age section if not already assigned
-                            $filterProducts['products'][][$sizeName] = $product;
+                            $filterProducts['products'][][$sizeName] = $pv;
                         // Optional: break if you want product only in one section
                         break;
                     }
@@ -112,9 +113,9 @@ class AppServiceProvider extends ServiceProvider
             ]
         ];
         foreach ($filterProducts['products'] as $productGroup) {
-            foreach ($productGroup as $size => $product) {
-                $type = strtolower($product->type);
-                $name = $product->name;
+            foreach ($productGroup as $size => $v) {
+                $type = strtolower($v->type);
+                $name = $v->name;
                 $range = $this->sizeToMonths($size);
                 if (!$range) {
                     continue;
@@ -122,13 +123,13 @@ class AppServiceProvider extends ServiceProvider
                 $maxMonths = $range['max'];
                 foreach ($enquiryPopupAgeSections as $sectionKey => $section) {
                     if ($maxMonths >= $section['min'] && $maxMonths <= $section['max']) {
+                        // $productData[$type][$sectionKey][] = $name. ' ('.$size.')';
                         $productData[$type][$sectionKey][] = $name;
                         break;
                     }
                 }
             }
         }
-        
         foreach ($productData as $type => $groups) {
             foreach ($groups as $ageGroup => $products) {
                 $productData[$type][$ageGroup] = array_values(array_unique($products));
@@ -181,4 +182,30 @@ class AppServiceProvider extends ServiceProvider
             $view->with(['menuTypes' => $menuTypes, 'productTranslations' => $productTranslations, 'productData' => $productData]);
         });
     }
+
+    protected function sizeToMonths($size)
+    {
+        $size = trim($size);
+
+        // Match patterns like 2-5Y, 6-12Y, 0m-9m, 3m-12m, 1-10Y
+        if (!preg_match('/^(\d+)(m|Y)?\s*-\s*(\d+)(m|Y)?$/i', $size, $matches)) {
+            return null;
+        }
+
+        // Extract numbers and units
+        $min = (int)$matches[1];
+        $minUnit = isset($matches[2]) && $matches[2] ? strtoupper($matches[2]) : 'Y';
+        $max = (int)$matches[3];
+        $maxUnit = isset($matches[4]) && $matches[4] ? strtoupper($matches[4]) : 'Y';
+
+        // Convert to months
+        $minMonths = $minUnit === 'Y' ? $min * 12 : $min;
+        $maxMonths = $maxUnit === 'Y' ? $max * 12 : $max;
+
+        return [
+            'min' => $minMonths,
+            'max' => $maxMonths
+        ];
+    }
+
 }

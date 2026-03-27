@@ -887,7 +887,7 @@
         </div>
     </div>
 </div>
-@include('layouts.new-enquiry')
+{{-- @include('layouts.new-enquiry') --}}
 
 
 <script>

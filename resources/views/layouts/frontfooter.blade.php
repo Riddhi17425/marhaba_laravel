@@ -137,6 +137,7 @@
     </div>
 </div> --}} 
 
+@include('layouts.new-enquiry')
 @include('layouts.whatsapp-popup')
 
 
