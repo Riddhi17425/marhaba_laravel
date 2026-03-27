@@ -1585,6 +1585,7 @@
       .offcanvas.offcanvas-end {
         width: 550px !important;
         padding: 60px;
+        z-index: 99999;
       }
 
       .section_gradientbg_product {

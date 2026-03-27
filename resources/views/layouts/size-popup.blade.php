@@ -90,6 +90,11 @@
                                     </td>
                                 </tr>
                             </table>
+
+                            <div class="size_pop_head">
+                                Total Units per Pack: 12
+                            </div>
+                            <p class="text-center">All pieces within the pack feature the same design</p>
                         </div>
                     </div>
 
@@ -161,6 +166,10 @@
                                     </td>
                                 </tr>
                             </table>
+                            <div class="size_pop_head">
+                                Total Units per Pack: 12
+                            </div>
+                            <p class="text-center">All pieces within the pack feature the same design</p>
                         </div>
                     </div>
 
