@@ -100,137 +100,136 @@ class dashboardController extends Controller
         }
         
         // FOR ENQUIRY POPUP
-        $filterProducts = [];
-        $clothsizes = Clothsize::all()->keyBy('id');
-        $enquiryPopupAgeSections = config('global_values.inquiry_popup_age_section');
-        $data = ['baby' => 0,  'toddler' => 0, 'kids' => 0];
-        foreach ($products as $product) {
-            $brandSizes = json_decode($product->product_brand_size, true);
-            if (!is_array($brandSizes)) {
-                continue;
-            }
-            $brandSizes = collect($brandSizes)->groupBy('size_id');
-            // Check all sizes in product_brand_size
-            foreach ($brandSizes as $bk => $bs) {
-                $sizeId = $bk ? (int)$bk : null;
-                if (!$sizeId || !isset($clothsizes[$sizeId])) {
-                    continue;
-                }
-                $size = $clothsizes[$sizeId];
-                $sizeName = trim($size->name); 
-                $range = $this->sizeToMonths($sizeName);
-                if (!$range) {
-                    continue;
-                }
-                // Check if size fits into any age section
-                foreach ($enquiryPopupAgeSections as $sectionKey => $section) {
-                    // If any overlap between size range and section range
-                    if ($range['min'] >= $section['min'] && $range['max'] <= $section['max']) {
-                        if(strtolower($sectionKey) == 'baby'){
-                            $data['baby'] += 1;
-                        }elseif(strtolower($sectionKey) == 'toddler'){
-                            $data['toddler'] += 1;
-                        }elseif(strtolower($sectionKey) == 'kids'){
-                            $data['kids'] += 1;
-                        }
-                        // Assign product to this age section if not already assigned
-                            $filterProducts['products'][][$sizeName] = $product;
-                        // Optional: break if you want product only in one section
-                        break;
-                    }
-                }
-            }
-        }
+        // $filterProducts = [];
+        // $clothsizes = Clothsize::all()->keyBy('id');
+        // $enquiryPopupAgeSections = config('global_values.inquiry_popup_age_section');
+        // $data = ['baby' => 0,  'toddler' => 0, 'kids' => 0];
+        // foreach ($products as $product) {
+        //     $brandSizes = json_decode($product->product_brand_size, true);
+        //     if (!is_array($brandSizes)) {
+        //         continue;
+        //     }
+        //     $brandSizes = collect($brandSizes)->groupBy('size_id');
+        //     // Check all sizes in product_brand_size
+        //     foreach ($brandSizes as $bk => $bs) {
+        //         $sizeId = $bk ? (int)$bk : null;
+        //         if (!$sizeId || !isset($clothsizes[$sizeId])) {
+        //             continue;
+        //         }
+        //         $size = $clothsizes[$sizeId];
+        //         $sizeName = trim($size->name); 
+        //         $range = $this->sizeToMonths($sizeName);
+        //         if (!$range) {
+        //             continue;
+        //         }
+        //         // Check if size fits into any age section
+        //         foreach ($enquiryPopupAgeSections as $sectionKey => $section) {
+        //             // If any overlap between size range and section range
+        //             if ($range['min'] >= $section['min'] && $range['max'] <= $section['max']) {
+        //                 if(strtolower($sectionKey) == 'baby'){
+        //                     $data['baby'] += 1;
+        //                 }elseif(strtolower($sectionKey) == 'toddler'){
+        //                     $data['toddler'] += 1;
+        //                 }elseif(strtolower($sectionKey) == 'kids'){
+        //                     $data['kids'] += 1;
+        //                 }
+        //                 // Assign product to this age section if not already assigned
+        //                     $filterProducts['products'][][$sizeName] = $product;
+        //                 // Optional: break if you want product only in one section
+        //                 break;
+        //             }
+        //         }
+        //     }
+        // }
         
-        //Sorted by age range
-        if (!empty($filterProducts['products'])) {
-            usort($filterProducts['products'], function ($itemA, $itemB) {
-                $sizeA = array_key_first($itemA);
-                $sizeB = array_key_first($itemB);
-                $rangeA = $this->sizeToMonths($sizeA);
-                $rangeB = $this->sizeToMonths($sizeB);
+        // //Sorted by age range
+        // if (!empty($filterProducts['products'])) {
+        //     usort($filterProducts['products'], function ($itemA, $itemB) {
+        //         $sizeA = array_key_first($itemA);
+        //         $sizeB = array_key_first($itemB);
+        //         $rangeA = $this->sizeToMonths($sizeA);
+        //         $rangeB = $this->sizeToMonths($sizeB);
 
-                return ($rangeA['min'] ?? 0) <=> ($rangeB['min'] ?? 0);
-            });
-        }
+        //         return ($rangeA['min'] ?? 0) <=> ($rangeB['min'] ?? 0);
+        //     });
+        // }
 
-        $productData = [
-            'boy' => [
-                'baby' => [],
-                'toddlers' => [],
-                'kids' => []
-            ],
-            'girl' => [
-                'baby' => [],
-                'toddlers' => [],
-                'kids' => []
-            ]
-        ];
-        foreach ($filterProducts['products'] as $productGroup) {
-            foreach ($productGroup as $size => $product) {
-                $type = strtolower($product->type);
-                $name = $product->name;
-                $range = $this->sizeToMonths($size);
-                if (!$range) {
-                    continue;
-                }
-                $maxMonths = $range['max'];
-                foreach ($enquiryPopupAgeSections as $sectionKey => $section) {
-                    if ($maxMonths >= $section['min'] && $maxMonths <= $section['max']) {
-                        // $productData[$type][$sectionKey][] = $name. ' ('.$size.')';
-                        $productData[$type][$sectionKey][] = $name;
-                        break;
-                    }
-                }
-            }
-        }
+        // $productData = [
+        //     'boy' => [
+        //         'baby' => [],
+        //         'toddlers' => [],
+        //         'kids' => []
+        //     ],
+        //     'girl' => [
+        //         'baby' => [],
+        //         'toddlers' => [],
+        //         'kids' => []
+        //     ]
+        // ];
+        // foreach ($filterProducts['products'] as $productGroup) {
+        //     foreach ($productGroup as $size => $product) {
+        //         $type = strtolower($product->type);
+        //         $name = $product->name;
+        //         $range = $this->sizeToMonths($size);
+        //         if (!$range) {
+        //             continue;
+        //         }
+        //         $maxMonths = $range['max'];
+        //         foreach ($enquiryPopupAgeSections as $sectionKey => $section) {
+        //             if ($maxMonths >= $section['min'] && $maxMonths <= $section['max']) {
+        //                 $productData[$type][$sectionKey][] = $name;
+        //                 break;
+        //             }
+        //         }
+        //     }
+        // }
         
-        foreach ($productData as $type => $groups) {
-            foreach ($groups as $ageGroup => $products) {
-                $productData[$type][$ageGroup] = array_values(array_unique($products));
-            }
-        }
+        // foreach ($productData as $type => $groups) {
+        //     foreach ($groups as $ageGroup => $products) {
+        //         $productData[$type][$ageGroup] = array_values(array_unique($products));
+        //     }
+        // }
 
         // LANGUAGE TRANSLATION ARRAY
-        $productNames = [];
-        // Loop through boys and girls and all age groups
-        foreach ($productData as $gender => $groups) {
-            foreach ($groups as $ageGroup => $names) {
-                foreach ($names as $fullName) {
-                    // Remove size info if stored like "Romper (0m-9m)"
-                    $name = preg_replace('/\s*\(.*?\)$/', '', $fullName);
-                    $productNames[] = $name;
-                }
-            }
-        }
+        // $productNames = [];
+        // // Loop through boys and girls and all age groups
+        // foreach ($productData as $gender => $groups) {
+        //     foreach ($groups as $ageGroup => $names) {
+        //         foreach ($names as $fullName) {
+        //             // Remove size info if stored like "Romper (0m-9m)"
+        //             $name = preg_replace('/\s*\(.*?\)$/', '', $fullName);
+        //             $productNames[] = $name;
+        //         }
+        //     }
+        // }
         // Remove duplicates
-        $productNames = array_unique($productNames);
-        $productNamesData = Product::select('id', 'type', 'category_id','name','translations')->whereIn('name', $productNames)->get();
-        $languages = config('global_values.languages');
-        $productTranslations = [];
-        // English initialization
-        $productTranslations['en'] = [];
-        foreach ($productNames as $name) {
-            $productTranslations['en'][$name] = $name;
-        }
-        // Initialize other languages
-        foreach ($languages as $lang) {
-            $productTranslations[$lang] = [];
-        }
-        // Fill translations
-        foreach ($productNamesData as $product) {
-            $translations = json_decode($product->translations, true); // decode DB JSON
+        // $productNames = array_unique($productNames);
+        // $productNamesData = Product::select('id', 'type', 'category_id','name','translations')->whereIn('name', $productNames)->get();
+        // $languages = config('global_values.languages');
+        // $productTranslations = [];
+        // // English initialization
+        // $productTranslations['en'] = [];
+        // foreach ($productNames as $name) {
+        //     $productTranslations['en'][$name] = $name;
+        // }
+        // // Initialize other languages
+        // foreach ($languages as $lang) {
+        //     $productTranslations[$lang] = [];
+        // }
+        // // Fill translations
+        // foreach ($productNamesData as $product) {
+        //     $translations = json_decode($product->translations, true); // decode DB JSON
 
-            foreach ($languages as $lang) {
-                if (isset($translations[$lang][$product->name])) {
-                    // assign the actual translated string, not array
-                    $productTranslations[$lang][$product->name] = $translations[$lang][$product->name];
-                } else {
-                    // fallback to English
-                    $productTranslations[$lang][$product->name] = $product->name;
-                }
-            }
-        }
+        //     foreach ($languages as $lang) {
+        //         if (isset($translations[$lang][$product->name])) {
+        //             // assign the actual translated string, not array
+        //             $productTranslations[$lang][$product->name] = $translations[$lang][$product->name];
+        //         } else {
+        //             // fallback to English
+        //             $productTranslations[$lang][$product->name] = $product->name;
+        //         }
+        //     }
+        // }
         
         $girlCollectionRandomImage = CollectionRandomImage::select('id', 'image', 'name')->where('section', 1)->get();
         $boyCollectionRandomImage = CollectionRandomImage::select('id', 'image', 'name')->where('section', 2)->get();
@@ -247,27 +246,8 @@ class dashboardController extends Controller
                 'name' => $item->name
             ];
         })->toArray();
-
-        // $boysRandomImg = [
-        //     ["src" => asset('public/front/img/Home/Classic-Shirt-Shorts.png'), "name" => "Classic Shirt Shorts"],
-        //     ["src" => asset('public/front/img/Home/Comfort-Tshirt-Shorts.png'),"name" => "Comfort T-shirt Shorts"],
-        //     ["src" => asset('public/front/img/Home/Loungewear-Set.png'),"name" => "Loungewear Set"],
-        //     ["src" => asset('public/front/img/Home/Pyjama-Set-boy.png'),"name" => "Pyjama Set"],
-        //     ["src" => asset('public/front/img/Home/Shirt-Shorts-Co-ord-Set.png'),"name" => "Shirt Shorts Co-ord Set"],
-        //     ["src" => asset('public/front/img/Home/Classic-Shirt-Shorts-Set.png'),"name" => "Classic Shirt Shorts Set"],
-        //     ["src" => asset('public/front/img/Home/Smart-Kids-Comfort-Bodysuit-Set.png'),"name" => "Smart Kids Comfort Bodysuit Set"],
-        // ];
-        // $girlsRandomImg = [
-        //     ["src" => asset('public/front/img/Home/Comfort-Palazzo-Set.png'), "name" => "Comfort Palazzo Set"],
-        //     ["src" => asset('public/front/img/Home/Loungewear-Set-girl.png'),"name" => "Loungewear Set"],
-        //     ["src" => asset('public/front/img/Home/Pyjama-Set.png'),"name" => "Pyjama-Set"],
-        //     ["src" => asset('public/front/img/Home/classic-dress.png'),"name" => "Classic Dress"],
-        //     ["src" => asset('public/front/img/Home/Top-Leggings-Set.png'),"name" => "Top & Leggings Set"],
-        //     ["src" => asset('public/front/img/Home/Classic-Palazzo-Set.png'),"name" => "Classic-Palazzo-Set"],
-        //     ["src" => asset('public/front/img/Home/Casual-Dungaree-Set.png'),"name" => "Casual-Dungaree-Set"],
-        // ];
       
-        return view('front.home', compact('brand', 'boysCollection', 'girlsCollection', 'globalpresence', 'ageSections', 'groupedSizes', 'productsByAge', 'catImgs', 'trustedBy', 'whyChooseUs', 'homeSliderImgs', 'productData', 'productTranslations', 'boysRandomImg', 'girlsRandomImg'));
+        return view('front.home', compact('brand', 'boysCollection', 'girlsCollection', 'globalpresence', 'ageSections', 'groupedSizes', 'productsByAge', 'catImgs', 'trustedBy', 'whyChooseUs', 'homeSliderImgs', /*'productData', 'productTranslations',*/ 'boysRandomImg', 'girlsRandomImg'));
     }
 
     private function groupSizesByAge(array $sizes, array $ageSections)
@@ -836,142 +816,141 @@ class dashboardController extends Controller
         $largest = explode('-', $largest);
 
         // FOR ENQUIRY POPUP
-        $filterProducts = [];
-        $clothsizes = Clothsize::all()->keyBy('id');
-        $enquiryPopupAgeSections = config('global_values.inquiry_popup_age_section');
-        $data = ['baby' => 0,  'toddler' => 0, 'kids' => 0];
-        $productsArr = Product::select('id', 'type', 'brand_id', 'category_id','name','url','image','product_brand_size')->orderBy('created_at', 'desc')->whereNull('deleted_at')->get();
-        foreach ($productsArr as $pv) {
-            $brandSizes = json_decode($pv->product_brand_size, true);
-            if (!is_array($brandSizes)) {
-                continue;
-            }
-            $brandSizes = collect($brandSizes)->groupBy('size_id');
-            // Check all sizes in product_brand_size
-            foreach ($brandSizes as $bk => $bs) {
-                $sizeId = $bk ? (int)$bk : null;
-                if (!$sizeId || !isset($clothsizes[$sizeId])) {
-                    continue;
-                }
-                $size = $clothsizes[$sizeId];
-                $sizeName = trim($size->name); 
-                $range = $this->sizeToMonths($sizeName);
-                if (!$range) {
-                    continue;
-                }
-                // Check if size fits into any age section
-                foreach ($enquiryPopupAgeSections as $sectionKey => $section) {
-                    // If any overlap between size range and section range
-                    if ($range['min'] >= $section['min'] && $range['max'] <= $section['max']) {
-                        if(strtolower($sectionKey) == 'baby'){
-                            $data['baby'] += 1;
-                        }elseif(strtolower($sectionKey) == 'toddler'){
-                            $data['toddler'] += 1;
-                        }elseif(strtolower($sectionKey) == 'kids'){
-                            $data['kids'] += 1;
-                        }
-                        // Assign product to this age section if not already assigned
-                            $filterProducts['products'][][$sizeName] = $pv;
-                        // Optional: break if you want product only in one section
-                        break;
-                    }
-                }
-            }
-        }
+        // $filterProducts = [];
+        // $clothsizes = Clothsize::all()->keyBy('id');
+        // $enquiryPopupAgeSections = config('global_values.inquiry_popup_age_section');
+        // $data = ['baby' => 0,  'toddler' => 0, 'kids' => 0];
+        // $productsArr = Product::select('id', 'type', 'brand_id', 'category_id','name','url','image','product_brand_size')->orderBy('created_at', 'desc')->whereNull('deleted_at')->get();
+        // foreach ($productsArr as $pv) {
+        //     $brandSizes = json_decode($pv->product_brand_size, true);
+        //     if (!is_array($brandSizes)) {
+        //         continue;
+        //     }
+        //     $brandSizes = collect($brandSizes)->groupBy('size_id');
+        //     // Check all sizes in product_brand_size
+        //     foreach ($brandSizes as $bk => $bs) {
+        //         $sizeId = $bk ? (int)$bk : null;
+        //         if (!$sizeId || !isset($clothsizes[$sizeId])) {
+        //             continue;
+        //         }
+        //         $size = $clothsizes[$sizeId];
+        //         $sizeName = trim($size->name); 
+        //         $range = $this->sizeToMonths($sizeName);
+        //         if (!$range) {
+        //             continue;
+        //         }
+        //         // Check if size fits into any age section
+        //         foreach ($enquiryPopupAgeSections as $sectionKey => $section) {
+        //             // If any overlap between size range and section range
+        //             if ($range['min'] >= $section['min'] && $range['max'] <= $section['max']) {
+        //                 if(strtolower($sectionKey) == 'baby'){
+        //                     $data['baby'] += 1;
+        //                 }elseif(strtolower($sectionKey) == 'toddler'){
+        //                     $data['toddler'] += 1;
+        //                 }elseif(strtolower($sectionKey) == 'kids'){
+        //                     $data['kids'] += 1;
+        //                 }
+        //                 // Assign product to this age section if not already assigned
+        //                     $filterProducts['products'][][$sizeName] = $pv;
+        //                 // Optional: break if you want product only in one section
+        //                 break;
+        //             }
+        //         }
+        //     }
+        // }
         
-        //Sorted by age range
-        if (!empty($filterProducts['products'])) {
-            usort($filterProducts['products'], function ($itemA, $itemB) {
-                $sizeA = array_key_first($itemA);
-                $sizeB = array_key_first($itemB);
-                $rangeA = $this->sizeToMonths($sizeA);
-                $rangeB = $this->sizeToMonths($sizeB);
+        // //Sorted by age range
+        // if (!empty($filterProducts['products'])) {
+        //     usort($filterProducts['products'], function ($itemA, $itemB) {
+        //         $sizeA = array_key_first($itemA);
+        //         $sizeB = array_key_first($itemB);
+        //         $rangeA = $this->sizeToMonths($sizeA);
+        //         $rangeB = $this->sizeToMonths($sizeB);
 
-                return ($rangeA['min'] ?? 0) <=> ($rangeB['min'] ?? 0);
-            });
-        }
+        //         return ($rangeA['min'] ?? 0) <=> ($rangeB['min'] ?? 0);
+        //     });
+        // }
 
-        $productData = [
-            'boy' => [
-                'baby' => [],
-                'toddlers' => [],
-                'kids' => []
-            ],
-            'girl' => [
-                'baby' => [],
-                'toddlers' => [],
-                'kids' => []
-            ]
-        ];
-        foreach ($filterProducts['products'] as $productGroup) {
-            foreach ($productGroup as $size => $v) {
-                $type = strtolower($v->type);
-                $name = $v->name;
-                $range = $this->sizeToMonths($size);
-                if (!$range) {
-                    continue;
-                }
-                $maxMonths = $range['max'];
-                foreach ($enquiryPopupAgeSections as $sectionKey => $section) {
-                    if ($maxMonths >= $section['min'] && $maxMonths <= $section['max']) {
-                        // $productData[$type][$sectionKey][] = $name. ' ('.$size.')';
-                        $productData[$type][$sectionKey][] = $name;
-                        break;
-                    }
-                }
-            }
-        }
-        foreach ($productData as $type => $groups) {
-            foreach ($groups as $ageGroup => $products) {
-                $productData[$type][$ageGroup] = array_values(array_unique($products));
-            }
-        }
+        // $productData = [
+        //     'boy' => [
+        //         'baby' => [],
+        //         'toddlers' => [],
+        //         'kids' => []
+        //     ],
+        //     'girl' => [
+        //         'baby' => [],
+        //         'toddlers' => [],
+        //         'kids' => []
+        //     ]
+        // ];
+        // foreach ($filterProducts['products'] as $productGroup) {
+        //     foreach ($productGroup as $size => $v) {
+        //         $type = strtolower($v->type);
+        //         $name = $v->name;
+        //         $range = $this->sizeToMonths($size);
+        //         if (!$range) {
+        //             continue;
+        //         }
+        //         $maxMonths = $range['max'];
+        //         foreach ($enquiryPopupAgeSections as $sectionKey => $section) {
+        //             if ($maxMonths >= $section['min'] && $maxMonths <= $section['max']) {
+        //                 // $productData[$type][$sectionKey][] = $name. ' ('.$size.')';
+        //                 $productData[$type][$sectionKey][] = $name;
+        //                 break;
+        //             }
+        //         }
+        //     }
+        // }
+        // foreach ($productData as $type => $groups) {
+        //     foreach ($groups as $ageGroup => $products) {
+        //         $productData[$type][$ageGroup] = array_values(array_unique($products));
+        //     }
+        // }
 
         // LANGUAGE TRANSLATION ARRAY
-        $productNames = [];
-        // Loop through boys and girls and all age groups
-        foreach ($productData as $gender => $groups) {
-            foreach ($groups as $ageGroup => $names) {
-                foreach ($names as $fullName) {
-                    // Remove size info if stored like "Romper (0m-9m)"
-                    $name = preg_replace('/\s*\(.*?\)$/', '', $fullName);
-                    $productNames[] = $name;
-                }
-            }
-        }
-        
+        // $productNames = [];
+        // // Loop through boys and girls and all age groups
+        // foreach ($productData as $gender => $groups) {
+        //     foreach ($groups as $ageGroup => $names) {
+        //         foreach ($names as $fullName) {
+        //             // Remove size info if stored like "Romper (0m-9m)"
+        //             $name = preg_replace('/\s*\(.*?\)$/', '', $fullName);
+        //             $productNames[] = $name;
+        //         }
+        //     }
+        // }
         // Remove duplicates
-        $productNames = array_unique($productNames);
-        $productNamesData = Product::select('id', 'type', 'category_id','name','translations', 'product_brand_size')->whereIn('name', $productNames)->get();
-        $languages = config('global_values.languages');
-        $productTranslations = [];
-        // English initialization
-        $productTranslations['en'] = [];
-        foreach ($productNames as $name) {
-            $productTranslations['en'][$name] = $name;
-        }
-        // Initialize other languages
-        foreach ($languages as $lang) {
-            $productTranslations[$lang] = [];
-        }
+        // $productNames = array_unique($productNames);
+        // $productNamesData = Product::select('id', 'type', 'category_id','name','translations', 'product_brand_size')->whereIn('name', $productNames)->get();
+        // $languages = config('global_values.languages');
+        // $productTranslations = [];
+        // // English initialization
+        // $productTranslations['en'] = [];
+        // foreach ($productNames as $name) {
+        //     $productTranslations['en'][$name] = $name;
+        // }
+        // // Initialize other languages
+        // foreach ($languages as $lang) {
+        //     $productTranslations[$lang] = [];
+        // }
         
-        // Fill translations
-        foreach ($productNamesData as $v) {
-            $translations = json_decode($v->translations, true); // decode DB JSON
+        // // Fill translations
+        // foreach ($productNamesData as $v) {
+        //     $translations = json_decode($v->translations, true); // decode DB JSON
 
-            foreach ($languages as $lang) {
-                if (isset($translations[$lang][$v->name])) {
-                    // assign the actual translated string, not array
-                    $productTranslations[$lang][$v->name] = $translations[$lang][$v->name];
-                } else {
-                    // fallback to English
-                    $productTranslations[$lang][$v->name] = $v->name;
-                }
-            }
-        }
+        //     foreach ($languages as $lang) {
+        //         if (isset($translations[$lang][$v->name])) {
+        //             // assign the actual translated string, not array
+        //             $productTranslations[$lang][$v->name] = $translations[$lang][$v->name];
+        //         } else {
+        //             // fallback to English
+        //             $productTranslations[$lang][$v->name] = $v->name;
+        //         }
+        //     }
+        // }
 
         return view('front.product', compact(
-            'product', 'similarProducts', 'sizeList', 'smallest', 'largest', 'productData', 'productTranslations', 'listSizeId'
+            'product', 'similarProducts', 'sizeList', 'smallest', 'largest', /*'productData', 'productTranslations',*/ 'listSizeId'
         ));
     }
 
