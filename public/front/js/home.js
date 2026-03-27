@@ -268,13 +268,8 @@ if (document.querySelector('.why_slider')) {
         // Reset styles
         projectCards.forEach(card => {
             card.classList.remove('active');
-            card.style.flex = '';
+            card.style.flex = isDesktop ? '0.5' : '';
         });
-
-        // Set first active by default (optional)
-        // if (isDesktop) {
-        //     setActiveProject(0);
-        // }
 
         // Click handler for BOTH desktop & mobile
         projectCards.forEach((card, i) => {
