@@ -939,7 +939,7 @@ function createFilterPill(label, valueLabel, filterType, filterValue) {
     pill.appendChild(labelSpan);
     pill.appendChild(valueSpan);
     pill.appendChild(removeBtn);
-
+    
     return pill;
 }
 
@@ -979,6 +979,7 @@ function removeFilter(filterType, filterValue) {
         totalItemsElement.textContent = totalProducts + ' Items';
         // Reset Apply button text
         applyFiltersBtn.textContent = 'Show ' + totalProducts + ' Items';
+        // ADD DOT REMOVE CODE
         // Show all default sections
         showAllSections();
     } else {
