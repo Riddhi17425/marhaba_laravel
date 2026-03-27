@@ -829,6 +829,7 @@ function applyFilters() {
         // Render filter pills
         renderFilterPills();
 
+        loadFilterOptions();
         loadFilterProducts();
     } else {
         // No filters active - show all sections
@@ -1033,6 +1034,8 @@ function showAllSections() {
             product.style.display = 'block';
         });
     });
+
+    resetFilterOptions();
 }
 
 // Initialize on Page Load
@@ -1045,5 +1048,139 @@ window.addEventListener('popstate', function() {
     clearAllFilters();
 });
 </script>
+
+<script>
+// ── Dependent Filter Options ────────────────────────────────────────────────
+var filterOptionsUrl = "{{ route('get.filter.options', ['type' => '__type__']) }}"
+    .replace('__type__', @json($type).toLowerCase());
+
+// Store original counts on page load so we can restore them when filters clear
+const originalBrandData     = {};
+const originalCategoryData  = {};
+const originalAgeCounts     = {};
+
+document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('input[name="brand[]"]').forEach(cb => {
+        originalBrandData[cb.value] = {
+            name:  cb.dataset.text || '',
+            count: parseInt(cb.getAttribute('data-total')) || 0
+        };
+    });
+    document.querySelectorAll('input[name="category[]"]').forEach(cb => {
+        originalCategoryData[cb.value] = {
+            name:  cb.dataset.text || '',
+            count: parseInt(cb.getAttribute('data-total')) || 0
+        };
+    });
+    document.querySelectorAll('input[name="ageRange[]"]').forEach(cb => {
+        originalAgeCounts[cb.value] = parseInt(cb.getAttribute('data-total')) || 0;
+    });
+});
+
+// Fetch updated filter options from server based on current selections
+function loadFilterOptions() {
+    $.ajax({
+        url: filterOptionsUrl,
+        type: 'GET',
+        data: {
+            ageFilter:      filterState.ageRange,
+            brandFilter:    filterStateValue.brand,
+            categoryFilter: filterStateValue.category,
+        },
+        success: function (response) {
+            updateBrandOptions(response.brands);
+            updateCategoryOptions(response.categories);
+            updateAgeCounts(response.ageCounts);
+        }
+    });
+}
+
+// Restore filter sidebar to original page-load state (called when all filters cleared)
+function resetFilterOptions() {
+    document.querySelectorAll('input[name="brand[]"]').forEach(cb => {
+        const data = originalBrandData[cb.value];
+        if (!data) return;
+        cb.closest('.form-check').querySelector('.form-check-label').textContent =
+            data.name + ' (' + data.count + ')';
+        cb.disabled = false;
+        cb.closest('.form-check').style.opacity = '1';
+    });
+    document.querySelectorAll('input[name="category[]"]').forEach(cb => {
+        const data = originalCategoryData[cb.value];
+        if (!data) return;
+        cb.closest('.form-check').querySelector('.form-check-label').textContent =
+            data.name + ' (' + data.count + ')';
+        cb.disabled = false;
+        cb.closest('.form-check').style.opacity = '1';
+    });
+    document.querySelectorAll('input[name="ageRange[]"]').forEach(cb => {
+        const key   = cb.value;
+        const count = originalAgeCounts[key] ?? 0;
+        const label = ageRangeLabelArr[key] ? ageRangeLabelArr[key].label : '';
+        cb.closest('.form-check').querySelector('.form-check-label').textContent =
+            label + ' (' + count + ')';
+        cb.disabled = false;
+        cb.closest('.form-check').style.opacity = '1';
+    });
+}
+
+// Update brand checkboxes — show count based on current age + category selection
+function updateBrandOptions(brands) {
+    document.querySelectorAll('input[name="brand[]"]').forEach(cb => {
+        const brand = brands.find(b => String(b.id) === String(cb.value));
+        const label = cb.closest('.form-check').querySelector('.form-check-label');
+        if (brand) {
+            label.textContent = brand.name + ' (' + brand.count + ')';
+            cb.disabled = false;
+            cb.closest('.form-check').style.opacity = '1';
+        } else {
+            label.textContent = (cb.dataset.text || '') + ' (0)';
+            if (!cb.checked) {
+                cb.disabled = true;
+                cb.closest('.form-check').style.opacity = '0.4';
+            }
+        }
+    });
+}
+
+// Update category checkboxes — show count based on current age + brand selection
+function updateCategoryOptions(categories) {
+    document.querySelectorAll('input[name="category[]"]').forEach(cb => {
+        const cat = categories.find(c => String(c.id) === String(cb.value));
+        const label = cb.closest('.form-check').querySelector('.form-check-label');
+        if (cat) {
+            label.textContent = cat.name + ' (' + cat.count + ')';
+            cb.disabled = false;
+            cb.closest('.form-check').style.opacity = '1';
+        } else {
+            label.textContent = (cb.dataset.text || '') + ' (0)';
+            if (!cb.checked) {
+                cb.disabled = true;
+                cb.closest('.form-check').style.opacity = '0.4';
+            }
+        }
+    });
+}
+
+// Update age range counts — show count based on current brand + category selection
+function updateAgeCounts(ageCounts) {
+    document.querySelectorAll('input[name="ageRange[]"]').forEach(cb => {
+        const key = cb.value;
+        if (!ageCounts.hasOwnProperty(key)) return;
+        const count = ageCounts[key];
+        const ageLabel = ageRangeLabelArr[key] ? ageRangeLabelArr[key].label : '';
+        cb.closest('.form-check').querySelector('.form-check-label').textContent =
+            ageLabel + ' (' + count + ')';
+        if (count === 0 && !cb.checked) {
+            cb.disabled = true;
+            cb.closest('.form-check').style.opacity = '0.4';
+        } else {
+            cb.disabled = false;
+            cb.closest('.form-check').style.opacity = '1';
+        }
+    });
+}
+</script>
+
 <!--filter js-->
 @include('layouts.frontfooter')

@@ -56,6 +56,7 @@ Route::get('/product-page/{url}/{id?}', [dashboardController::class, 'product'])
 Route::get('/test-filter', [dashboardController::class, 'filter'])->name('filter');
 
 Route::get('/get-products/{type}/{size_range?}', [dashboardController::class, 'getProducts'])->name('get.products');
+Route::get('/get-filter-options/{type}', [dashboardController::class, 'getFilterOptions'])->name('get.filter.options'); // new route for fetching filter options
 Route::post('/submit-product-inquiry', [dashboardController::class,'storeProductInquiry'])->name('store.product.inquiry');
 Route::post('/whatsaap-inquiry', [dashboardController::class, 'whatsaapInquiry'])->name('whatsaap.inquiry');
 
