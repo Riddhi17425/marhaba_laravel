@@ -1004,8 +1004,10 @@
                                         </div>
                                         <input type="hidden" id="countryCode" name="countryCode" value="+971">
                                     </div>
-                                    <input type="tel" id="whatsapp" name="whatsapp" required placeholder="50 123 4567"
+
+                                    <input type="tel" id="whatsapp" name="whatsapp" required placeholder="50 123 4567" inputmode="numeric" pattern="[0-9]*" onkeydown="if(!/[0-9]/.test(event.key) && !['Backspace','Delete','ArrowLeft','ArrowRight','Tab','Home','End'].includes(event.key)){event.preventDefault();}" oninput="this.value=this.value.replace(/[^0-9]/g,'');"
                                         class="phone-number-input">
+                                    {{-- <input type="tel" id="whatsapp" name="whatsapp" required placeholder="50 123 4567" class="phone-number-input"> --}}
                                 </div>
                             </div>
 
