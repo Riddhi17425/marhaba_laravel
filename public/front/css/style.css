@@ -17,9 +17,17 @@
         font-size: 18px;
         font-weight: 400;
         color: var(--wb-bady-colour);
-        font-variant-numeric: lining-nums tabular-nums;
-        font-feature-settings: "lnum", "tnum";
+        /* font-variant-numeric: lining-nums tabular-nums;
+        font-feature-settings: "lnum", "tnum"; */
         overflow-x: hidden;
+      }
+
+      input,
+      textarea,
+      select,
+      button {
+        font-variant-numeric: lining-nums tabular-nums;
+        font-feature-settings: "lnum" 1, "tnum" 1, "onum" 0, "pnum" 0;
       }
 
       .container-fluid {

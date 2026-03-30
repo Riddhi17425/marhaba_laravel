@@ -80,7 +80,7 @@
 
             </div>
             <div class="slid_pagination_number">
-                   <svg  class="slider_btn prev" id="prevBtn" width="30" height="30" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg  class="slider_btn prev" id="prevBtn2" width="30" height="30" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <rect width="34" height="34" rx="16.9434" fill="#EEEEEE"/>
                 <path d="M19.8613 22.5592L14.1191 16.8169L19.8613 11.4409" stroke="#2E2E2E" stroke-width="1.41195" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
@@ -321,9 +321,22 @@
 
     const prevBtn = document.getElementById('prevBtn');
     const nextBtn = document.getElementById('nextBtn');
+    const sliderNavButtons = Array.from(document.querySelectorAll('.slider_btn'));
+
+    function setSelectedSliderBtn(clickedBtn) {
+        sliderNavButtons.forEach((btn) => {
+            btn.classList.toggle('is-selected', btn === clickedBtn);
+        });
+    }
+
+    function clearSelectedSliderBtn() {
+        sliderNavButtons.forEach((btn) => {
+            btn.classList.remove('is-selected');
+        });
+    }
 
     // ── Config ────────────────────────────────────────────────────────────────
-    const AUTOPLAY_SPEED = 3000; // ms between slides
+    const AUTOPLAY_SPEED = 4000; // ms between slides
     const TRANSITION_DURATION = 400; // ms — must match your CSS transition duration
     let autoplayTimer = null;
 
@@ -737,6 +750,7 @@
     // ── Thumbnails ─────────────────────────────────────────────────────────────
     thumbs.forEach(thumb => {
         thumb.addEventListener('click', () => {
+            clearSelectedSliderBtn();
             const idx = parseInt(thumb.dataset.index);
             if (!isDesktop) {
                 currentIndex = idx;
@@ -825,11 +839,27 @@
     // ── Init ───────────────────────────────────────────────────────────────────
     positionSlides(false);
 
-    prevBtn.addEventListener('click', () => { goPrev(); resetAutoplay(); });
-    nextBtn.addEventListener('click', () => { goNext(); resetAutoplay(); });
+    prevBtn.addEventListener('click', (e) => {
+        setSelectedSliderBtn(e.currentTarget);
+        goPrev();
+        resetAutoplay();
+    });
+    nextBtn.addEventListener('click', (e) => {
+        setSelectedSliderBtn(e.currentTarget);
+        goNext();
+        resetAutoplay();
+    });
 
-    document.getElementById('prevBtn2')?.addEventListener('click', () => { goPrev(); resetAutoplay(); });
-    document.getElementById('nextBtn2')?.addEventListener('click', () => { goNext(); resetAutoplay(); });
+    document.getElementById('prevBtn2')?.addEventListener('click', (e) => {
+        setSelectedSliderBtn(e.currentTarget);
+        goPrev();
+        resetAutoplay();
+    });
+    document.getElementById('nextBtn2')?.addEventListener('click', (e) => {
+        setSelectedSliderBtn(e.currentTarget);
+        goNext();
+        resetAutoplay();
+    });
 
     startAutoplay();
 </script>
