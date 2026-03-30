@@ -1041,9 +1041,9 @@ select:focus {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     column-gap: 15px;
-    row-gap: 30px;
+    row-gap: 50px;
     /*border: 1px solid #ddd;*/
-    overflow: hidden;
+    /* overflow: hidden; */
     background: #fff;
 }
 
@@ -1055,7 +1055,7 @@ select:focus {
     justify-content: center;
     /*border-right: 1px solid #ddd;*/
     /*border-bottom: 1px solid #ddd;*/
-    overflow: hidden;
+    /* overflow: hidden; */
     /* cursor: pointer; */
     /*background: linear-gradient(0deg, #FBFBFB 0%, #FBFBFB 100%), linear-gradient(134deg, #FFF 9%, #DDD 93.94%);*/
 }
@@ -1072,11 +1072,11 @@ select:focus {
 .brand-inner {
     position: absolute;
     inset: 0;
-    display: flex;
+    /* display: flex; */
     align-items: center;
     flex-direction:column;
     justify-content: center;
-    height:92%;
+    /* height:92%; */
 }
 
 .brand-img {
@@ -1102,7 +1102,7 @@ select:focus {
     opacity: 1;
     /*transition: opacity 0.35s ease;*/
     pointer-events: none;
-    height:7%;
+    /* height:10%; */
     margin-top:3%;
 }
 
@@ -1196,6 +1196,7 @@ header.sticky .btn svg.home_menu rect {
 .ym_para_home{padding:0 50px;}
 /*-------------17-3-26 client changes--------------------------*/
 .cat_img_parent{position:relative;}
+
 .cat_overlay {
     position: absolute;
     inset: 0;

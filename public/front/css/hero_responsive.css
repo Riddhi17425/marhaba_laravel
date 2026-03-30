@@ -23,6 +23,14 @@
     .hero_why_content{max-width: 700px;max-height: 430px;padding: 50px;}
     .title_30-raleway{font-size:25px;line-height:30px}
 }
+
+@media (max-width:1601px)
+{
+    .ym-container {
+    max-width: 1500px;
+ }
+}
+
 @media (max-width: 1537px) {
     .ym-container{max-width: 1460px;}
     .stat_box_wrapper{gap:15px;}
@@ -35,12 +43,12 @@
     /* .ym_slider .slick-dots{bottom: 36% !important;} */
 }
 @media (max-width: 1441px) {
-    .ym-container{max-width: calc(100% - 60px);}
+    .ym-container{max-width: calc(100% - 50px);}
     /*.stats_box{height:100%;width:100%;padding: 30px 50px;}*/
     .stats_box{padding: 30px 50px;}
     .btn_1{padding: 10px 20px;font-size: 12px;}
     .card_pill{font-size: 16px;}
-    .stat_box_wrapper{padding-bottom: 00px;}
+    .stat_box_wrapper{padding-bottom: 0px;}
     .ym-project .btn_wrapper{justify-content: flex-start;gap:12px;}
     .hero_overlay_ctnt{transform: translateY(20%);}
     .comp_bus_child.expanded, .comp_bus_child:hover{height: 480px;padding: 30px 0px 30px 30px;flex: 2.2;}
@@ -60,6 +68,11 @@
     .age_range_section
     {
       gap: 15px;
+    }
+
+    .brand-inner
+    {
+            /* height: 90%; */
     }
 }
 @media (max-width: 1367px) {
@@ -427,9 +440,9 @@
     .filter_banner{line-height: 20px;font-size: 14px;}
     .product_head .lora_24{font-size: 15px;line-height: 24px;}
     #slideCounter{max-width: 35px;width:35px;display: inline-block;}
-    .slid_bottom, .slid_pagination_number{right:10px;}
+    .slid_bottom, .slid_pagination_number{right:50%;transform: translateX(50%);}
     .desk_grid{display: none;}
-    .mobile_grid{display:block;}
+    .mobile_grid{display:block; padding: 0 10px;}
     .ym-container {max-width: calc(100% - 30px);}
     .gallery-container{scale:1.2;transform: translate(-5%, 10%) rotate(-27deg);}
     .ym_hero .swiper-slide {width: 150px !important;height: 200px;}

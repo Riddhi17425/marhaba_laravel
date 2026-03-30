@@ -47,7 +47,7 @@
             <div class="mission_text order-1 ">
                 <div class="row">
                     <div class="col-md-12 col-lg-4 mb-3 mb-xl-0">
-                        <h3 class="title_36 scroll-text mb-3 mb-xl-0" data-animate-on-scroll>Mission:</h3>
+                        <h3 class="title_36 scroll-text mb-3" data-animate-on-scroll>Mission:</h3>
                         <p >Our mission is to design and distribute
                             high-quality children’s apparel that meets the needs of diverse markets across Africa, the
                             Middle East, and beyond. We are committed to offering durable fabrics, trend-conscious
@@ -61,7 +61,7 @@
             <div class="vision_text order-3" style="overflow: hidden;">
                 <div class="row justify-content-end">
                     <div class="col-md-12 col-lg-4">
-                        <h3 class="title_36 scroll-text mb-3 mb-xl-0" data-animate-on-scroll>Vision:</h3>
+                        <h3 class="title_36 scroll-text mb-3" data-animate-on-scroll>Vision:</h3>
                         <p>At Marhaba Fashion, our vision is to become
                             the most trusted name in children’s fashion worldwide. We aspire to deliver clothing that
                             blends comfort, style, and affordability—bringing joy to children and confidence to

@@ -4,7 +4,7 @@
 <style>
 input,
 textarea {
-    font-family: "Lora", serif;
+    /* font-family: "Lora", serif; */
     line-height: normal;
 }
 
@@ -102,7 +102,7 @@ textarea {
     font-size: 15px;
     font-weight: 600;
     color: #333;
-    font-family: "Lora", serif;
+    /* font-family: "Lora", serif; */
 }
 
 @keyframes contactBtnPulse {
@@ -172,11 +172,36 @@ textarea {
     transition: all 0.3s;
 }
 
+.contact-main-btn .icon-rotator {
+    width: 24px;
+    height: 24px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.contact-main-btn .rotating-icon {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transform: scale(0.8);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.contact-main-btn .rotating-icon.is-active {
+    opacity: 1;
+    transform: scale(1);
+}
+
 .contact-main-btn .btn-label {
     font-size: 10px;
     color: #fff;
     font-weight: 600;
-    font-family: "Lora", serif;
+    /* font-family: "Lora", serif; */
     letter-spacing: 0.5px;
 }
 
@@ -190,7 +215,7 @@ textarea {
 }
 
 .contact-main-btn.open .icon-contact {
-    display: none;
+    display: flex;
 }
 
 .contact-main-btn.open .btn-label {
@@ -199,10 +224,13 @@ textarea {
 
 .contact-main-btn.open .icon-close {
     display: block;
+    margin-top: -4px;
+    font-size: 20px;
 }
 
 .contact-main-btn.open {
     animation: none;
+    gap: 0;
 }
 
 .contact-main-btn.open::before {
@@ -243,6 +271,7 @@ textarea {
     padding: 6px 24px;
     margin: 5px;
     border-radius: 3px;
+    font-family: none !important;
 }
 
 .wa_head {
@@ -387,7 +416,11 @@ textarea {
     </div>
     <!-- Main Button -->
     <button class="contact-main-btn" id="contactMainBtn">
-        <i class="fas fa-comment-dots icon-contact"></i>
+        <span class="icon-rotator" aria-hidden="true">
+            <i class="fas fa-comment-dots icon-contact rotating-icon is-active"></i>
+            <i class="fab fa-whatsapp icon-contact rotating-icon"></i>
+            <i class="fas fa-envelope icon-contact rotating-icon"></i>
+        </span>
         <span class="btn-label">Contact</span>
         <span class="icon-close">×</span>
     </button>
@@ -423,12 +456,60 @@ document.addEventListener("DOMContentLoaded", function() {
     const waFormPopup = document.getElementById("waFormPopup");
     const openWaForm = document.getElementById("openWaForm");
     const closeWaForm = document.getElementById("closeWaForm");
+    const rotatingIcons = mainBtn ? mainBtn.querySelectorAll(".rotating-icon") : [];
+    let activeIconIndex = 0;
+    let iconRotationTimer = null;
+
+    function setActiveIcon(index) {
+        rotatingIcons.forEach((icon, idx) => {
+            icon.classList.toggle("is-active", idx === index);
+        });
+    }
+
+    function startIconRotation() {
+        if (!rotatingIcons.length || iconRotationTimer) {
+            return;
+        }
+
+        iconRotationTimer = setInterval(function() {
+            activeIconIndex = (activeIconIndex + 1) % rotatingIcons.length;
+            setActiveIcon(activeIconIndex);
+        }, 3200);
+    }
+
+    function stopIconRotation() {
+        if (!iconRotationTimer) {
+            return;
+        }
+
+        clearInterval(iconRotationTimer);
+        iconRotationTimer = null;
+    }
+
+    setActiveIcon(activeIconIndex);
+    startIconRotation();
+
+    document.addEventListener("visibilitychange", function() {
+        if (document.hidden) {
+            stopIconRotation();
+        } else {
+            startIconRotation();
+        }
+    });
 
     mainBtn.addEventListener("click", function(e) {
         e.stopPropagation();
         optionsPopup.classList.toggle("active");
         mainBtn.classList.toggle("open");
         waFormPopup.classList.remove("active");
+
+        if (mainBtn.classList.contains("open")) {
+            activeIconIndex = 0;
+            setActiveIcon(activeIconIndex);
+            stopIconRotation();
+        } else {
+            startIconRotation();
+        }
     });
 
     openWaForm.addEventListener("click", function() {

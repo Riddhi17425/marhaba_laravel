@@ -993,7 +993,7 @@
                                             </div>
                                             <div class="country-picker-dropdown" id="countryPickerDropdown">
                                                 <div class="country-search-wrapper">
-                                                    <input type="text" class="country-search" id="countrySearch"
+                                                    <input type="number" class="country-search" id="countrySearch"
                                                         placeholder="Search country..."
                                                         oninput="filterCountries(this.value)">
                                                 </div>
@@ -1003,6 +1003,9 @@
                                         <input type="hidden" id="countryCode" name="countryCode" value="+971">
                                     </div>
                                     <input type="tel" id="whatsapp" name="whatsapp" required placeholder="50 123 4567"
+                                        inputmode="numeric" pattern="[0-9]*"
+                                        onkeydown="if(!/[0-9]/.test(event.key) && !['Backspace','Delete','ArrowLeft','ArrowRight','Tab','Home','End'].includes(event.key)){event.preventDefault();}"
+                                        oninput="this.value=this.value.replace(/[^0-9]/g,'');"
                                         class="phone-number-input">
                                 </div>
                             </div>
@@ -1055,7 +1058,7 @@
                                     <label class="field-label" id="productTypeLabel">Product Type <span
                                             class="optional-label">(Optional)</span></label>
                                     <div class="multi-select" id="productMultiSelect">
-                                        <div class="multi-select-trigger disabled" id="productTrigger"
+                                        <div class="multi-select-trigger" id="productTrigger"
                                             onclick="toggleDropdown()">
                                             <span id="productPlaceholder">Select gender and age first</span>
                                             <span class="arrow"><svg xmlns="http://www.w3.org/2000/svg" width="16"

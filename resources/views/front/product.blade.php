@@ -67,13 +67,30 @@
 
             <div class="slid_bottom">
                 <div class="thumbnails" id="thumbs"></div>
-                <button class="slider_btn prev" id="prevBtn">‹</button>
-                <button class="slider_btn next" id="nextBtn">›</button>
+
+                <svg  class="slider_btn prev" id="prevBtn" width="30" height="30" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect width="34" height="34" rx="16.9434" fill="#EEEEEE"/>
+                <path d="M19.8613 22.5592L14.1191 16.8169L19.8613 11.4409" stroke="#2E2E2E" stroke-width="1.41195" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+               
+                <svg class="slider_btn next" id="nextBtn" width="30" height="30" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect width="34" height="34" rx="16.9434" fill="#EEEEEE"/>
+                <path d="M14.1191 22.5592L19.8614 16.8169L14.1191 11.4409" stroke="#2E2E2E" stroke-width="1.41195" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+
             </div>
             <div class="slid_pagination_number">
-                <button class="slider_btn prev" id="prevBtn2">‹</button>
+                   <svg  class="slider_btn prev" id="prevBtn" width="30" height="30" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect width="34" height="34" rx="16.9434" fill="#EEEEEE"/>
+                <path d="M19.8613 22.5592L14.1191 16.8169L19.8613 11.4409" stroke="#2E2E2E" stroke-width="1.41195" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+
                 <span id="slideCounter">1 / 6</span>
-                <button class="slider_btn next" id="nextBtn2">›</button>
+
+                <svg class="slider_btn next" id="nextBtn2" width="30" height="30" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect width="34" height="34" rx="16.9434" fill="#EEEEEE"/>
+                <path d="M14.1191 22.5592L19.8614 16.8169L14.1191 11.4409" stroke="#2E2E2E" stroke-width="1.41195" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
             </div>
         </div>
         <!-- banner -->
@@ -350,7 +367,29 @@
         const active = isDesktop && isDoubleMode
             ? [currentIndex, currentIndex + 1]
             : [currentIndex];
-        thumbs.forEach((t, i) => t.classList.toggle('active', active.includes(i % total)));
+
+        thumbs.forEach((t, i) => {
+            const isActive = active.includes(i % total);
+            t.classList.toggle('active', isActive);
+            t.classList.remove('active-left', 'active-right', 'active-single');
+        });
+
+        if (active.length === 2) {
+            const leftIndex = active[0] % total;
+            const rightIndex = active[1] % total;
+
+            // Combine border only when both active thumbs are adjacent in DOM order.
+            if (rightIndex === leftIndex + 1) {
+                thumbs[leftIndex]?.classList.add('active-left');
+                thumbs[rightIndex]?.classList.add('active-right');
+            } else {
+                thumbs[leftIndex]?.classList.add('active-single');
+                thumbs[rightIndex]?.classList.add('active-single');
+            }
+        } else {
+            const singleIndex = active[0] % total;
+            thumbs[singleIndex]?.classList.add('active-single');
+        }
     }
 
     function positionSlides(animate = true) {
@@ -557,87 +596,142 @@
         }
     }
 
-    // ── Zoom + Pan (desktop mouse + mobile touch) ──────────────────────────────
+    // ── Zoom + Pan: click to zoom, press+drag to pan, click again to unzoom ──
     slides.forEach(slide => {
         const container = slide.querySelector('.image-container');
-        const img = slide.querySelector('.product-img');
-        let clickCount = 0;
-        let timer = null;
-        let isZoomed = false;
+        const img       = slide.querySelector('.product-img');
+        const SCALE     = 2.5;
 
-        function activateZoom(e) {
-            isZoomed = !isZoomed;
-            container.classList.toggle('zoomed', isZoomed);
+        let isZoomed  = false;
+        let isDragging = false;
+        let dragMoved  = false; // track if pointer actually moved (to distinguish click vs drag)
 
-            if (isZoomed) {
-                stopAutoplay();
-                const scale = 2;
-                img.style.transition = 'transform 0.3s ease-out';
-                img.style.transform = `scale(${scale})`;
-                const rect = container.getBoundingClientRect();
-                const x = (e.clientX || (e.touches && e.touches[0].clientX)) - rect.left;
-                const y = (e.clientY || (e.touches && e.touches[0].clientY)) - rect.top;
-                updatePan(x, y);
-            } else {
-                img.style.transition = 'transform 0.3s ease-out';
-                img.style.transform = 'scale(1) translate(0, 0)';
-                startAutoplay();
-            }
+        // current translation kept in vars so drag can accumulate
+        let curTx = 0, curTy = 0;
+        // pointer position at drag start
+        let startPx = 0, startPy = 0;
+        // translation at drag start
+        let startTx = 0, startTy = 0;
+
+        function clampTx(tx) {
+            const maxShift = container.clientWidth  * (SCALE - 1);
+            return Math.min(0, Math.max(-maxShift, tx));
+        }
+        function clampTy(ty) {
+            const maxShift = container.clientHeight * (SCALE - 1);
+            return Math.min(0, Math.max(-maxShift, ty));
         }
 
-        function updatePan(x, y) {
-            const scale = 2;
-            const contW = container.clientWidth;
-            const contH = container.clientHeight;
-            const tx = (x / contW) * (contW - contW * scale);
-            const ty = (y / contH) * (contH - contH * scale);
-            img.style.transition = 'none';
-            img.style.transform = `translate(${tx}px, ${ty}px) scale(${scale})`;
+        function applyTransform(animate = false) {
+            img.style.transition = animate ? 'transform 0.35s ease-out' : 'none';
+            img.style.transform  = `translate(${curTx}px, ${curTy}px) scale(${SCALE})`;
         }
 
-        // ── Desktop: mousemove pans ────────────────────────────────────────────
-        container.addEventListener('mousemove', e => {
-            if (!isZoomed) return;
-            const rect = container.getBoundingClientRect();
-            updatePan(e.clientX - rect.left, e.clientY - rect.top);
+        function zoomIn() {
+            isZoomed = true;
+            // center the image: offset = -(containerSize * (scale-1)) / 2
+            curTx = -(container.clientWidth  * (SCALE - 1)) / 2;
+            curTy = -(container.clientHeight * (SCALE - 1)) / 2;
+            container.classList.add('zoomed');
+            img.style.transition = 'transform 0.35s ease-out';
+            img.style.transform  = `translate(${curTx}px, ${curTy}px) scale(${SCALE})`;
+            stopAutoplay();
+        }
+
+        function zoomOut() {
+            isZoomed  = false;
+            isDragging = false;
+            curTx = 0; curTy = 0;
+            container.classList.remove('zoomed');
+            img.style.transition = 'transform 0.35s ease-out';
+            img.style.transform  = 'scale(1) translate(0, 0)';
+            startAutoplay();
+        }
+
+        // ── Desktop: pointer events for drag-to-pan ───────────────────────────
+        container.addEventListener('pointerdown', e => {
+            if (e.button !== 0 || !isZoomed) return;
+            isDragging = true;
+            dragMoved  = false;
+            startPx = e.clientX;
+            startPy = e.clientY;
+            startTx = curTx;
+            startTy = curTy;
+            container.setPointerCapture(e.pointerId);
+            e.preventDefault();
         });
 
-        // ── Mobile: touchmove pans ─────────────────────────────────────────────
-        container.addEventListener('touchmove', e => {
-            if (!isZoomed || e.touches.length > 1) return;
-            e.preventDefault(); // prevent page scroll while panning
-            const rect = container.getBoundingClientRect();
-            const x = e.touches[0].clientX - rect.left;
-            const y = e.touches[0].clientY - rect.top;
-            updatePan(x, y);
-        }, { passive: false });
+        container.addEventListener('pointermove', e => {
+            if (!isDragging || !isZoomed) return;
+            const dx = e.clientX - startPx;
+            const dy = e.clientY - startPy;
+            if (Math.abs(dx) > 3 || Math.abs(dy) > 3) dragMoved = true;
+            curTx = clampTx(startTx + dx);
+            curTy = clampTy(startTy + dy);
+            applyTransform(false);
+        });
 
-        // ── Double-click (desktop) ─────────────────────────────────────────────
+        container.addEventListener('pointerup', () => {
+            isDragging = false;
+        });
+
+        container.addEventListener('pointercancel', () => {
+            isDragging = false;
+        });
+
+        // ── Single unified click handler: zoom in / zoom out ──────────────────
         container.addEventListener('click', e => {
-            clickCount++;
-            if (clickCount === 1) {
-                timer = setTimeout(() => { clickCount = 0; }, 300);
-            } else if (clickCount === 2) {
-                clearTimeout(timer);
-                clickCount = 0;
-                e.preventDefault();
-                activateZoom(e);
+            if (dragMoved) {
+                dragMoved = false; // was a drag, ignore click
+                return;
+            }
+            if (!isZoomed) {
+                zoomIn();
+            } else {
+                zoomOut();
             }
         });
 
-        // ── Double-tap (mobile) ────────────────────────────────────────────────
+        // ── Mobile: touch drag to pan ─────────────────────────────────────────
+        let touchStartX = 0, touchStartY = 0;
+        let touchStartTx = 0, touchStartTy = 0;
+        let touchMoved = false;
+
         container.addEventListener('touchstart', e => {
             if (e.touches.length > 1) return;
-            clickCount++;
-            if (clickCount === 1) {
-                timer = setTimeout(() => { clickCount = 0; }, 300);
-            } else if (clickCount === 2) {
-                clearTimeout(timer);
-                clickCount = 0;
-                e.preventDefault();
-                activateZoom(e);
-            }
+            touchStartX  = e.touches[0].clientX;
+            touchStartY  = e.touches[0].clientY;
+            touchStartTx = curTx;
+            touchStartTy = curTy;
+            touchMoved   = false;
+        }, { passive: true });
+
+        container.addEventListener('touchmove', e => {
+            if (!isZoomed || e.touches.length > 1) return;
+            e.preventDefault();
+            const dx = e.touches[0].clientX - touchStartX;
+            const dy = e.touches[0].clientY - touchStartY;
+            if (Math.abs(dx) > 3 || Math.abs(dy) > 3) touchMoved = true;
+            curTx = clampTx(touchStartTx + dx);
+            curTy = clampTy(touchStartTy + dy);
+            applyTransform(false);
         }, { passive: false });
+
+        container.addEventListener('touchend', e => {
+            if (!touchMoved) {
+                // plain tap
+                if (!isZoomed) zoomIn();
+                else zoomOut();
+            }
+            touchMoved = false;
+        });
+
+        // ── Click anywhere outside container to zoom out ───────────────────────
+        document.addEventListener('click', e => {
+            if (isZoomed && !container.contains(e.target)) {
+                zoomOut();
+            }
+        });
     });
 
     // ── Thumbnails ─────────────────────────────────────────────────────────────

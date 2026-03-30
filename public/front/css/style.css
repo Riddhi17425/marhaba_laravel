@@ -19,6 +19,7 @@
         color: var(--wb-bady-colour);
         font-variant-numeric: lining-nums tabular-nums;
         font-feature-settings: "lnum", "tnum";
+        overflow-x: hidden;
       }
 
       .container-fluid {
