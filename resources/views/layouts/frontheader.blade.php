@@ -245,18 +245,18 @@
                         @if(isset($menuTypes) && is_countable($menuTypes) && count($menuTypes) > 0)
                             @foreach($menuTypes as $key => $val)
                                 <div class="accordion-item">
-                                    <h2 class="accordion-header" id="headingAge">
+                                    <h2 class="accordion-header" id="headingCat_{{ $key }}">
                                         <button
-                                            class="ps-0 accordion-button raleway_24 {{--{{ !$loop->first ? 'collapsed' : '' }}"
-                                            --}}" type="button" data-bs-toggle="collapse"
-                                            data-bs-target="#collapseCat_{{ $key }}" aria-expanded="true"
+                                            class="ps-0 accordion-button raleway_24 collapsed"
+                                            type="button" data-bs-toggle="collapse"
+                                            data-bs-target="#collapseCat_{{ $key }}" aria-expanded="false"
                                             aria-controls="collapseCat_{{ $key }}">
                                             {{ $val ?? '' }}
                                         </button>
                                     </h2>
                                     <div id="collapseCat_{{ $key }}"
-                                        class="accordion-collapse collapse {{-- {{ $loop->first ? 'show' : '' }} --}}"
-                                        aria-labelledby="headingAge" data-bs-parent="#accordionExample">
+                                        class="accordion-collapse collapse"
+                                        aria-labelledby="headingCat_{{ $key }}" data-bs-parent="#accordionExample">
                                         <div class="accordion-body p-0">
                                             @php $ageSection = config('global_values.age_section'); @endphp
                                             @if(isset($ageSection) && is_countable($ageSection) && count($ageSection) > 0)
