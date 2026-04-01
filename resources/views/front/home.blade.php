@@ -998,7 +998,7 @@
                 modal.show();
             } else {
                 const tab = new bootstrap.Tab(button);
-                tab.show();
+                tab.show();   
             }
         }
 

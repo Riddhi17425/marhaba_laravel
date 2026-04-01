@@ -28,6 +28,7 @@
                 <div class="size_pop_head">
                     12-Units Pack – Size Distribution Examples
                 </div>
+                <p class="text-center">Actual packs contain balanced size assortments that vary by product and age range.</p>
 
                 <!-- Tabs Content -->
                 <div class="tab-content" id="sizeTabContent">
@@ -169,7 +170,7 @@
                             <div class="size_pop_head">
                                 Total Units per Pack: 12
                             </div>
-                            <p class="text-center">All pieces within the pack feature the same design</p>
+                            <p class="text-center">All units within the pack feature the same design</p>
                         </div>
                     </div>
 
