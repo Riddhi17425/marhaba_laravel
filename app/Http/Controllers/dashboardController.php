@@ -101,7 +101,7 @@ class dashboardController extends Controller
         
         // FOR ENQUIRY POPUP
         // $filterProducts = [];
-        // $clothsizes = Clothsize::all()->keyBy('id');
+        // $clothsizes = ClothSize::all()->keyBy('id');
         // $enquiryPopupAgeSections = config('global_values.inquiry_popup_age_section');
         // $data = ['baby' => 0,  'toddler' => 0, 'kids' => 0];
         // foreach ($products as $product) {
@@ -299,7 +299,7 @@ class dashboardController extends Controller
                 $val->total_category_product = $this->getTotalProductByCategory($val->id, $type);
             }
         }
-        $clothsizes = Clothsize::all()->keyBy('id');
+        $clothsizes = ClothSize::all()->keyBy('id');
         $groupedProducts = $filterProducts = [];
         $ageSections = config('global_values.age_section');
         // If Size range filter apply kept match key only in age section
@@ -451,7 +451,7 @@ class dashboardController extends Controller
 
         $type        = ucFirst($type);
         $ageSections = config('global_values.age_section');
-        $clothsizes  = Clothsize::all()->keyBy('id');
+        $clothsizes  = ClothSize::all()->keyBy('id');
 
         // Active age sections determined by the current age filter selection
         $activeAgeSections = !empty($ageFilter)
@@ -624,7 +624,7 @@ class dashboardController extends Controller
     protected function getTotalProductByBrand($brandId, $type)
     {
         $products = Product::where(['brand_id' => $brandId,'type' => $type])->whereNull('deleted_at')->get(['product_brand_size']);
-        $clothsizes = Clothsize::all()->keyBy('id');
+        $clothsizes = ClothSize::all()->keyBy('id');
         $ageSections = config('global_values.age_section');
         $total = 0;
         foreach ($products as $product) {
@@ -658,7 +658,7 @@ class dashboardController extends Controller
             ->whereNull('deleted_at')
             ->get(['product_brand_size']);
 
-        $clothsizes = Clothsize::all()->keyBy('id');
+        $clothsizes = ClothSize::all()->keyBy('id');
         $ageSections = config('global_values.age_section');
 
         $total = 0;
@@ -817,7 +817,7 @@ class dashboardController extends Controller
 
         // FOR ENQUIRY POPUP
         // $filterProducts = [];
-        // $clothsizes = Clothsize::all()->keyBy('id');
+        // $clothsizes = ClothSize::all()->keyBy('id');
         // $enquiryPopupAgeSections = config('global_values.inquiry_popup_age_section');
         // $data = ['baby' => 0,  'toddler' => 0, 'kids' => 0];
         // $productsArr = Product::select('id', 'type', 'brand_id', 'category_id','name','url','image','product_brand_size')->orderBy('created_at', 'desc')->whereNull('deleted_at')->get();
