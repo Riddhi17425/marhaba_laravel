@@ -137,6 +137,10 @@
                                     </select>
                                     @error('size_id.0') <span class="text-danger">{{ $message }}</span> @enderror
                                 </div>
+                                <div class="col-md-3">
+                                    <label>Size Groups <small class="text-muted">(comma separated, e.g. 0m-3m,3m-6m)</small></label>
+                                    <input type="text" name="size_group[0]" class="form-control" placeholder="e.g. 0m-3m,3m-6m" value="{{ old('size_group.0') }}">
+                                </div>
                                 {{-- <div class="col-md-2">
                                     <label>Color</label>
                                     <select name="color_id[0]" class="form-control">
@@ -212,6 +216,7 @@ $(document).ready(function(){
         // clone.find('select[name^="brand_id"]').attr('name', 'brand_id[' + newIndex + ']');
         clone.find('select[name^="size_id"]').attr('name', 'size_id[' + newIndex + ']');
         // clone.find('select[name^="color_id"]').attr('name', 'color_id[' + newIndex + ']');
+        clone.find('input[name^="size_group"]').attr('name', 'size_group[' + newIndex + ']').val('');
         clone.find('input[name^="product_image"]').attr('name', 'product_image[' + newIndex + ']');
         $('#dynamic-fields').append(clone);
         clone.find('.dropify').dropify();
@@ -226,6 +231,7 @@ $(document).ready(function(){
                 // $(this).find('select[name^="brand_id"]').attr('name', 'brand_id[' + index + ']');
                 $(this).find('select[name^="size_id"]').attr('name', 'size_id[' + index + ']');
                 // $(this).find('select[name^="color_id"]').attr('name', 'color_id[' + index + ']');
+                $(this).find('input[name^="size_group"]').attr('name', 'size_group[' + index + ']');
                 $(this).find('input[name^="product_image"]').attr('name', 'product_image[' + index + ']');
             });
             updateButtons();

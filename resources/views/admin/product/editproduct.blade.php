@@ -141,6 +141,10 @@
                                                     @endforeach
                                                 </select>
                                             </div>
+                                            <div class="col-md-3">
+                                                <label>Size Groups <small class="text-muted">(comma separated, e.g. 0m-3m,3m-6m)</small></label>
+                                                <input type="text" name="size_group[{{$index}}]" class="form-control" placeholder="e.g. 0m-3m,3m-6m" value="{{ old('size_group.'.$index, $item['size_group'] ?? '') }}">
+                                            </div>
                                             {{-- <div class="col-md-2">
                                                 <label>Color</label>
                                                 <select name="color_id[{{$index}}]" class="form-control">
@@ -314,6 +318,9 @@ $(document).ready(function(){
         // reset size
         clone.find('select[name^="size_id"]')
             .attr('name','size_id['+newIndex+']');
+        // reset size group
+        clone.find('input[name^="size_group"]')
+            .attr('name','size_group['+newIndex+']').val('');
         // reset checkbox name
         clone.find('input[name^="is_human_image"]')
             .attr('name','is_human_image['+newIndex+']');
@@ -335,6 +342,7 @@ $(document).ready(function(){
                 $(this).find('select[name^="brand_id"]').attr('name','brand_id['+index+']');
                 $(this).find('select[name^="size_id"]').attr('name','size_id['+index+']');
                 $(this).find('select[name^="color_id"]').attr('name','color_id['+index+']');
+                $(this).find('input[name^="size_group"]').attr('name','size_group['+index+']');
                 $(this).find('input[name^="product_image"]').attr('name','product_image['+index+']');
                 $(this).find('input[name^="old_product_image"]').attr('name','old_product_image['+index+']');
             });

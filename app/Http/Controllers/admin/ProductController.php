@@ -88,6 +88,7 @@ class ProductController extends Controller
                         'product_image' => $productImage,
                         //'brand_id' => $brandId,
                         'size_id' => $sizeId,
+                        'size_group' => $request->size_group[$key] ?? null,
                         'is_human_image' => isset($request->is_human_image[$key]) ? 1 : 0,
                         //'color_id' => $colorId
                     ];
@@ -200,6 +201,7 @@ class ProductController extends Controller
                         //'brand_id' => $brandId,
                         //'size_id' => $request->size_id[$index],
                         'size_id' => $sizeId,
+                        'size_group' => $request->size_group[$index] ?? null,
                         'is_human_image' => isset($request->is_human_image[$index]) ? 1 : 0,
                         //'color_id' => $request->color_id[$index]
                     ];
