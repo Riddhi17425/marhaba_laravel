@@ -1137,17 +1137,74 @@ class dashboardController extends Controller
             ]);
         }
     
-        $message = "*New Product Inquiry Received*\n\n" .
-            "*Name:* {$request->name}\n" .
-            "*Business Name:* {$request->businessName}\n" .
-            "*Business Type:* {$request->businessType}\n" .
-            "*Country Code.:* {$request->countryCode}\n" .
-            "*Whatsapp No.:* {$request->whatsapp}\n" .
-            "*Gender:* {$request->selected_gender}\n" .
-            "*Age:* {$request->selected_age}\n" .
-            "*Product Types:* {$request->selected_product}\n" .
-            "*Message:* " . ($request->message ?? '') . "\n\n" .
-            "— Marhaba Fashion";
+        // BUILD WHATSAPP MESSAGE
+        // Build gender text
+        $selectedGenders = is_array($request->selected_gender)
+            ? $request->selected_gender
+            : array_filter(explode(',', $request->selected_gender ?? ''));
+        $selectedGenders = array_map('trim', $selectedGenders);
+
+        if (count($selectedGenders) >= 2) {
+            $genderText = 'Boys, Girls';
+        } elseif (in_array('boy', $selectedGenders)) {
+            $genderText = 'Boys';
+        } elseif (in_array('girl', $selectedGenders)) {
+            $genderText = 'Girls';
+        } else {
+            $genderText = implode(', ', $selectedGenders);
+        }
+
+        // Build age text
+        $ageLabels = ['baby' => '0-3Y', 'toddlers' => '2-6Y', 'kids' => '6-14Y'];
+        $selectedAges = is_array($request->selected_age)
+            ? $request->selected_age
+            : array_filter(explode(',', $request->selected_age ?? ''));
+        $agesText = implode(', ', array_map(
+            fn($a) => $ageLabels[strtolower(trim($a))] ?? trim($a),
+            $selectedAges
+        ));
+
+        // Build business type section (optional)
+        $businessTypeSection = !empty($request->businessType)
+            ? "\nBusiness Type: {$request->businessType}"
+            : '';
+
+        // Build product types section (optional)
+        $selectedProducts = is_array($request->selected_product)
+            ? $request->selected_product
+            : array_filter(explode(',', $request->selected_product ?? ''));
+        $selectedProducts = array_map('trim', array_filter($selectedProducts));
+        $productTypeSection = '';
+        if (!empty($selectedProducts)) {
+            $productsList = implode("\n", array_map(fn($p) => "* {$p}", $selectedProducts));
+            $productTypeSection = "\n\nProduct Type:\n{$productsList}";
+        }
+
+        // Build notes section (optional)
+        $notesSection = !empty($request->message)
+            ? "\n\nNotes:\n{$request->message}"
+            : '';
+
+        // Build language name
+        $languageNames = [
+            'en' => 'English', 'ar' => 'Arabic', 'fa' => 'Farsi', 'fr' => 'French',
+            'ru' => 'Russian', 'es' => 'Spanish', 'sw' => 'Swahili', 'af' => 'Afrikaans',
+            'sq' => 'Albanian', 'am' => 'Amharic', 'hy' => 'Armenian', 'az' => 'Azerbaijani',
+            'gu' => 'Gujarati', 'ha' => 'Hausa', 'hi' => 'Hindi', 'kk' => 'Kazakh',
+            'ku' => 'Kurdish', 'mn' => 'Mongolian', 'ps' => 'Pashto', 'pt' => 'Portuguese',
+            'so' => 'Somali', 'tr' => 'Turkish', 'ur' => 'Urdu', 'uz' => 'Uzbek',
+            'yo' => 'Yoruba', 'zu' => 'Zulu',
+        ];
+        $langName = $languageNames[$request->selected_lang ?? 'en'] ?? 'English';
+
+        $message = "Name: {$request->name}\n" .
+            "Business: {$request->businessName}{$businessTypeSection}\n" .
+            "\nInterested in wholesale\nclothing for:\n" .
+            "\nGender: {$genderText}\n" .
+            "Age: {$agesText}" .
+            $productTypeSection .
+            $notesSection .
+            "\nLanguage: {$langName}";
 
         // Redirect to WhatsApp
         $number = config('global_values.admin_whatsapp_number');

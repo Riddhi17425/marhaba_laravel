@@ -920,6 +920,7 @@
                     <div class="form-body">
                         <form id="inquiryForm" method="POST" action="{{ route('store.product.inquiry') }}">
                             @csrf
+                            <input type="hidden" name="selected_lang" id="selected_lang" value="">
                             <div class="language-selector">
                                 <select id="languageSelect" name="selected_language" onchange="changeLanguage(this.value)">
                                     <optgroup label="──────────">
@@ -2634,6 +2635,8 @@
 
     // Change language function
     function changeLanguage(lang) {
+        // Update hidden input with selected language
+        document.getElementById('selected_lang').value = lang;
         currentLang = lang;
         const t = translations[lang] || translations['en']; // Fallback to English
         const isRTL = ['ar', 'fa', 'he', 'ur', 'ps'].includes(lang);
