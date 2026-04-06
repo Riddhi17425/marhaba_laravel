@@ -62,21 +62,27 @@ $subcatVal = preg_replace('/[\#].*$/', '', $subcatVal);
             <div class="age_range_box" style="background-color: rgb(243, 242, 231);">
                 <div class="age-card" data-scroll-to="baby">
                     <!-- <h3 class="lora_24" stlye="background: linear-gradient(90deg, rgba(243, 242, 231, 0) 0%, #F3F2E7 50%, rgba(243, 242, 231, 0) 100%);"> Baby ({{$data['baby'] ?? 0}})</h3> -->
-                    <p class="raleway_14 mb-0"><b class="me-1">Baby ({{$data['baby'] ?? 0}}) :</b>Age Range: 0 Months to
+                    <p class="raleway_14 mb-0"><b class="me-1">Baby {{$type}}
+                        {{-- ({{$data['baby'] ?? 0}})  --}}
+                        :</b>Age Range: 0 Months to
                         3 Years</p>
                 </div>
             </div>
             <div class="age_range_box" style="background-color: rgb(239, 230, 240);">
                 <div class="age-card" data-scroll-to="toddler">
                     <!-- <h3 class="lora_24">Toddler & Little Kids ({{$data['kids'] ?? 0}})</h3> -->
-                    <p class="raleway_14 mb-0"> <b class="me-1">Toddler & Little Kids ({{$data['kids'] ?? 0}}) :</b> Age
+                    <p class="raleway_14 mb-0"> <b class="me-1">Toddler & Little Kids 
+                        {{-- ({{$data['kids'] ?? 0}})  --}}
+                        :</b> Age
                         Range: 2 Years to 6 Years</p>
                 </div>
             </div>
             <div class="age_range_box" style="background-color: rgb(230, 239, 242);">
                 <div class="age-card" data-scroll-to="kids">
                     <!-- <h3 class="lora_24">Kids & Youth ({{$data['junior'] ?? 0}})</h3> -->
-                    <p class="raleway_14 mb-0"> <b class="me-1">Kids & Youth ({{$data['junior'] ?? 0}}) :</b> Age Range:
+                    <p class="raleway_14 mb-0"> <b class="me-1">Kids & Youth 
+                        {{-- ({{$data['junior'] ?? 0}})  --}}
+                        :</b> Age Range:
                         6 Years to 14 Years</p>
                 </div>
             </div>
@@ -100,7 +106,7 @@ $subcatVal = preg_replace('/[\#].*$/', '', $subcatVal);
             <section id="baby" class="age_section" data-age="baby">
                 <h2 class="title_48lora mb-0"
                     style="background: linear-gradient(90deg, rgba(243, 242, 231, 0) 0%, #F3F2E7 50%, rgba(243, 242, 231, 0) 100%);">
-                    Baby</h2>
+                    Baby {{$type}}</h2>
                 <div class="desk_grid">
                     <div class="products_filter_grid">
                         @foreach($groupedProducts['baby']['products'] as $key => $val)
@@ -547,7 +553,7 @@ $subcatVal = preg_replace('/[\#].*$/', '', $subcatVal);
     <div class="offcanvas-header">
         <h5 class="offcanvas-title lora_36" id="filterOffcanvasLabel">Filters</h5>
         <!--<button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>-->
-        <p type="button" class="mb-0 text-decoration-underline" id="clearFilters">Clear All</button>
+        <p type="button" class="mb-0 text-decoration-underline d-none" id="clearFilters">Clear All</button>
     </div>
     <div class="offcanvas-body filter">
         <div class="menu_body">
@@ -711,7 +717,7 @@ const withFilterProduct = document.getElementById('withFilterProduct');
 const activeFiltersSection = document.getElementById('activeFilters');
 const ageSections = document.querySelectorAll('.age_section');
 const applyFiltersBtn = document.getElementById('applyFilters');
-const clearFiltersBtn = document.getElementById('clearFilters');
+const clearFiltersBtn = document.getElementById('clearFilters'); // Clear All button (hidden by default, shown when any filter is active)
 const totalItemsElement = document.getElementById('totalItems');
 var totalProducts = @json($totalProducts);
 var ageRangeLabelArr = @json($ageSection);
@@ -773,6 +779,10 @@ function updateFilterDots() {
     if (ageRangeDot) ageRangeDot.classList.toggle('d-none', !hasAgeRange);
     if (brandDot) brandDot.classList.toggle('d-none', !hasBrand);
     if (categoryDot) categoryDot.classList.toggle('d-none', !hasCategory);
+
+    // Show/hide Clear All button based on whether any filter is active
+    const hasAnyFilter = hasAgeRange || hasBrand || hasCategory;
+    if (clearFiltersBtn) clearFiltersBtn.classList.toggle('d-none', !hasAnyFilter);
 }
 
 // Update Filter State from Checkboxes

@@ -20,6 +20,25 @@ class ProductController extends Controller
         return view('admin.product.productlisting', compact('products'));
     }
 
+    public function updateStatus(Request $request)
+    {
+        $product = Product::find($request->id);
+        if (!$product) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Product not found'
+            ]);
+        }
+
+        $product->is_active = $request->status;
+        $product->save();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Status updated successfully'
+        ]);
+    }
+
     public function create()
     {
         $categories = Category::orderBy('name')->get();

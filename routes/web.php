@@ -78,6 +78,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('globalpresence', GlobalPresenceController::class);
 	Route::resource('category', CategoryController::class);
 	Route::resource('product', ProductController::class);
+	Route::post('update-product-status', [ProductController::class, 'updateStatus'])->name('admin.products.update.status');
 	Route::resource('brand', BrandController::class);
 	Route::resource('clothsize', ClothSizeController::class);
 	Route::resource('clothcolor', ClothColorController::class);

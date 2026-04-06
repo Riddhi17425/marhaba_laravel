@@ -228,7 +228,7 @@
             <h5 class="offcanvas-title lora_36" id="filterOffcanvasLabel">Menu</h5>
             <button type="button" class="btn d-flex align-items-center p-0 gap-2 border-0" data-bs-dismiss="offcanvas"
                 aria-label="Close">
-                <span>Close</span>
+                {{-- <span>Close</span> --}}
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg"
                     viewBox="0 0 16 16">
                     <path
@@ -261,8 +261,10 @@
                                             @php $ageSection = config('global_values.age_section'); @endphp
                                             @if(isset($ageSection) && is_countable($ageSection) && count($ageSection) > 0)
                                                 @foreach($ageSection as $aKey => $aVal)
-                                                    <div><a href="{{ route('get.products', ['type' => $key, 'size_range' => $aKey]) }}"
-                                                            class="menu_text">{{ $aVal['label'] }}</a></div>
+                                                    <div>
+                                                        <a href="{{ route('get.products', ['type' => $key, 'size_range' => $aKey]) }}" class="menu_text">{{ $aVal['label'] }}</a>
+                                                        {{-- <a href="{{ route('get.products', ['type' => $key]) }}" class="menu_text">{{ $aVal['label'] }}</a> --}}
+                                                        </div>
                                                 @endforeach
                                             @endif
                                             {{-- <div><a href="{{ url('filter') }}" class="menu_text">2 years to 6 years</a>

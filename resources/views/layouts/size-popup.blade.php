@@ -28,7 +28,7 @@
                 <div class="size_pop_head">
                     12-Units Pack – Size Distribution Examples
                 </div>
-                <p class="text-center">Actual packs contain balanced size assortments that vary by product and age range.</p>
+                <p class="text-center">Actual packs contain balanced size assortments that may vary by product and age range.</p>
 
                 <!-- Tabs Content -->
                 <div class="tab-content" id="sizeTabContent">

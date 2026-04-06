@@ -42,7 +42,7 @@ class dashboardController extends Controller
         $ageSections = config('global_values.age_section');
         $homeSliderImgs = HomeSliderImage::whereNull('deleted_at')->get();
         
-        $products = Product::select('id', 'type', 'brand_id', 'category_id','name','url','image','product_brand_size', 'translations')->orderBy('created_at', 'desc')->whereNull('deleted_at')->get();
+        $products = Product::select('id', 'type', 'brand_id', 'category_id','name','url','image','product_brand_size', 'translations')->orderBy('created_at', 'desc')->whereNull('deleted_at')->where('is_active', 1)->get();
         
         // Collect size IDs from products
         $sizeIds = collect();
@@ -96,141 +96,9 @@ class dashboardController extends Controller
                     $q->orWhereRaw("JSON_SEARCH(product_brand_size, 'one', ?, NULL, '$[*].size_id') IS NOT NULL",[(string) $id]);
                 }
             });
-            $productsByAge[$group] = $query->distinct()->get();
+            $productsByAge[$group] = $query->distinct()->where('is_active', 1)->get();
         }
-        
-        // FOR ENQUIRY POPUP
-        // $filterProducts = [];
-        // $clothsizes = ClothSize::all()->keyBy('id');
-        // $enquiryPopupAgeSections = config('global_values.inquiry_popup_age_section');
-        // $data = ['baby' => 0,  'toddler' => 0, 'kids' => 0];
-        // foreach ($products as $product) {
-        //     $brandSizes = json_decode($product->product_brand_size, true);
-        //     if (!is_array($brandSizes)) {
-        //         continue;
-        //     }
-        //     $brandSizes = collect($brandSizes)->groupBy('size_id');
-        //     // Check all sizes in product_brand_size
-        //     foreach ($brandSizes as $bk => $bs) {
-        //         $sizeId = $bk ? (int)$bk : null;
-        //         if (!$sizeId || !isset($clothsizes[$sizeId])) {
-        //             continue;
-        //         }
-        //         $size = $clothsizes[$sizeId];
-        //         $sizeName = trim($size->name); 
-        //         $range = $this->sizeToMonths($sizeName);
-        //         if (!$range) {
-        //             continue;
-        //         }
-        //         // Check if size fits into any age section
-        //         foreach ($enquiryPopupAgeSections as $sectionKey => $section) {
-        //             // If any overlap between size range and section range
-        //             if ($range['min'] >= $section['min'] && $range['max'] <= $section['max']) {
-        //                 if(strtolower($sectionKey) == 'baby'){
-        //                     $data['baby'] += 1;
-        //                 }elseif(strtolower($sectionKey) == 'toddler'){
-        //                     $data['toddler'] += 1;
-        //                 }elseif(strtolower($sectionKey) == 'kids'){
-        //                     $data['kids'] += 1;
-        //                 }
-        //                 // Assign product to this age section if not already assigned
-        //                     $filterProducts['products'][][$sizeName] = $product;
-        //                 // Optional: break if you want product only in one section
-        //                 break;
-        //             }
-        //         }
-        //     }
-        // }
-        
-        // //Sorted by age range
-        // if (!empty($filterProducts['products'])) {
-        //     usort($filterProducts['products'], function ($itemA, $itemB) {
-        //         $sizeA = array_key_first($itemA);
-        //         $sizeB = array_key_first($itemB);
-        //         $rangeA = $this->sizeToMonths($sizeA);
-        //         $rangeB = $this->sizeToMonths($sizeB);
 
-        //         return ($rangeA['min'] ?? 0) <=> ($rangeB['min'] ?? 0);
-        //     });
-        // }
-
-        // $productData = [
-        //     'boy' => [
-        //         'baby' => [],
-        //         'toddlers' => [],
-        //         'kids' => []
-        //     ],
-        //     'girl' => [
-        //         'baby' => [],
-        //         'toddlers' => [],
-        //         'kids' => []
-        //     ]
-        // ];
-        // foreach ($filterProducts['products'] as $productGroup) {
-        //     foreach ($productGroup as $size => $product) {
-        //         $type = strtolower($product->type);
-        //         $name = $product->name;
-        //         $range = $this->sizeToMonths($size);
-        //         if (!$range) {
-        //             continue;
-        //         }
-        //         $maxMonths = $range['max'];
-        //         foreach ($enquiryPopupAgeSections as $sectionKey => $section) {
-        //             if ($maxMonths >= $section['min'] && $maxMonths <= $section['max']) {
-        //                 $productData[$type][$sectionKey][] = $name;
-        //                 break;
-        //             }
-        //         }
-        //     }
-        // }
-        
-        // foreach ($productData as $type => $groups) {
-        //     foreach ($groups as $ageGroup => $products) {
-        //         $productData[$type][$ageGroup] = array_values(array_unique($products));
-        //     }
-        // }
-
-        // LANGUAGE TRANSLATION ARRAY
-        // $productNames = [];
-        // // Loop through boys and girls and all age groups
-        // foreach ($productData as $gender => $groups) {
-        //     foreach ($groups as $ageGroup => $names) {
-        //         foreach ($names as $fullName) {
-        //             // Remove size info if stored like "Romper (0m-9m)"
-        //             $name = preg_replace('/\s*\(.*?\)$/', '', $fullName);
-        //             $productNames[] = $name;
-        //         }
-        //     }
-        // }
-        // Remove duplicates
-        // $productNames = array_unique($productNames);
-        // $productNamesData = Product::select('id', 'type', 'category_id','name','translations')->whereIn('name', $productNames)->get();
-        // $languages = config('global_values.languages');
-        // $productTranslations = [];
-        // // English initialization
-        // $productTranslations['en'] = [];
-        // foreach ($productNames as $name) {
-        //     $productTranslations['en'][$name] = $name;
-        // }
-        // // Initialize other languages
-        // foreach ($languages as $lang) {
-        //     $productTranslations[$lang] = [];
-        // }
-        // // Fill translations
-        // foreach ($productNamesData as $product) {
-        //     $translations = json_decode($product->translations, true); // decode DB JSON
-
-        //     foreach ($languages as $lang) {
-        //         if (isset($translations[$lang][$product->name])) {
-        //             // assign the actual translated string, not array
-        //             $productTranslations[$lang][$product->name] = $translations[$lang][$product->name];
-        //         } else {
-        //             // fallback to English
-        //             $productTranslations[$lang][$product->name] = $product->name;
-        //         }
-        //     }
-        // }
-        
         $girlCollectionRandomImage = CollectionRandomImage::select('id', 'image', 'name')->where('section', 1)->get();
         $boyCollectionRandomImage = CollectionRandomImage::select('id', 'image', 'name')->where('section', 2)->get();
 
@@ -259,11 +127,23 @@ class dashboardController extends Controller
             if (!$range) {
                 continue;
             }
+            $matched = false;
             foreach ($ageSections as $key => $section) {
                 if ($range['min'] >= $section['min'] && $range['max'] <= $section['max']) {
                     $result[$key][] = $size;
-                    break; 
-                    
+                    $matched = true;
+                    break;
+                }
+            }
+            // Fallback for wide-spanning sizes (e.g. 1-10Y, 4-14Y):
+            // assign to the section whose range contains the midpoint of the size range
+            if (!$matched) {
+                $midpoint = ($range['min'] + $range['max']) / 2;
+                foreach ($ageSections as $key => $section) {
+                    if ($midpoint >= $section['min'] && $midpoint <= $section['max']) {
+                        $result[$key][] = $size;
+                        break;
+                    }
                 }
             }
         }
@@ -291,7 +171,7 @@ class dashboardController extends Controller
         if(isset($categoryFilter) && is_countable($categoryFilter) && count($categoryFilter) > 0){
             $products = $products->whereIn('category_id', $categoryFilter);
         }
-        $products = $products->whereNull('deleted_at')->get();
+        $products = $products->whereNull('deleted_at')->where('is_active', 1)->get();
         
         $categories = Category::select('id', 'name', 'url')->whereNull('deleted_at')->get();
         if(isset($categories) && is_countable($categories) && count($categories)){
@@ -320,7 +200,7 @@ class dashboardController extends Controller
                 }, ARRAY_FILTER_USE_BOTH);
             }
         }
-        
+
         foreach ($ageSections as $key => $section) {
             $groupedProducts[$key] = [
                 'label' => $section['label'],
@@ -787,7 +667,9 @@ class dashboardController extends Controller
 
         $productVariants = json_decode($product->product_brand_size, true);
         $sizeIds = array_unique(array_column($productVariants, 'size_id'));
-        $sizeList = ClothSize::select('id', 'name')->whereIn('id', $sizeIds)->get();
+        $sizeGroups = array_unique(array_column($productVariants, 'size_group'));
+        $sizeGroups = explode(',', implode(',', $sizeGroups));
+        // $sizeList = ClothSize::select('id', 'name')->whereIn('id', $sizeIds)->get();
         $sizeList = ClothSize::select('id', 'name')->whereIn('id', $sizeIds)->get()
             ->map(function ($item) {
                 preg_match('/(\d+)(m|Y)-(\d+)(m|Y)/i', $item->name, $matches);
@@ -950,7 +832,7 @@ class dashboardController extends Controller
         // }
 
         return view('front.product', compact(
-            'product', 'similarProducts', 'sizeList', 'smallest', 'largest', /*'productData', 'productTranslations',*/ 'listSizeId'
+            'product', 'similarProducts', 'sizeList', 'sizeGroups', 'smallest', 'largest', /*'productData', 'productTranslations',*/ 'listSizeId'
         ));
     }
 

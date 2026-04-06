@@ -29,6 +29,7 @@
                         <th>Category</th>
                         <th>URL</th>
                         <th>Created</th>
+                        <th>Status</th>
                         <th class="text-center">Action</th>
                     </tr>
                 </thead>
@@ -41,6 +42,19 @@
                             <td>{{ $product->category->name ?? '' }}</td>
                             <td>{{ $product->url }}</td>
                             <td>{{ $product->created_at->format('d-m-Y') }}</td>
+                            <td>
+                                @if($product->is_active == 1)
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" type="checkbox" checked role="switch" onclick="updateStatus(0, {{ $product->id }});">
+                                        <label class="form-check-label">Active</label>
+                                    </div>
+                                @else
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" type="checkbox" role="switch" onclick="updateStatus(1, {{ $product->id }});">
+                                        <label class="form-check-label">In-Active</label>
+                                    </div>
+                                @endif
+                            </td>
                             <td class="text-center">
                                 <a href="{{ route('product.edit', $product->id) }}" class="btn btn-sm btn-warning">Edit</a>
                                 <form action="{{ route('product.destroy', $product->id) }}" method="POST" style="display:inline;">
@@ -62,4 +76,31 @@
         </div>
     </div>
 </div>
+
+<script>
+function updateStatus(status, productId){
+    $.ajax({
+        url:  "{{ route('admin.products.update.status') }}",
+        type: "POST",
+        headers: {
+            'X-CSRF-TOKEN': "{{ csrf_token() }}"
+        },
+        data: {
+            id: productId,
+            status: status
+        },
+        success: function (response) {
+            if (response.success) {
+                location.reload();
+            } else {
+                alert('Something went wrong');
+            }
+        },
+        error: function () {
+            alert('Server error');
+        }
+    });
+}
+</script>
+
 @endsection
