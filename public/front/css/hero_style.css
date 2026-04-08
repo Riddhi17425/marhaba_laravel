@@ -1219,3 +1219,7 @@ header.sticky .btn svg.home_menu rect {
 .project-card.active{justify-content:space-between;}
 .project-card.active .card_top {width: 0%;}
 .project-card.active img.category-img { display: none; width: 100%;margin-left: auto;}
+
+.tags_btn{
+    grid-template-columns: repeat(4, minmax(min-content, max-content));
+}

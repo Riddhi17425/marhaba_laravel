@@ -374,7 +374,7 @@
                         <p class="card_desc mt-2">Age Range : {{$ageSections['baby']['label']}}</p>
                         <div class="ym-project">
                         <h3 class="card_subtitle">Size Groups</h3>
-                        <div class="tags">
+                        <div class="tags tags_btn">
                             @if(isset($groupedSizes) && is_countable($groupedSizes) && count($groupedSizes) > 0)
                                 @foreach ($groupedSizes['baby'] as $val)
                                     <span class="card_pill">{{$val}}</span>
@@ -438,7 +438,7 @@
                         <p class="card_desc mt-2">Age Range : {{$ageSections['kids']['label']}}</p>
                         <div class="ym-project">
                         <h3 class="card_subtitle">Size Groups</h3>
-                        <div class="tags">
+                        <div class="tags tags_btn">
                             @if(isset($groupedSizes) && is_countable($groupedSizes) && count($groupedSizes) > 0)
                                 @foreach ($groupedSizes['kids'] as $val)
                                     <span class="card_pill">{{$val}}</span>
@@ -478,7 +478,7 @@
                         <p class="card_desc">Age Range : {{$ageSections['kids']['label']}}</p>
                     </div>
 
-                      <img loading="lazy" src="{{ asset('public/front/img/bannerKids_banner_1.png') }}" class="category-img d-lg-none">
+                      <img loading="lazy" src="{{ asset('public/front/img/bannerKids_banner_1b.png') }}" class="category-img d-lg-none">
 
                     <img loading="lazy" src="{{ asset('public/front/img/Home/tlk.png') }}" class="category-img d-none d-lg-block"
                         alt="Toddler" {{--
@@ -505,7 +505,7 @@
                         <p class="card_desc mt-2">Age Range : {{$ageSections['junior']['label']}}</p>
                         <div class="ym-project">
                         <h3 class="card_subtitle">Size Groups</h3>
-                        <div class="tags">
+                        <div class="tags tags_btn">
                             @if(isset($groupedSizes) && is_countable($groupedSizes) && count($groupedSizes) > 0)
                                 @foreach ($groupedSizes['junior'] as $val)
                                     <span class="card_pill">{{$val}}</span>
@@ -609,7 +609,7 @@
     <section class="home_mt-100">
         <div class="ym-container">
             <h2 class="title_60lora text-center">Trusted by</h2>
-            <p class="text-center mt-3 title_24-raleway">Whether you run a boutique, supply a regional network, or sell
+            <p class="text-center mt-3 title_24-raleway d-none d-lg-block">Whether you run a boutique, supply a regional network, or sell
                 online—there's a place for
                 you here.<br> Marhaba partners with businesses of every size, with terms shaped around your needs.</p>
             {{-- <a href="#" class="btn_1 mx-auto" data-bs-toggle="modal" 
