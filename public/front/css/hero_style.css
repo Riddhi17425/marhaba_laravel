@@ -134,7 +134,7 @@ a {
 
 .hero_overlay {
     position: absolute;
-    background-image: url(../img/Home/hero-bg.png);
+    background-image:url(../img/Home/hero-bg.png);
     background-size: cover;
     inset: 0;
     height: 100%;
@@ -633,8 +633,7 @@ a {
 }
 
 .project-card {
-    max-height: 700px;
-    min-height: 700px;
+   height: 700px;
     overflow: hidden;
     display: flex;
     align-items: flex-end;
@@ -677,6 +676,7 @@ a {
     transition: all 0.85s cubic-bezier(0.33, 0.66, 0.66, 1);
     height:100%;
     justify-content:space-between;
+    width: 100%;
 }
 
 .card_title {
@@ -1033,7 +1033,7 @@ select:focus {
 
 /* inquiry form css  */
 .project-card.active .enquire-circle {
-    display: none;
+    display: none; 
 }
 
 /* brand grid image */
@@ -1217,5 +1217,5 @@ header.sticky .btn svg.home_menu rect {
 
 
 .project-card.active{justify-content:space-between;}
-.project-card.active .card_top {width: 32%;}
-.project-card.active img.category-img {width: 100%;margin-left: auto;}
+.project-card.active .card_top {width: 0%;}
+.project-card.active img.category-img { display: none; width: 100%;margin-left: auto;}

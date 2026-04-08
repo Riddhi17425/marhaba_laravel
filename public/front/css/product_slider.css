@@ -43,11 +43,12 @@
     position: relative;
     cursor: zoom-in;
     user-select: none;
-    touch-action: none;
+    touch-action: pan-y;
 }
 
 .image-container.zoomed {
     cursor: grab;
+    touch-action: none;
 }
 
 .image-container.zoomed:active {
@@ -207,7 +208,7 @@
 
 .product_detail_grid {
     display: grid;
-    grid-template-columns: 600px 600px;
+    grid-template-columns: 590px 590px;
     justify-content: space-between;
     gap: 30px;
 }
@@ -248,13 +249,34 @@
 }
 
 .get_price {
-    display: inline-block;
+    /* display: inline-block;
     width: 100%;
     background-color: #2e2e2e;
     padding: 23px 0;
     color: white;
     text-align: center;
+    margin-bottom: 35px; */
+
+    display: inline-block;
+    width: 100%;
+    padding: 23px 0;
+    color: white;
+    text-align: center;
     margin-bottom: 35px;
+    background-color: #452666;
+    display: flex;
+    justify-content: center;
+    cursor: pointer;
+    border: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(69, 38, 102, 0.4);
+    gap: 2px;
+    position: relative;
+    overflow: visible;
+    animation: contactBtnPulse 2.4s ease-in-out infinite;
+    pointer-events: auto;
+    font-size: 16px;
+
 }
 
 .pd_right .accordion-item:before {

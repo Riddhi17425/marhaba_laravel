@@ -19,7 +19,7 @@
     .container-fluid {max-width: 1460px;}
 
     .offcanvas.offcanvas-end {
-            width: 500px !important;
+            width: 500px !important; 
         padding: 40px;
     }
 
@@ -94,7 +94,7 @@
             }
 
                 .offcanvas.offcanvas-end {
-                width: 360px !important;
+                width: 450px !important;
                 padding: 25px;
             }
 
@@ -244,7 +244,7 @@
 
          .insta_img{width: 45px;}
          .goal_crad {padding: 20px 20px;}
-             .nav_logo {width: 45px;}
+             .nav_logo {width: 35px;}
          .trendsetters_img{width: 100px !important;}
          .herobanner_img{    width: 100px;}
       .address_title {gap: 10px;}
@@ -264,7 +264,7 @@
       .slider_arrows .slick-prev::before, .slider_arrows .slick-next::before{width: 19px;    height: 13px;background-position: center;}
       .product_wrapper .slick-arrow {opacity: 1;              border-radius: 50%;   background-color: white;}
       .navbar-flex{display: flex; flex-direction: column;align-items: center;}
-          .heder_section {padding-top: 10px;padding-bottom: 20px;}
+          .heder_section {padding-top: 10px;padding-bottom: 10px;}
       .header_title {font-size: 30px; margin-top: 10px;}
       .glimpse_section{    margin-bottom: 10px;}
       .why_choose_wrapper{position: relative;transform: translateY(0);}
@@ -281,7 +281,7 @@
         line-height: 40px;
     }
     .serve_grid .title_48lora{font-size: 24px;line-height: 24px;}
-    .serve_grid .title_24-raleway{font-size: 18px;}
+    .serve_grid .title_24-raleway{font-size: 16px; line-height: 24px;}
     .serve_grid, .serve_grid_2 {gap: 20px;}
      }
    @media (max-width: 1920px) and (min-width: 1700px)  {

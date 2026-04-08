@@ -279,7 +279,7 @@ if (visibleWhyWrapper) {
 
             // Expand only on desktop
             if (isDesktop) {
-                card.style.flex = i === index ? '1.2' : '0.5';
+                card.style.flex = i === index ? '1.3' : '0.7';
             } else {
                 card.style.flex = '';
             }
@@ -294,7 +294,7 @@ if (visibleWhyWrapper) {
         // Reset styles
         projectCards.forEach(card => {
             card.classList.remove('active');
-            card.style.flex = isDesktop ? '0.5' : '';
+            card.style.flex = isDesktop ? '0.7' : '';
         });
 
         // Click handler for BOTH desktop & mobile
@@ -376,7 +376,7 @@ if (visibleWhyWrapper) {
                     arrows: false,
                     dots: false,
                     infinite: false,
-                    autoplay: true,
+                    autoplay: false,
                     autoplaySpeed: 2000,
                     responsive: [
                         {
@@ -385,7 +385,7 @@ if (visibleWhyWrapper) {
                         },
                         {
                             breakpoint: 577,
-                            settings: { slidesToShow: 1 }
+                            settings: { slidesToShow: 1, dots: true, }
                         }
                     ]
                 });
@@ -518,16 +518,7 @@ document.querySelectorAll('.project-card').forEach(card => {
 
     // 4. Execution Logic
     const handleDisplay = () => {
-        if (isActive()) {
-            stopAnimation(); // ✅ STOP if active
-            return;
-        }
-
-        if (window.innerWidth <= 577) {
-            startAnimation(); // mobile auto
-        } else {
-            stopAnimation(); // desktop default
-        }
+        stopAnimation(); // desktop default / mobile static
     };
 
     // Init
@@ -623,8 +614,9 @@ $('.ym_cat').slick({
             settings: {
                 slidesToShow: 1,
                 slidesToScroll: 1,
-                arrows: false, // Hiding arrows on mobile as per your previous code
-                dots: false
+                arrows: false,
+                dots: true,
+                autoplay: false
             }
         }
     ]

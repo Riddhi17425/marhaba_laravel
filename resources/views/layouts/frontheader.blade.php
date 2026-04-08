@@ -84,7 +84,7 @@
                         <button class="btn p-0 border-0" type="button" data-bs-toggle="offcanvas"
                             data-bs-target="#sidebarMenu" aria-controls="sidebarMenu">
                             <i class="">
-                                <svg width="34" height="30" viewBox="0 0 34 30" fill="none"
+                                <svg class="home_menu_bar" width="34" height="30" viewBox="0 0 34 30" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
                                     <rect y="2" width="34" height="2" fill="#452667" />
                                     <rect y="14" width="34" height="2" fill="#452667" />
@@ -225,8 +225,8 @@
     <div class="offcanvas offcanvas-end" data-bs-scroll="false" tabindex="-1" id="sidebarMenu"
         aria-labelledby="sidebarMenuLabel">
         <div class="offcanvas-header d-flex justify-content-between align-items-end">
-            <h5 class="offcanvas-title lora_36" id="filterOffcanvasLabel">Menu</h5>
-            <button type="button" class="btn d-flex align-items-center p-0 gap-2 border-0" data-bs-dismiss="offcanvas"
+            <h5 class="offcanvas-title lora_36" id="filterOffcanvasLabel"></h5>
+            <button type="button" class=" sidebar_close btn d-flex align-items-center p-0 gap-2 border-0" data-bs-dismiss="offcanvas"
                 aria-label="Close">
                 {{-- <span>Close</span> --}}
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg"

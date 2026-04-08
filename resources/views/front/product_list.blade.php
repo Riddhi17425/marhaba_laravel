@@ -550,10 +550,18 @@ $subcatVal = preg_replace('/[\#].*$/', '', $subcatVal);
 <!-- Filter Offcanvas -->
 <div class="boys_girls_filter offcanvas offcanvas-end filter_offcanvas" tabindex="-1" id="filterOffcanvas"
     aria-labelledby="filterOffcanvasLabel">
-    <div class="offcanvas-header">
-        <h5 class="offcanvas-title lora_36" id="filterOffcanvasLabel">Filters</h5>
-        <!--<button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>-->
-        <p type="button" class="mb-0 text-decoration-underline d-none" id="clearFilters">Clear All</button>
+    <div class="offcanvas-header ">
+        <h5 class="offcanvas-title lora_36" id="filterOffcanvasLabel" style="font-size: 20px;">Filters</h5>
+         <div class="d-flex align-items-center gap-3">
+        <p type="button" class="mb-0 text-decoration-underline d-none" id="clearFilters">Clear All</p>
+        <button type="button" class="sidebar_close btn d-flex align-items-center p-0 gap-2 border-0" data-bs-dismiss="offcanvas" aria-label="Close">
+             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg"
+                    viewBox="0 0 16 16">
+                    <path
+                        d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z" />
+                </svg>
+        </button>
+</div>
     </div>
     <div class="offcanvas-body filter">
         <div class="menu_body">

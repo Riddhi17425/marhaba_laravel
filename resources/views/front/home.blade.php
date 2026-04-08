@@ -477,7 +477,10 @@
                         <span class="card_title">Toddler & Little Kids</span>
                         <p class="card_desc">Age Range : {{$ageSections['kids']['label']}}</p>
                     </div>
-                    <img loading="lazy" src="{{ asset('public/front/img/Home/tlk.png') }}" class="category-img"
+
+                      <img loading="lazy" src="{{ asset('public/front/img/bannerKids_banner_1.png') }}" class="category-img d-lg-none">
+
+                    <img loading="lazy" src="{{ asset('public/front/img/Home/tlk.png') }}" class="category-img d-none d-lg-block"
                         alt="Toddler" {{--
                         data-alt='["https://marhabafashion.com/public/front/img/bannerKids_banner_1a.png", "https://marhabafashion.com/public/front/img/bannerKids_banner_1b.png", "https://marhabafashion.com/public/front/img/bannerKids_banner_1.png"]'>
                     --}}
@@ -541,7 +544,8 @@
                         <span class="card_title">Kids & Youth</span>
                         <p class="card_desc">Age Range : {{$ageSections['junior']['label']}}</p>
                     </div>
-                    <img loading="lazy" src="{{ asset('public/front/img/Home/ky.png') }}" class="category-img"
+                     <img loading="lazy" src="{{ asset('public/front/img/bannerKids_banner_4a.png') }}" class="category-img d-lg-none">
+                    <img loading="lazy" src="{{ asset('public/front/img/Home/ky.png') }}" class="category-img d-none d-lg-block"
                         alt="Kids & Youth" {{--
                         data-alt='["https://marhabafashion.com/public/front/img/bannerKids_banner_4a.png", "https://marhabafashion.com/public/front/img/bannerKids_banner_4b.png", "https://marhabafashion.com/public/front/img/bannerKids_banner_4.png"]'>
                     --}}
@@ -882,7 +886,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body" id="globalPresenceModalContent">
-                <!-- Dynamic content injected here -->
+             
             </div>
         </div>
     </div>
@@ -1016,9 +1020,9 @@
             });
         });
 
-        // existing default logic
+        // existing default logic — desktop only (avoid auto-opening modal on mobile)
         const defaultButton = document.querySelector('[data-region="africa"]');
-        if (defaultButton) {
+        if (defaultButton && window.innerWidth > 992) {
             handleClick(defaultButton);
         }
     });

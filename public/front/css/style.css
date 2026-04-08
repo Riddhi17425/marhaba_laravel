@@ -1592,7 +1592,7 @@
       }
 
       .offcanvas.offcanvas-end {
-        width: 550px !important;
+        width: 600px !important;
         padding: 60px;
         z-index: 99999;
       }
@@ -1900,7 +1900,7 @@
 
       .filter_offcanvas .offcanvas-header {
         display: flex;
-        align-items: flex-end;
+        align-items: center;
         justify-content: space-between;
       }
 
@@ -2031,6 +2031,26 @@
   padding: 1px 0;
 }
 
+
+.sidebar_close
+{
+    background: #452666;
+    color: white;
+    height: 35px;
+    width: 35px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    transition: .7s;
+}
+
+.sidebar_close:hover
+{
+     scale: .9; 
+     background: #452666;
+    color: white;
+    transition: .7s;
+}
 
 
       /* who we serve page css */
