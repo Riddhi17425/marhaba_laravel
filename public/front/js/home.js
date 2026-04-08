@@ -299,7 +299,17 @@ if (visibleWhyWrapper) {
 
         // Click handler for BOTH desktop & mobile
         projectCards.forEach((card, i) => {
-            card.onclick = () => setActiveProject(i);
+            card.onclick = () => {
+                const isDesktop = window.innerWidth >= 992;
+                // Toggle: clicking active card closes it
+                if (card.classList.contains('active')) {
+                    card.classList.remove('active');
+                    if (isDesktop) card.style.flex = '0.7';
+                    else card.style.flex = '';
+                } else {
+                    setActiveProject(i);
+                }
+            };
         });
     }
 
@@ -471,7 +481,8 @@ if (visibleWhyWrapper) {
        PROJECT CARDS GIF EFFECT
     ========================= */
 document.querySelectorAll('.project-card').forEach(card => {
-    const img = card.querySelector('.category-img');
+    // prefer desktop-specific image if present, fall back to first category-img
+    const img = card.querySelector('.category-img.d-none.d-lg-block') || card.querySelector('.category-img');
     if (!img) return;
 
     const originalSrc = img.src;

@@ -96,6 +96,7 @@
                 .offcanvas.offcanvas-end {
                 width: 450px !important;
                 padding: 25px;
+                padding-top: 10px;
             }
 
             .raleway_24 {
@@ -283,6 +284,9 @@
     .serve_grid .title_48lora{font-size: 24px;line-height: 24px;}
     .serve_grid .title_24-raleway{font-size: 16px; line-height: 24px;}
     .serve_grid, .serve_grid_2 {gap: 20px;}
+
+    
+
      }
    @media (max-width: 1920px) and (min-width: 1700px)  {
     
