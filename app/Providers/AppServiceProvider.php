@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\View;
-use App\Models\{Product, Clothsize};
+use App\Models\{Product, ClothSize};
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -46,7 +46,7 @@ class AppServiceProvider extends ServiceProvider
 
         // FOR ENQUIRY POPUP
         $filterProducts = [];
-        $clothsizes = Clothsize::all()->keyBy('id');
+        $clothsizes = ClothSize::all()->keyBy('id');
         $enquiryPopupAgeSections = config('global_values.inquiry_popup_age_section');
         $data = ['baby' => 0,  'toddler' => 0, 'kids' => 0];
         $productsArr = Product::select('id', 'type', 'brand_id', 'category_id','name','url','image','product_brand_size')->orderBy('created_at', 'desc')->whereNull('deleted_at')->get();

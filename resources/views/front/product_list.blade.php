@@ -1087,6 +1087,19 @@ function showAllSections() {
 document.addEventListener('DOMContentLoaded', function() {
     initEventListeners();
     updateFilterDots();
+
+    // Auto-apply age filter when arriving from a menu link (?preFilter=kids etc.)
+    const urlParams = new URLSearchParams(window.location.search);
+    const preFilter = urlParams.get('preFilter');
+    if (preFilter) {
+        const checkbox = document.getElementById('filterAge_' + preFilter);
+        if (checkbox) {
+            checkbox.checked = true;
+            updateAccordionActiveState();
+            updateFilterDots();
+            applyFilters();
+        }
+    }
 });
 
 // Optional: Handle browser back button
