@@ -262,7 +262,7 @@
                                             @if(isset($ageSection) && is_countable($ageSection) && count($ageSection) > 0)
                                                 @foreach($ageSection as $aKey => $aVal)
                                                     <div>
-                                                        <a href="{{ route('get.products', ['type' => $key, 'size_range' => $aKey]) }}" class="menu_text">{{ $aVal['label'] }}</a>
+                                                        <a href="{{ route('get.products', ['type' => $key]) }}?preFilter={{ $aKey }}" class="menu_text">{{ $aVal['label'] }}</a>
                                                         {{-- <a href="{{ route('get.products', ['type' => $key]) }}" class="menu_text">{{ $aVal['label'] }}</a> --}}
                                                         </div>
                                                 @endforeach

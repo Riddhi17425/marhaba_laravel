@@ -533,28 +533,23 @@ class dashboardController extends Controller
     {
         $products = Product::where([
                 'category_id' => $categoryId,
-                'type' => $type
+                'type' => $type,
             ])
             ->whereNull('deleted_at')
+            ->where('is_active', 1)
             ->get(['product_brand_size']);
 
         $clothsizes = ClothSize::all()->keyBy('id');
         $ageSections = config('global_values.age_section');
 
         $total = 0;
-
         foreach ($products as $product) {
-
             $brandSizes = json_decode($product->product_brand_size, true);
-
             if (!is_array($brandSizes)) continue;
 
             $brandSizes = collect($brandSizes)->groupBy('size_id');
-
             foreach ($brandSizes as $sizeId => $bs) {
-
                 $sizeId = (int) $sizeId;
-
                 if (!$sizeId || !isset($clothsizes[$sizeId])) continue;
 
                 $sizeName = trim($clothsizes[$sizeId]->name);
@@ -562,13 +557,23 @@ class dashboardController extends Controller
 
                 if (!$range) continue;
 
+                $matched = false;
                 foreach ($ageSections as $section) {
-
-                    if ($range['min'] >= $section['min'] &&
-                        $range['max'] <= $section['max']) {
-
-                        $total++; // count per matching size
+                    if ($range['min'] >= $section['min'] && $range['max'] <= $section['max']) {
+                        $total++;
+                        $matched = true;
                         break;
+                    }
+                }
+
+                // Fallback for wide-spanning sizes (e.g. 2-5Y, 4-14Y): use midpoint
+                if (!$matched) {
+                    $midpoint = ($range['min'] + $range['max']) / 2;
+                    foreach ($ageSections as $section) {
+                        if ($midpoint >= $section['min'] && $midpoint <= $section['max']) {
+                            $total++;
+                            break;
+                        }
                     }
                 }
             }
