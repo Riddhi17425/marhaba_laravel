@@ -9,6 +9,11 @@
     --font-ralwway: "Raleway", sans-serif;
 }
 
+html
+{
+     overflow-x: hidden !important;
+}
+
 body {
     font-family: var(--font-ralwway);
     font-weight: 400;
@@ -16,6 +21,7 @@ body {
     font-feature-settings: "lnum", "tnum";
     font-size: 16px;
     line-height: normal;
+     overflow-x: hidden !important;
 }
 
 a {
