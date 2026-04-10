@@ -9,13 +9,19 @@
     --font-ralwway: "Raleway", sans-serif;
 }
 
+html
+{
+     overflow-x: hidden !important;
+}
+
 body {
     font-family: var(--font-ralwway);
     font-weight: 400;
     font-variant-numeric: lining-nums tabular-nums;
     font-feature-settings: "lnum", "tnum";
     font-size: 16px;
-    line-height: normal;
+    /* line-height: normal; */
+     overflow-x: hidden !important;
 }
 
 a {

@@ -83,7 +83,8 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // Shuffle all 7 indices, assign first 6 to cells, keep last 1 as hidden
-  const allIndices = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9,10,11,12,13];
+  const allIndices = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13];
+
   shuffle(allIndices);
 
   // visibleOrder[cellIndex] = brandIndex shown in that cell
