@@ -247,19 +247,11 @@
 .pd_left .age_range_box {
     padding: 16px 25px;
 }
-
+/* 
 .get_price {
-    /* display: inline-block;
-    width: 100%;
-    background-color: #2e2e2e;
-    padding: 23px 0;
-    color: white;
-    text-align: center;
-    margin-bottom: 35px; */
-
     display: inline-block;
     width: 100%;
-    padding: 23px 0;
+    padding: 16px 24px;
     color: white;
     text-align: center;
     margin-bottom: 35px;
@@ -276,8 +268,57 @@
     animation: contactBtnPulse 2.4s ease-in-out infinite;
     pointer-events: auto;
     font-size: 16px;
-
+  transition: all 0.3s ease;
 }
+
+.get_price:hover
+{
+ transform: scale(.95,.9);
+} */
+
+.get_price {
+    width: 100%;
+    padding: 16px 24px;
+    color: white;
+    text-align: center;
+    margin-bottom: 35px;
+    background: transparent;
+    display: flex;
+    justify-content: center;
+    cursor: pointer;
+    border: none;
+    transition: all 0.5s ease;
+    gap: 2px;
+    position: relative;
+    overflow: hidden;
+    font-size: 16px;
+    z-index: 1;
+     box-shadow: 0 4px 10px rgba(69, 38, 102, 0.3);
+}
+
+/* Background layer */
+.get_price::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: #452666;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: -1;
+    transition: transform 0.5s ease;
+}
+
+/* Hover effect */
+.get_price:hover::before {
+    transform: translate(-50%, -50%) scale(0.95, 0.9);
+}
+
+.get_price:hover {
+   box-shadow: none;
+}
+
 
 .pd_right .accordion-item:before {
     background: #00000026;

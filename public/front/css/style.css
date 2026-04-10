@@ -1879,7 +1879,15 @@
       .age_range_box {
         padding: 26px 30px;
         cursor: pointer;
+       transition: box-shadow 0.3s ease, border-color 0.3s ease;
+         border: 1px solid transparent;
       }
+
+      .age_range_box:hover
+      {
+      box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+        border: 1px solid white;
+      } 
 
       .age_section {
         margin-top: 50px;

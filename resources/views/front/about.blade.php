@@ -29,13 +29,13 @@
                 </div>
             </div>
             <div class="col-md-6">
-                <h2 class="mean_head scroll-text" data-animate-on-scroll>Our Story</h2>
-                <p><b>Najmuddin Trading Co. LLC</b>, was founded in <b>1974</b> in the heart of <b>Deira, Dubai</b>.
-                    What started as a small family-run business has grown into one of the region’s most <b>trusted names
-                        in children’s fashion wholesale.</b></p>
-                <p>For over <b> 50 years</b>, we have designed, manufactured, and distributed <b>premium-quality
-                        children’s apparel</b> that blends comfort, affordability, and timeless style. Our reputation
-                    has been built on <b>long-lasting partnerships</b> with retailers who value reliability, quality,
+                <h2 style="color: var(--wb-2E2E2E);" class="title_36 scroll-text mb-3" data-animate-on-scroll >Our Story</h2>
+                <p>Najmuddin Trading Co. LLC, was founded in 1974 in the heart of Deira, Dubai.
+                    What started as a small family-run business has grown into one of the region’s most trusted names
+                        in children’s fashion wholesale.</p>
+                <p>For over 50 years, we have designed, manufactured, and distributed premium-quality
+                        children’s apparel that blends comfort, affordability, and timeless style. Our reputation
+                    has been built on long-lasting partnerships with retailers who value reliability, quality,
                     and consistency.</p>
             </div>
         </div>

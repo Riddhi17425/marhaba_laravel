@@ -157,7 +157,7 @@
                         $whatsappUrl = "https://api.whatsapp.com/send?phone=971569233052&text=" . urlencode($message);
                     @endphp
                     <a href="{{ $whatsappUrl }}" class="get_price">
-                        <svg class="me-2" width="22" height="22" viewBox="0 0 18 18" fill="none"
+                        <span><svg class="me-2" width="20" height="20" viewBox="0 0 18 18" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
                             <path
                                 d="M14.9731 2.57392C13.5045 1.10247 11.5543 0.200085 9.4741 0.0295217C7.39392 -0.141041 5.32078 0.43145 3.62861 1.64373C1.93644 2.85601 0.736645 4.62828 0.245641 6.64086C-0.245363 8.65343 0.00474622 10.7738 0.950854 12.6196L0.022131 17.0926C0.0124945 17.1371 0.0122216 17.1832 0.0213294 17.2278C0.0304373 17.2724 0.0487298 17.3147 0.0750631 17.352C0.11364 17.4086 0.168705 17.4522 0.232906 17.4769C0.297107 17.5017 0.367388 17.5064 0.434362 17.4904L4.85341 16.4513C6.70871 17.3662 8.83101 17.5983 10.8427 17.1065C12.8543 16.6147 14.6248 15.4308 15.8392 13.7655C17.0536 12.1003 17.633 10.0616 17.4744 8.01221C17.3158 5.96287 16.4295 4.0358 14.9731 2.57392ZM13.5953 13.4836C12.5792 14.4888 11.2707 15.1524 9.85434 15.3808C8.43796 15.6091 6.98504 15.3909 5.70033 14.7566L5.08439 14.4543L2.37522 15.0908L2.38324 15.0574L2.94464 12.3522L2.64309 11.7619C1.98666 10.4829 1.7551 9.0307 1.98157 7.6132C2.20804 6.19571 2.88093 4.88569 3.90384 3.8708C5.18914 2.59611 6.93215 1.88002 8.74956 1.88002C10.567 1.88002 12.31 2.59611 13.5953 3.8708C13.6062 3.88325 13.618 3.89495 13.6306 3.90581C14.8999 5.18379 15.6086 6.90778 15.602 8.70193C15.5953 10.4961 14.874 12.2149 13.5953 13.4836Z"
@@ -166,7 +166,7 @@
                                 d="M13.3539 11.4996C13.0218 12.0184 12.4973 12.6533 11.8381 12.8108C10.6832 13.0877 8.91076 12.8204 6.70525 10.7804L6.67798 10.7565C4.73873 8.97269 4.23507 7.48804 4.35697 6.3105C4.42434 5.64217 4.98575 5.03749 5.45893 4.64286C5.53374 4.57952 5.62245 4.53442 5.71797 4.51117C5.81349 4.48793 5.91317 4.48718 6.00903 4.50898C6.10489 4.53078 6.19429 4.57454 6.27006 4.63674C6.34583 4.69895 6.40587 4.77788 6.4454 4.86722L7.15918 6.45849C7.20557 6.56167 7.22276 6.67543 7.20891 6.78756C7.19506 6.8997 7.1507 7.00598 7.08059 7.095L6.71968 7.55964C6.64224 7.65559 6.59552 7.77232 6.58551 7.89483C6.57551 8.01734 6.60268 8.14001 6.66354 8.24707C6.86565 8.59874 7.35006 9.1159 7.8874 9.59487C8.49051 10.1359 9.15939 10.6308 9.58284 10.7995C9.69615 10.8454 9.82073 10.8566 9.94052 10.8316C10.0603 10.8067 10.1698 10.7467 10.2549 10.6594L10.6736 10.2409C10.7544 10.1619 10.8548 10.1055 10.9647 10.0776C11.0746 10.0496 11.19 10.0511 11.2991 10.0818L12.9946 10.5592C13.0881 10.5876 13.1738 10.6369 13.2452 10.7033C13.3166 10.7697 13.3717 10.8514 13.4064 10.9421C13.441 11.0329 13.4543 11.1303 13.4452 11.2269C13.4361 11.3235 13.4049 11.4168 13.3539 11.4996Z"
                                 fill="#25d366" />
                         </svg>
-                        Contact us for Wholesale Pricing</a>
+                        Contact us for Wholesale Pricing</a></span>
                 </div>
                 <div class="pd_right">
                     <div class="accordion" id="accordionExample">
@@ -611,47 +611,47 @@
     slides.forEach(slide => {
         const container = slide.querySelector('.image-container');
         const img       = slide.querySelector('.product-img');
-        const SCALE     = 2.5;
+        const TAP_SCALE = 2.5;
+        const MIN_SCALE = 1, MAX_SCALE = 4;
+        let curScale = 1;
 
         let isZoomed  = false;
         let isDragging = false;
-        let dragMoved  = false; // track if pointer actually moved (to distinguish click vs drag)
+        let dragMoved  = false;
 
-        // current translation kept in vars so drag can accumulate
         let curTx = 0, curTy = 0;
-        // pointer position at drag start
         let startPx = 0, startPy = 0;
-        // translation at drag start
         let startTx = 0, startTy = 0;
 
         function clampTx(tx) {
-            const maxShift = container.clientWidth  * (SCALE - 1);
+            const maxShift = container.clientWidth  * (curScale - 1);
             return Math.min(0, Math.max(-maxShift, tx));
         }
         function clampTy(ty) {
-            const maxShift = container.clientHeight * (SCALE - 1);
+            const maxShift = container.clientHeight * (curScale - 1);
             return Math.min(0, Math.max(-maxShift, ty));
         }
 
         function applyTransform(animate = false) {
             img.style.transition = animate ? 'transform 0.35s ease-out' : 'none';
-            img.style.transform  = `translate(${curTx}px, ${curTy}px) scale(${SCALE})`;
+            img.style.transform  = `translate(${curTx}px, ${curTy}px) scale(${curScale})`;
         }
 
         function zoomIn() {
             isZoomed = true;
-            // center the image: offset = -(containerSize * (scale-1)) / 2
-            curTx = -(container.clientWidth  * (SCALE - 1)) / 2;
-            curTy = -(container.clientHeight * (SCALE - 1)) / 2;
+            curScale = TAP_SCALE;
+            curTx = -(container.clientWidth  * (curScale - 1)) / 2;
+            curTy = -(container.clientHeight * (curScale - 1)) / 2;
             container.classList.add('zoomed');
             img.style.transition = 'transform 0.35s ease-out';
-            img.style.transform  = `translate(${curTx}px, ${curTy}px) scale(${SCALE})`;
+            img.style.transform  = `translate(${curTx}px, ${curTy}px) scale(${curScale})`;
             stopAutoplay();
         }
 
         function zoomOut() {
-            isZoomed  = false;
+            isZoomed   = false;
             isDragging = false;
+            curScale   = 1;
             curTx = 0; curTy = 0;
             container.classList.remove('zoomed');
             img.style.transition = 'transform 0.35s ease-out';
@@ -661,7 +661,7 @@
 
         // ── Desktop: pointer events for drag-to-pan ───────────────────────────
         container.addEventListener('pointerdown', e => {
-            if (e.button !== 0 || !isZoomed) return;
+            if (e.button !== 0 || !isZoomed || e.pointerType === 'touch') return;
             isDragging = true;
             dragMoved  = false;
             startPx = e.clientX;
@@ -673,7 +673,7 @@
         });
 
         container.addEventListener('pointermove', e => {
-            if (!isDragging || !isZoomed) return;
+            if (!isDragging || !isZoomed || e.pointerType === 'touch') return;
             const dx = e.clientX - startPx;
             const dy = e.clientY - startPy;
             if (Math.abs(dx) > 3 || Math.abs(dy) > 3) dragMoved = true;
@@ -682,58 +682,99 @@
             applyTransform(false);
         });
 
-        container.addEventListener('pointerup', () => {
-            isDragging = false;
+        container.addEventListener('pointerup', e => {
+            if (e.pointerType !== 'touch') isDragging = false;
         });
 
-        container.addEventListener('pointercancel', () => {
-            isDragging = false;
+        container.addEventListener('pointercancel', e => {
+            if (e.pointerType !== 'touch') isDragging = false;
         });
 
-        // ── Single unified click handler: zoom in / zoom out ──────────────────
+        // ── Desktop click only: zoom in / zoom out ────────────────────────────
         container.addEventListener('click', e => {
             if (isTouchDevice) return;
-            if (dragMoved) {
-                dragMoved = false; // was a drag, ignore click
-                return;
-            }
-            if (!isZoomed) {
-                zoomIn();
-            } else {
-                zoomOut();
-            }
+            if (dragMoved) { dragMoved = false; return; }
+            if (!isZoomed) zoomIn();
+            else           zoomOut();
         });
 
-        // ── Mobile: touch drag to pan ─────────────────────────────────────────
+        // ── Mobile: 2-finger pinch-to-zoom + 1-finger pan (no tap zoom) ───────
+        function getPinchDist(t1, t2) {
+            const dx = t2.clientX - t1.clientX;
+            const dy = t2.clientY - t1.clientY;
+            return Math.sqrt(dx * dx + dy * dy);
+        }
+
+        let isPinching     = false;
+        let pinchStartDist = 0, pinchStartScale = 1;
+        let pinchStartTx   = 0, pinchStartTy = 0;
+        let pinchMidX      = 0, pinchMidY = 0;
         let touchStartX = 0, touchStartY = 0;
         let touchStartTx = 0, touchStartTy = 0;
         let touchMoved = false;
 
         container.addEventListener('touchstart', e => {
-            if (e.touches.length > 1) return;
-            touchStartX  = e.touches[0].clientX;
-            touchStartY  = e.touches[0].clientY;
-            touchStartTx = curTx;
-            touchStartTy = curTy;
-            touchMoved   = false;
-        }, { passive: true });
+            if (e.touches.length === 2) {
+                isPinching      = true;
+                pinchStartDist  = getPinchDist(e.touches[0], e.touches[1]);
+                pinchStartScale = curScale;
+                pinchStartTx    = curTx;
+                pinchStartTy    = curTy;
+                const rect = container.getBoundingClientRect();
+                // First pinch (not yet zoomed): lock pivot to center so zoom starts centered
+                if (curScale <= 1.05) {
+                    pinchMidX = container.clientWidth  / 2;
+                    pinchMidY = container.clientHeight / 2;
+                } else {
+                    pinchMidX = (e.touches[0].clientX + e.touches[1].clientX) / 2 - rect.left;
+                    pinchMidY = (e.touches[0].clientY + e.touches[1].clientY) / 2 - rect.top;
+                }
+                e.preventDefault();
+            } else if (e.touches.length === 1) {
+                isPinching   = false;
+                touchStartX  = e.touches[0].clientX;
+                touchStartY  = e.touches[0].clientY;
+                touchStartTx = curTx;
+                touchStartTy = curTy;
+                touchMoved   = false;
+            }
+        }, { passive: false });
 
         container.addEventListener('touchmove', e => {
-            if (!isZoomed || e.touches.length > 1) return;
-            e.preventDefault();
-            const dx = e.touches[0].clientX - touchStartX;
-            const dy = e.touches[0].clientY - touchStartY;
-            if (Math.abs(dx) > 3 || Math.abs(dy) > 3) touchMoved = true;
-            curTx = clampTx(touchStartTx + dx);
-            curTy = clampTy(touchStartTy + dy);
-            applyTransform(false);
+            if (e.touches.length === 2) {
+                e.preventDefault();
+                const dist   = getPinchDist(e.touches[0], e.touches[1]);
+                let newScale = pinchStartScale * (dist / pinchStartDist);
+                newScale     = Math.min(MAX_SCALE, Math.max(MIN_SCALE, newScale));
+
+                // Correct formula for transform-origin: 0 0
+                // keeps pinchMid pixel fixed on screen as scale changes
+                const ratio = newScale / pinchStartScale;
+                const tx_n  = pinchMidX * (1 - ratio) + pinchStartTx * ratio;
+                const ty_n  = pinchMidY * (1 - ratio) + pinchStartTy * ratio;
+
+                curScale = newScale;
+                curTx    = clampTx(tx_n);
+                curTy    = clampTy(ty_n);
+                isZoomed = curScale > 1.05;
+                container.classList.toggle('zoomed', isZoomed);
+                applyTransform(false);
+            } else if (e.touches.length === 1 && isZoomed && !isPinching) {
+                e.preventDefault();
+                const dx = e.touches[0].clientX - touchStartX;
+                const dy = e.touches[0].clientY - touchStartY;
+                if (Math.abs(dx) > 3 || Math.abs(dy) > 3) touchMoved = true;
+                curTx = clampTx(touchStartTx + dx);
+                curTy = clampTy(touchStartTy + dy);
+                applyTransform(false);
+            }
         }, { passive: false });
 
         container.addEventListener('touchend', e => {
-            if (!touchMoved) {
-                // plain tap
-                if (!isZoomed) zoomIn();
-                else zoomOut();
+            if (isPinching && e.touches.length < 2) {
+                isPinching = false;
+                if (curScale < 1.1) zoomOut();
+                else { isZoomed = true; stopAutoplay(); }
             }
             touchMoved = false;
         });
