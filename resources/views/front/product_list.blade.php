@@ -59,31 +59,30 @@ $subcatVal = preg_replace('/[\#].*$/', '', $subcatVal);
         </section>
         <!--age range section-->
         <section id="ageRangeLinks" class="age_range_section">
-            <div class="age_range_box" style="background-color: rgb(243, 242, 231);">
-                <div class="age-card" data-scroll-to="baby">
+            <div class="age_range_box" style="background-color: rgb(243, 242, 231); cursor:pointer;" data-scroll-to="baby">
+                <div class="age-card">
                     <!-- <h3 class="lora_24" stlye="background: linear-gradient(90deg, rgba(243, 242, 231, 0) 0%, #F3F2E7 50%, rgba(243, 242, 231, 0) 100%);"> Baby ({{$data['baby'] ?? 0}})</h3> -->
                     <p class="raleway_14 mb-0"><b class="me-1">Baby {{$type}}
                         {{-- ({{$data['baby'] ?? 0}})  --}}
-                        :</b>Age Range: 0 Months to
-                        3 Years</p>
+                        :</b> 0 M<span class="d-none d-lg-inline">onths</span> to
+                        3 Y<span class="d-none d-lg-inline">ears</span> </p>
                 </div>
             </div>
-            <div class="age_range_box" style="background-color: rgb(239, 230, 240);">
-                <div class="age-card" data-scroll-to="toddler">
+            <div class="age_range_box" style="background-color: rgb(239, 230, 240); cursor:pointer;" data-scroll-to="toddler">
+                <div class="age-card">
                     <!-- <h3 class="lora_24">Toddler & Little Kids ({{$data['kids'] ?? 0}})</h3> -->
                     <p class="raleway_14 mb-0"> <b class="me-1">Toddler & Little Kids 
                         {{-- ({{$data['kids'] ?? 0}})  --}}
-                        :</b> Age
-                        Range: 2 Years to 6 Years</p>
+                        :</b> 2 Y <span class="d-none d-lg-inline">ears</span> to 6 Y <span class="d-none d-lg-inline">ears</span></p>
                 </div>
             </div>
-            <div class="age_range_box" style="background-color: rgb(230, 239, 242);">
-                <div class="age-card" data-scroll-to="kids">
+            <div class="age_range_box" style="background-color: rgb(230, 239, 242); cursor:pointer;" data-scroll-to="kids">
+                <div class="age-card">
                     <!-- <h3 class="lora_24">Kids & Youth ({{$data['junior'] ?? 0}})</h3> -->
                     <p class="raleway_14 mb-0"> <b class="me-1">Kids & Youth 
                         {{-- ({{$data['junior'] ?? 0}})  --}}
-                        :</b> Age Range:
-                        6 Years to 14 Years</p>
+                        :</b>
+                        6 Y <span class="d-none d-lg-inline">ears</span> to 14 Y <span class="d-none d-lg-inline">ears</span></p>
                 </div>
             </div>
         </section>
@@ -741,8 +740,8 @@ Object.keys(ageRangeLabelArr).forEach(key => {
 function initEventListeners() {
     // Age card click - scroll to section
     // Scroll on click card
-    document.querySelectorAll('.age-card').forEach(card => {
-        card.addEventListener('click', function() {
+    document.querySelectorAll('.age_range_box[data-scroll-to]').forEach(box => {
+        box.addEventListener('click', function() {
             const targetSection = this.getAttribute('data-scroll-to');
             const section = document.getElementById(targetSection);
 

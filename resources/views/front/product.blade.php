@@ -123,7 +123,7 @@
                             <td>6m-9m</td> --}}
                         </tr>
                     </table>
-                    <p class="pd_note">3 sizes premixed per dozen (12 unit pack)  <a class="prod_detail_a" data-bs-toggle="modal" data-bs-target="#size_popup">Learn more</a></p>
+                    <p class="pd_note">3 sizes premixed per dozen (12 unit pack)  <a class="prod_detail_a ms-1" data-bs-toggle="modal" data-bs-target="#size_popup" style="color: #2E2E2E;">Learn more</a></p>
                 </div>
                 <div>
                     <section class="age_range_section">
