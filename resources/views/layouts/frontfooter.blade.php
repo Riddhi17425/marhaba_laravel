@@ -118,8 +118,10 @@
 
         <hr>
 
-        <div class="row text-center">
+        <div class="d-flex justify-content-between align-items-center text-center">
+            <a href="{{ url('cookie-policy') }}">Cookie Policy</a>
             <p class="mb-0">© {{ date('Y') }} Najmuddin Trading Co. LLC. All Rights Reserved.</p>
+            <a href="{{ url('privacy-policy') }}">Privacy Policy</a>
         </div>
     </div>
 </footer>

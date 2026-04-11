@@ -605,6 +605,16 @@ class dashboardController extends Controller
     {   
         return view('front.shippingpolicy');
     }
+
+    public function cookiePolicy()
+    {   
+        return view('front.cookie_policy');
+    }
+    public function privacyPolicy()
+    {   
+        return view('front.privacy_policy');
+    }
+
     public function filter()
     {   
         return view('front.filter');
