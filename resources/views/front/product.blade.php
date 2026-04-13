@@ -123,7 +123,7 @@
                             <td>6m-9m</td> --}}
                         </tr>
                     </table>
-                    <p class="pd_note">3 sizes premixed per dozen (12 unit pack)  <a class="prod_detail_a ms-1" data-bs-toggle="modal" data-bs-target="#size_popup" style="color: #2E2E2E;">Learn more</a></p>
+                    <p class="pd_note">{{ count($sizeGroups) }} sizes premixed per dozen (12 unit pack)  <a class="prod_detail_a ms-1" data-bs-toggle="modal" data-bs-target="#size_popup" style="color: #2E2E2E;">Learn more</a></p>
                 </div>
                 <div>
                     <section class="age_range_section">
@@ -206,7 +206,7 @@
                                         <li>Premixed sizing: Balanced distribution for retail coverage</li>
                                         <li>12 sets per design in single or pre-assorted colours</li>
                                     </ul>
-                                    <a class="prod_detail_a" data-bs-toggle="modal" data-bs-target="#size_popup">Standard 12-Units Assortment</a>
+                                    <a class="prod_detail_a" data-bs-toggle="modal" data-bs-target="#size_popup">Sample 12-Units Assortment</a>
                             
                                     <h6>Delivery & Shipping</h6>
                                     <ul class="pd_list">
@@ -282,7 +282,7 @@
 <section class="home_mt-100 section_mb">
     <div class="ym-container">
         <div class="row">
-            <h2 class="mean_head text-center scroll-text mb-4" data-animate-on-scroll>Similar Products</h2>
+            <h2 class="mean_head text-center scroll-text mb-4" data-animate-on-scroll>You may also like</h2>
             <div class="simple-slider">
                 @forelse($similarProducts as $simProduct)
                     @php
