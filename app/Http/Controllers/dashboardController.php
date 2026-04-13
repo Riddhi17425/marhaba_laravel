@@ -616,39 +616,6 @@ class dashboardController extends Controller
     
     public function product($url, $listSizeId = 0, $id = null)
     {   
-        // OLD
-        // $product = Product::where('url', $url);
-        // if($id != null){
-        //     $product = $product->where('id', $id);        
-        // }        
-        // $product = $product->firstOrFail();
-        // $productVariants = json_decode($product->product_brand_size, true);
-        // $sizeIds = array_unique(array_column($productVariants, 'size_id'));
-        // $brandIds = array_unique(array_column($productVariants, 'brand_id'));
-        // $sizeList = ClothSize::whereIn('id', $sizeIds)->get();
-        // $brandList = Brand::whereIn('id', $brandIds)->get();
-        // $similarProducts = Product::where('category_id', $product->category_id)
-        //     ->where('id', '!=', $product->id)
-        //     ->whereNull('deleted_at')
-        //     ->get()
-        //     ->map(function($p) {
-        //         $pbsArray = json_decode($p->product_brand_size, true);
-        //         return [
-        //             'id' => $p->id,
-        //             'name' => $p->name,
-        //             'url' => $p->url,
-        //             'image' => $pbsArray[1]['product_image'] ?? $pbsArray[0]['product_image'] ?? null, // second image if exists
-        //             'brand_id' => $pbsArray[1]['brand_id'] ?? $pbsArray[0]['brand_id'] ?? null,
-        //         ];
-        //     });
-        // $brandIdsForSimilar = $similarProducts->pluck('brand_id')->filter()->unique()->toArray();
-        // $brands = Brand::whereIn('id', $brandIdsForSimilar)->get()->keyBy('id');
-
-        // return view('front.product', compact(
-        //     'product', 'productVariants', 'sizeList', 'brandList', 'similarProducts', 'brands'
-        // ));
-
-        // NEW
         $product = Product::where('url', $url)->with('category', 'brand');
         if($id != null){
             $product = $product->where('id', $id);        
@@ -672,10 +639,23 @@ class dashboardController extends Controller
 
         $productVariants = json_decode($product->product_brand_size, true);
         $sizeIds = array_unique(array_column($productVariants, 'size_id'));
-        $sizeGroups = array_unique(array_column($productVariants, 'size_group'));
+
+        // When navigating from the product list a specific size ID is passed.
+        // Filter variants to that size so the size assortment and size-group table
+        // only reflect the range the user actually clicked on.
+        $displayVariants = $productVariants;
+        if ($listSizeId > 0) {
+            $filtered = array_filter($productVariants, fn($v) => (string)($v['size_id'] ?? '') === (string)$listSizeId);
+            if (!empty($filtered)) {
+                $displayVariants = array_values($filtered);
+            }
+        }
+
+        $displaySizeIds = array_filter(array_unique(array_column($displayVariants, 'size_id')));
+        $sizeGroups = array_unique(array_column($displayVariants, 'size_group'));
         $sizeGroups = explode(',', implode(',', $sizeGroups));
         // $sizeList = ClothSize::select('id', 'name')->whereIn('id', $sizeIds)->get();
-        $sizeList = ClothSize::select('id', 'name')->whereIn('id', $sizeIds)->get()
+        $sizeList = ClothSize::select('id', 'name')->whereIn('id', $displaySizeIds)->get()
             ->map(function ($item) {
                 preg_match('/(\d+)(m|Y)-(\d+)(m|Y)/i', $item->name, $matches);
                 if (!empty($matches)) {
