@@ -1229,3 +1229,8 @@ header.sticky .btn svg.home_menu rect {
 .tags_btn{
     grid-template-columns: repeat(4, minmax(min-content, max-content));
 }
+
+.Cookie_Policy .title_24-raleway
+{
+     color: var(--wb-purple);
+}

@@ -19,8 +19,7 @@
 </section>
 <section class="section_pt section_mb">
     <div class="container-fluid">
-        <div class="row">
-            <h3 class="title_36 mt-4">Who is the Data Controller?</h3>
+            <h3 class="title_36">Who is the Data Controller?</h3>
             <p>
 
                 The website marhabafashion.com (hereinafter, "Marhaba" or the "Site") is owned and operated by Najmuddin
@@ -34,8 +33,7 @@
 
             <p>
                 For any privacy-related enquiries, Najmuddin Trading can be contacted at info@marhabafashion.com.
-
-            </p>
+ </p>
 
             <h3 class="title_36 mt-4">What Data Are Processed?</h3>
             <p>Najmuddin Trading collects and processes the following Data through the Site:</p>
@@ -156,8 +154,6 @@
                 provided. The most current version will always be available on the Site. Continued use of the Site
                 following
                 any update constitutes acceptance of the revised Notice.</p>
-
-        </div>
     </div>
 </section>
 @include('layouts.frontfooter')
