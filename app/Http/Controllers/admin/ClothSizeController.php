@@ -21,12 +21,12 @@ class ClothSizeController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            //'name'=>'required',
-            'size_from' => 'required',
-            'size_to' => 'required',
-            'month_year1' => 'required',
-            'month_year2' => 'required',
-            'name_text' => 'required',
+            'name'=>'required',
+            // 'size_from' => 'required',
+            // 'size_to' => 'required',
+            // 'month_year1' => 'required',
+            // 'month_year2' => 'required',
+            // 'name_text' => 'required',
         ]);
         if ($validator->fails()) {
             return redirect()->back()
@@ -35,29 +35,29 @@ class ClothSizeController extends Controller
                 ->with('error', 'Please fix the validation errors.');
         }
 
-        $name = $sizeFrom = $sizeTo = '';
-        if(isset($request->size_from)){
-            $name .= $request->size_from;
-            $sizeFrom .= $request->size_from;
-        } 
-        if(isset($request->month_year1)){
-            $name .= ' '.ucfirst($request->month_year1);
-            $sizeFrom .= ' '.$request->month_year1;
-        }
-        if(isset($request->size_to)){
-            $name .= ' To '.$request->size_to;
-            $sizeTo .= $request->size_to;
-        }  
-        if(isset($request->month_year2)){
-            $name .= ' '.ucfirst($request->month_year2);
-            $sizeTo .= ' '.$request->month_year2;
-        }
+        // $name = $sizeFrom = $sizeTo = '';
+        // if(isset($request->size_from)){
+        //     $name .= $request->size_from;
+        //     $sizeFrom .= $request->size_from;
+        // } 
+        // if(isset($request->month_year1)){
+        //     $name .= ' '.ucfirst($request->month_year1);
+        //     $sizeFrom .= ' '.$request->month_year1;
+        // }
+        // if(isset($request->size_to)){
+        //     $name .= ' To '.$request->size_to;
+        //     $sizeTo .= $request->size_to;
+        // }  
+        // if(isset($request->month_year2)){
+        //     $name .= ' '.ucfirst($request->month_year2);
+        //     $sizeTo .= ' '.$request->month_year2;
+        // }
 
         $clothsize = new ClothSize();
-        $clothsize->name = $name;
-        $clothsize->size_from = $sizeFrom;
-        $clothsize->size_to = $sizeTo;
-        $clothsize->name_text = $request->name_text;
+        $clothsize->name = $request->name ?? null;
+        // $clothsize->size_from = $sizeFrom;
+        // $clothsize->size_to = $sizeTo;
+        // $clothsize->name_text = $request->name_text;
 
         $clothsize->save();
         return redirect()->route('clothsize.index')->with('success','Cloth Size added successfully.');
@@ -75,11 +75,11 @@ class ClothSizeController extends Controller
     {
         $validator = Validator::make($request->all(), [
             //'name'=>'required',
-            'size_from' => 'required',
-            'size_to' => 'required',
-            'month_year1' => 'required',
-            'month_year2' => 'required',
-            'name_text' => 'required',
+            // 'size_from' => 'required',
+            // 'size_to' => 'required',
+            // 'month_year1' => 'required',
+            // 'month_year2' => 'required',
+            // 'name_text' => 'required',
         ]);
         if ($validator->fails()) {
             return redirect()->back()
@@ -88,29 +88,29 @@ class ClothSizeController extends Controller
                 ->with('error', 'Please fix the validation errors.');
         }
 
-        $name = $sizeFrom = $sizeTo = '';
-        if(isset($request->size_from)){
-            $name .= $request->size_from;
-            $sizeFrom .= $request->size_from;
-        } 
-        if(isset($request->month_year1)){
-            $name .= ' '.ucfirst($request->month_year1);
-            $sizeFrom .= ' '.$request->month_year1;
-        }
-        if(isset($request->size_to)){
-            $name .= ' To '.$request->size_to;
-            $sizeTo .= $request->size_to;
-        }  
-        if(isset($request->month_year2)){
-            $name .= ' '.ucfirst($request->month_year2);
-            $sizeTo .= ' '.$request->month_year2;
-        }
+        // $name = $sizeFrom = $sizeTo = '';
+        // if(isset($request->size_from)){
+        //     $name .= $request->size_from;
+        //     $sizeFrom .= $request->size_from;
+        // } 
+        // if(isset($request->month_year1)){
+        //     $name .= ' '.ucfirst($request->month_year1);
+        //     $sizeFrom .= ' '.$request->month_year1;
+        // }
+        // if(isset($request->size_to)){
+        //     $name .= ' To '.$request->size_to;
+        //     $sizeTo .= $request->size_to;
+        // }  
+        // if(isset($request->month_year2)){
+        //     $name .= ' '.ucfirst($request->month_year2);
+        //     $sizeTo .= ' '.$request->month_year2;
+        // }
 
         $clothsize = ClothSize::findOrFail($id);
-        $clothsize->name = $name;
-        $clothsize->size_from = $sizeFrom;
-        $clothsize->size_to = $sizeTo;
-        $clothsize->name_text = $request->name_text;
+        $clothsize->name = $request->name;
+        // $clothsize->size_from = $sizeFrom;
+        // $clothsize->size_to = $sizeTo;
+        // $clothsize->name_text = $request->name_text;
 
         $clothsize->save();
         return redirect()->route('clothsize.index')->with('success','Cloth Size updated successfully.');
