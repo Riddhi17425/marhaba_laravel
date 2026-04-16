@@ -288,8 +288,10 @@
                 @forelse($similarProducts as $simProduct)
                     @php
                         //$brand = $brands[$simProduct['brand_id']] ?? null;
-                        $image = $simProduct['image'] ? asset('public/product_images/' . $simProduct['image']) : asset('public/front/img/product_detail_boy.png');
+                        // $image = $simProduct['image'] ? asset('public/product_images/' . $simProduct['image']) : asset('public/front/img/product_detail_boy.png');
+                        $image = $simProduct['image'] ? asset('public/product_images/' . $simProduct['image']) : null;
                     @endphp
+                    @if($image != null)
                     <div class="col-md-3">
                         <div class="product_wrapper">
                             <div class="">
@@ -299,6 +301,7 @@
                             </div>
                         </div>
                     </div>
+                    @endif
                 @empty
                     <p class="text-center">No similar products found.</p>
                 @endforelse
