@@ -42,7 +42,7 @@
                     </div>
                 </div>
             </div>
-            <a href="{{ route('get.products', ['type' => 'girl']) }}" target="_blank" class="col_small">
+            <a href="{{ route('get.products', ['type' => 'girl']) }}" class="col_small">
                 <div>
                     <h2 class="title_60lora" style=" white-space: nowrap; ">Girls Collection </h2>
                     <span  class="btn_1 mx-auto" >All

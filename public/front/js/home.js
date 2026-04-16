@@ -577,15 +577,17 @@ function initYmSlider() {
         autoplay: true,
         autoplaySpeed: 2000,
         pauseOnHover: false,
-        responsive: [
-            {
-                breakpoint: 576,
-                settings: {
-                    arrows: false,
-                    dots: true,
-                }
-            }
-        ]
+         responsive: [
+                        {
+                            breakpoint: 576,
+                            settings: {
+                                arrows: false,
+                                dots: true,
+                                autoplay: false
+                            }
+                        }
+                    ]
+
     });
 }
 

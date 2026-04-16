@@ -189,7 +189,7 @@
             <div class="col_small">
                 <div>
                     <h2 class="title_60lora" style=" white-space: nowrap; ">Boys Collection </h2>
-                    <a href="{{ route('get.products', ['type' => 'boy']) }}" class="btn_1 mx-auto" target="_blank">All
+                    <a href="{{ route('get.products', ['type' => 'boy']) }}" class="btn_1 mx-auto">All
                         Boys Products<img loading="lazy" src="{{ asset('public/front/img/Home/blue-arr.svg') }}" alt=""
                             height="10" width="10"></a>
                 </div>
@@ -397,11 +397,11 @@
                     <div>
                         <div class="btn_wrapper">
                             <a href="{{ route('get.products', ['type' => 'boy', 'size_range' => 'baby']) }}"
-                                class="btn_1" target="_blank">Explore Baby Boy <img loading="lazy"
+                                class="btn_1">Explore Baby Boy <img loading="lazy"
                                     src="{{ asset('public/front/img/Home/blue-arr.svg') }}" alt="" height="10"
                                     width="10"></a>
                             <a href="{{ route('get.products', ['type' => 'girl', 'size_range' => 'baby']) }}"
-                                class="btn_1" target="_blank">Explore Baby Girl<img loading="lazy"
+                                class="btn_1">Explore Baby Girl<img loading="lazy"
                                     src="{{ asset('public/front/img/Home/blue-arr.svg') }}" alt="" height="10"
                                     width="10"></a>
                         </div>
@@ -461,11 +461,11 @@
                     <div>
                         <div class="btn_wrapper">
                             <a href="{{ route('get.products', ['type' => 'boy', 'size_range' => 'kids']) }}"
-                                class="btn_1" target="_blank">Explore Boy <img loading="lazy"
+                                class="btn_1">Explore Boy <img loading="lazy"
                                     src="{{ asset('public/front/img/Home/blue-arr.svg') }}" alt="" height="10"
                                     width="10"></a>
                             <a href="{{ route('get.products', ['type' => 'girl', 'size_range' => 'kids']) }}"
-                                class="btn_1" target="_blank">Explore Girl<img loading="lazy"
+                                class="btn_1">Explore Girl<img loading="lazy"
                                     src="{{ asset('public/front/img/Home/blue-arr.svg') }}" alt="" height="10"
                                     width="10"></a>
                         </div>
@@ -528,11 +528,11 @@
                     <div>
                         <div class="btn_wrapper">
                             <a href="{{ route('get.products', ['type' => 'boy', 'size_range' => 'junior']) }}"
-                                class="btn_1" target="_blank">Explore Boy <img loading="lazy"
+                                class="btn_1">Explore Boy <img loading="lazy"
                                     src="{{ asset('public/front/img/Home/blue-arr.svg') }}" alt="" height="10"
                                     width="10"></a>
                             <a href="{{ route('get.products', ['type' => 'girl', 'size_range' => 'junior']) }}"
-                                class="btn_1" target="_blank">Explore Girl<img loading="lazy"
+                                class="btn_1">Explore Girl<img loading="lazy"
                                     src="{{ asset('public/front/img/Home/blue-arr.svg') }}" alt="" height="10"
                                     width="10"></a>
                         </div>

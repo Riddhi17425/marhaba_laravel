@@ -1,7 +1,7 @@
 <section class="home_mt-100" id="collection">
     <div class="ym-container">
         <div class="container_main_boy">
-            <a href="{{ route('get.products', ['type' => 'boy']) }}" class="col_small" target="_blank" >
+            <a href="{{ route('get.products', ['type' => 'boy']) }}" class="col_small" >
                 <div>
                     <h2 class="title_60lora" style=" white-space: nowrap; ">Boys Collection </h2>
                     <span class="btn_1 mx-auto" >All

@@ -360,6 +360,19 @@
     gap: 35px;
 }
 
+    .range-table 
+    {
+        box-shadow: unset;
+    }
+
+    .range-table tr
+    {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+
 }
 
 /* Extra small devices */
@@ -612,3 +625,4 @@
         width: 120px;
     }
 }
+

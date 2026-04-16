@@ -9,9 +9,8 @@
     --font-ralwway: "Raleway", sans-serif;
 }
 
-html
-{
-     overflow-x: hidden !important;
+html {
+    overflow-x: hidden !important;
 }
 
 body {
@@ -21,7 +20,7 @@ body {
     font-feature-settings: "lnum", "tnum";
     font-size: 16px;
     /* line-height: normal; */
-     overflow-x: hidden !important;
+    overflow-x: hidden !important;
 }
 
 a {
@@ -140,7 +139,7 @@ a {
 
 .hero_overlay {
     position: absolute;
-    background-image:url(../img/Home/hero-bg.png);
+    background-image: url(../img/Home/hero-bg.png);
     background-size: cover;
     inset: 0;
     height: 100%;
@@ -167,7 +166,7 @@ a {
     font-size: 90px;
     line-height: 100px;
     letter-spacing: -0.01em;
-    font-weight:300;
+    font-weight: 300;
 }
 
 .hero_breadcrumb {
@@ -365,10 +364,12 @@ a {
     left: -100%;
     width: 100%;
     height: 100%;
-    background: linear-gradient(90deg,
-            transparent,
-            rgba(255, 255, 255, 0.3),
-            transparent);
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.3),
+        transparent
+    );
     transition: left 0.6s;
 }
 
@@ -433,7 +434,7 @@ a {
     display: flex !important;
     justify-content: center;
     align-items: center;
-     /*gap: 8px; */
+    /*gap: 8px; */
     padding: 0;
     border-radius: 10px;
 }
@@ -463,7 +464,7 @@ a {
 }
 
 .ym_cat .slick-dots li.slick-active button {
-     width: 30px;
+    width: 30px;
     background-color: #452667;
     border-radius: 10px;
     transition: all 0.3s ease;
@@ -535,7 +536,10 @@ a {
     flex-shrink: 0;
     padding: 0;
     box-shadow: 0 2px 6px rgba(17, 17, 17, 0.08);
-    transition: transform 0.25s ease, background-color 0.25s ease, box-shadow 0.25s ease;
+    transition:
+        transform 0.25s ease,
+        background-color 0.25s ease,
+        box-shadow 0.25s ease;
     margin: 2px;
 }
 
@@ -585,11 +589,12 @@ a {
     margin-left: 3px;
 }
 
-
 /* ravi jadav */
 
 #main-why-img {
-    transition: opacity .6s ease-in-out, transform .6S ease;
+    transition:
+        opacity 0.6s ease-in-out,
+        transform 0.6s ease;
     will-change: opacity, transform;
 }
 
@@ -639,7 +644,7 @@ a {
 }
 
 .project-card {
-   height: 700px;
+    height: 700px;
     overflow: hidden;
     display: flex;
     align-items: flex-end;
@@ -666,9 +671,10 @@ a {
     transform: translateX(50%);
     transition: all 0.85s cubic-bezier(0.33, 0.66, 0.66, 1);
 }
-.project-content .btn_wrapper{justify-content: start;}
-.card_top_head
-{
+.project-content .btn_wrapper {
+    justify-content: start;
+}
+.card_top_head {
     width: 100%;
 }
 .project-card.active .card_top_head {
@@ -680,8 +686,8 @@ a {
     display: flex;
     transform: translateX(0%);
     transition: all 0.85s cubic-bezier(0.33, 0.66, 0.66, 1);
-    height:100%;
-    justify-content:space-between;
+    height: 100%;
+    justify-content: space-between;
     width: 100%;
 }
 
@@ -691,7 +697,7 @@ a {
     font-size: 32px;
     line-height: 40px;
     letter-spacing: -0.01em;
-    font-weight:600;
+    font-weight: 600;
 }
 
 .card_desc {
@@ -741,8 +747,13 @@ a {
     gap: 15px;
     margin-bottom: 30px;
 }
-.p_type{font-size: 14px;}
-.p_type:hover{color:#111;font-weight:500;}
+.p_type {
+    font-size: 14px;
+}
+.p_type:hover {
+    color: #111;
+    font-weight: 500;
+}
 /* card css */
 /* gender slider */
 /* Main Layout Container */
@@ -856,26 +867,28 @@ a {
 /* Hide slider initially */
 .ym_slider {
     opacity: 0;
-    transition: all .8s cubic-bezier(.5, 0, 0, 1) 0s;
+    transition: all 0.8s cubic-bezier(0.5, 0, 0, 1) 0s;
     height: 450px;
 }
 
 /* Show slider on hover */
 .ym_card:hover .ym_slider {
     opacity: 1;
-    transition: all .8s cubic-bezier(.5, 0, 0, 1) 0s;
+    transition: all 0.8s cubic-bezier(0.5, 0, 0, 1) 0s;
 }
 
 .ym_card:hover .ym_cover_slider {
     opacity: 0;
-    transition: all .8s cubic-bezier(.5, 0, 0, 1) 0s;
+    transition: all 0.8s cubic-bezier(0.5, 0, 0, 1) 0s;
 }
 
 /* Image styling */
 .ym_slider img {
     width: 100%;
     display: block;
-    background: linear-gradient(0deg, #FBFBFB 0%, #FBFBFB 100%), linear-gradient(134deg, #FFF 9%, #DDD 93.94%);
+    background:
+        linear-gradient(0deg, #fbfbfb 0%, #fbfbfb 100%),
+        linear-gradient(134deg, #fff 9%, #ddd 93.94%);
 }
 
 .ym_info {
@@ -1002,13 +1015,12 @@ a {
 
 .prod_list_title h4 {
     font-size: 14px;
-    line-height:14px;
+    line-height: 14px;
 }
 .prod_list_title p {
     font-size: 12px;
-    line-height:12px;
+    line-height: 12px;
 }
-
 
 /* ================= ym CARD ================= */
 
@@ -1039,7 +1051,7 @@ select:focus {
 
 /* inquiry form css  */
 .project-card.active .enquire-circle {
-    display: none; 
+    display: none;
 }
 
 /* brand grid image */
@@ -1080,7 +1092,7 @@ select:focus {
     inset: 0;
     /* display: flex; */
     align-items: center;
-    flex-direction:column;
+    flex-direction: column;
     justify-content: center;
     /* height:92%; */
 }
@@ -1109,7 +1121,7 @@ select:focus {
     /*transition: opacity 0.35s ease;*/
     pointer-events: none;
     /* height:10%; */
-    margin-top:3%;
+    margin-top: 3%;
 }
 
 .brand-overlay span {
@@ -1168,7 +1180,9 @@ select:focus {
 
 /* 05-03-2026 figma changes */
 .simple-slider .product_wrapper {
-    background: linear-gradient(0deg, #FBFBFB 0%, #FBFBFB 100%), linear-gradient(134deg, #FFF 9%, #DDD 93.94%);
+    background:
+        linear-gradient(0deg, #fbfbfb 0%, #fbfbfb 100%),
+        linear-gradient(134deg, #fff 9%, #ddd 93.94%);
 }
 
 header .btn svg.home_menu rect {
@@ -1179,7 +1193,8 @@ header.sticky .btn svg.home_menu rect {
     fill: #452667;
 }
 
-.ym_slider .slick-prev.slick-arrow, .simple-slider .slick-prev.slick-arrow{
+.ym_slider .slick-prev.slick-arrow,
+.simple-slider .slick-prev.slick-arrow {
     /* width: 32px;
     height: 32px; */
     background-repeat: no-repeat;
@@ -1191,23 +1206,34 @@ header.sticky .btn svg.home_menu rect {
 .ym_slider .slick-prev:before,
 .simple-slider .slick-next:before,
 .simple-slider .slick-prev:before {
-    content: '' !important;
+    content: "" !important;
 }
 
-.ym_slider .slick-next.slick-arrow, .simple-slider .slick-next.slick-arrow {
+.ym_slider .slick-next.slick-arrow,
+.simple-slider .slick-next.slick-arrow {
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16' fill='none'%3E%3Cpath d='M6 12L10 8L6 4' stroke='%23452667' stroke-width='1.5' stroke-linejoin='round'/%3E%3C/svg%3E");
 }
 
-.mobile_grid{display:none;}
-.ym_para_home{padding:0 50px;}
+.mobile_grid {
+    display: none;
+}
+.ym_para_home {
+    padding: 0 50px;
+}
 /*-------------17-3-26 client changes--------------------------*/
-.cat_img_parent{position:relative;}
+.cat_img_parent {
+    position: relative;
+}
 
 .cat_overlay {
     position: absolute;
     inset: 0;
-    padding:10px;
-    background:  linear-gradient(180deg, rgba(0, 0, 0, 0) 64.6%, #000000ba 95.93%);
+    padding: 10px;
+    background: linear-gradient(
+        180deg,
+        rgba(0, 0, 0, 0) 64.6%,
+        #000000ba 95.93%
+    );
     display: flex;
     align-items: flex-end;
     justify-content: center;
@@ -1217,20 +1243,30 @@ header.sticky .btn svg.home_menu rect {
     color: white;
     font-size: 14px;
     font-weight: 600;
-    text-align: center
+    text-align: center;
 }
-.cat_img_parent:hover .cat_overlay{opacity:1;transition: opacity 0.35s ease;}
+.cat_img_parent:hover .cat_overlay {
+    opacity: 1;
+    transition: opacity 0.35s ease;
+}
 
+.project-card.active {
+    justify-content: space-between;
+}
+.project-card.active .card_top {
+    width: 0%;
+}
+.project-card.active img.category-img {
+    display: none;
+    width: 100%;
+    margin-left: auto;
+}
 
-.project-card.active{justify-content:space-between;}
-.project-card.active .card_top {width: 0%;}
-.project-card.active img.category-img { display: none; width: 100%;margin-left: auto;}
-
-.tags_btn{
+.tags_btn {
     grid-template-columns: repeat(4, minmax(min-content, max-content));
 }
 
-.Cookie_Policy .title_24-raleway
-{
-     color: var(--wb-purple);
+.Cookie_Policy .title_24-raleway {
+    color: var(--wb-purple);
 }
+

@@ -136,7 +136,7 @@ $subcatVal = preg_replace('/[\#].*$/', '', $subcatVal);
                                                 @endif
                                                 <div>
                                                     <a href="{{ url('products-details/' . $vv['url'].'/'. $sizeId . '/' . $vv['id']) }}"
-                                                        target="_blank">
+                                                       >
                                                         <img loading="lazy"
                                                             src="{{ asset('public/product_images/' . $v->product_image) }}"
                                                             alt="{{ $vv->name }}" class="img-fluid product_img w-100">
@@ -282,7 +282,7 @@ $subcatVal = preg_replace('/[\#].*$/', '', $subcatVal);
                                                 @endif
                                                 <div>
                                                     <a href="{{ url('products-details/' . $vv['url'].'/'. $sizeId . '/' . $vv['id']) }}"
-                                                        target="_blank">
+                                                       >
                                                         <img loading="lazy"
                                                             src="{{ asset('public/product_images/' . $v->product_image) }}"
                                                             alt="{{ $vv->name }}" class="img-fluid product_img w-100">
@@ -428,7 +428,7 @@ $subcatVal = preg_replace('/[\#].*$/', '', $subcatVal);
                                                 @endif
                                                 <div>
                                                     <a href="{{ url('products-details/' . $vv['url'].'/'.$sizeId .'/'. $vv['id']) }}"
-                                                        target="_blank">
+                                                        >
                                                         <img loading="lazy"
                                                             src="{{ asset('public/product_images/' . $v->product_image) }}"
                                                             alt="{{ $vv->name }}" class="img-fluid product_img w-100">
