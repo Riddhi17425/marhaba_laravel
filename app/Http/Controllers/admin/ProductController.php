@@ -14,9 +14,12 @@ use Stichoza\GoogleTranslate\GoogleTranslate;
 
 class ProductController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $products = Product::with('category')->orderBy('id', 'DESC')->paginate(15);
+        $products = Product::with('category')
+         ->when($request->search, function ($query) use ($request) {
+            $query->where('name', 'LIKE', '%' . $request->search . '%');
+        })->orderBy('id', 'DESC')->paginate(15);
         return view('admin.product.productlisting', compact('products'));
     }
 

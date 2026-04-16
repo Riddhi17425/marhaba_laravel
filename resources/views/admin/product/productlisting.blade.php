@@ -19,6 +19,14 @@
             <div class="alert alert-success">{{ session('success') }}</div>
         @endif
 
+        <form method="GET" action="{{ route('product.index') }}" style="margin-bottom: 15px;">
+            <input type="text" name="search" placeholder="Search product..."
+                            value="{{ request('search') }}">
+            <button type="submit">Search</button>
+            <a href="{{ route('product.index') }}">
+            <button type="button">Reset</button>
+            </a>
+        </form>
         <div class="table-responsive">
             <table class="table table-striped table-bordered align-middle">
                 <thead>
@@ -71,8 +79,8 @@
             </table>
         </div>
 
-        <div class="mt-3">
-            {{ $products->links() }}
+        <div class="mt-3"
+            {{ $products->appends(request()->all())->links() }}
         </div>
     </div>
 </div>

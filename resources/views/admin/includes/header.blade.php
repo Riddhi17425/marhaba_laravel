@@ -27,9 +27,9 @@
                         <div class="card border-0 w280">
                             <div class="card-body pb-0">
                                 <div class="d-flex py-1">
-                                    <img class="avatar rounded-circle"
+                                    {{-- <img class="avatar rounded-circle"
                                         src="{!! asset('public/admin_public/dist/assets/images/marhabafashion.png ') !!}"
-                                        alt="profile">
+                                        alt="profile"> --}}
                                     <div class="flex-fill ms-3">
                                         <p class="mb-0"><span class="font-weight-bold">{{ Auth::user()->name }}</span></p>
                                         <small class="">{{ Auth::user()->email }}</small>
