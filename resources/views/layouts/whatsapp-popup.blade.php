@@ -432,7 +432,7 @@ textarea {
 document.addEventListener("DOMContentLoaded", function() {
     const input = document.querySelector("#wa_phone");
     const iti = window.intlTelInput(input, {
-        initialCountry: "ae",
+        initialCountry: "auto",
         separateDialCode: true,
         geoIpLookup: function(callback) {
             fetch("https://ipapi.co/json")

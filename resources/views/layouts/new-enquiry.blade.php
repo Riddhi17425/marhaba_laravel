@@ -974,7 +974,7 @@
                             <div class="form-group">
                                 <label for="businessType">Business Type <span class="optional-label"
                                         id="businessOptionalLabel">(Optional)</span></label>
-                                <select id="businessType" name="businessType">
+                                <select id="businessType" name="busineWhatsApp NumberssType">
                                     <option value="">Select business type</option>
                                     <option value="Regional Distributor">Regional Distributor</option>
                                     <option value="Children's Clothing Store">Children's Clothing Store</option>
@@ -2549,6 +2549,20 @@
     // Initialize country picker
     function initCountryPicker() {
         renderCountryList(countries);
+        fetch("https://ipapi.co/json")
+            .then(res => res.json())
+            .then(data => {
+                const code = data.country_code;
+
+                const country = countries.find(c =>
+                    c.flag === code
+                        .toUpperCase()
+                        .replace(/./g, ch => String.fromCodePoint(127397 + ch.charCodeAt()))
+                );
+
+                if (country) selectCountry(country.code);
+            })
+            .catch(() => selectCountry("+91")); // fallback
     }
 
     // Toggle country picker dropdown

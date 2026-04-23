@@ -2592,6 +2592,20 @@
     // Initialize country picker
     function initCountryPicker() {
         renderCountryList(countries);
+        fetch("https://ipapi.co/json")
+            .then(res => res.json())
+            .then(data => {
+                const code = data.country_code;
+
+                const country = countries.find(c =>
+                    c.flag === code
+                        .toUpperCase()
+                        .replace(/./g, ch => String.fromCodePoint(127397 + ch.charCodeAt()))
+                );
+
+                if (country) selectCountry(country.code);
+            })
+            .catch(() => selectCountry("+91")); // fallback
     }
 
     // Toggle country picker dropdown
