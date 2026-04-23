@@ -1,1099 +1,1142 @@
-<style>
-    :root {
-        --navy: #1E1E2F;
-        --charcoal: #2D2D3A;
-        --gold: #C9A86C;
-        --gold-light: #D4B87A;
-        --cream: #FAF9F6;
-        --white: #FFFFFF;
-        --soft-gray: #6B6B7B;
-        --light-gray: #9B9BA8;
-        --border-gray: #E5E5E8;
-        --shadow: rgba(30, 30, 47, 0.08);
-    }
-
-    .enquiry_modal {
-        /* background: var(--cream); */
-        color: var(--charcoal);
-        line-height: 1.6;
-    }
-    .enquiry_modal .modal-content {
-        border-radius: 30px;
-        background-color: transparent;
-        border: 1px transparent;
-    }
-
-    .enquiry_modal .language-selector {
-        display: flex;
-        justify-content: flex-end;
-        margin-bottom: 1rem;
-    }
-
-    .enquiry_modal .language-selector select {
-        padding: 0.4rem 0.75rem;
-        font-family: 'Jost', sans-serif;
-        font-size: 0.8rem;
-        color: var(--charcoal);
-        background: var(--cream);
-        border: 1px solid var(--border-gray);
-        border-radius: 6px;
-        cursor: pointer;
-        outline: none;
-        transition: all 0.2s ease;
-    }
-
-    .enquiry_modal .language-selector select:hover {
-        border-color: var(--gold-light);
-    }
-
-    .enquiry_modal .language-selector select:focus {
-        border-color: var(--gold);
-    }
-
-    .enquiry_modal [dir="rtl"] .language-selector {
-        justify-content: flex-start;
-    }
-
-    /* Main Content */
-    .enquiry_modal main {
-        flex: 1;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 2.5rem 1.5rem;
-    }
-
-    .enquiry_modal .form-container {
-        width: 100%;
-        max-width: 520px;
-        background: var(--white);
-        border-radius: 00px;
-        box-shadow: 0 4px 24px var(--shadow);
-        overflow: hidden;
-    }
-
-    .enquiry_modal .form-header {
-        background: #452667;
-        padding: 2rem 2rem 1.75rem;
-        text-align: center;
-    }
-
-    .enquiry_modal .form-header h1 {
-        font-family: 'Cormorant Garamond', Georgia, serif;
-        font-size: 1.6rem;
-        font-weight: 500;
-        color: var(--white);
-        letter-spacing: 0.02em;
-    }
-
-    .enquiry_modal .form-header p {
-        color: var(--light-gray);
-        font-size: 0.85rem;
-        margin-top: 0.4rem;
-        font-weight: 300;
-    }
-
-    .enquiry_modal .form-header .bulk-notice {
-        font-size: 0.75rem;
-        color: var(--gold);
-        margin-top: 0.75rem;
-        letter-spacing: 0.03em;
-        font-weight: 400;
-    }
-
-    .enquiry_modal .form-body {
-        padding: 2rem;
-        background-color: var(--cream);
-    }
-
-    /* Form Elements */
-    .enquiry_modal .form-group {
-        margin-bottom: 1.25rem;
-    }
-
-    .enquiry_modal label,
-    .enquiry_modal .group-label {
-        display: block;
-        font-size: 0.75rem;
-        font-weight: 500;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
-        color: var(--soft-gray);
-        margin-bottom: 0.5rem;
-    }
-
-    .enquiry_modal .optional-label {
-        font-weight: 300;
-        text-transform: none;
-        letter-spacing: 0;
-        color: var(--light-gray);
-    }
-
-    .enquiry_modal input[type="text"],
-    .enquiry_modal input[type="tel"] {
-        width: 100%;
-        padding: 0.9rem 1rem;
-        font-family: 'Jost', sans-serif;
-        font-size: 0.95rem;
-        font-weight: 400;
-        color: var(--charcoal);
-        background: var(--white);
-        border: 1px solid var(--border-gray);
-        border-radius: 10px;
-        transition: all 0.2s ease;
-    }
-
-    .enquiry_modal input[type="text"]:focus,
-    .enquiry_modal input[type="tel"]:focus {
-        outline: none;
-        border-color: var(--gold);
-        box-shadow: 0 0 0 3px rgba(201, 168, 108, 0.12);
-    }
-
-    .enquiry_modal input::placeholder {
-        color: #C0C0C0;
-        font-family: 'Jost', sans-serif;
-        font-weight: 400;
-    }
-
-    .enquiry_modal textarea {
-        width: 100%;
-        padding: 0.75rem 0.85rem;
-        font-family: 'Jost', sans-serif;
-        font-size: 0.8rem;
-        font-weight: 400;
-        color: var(--charcoal);
-        background: var(--cream);
-        border: 1px solid var(--border-gray);
-        border-radius: 8px;
-        transition: all 0.2s ease;
-        resize: vertical;
-        min-height: 60px;
-    }
-
-    .enquiry_modal textarea:focus {
-        outline: none;
-        border-color: var(--gold);
-        box-shadow: 0 0 0 3px rgba(201, 168, 108, 0.12);
-    }
-
-    .enquiry_modal textarea::placeholder {
-        color: #C0C0C0;
-    }
-
-    /* Business Type Select */
-    .enquiry_modal select#businessType {
-        width: 100%;
-        padding: 0.9rem 0.85rem;
-        font-family: 'Jost', sans-serif;
-        font-size: 0.95rem;
-        font-weight: 400;
-        color: var(--charcoal);
-        background: var(--white);
-        border: 1px solid var(--border-gray);
-        border-radius: 10px;
-        transition: all 0.2s ease;
-        cursor: pointer;
-        appearance: none;
-        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23888' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
-        background-repeat: no-repeat;
-        background-position: right 0.85rem center;
-    }
-
-    .enquiry_modal select#businessType.placeholder {
-        color: #C0C0C0;
-    }
-
-    .enquiry_modal select#businessType:focus {
-        outline: none;
-        border-color: var(--gold);
-        box-shadow: 0 0 0 3px rgba(201, 168, 108, 0.12);
-    }
-
-    .enquiry_modal select#businessType option {
-        color: var(--charcoal);
-    }
-
-    .enquiry_modal select#businessType option[value=""] {
-        color: #C0C0C0;
-    }
-
-    /* Phone Input Group */
-    .enquiry_modal .phone-input-group {
-        display: flex;
-        gap: 0.5rem;
-    }
-
-    .enquiry_modal .country-code-select {
-        position: relative;
-        flex-shrink: 0;
-    }
-
-    .enquiry_modal .country-code-select select {
-        display: none;
-    }
-
-    .enquiry_modal .country-picker {
-        position: relative;
-        min-width: 100px;
-    }
-
-    .enquiry_modal .country-picker-trigger {
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        padding: 0.9rem 2rem 0.9rem 0.75rem;
-        font-family: 'Poppins', sans-serif;
-        font-size: 0.9rem;
-        font-weight: 500;
-        color: var(--text-dark);
-        border: 2px solid var(--gold-light);
-        border-radius: var(--radius-md);
-        cursor: pointer;
-        transition: all 0.25s ease;
-        min-width: 100px;
-    }
-
-    /* .country-picker-trigger:hover {
-        background: var(--cream-warm);
-    } */
-
-    .enquiry_modal .country-picker-trigger.active {
-        background: var(--white);
-        border-color: var(--gold);
-        border-radius: var(--radius-md) var(--radius-md) 0 0;
-    }
-
-    .enquiry_modal .country-picker-trigger .flag {
-        font-size: 1.1rem;
-    }
-
-    .enquiry_modal .country-picker-trigger .code {
-        font-weight: 500;
-    }
-
-    .enquiry_modal .country-picker-trigger::after {
-        content: '▼';
-        position: absolute;
-        right: 0.75rem;
-        top: 50%;
-        transform: translateY(-50%);
-        font-size: 0.6rem;
-        color: var(--text-light);
-        transition: transform 0.25s ease;
-    }
-
-    .enquiry_modal .country-picker-trigger.active::after {
-        transform: translateY(-50%) rotate(180deg);
-    }
-
-    .enquiry_modal .country-picker-dropdown {
-        position: absolute;
-        top: 100%;
-        left: 0;
-        right: 0;
-        background: var(--white);
-        border: 2px solid var(--gold);
-        border-top: none;
-        border-radius: 0 0 var(--radius-md) var(--radius-md);
-        max-height: 280px;
-        overflow: hidden;
-        z-index: 1000;
-        display: none;
-        box-shadow: var(--shadow-md);
-        min-width: 280px;
-    }
-
-    .enquiry_modal .country-picker-dropdown.open {
-        display: block;
-    }
-
-    .enquiry_modal .country-search-wrapper {
-        padding: 0.5rem;
-        border-bottom: 1px solid var(--border-light);
-        position: sticky;
-        top: 0;
-        background: var(--white);
-    }
-
-    .enquiry_modal .country-search {
-        width: 100%;
-        padding: 0.6rem 0.75rem;
-        font-family: 'Poppins', sans-serif;
-        font-size: 0.85rem;
-        color: var(--text-dark);
-        background: var(--cream);
-        border: 1px solid var(--border);
-        border-radius: var(--radius-sm);
-        outline: none;
-    }
-
-    .enquiry_modal .country-search:focus {
-        border-color: var(--gold);
-        background: var(--white);
-    }
-
-    .country-search::placeholder {
-        color: var(--text-muted);
-    }
-
-    .enquiry_modal .country-list {
-        max-height: 220px;
-        overflow-y: auto;
-    }
-
-    .enquiry_modal .country-option {
-        display: flex;
-        align-items: center;
-        gap: 0.6rem;
-        padding: 0.65rem 0.75rem;
-        cursor: pointer;
-        transition: background 0.15s ease;
-        font-size: 0.85rem;
-    }
-
-    .enquiry_modal .country-option:hover {
-        background: var(--cream);
-    }
-
-    .enquiry_modal .country-option.selected {
-        background: var(--gold-soft);
-    }
-
-    .enquiry_modal .country-option .flag {
-        font-size: 1.1rem;
-        width: 24px;
-        text-align: center;
-    }
-
-    .enquiry_modal .country-option .name {
-        flex: 1;
-        color: var(--text-medium);
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
-
-    .enquiry_modal .country-option .dial-code {
-        color: var(--text-dark);
-        font-weight: 500;
-    }
-
-    .enquiry_modal .country-list::-webkit-scrollbar {
-        width: 6px;
-    }
-
-    .enquiry_modal .country-list::-webkit-scrollbar-track {
-        background: var(--cream);
-    }
-
-    .enquiry_modal .country-list::-webkit-scrollbar-thumb {
-        background: var(--border);
-        border-radius: 3px;
-    }
-
-    .enquiry_modal .no-results {
-        padding: 1rem;
-        text-align: center;
-        color: var(--text-muted);
-        font-size: 0.85rem;
-    }
-
-    .enquiry_modal [dir="rtl"] .country-picker-trigger {
-        padding: 0.9rem 0.75rem 0.9rem 2rem;
-    }
-
-    .enquiry_modal [dir="rtl"] .country-picker-trigger::after {
-        right: auto;
-        left: 0.75rem;
-    }
-
-    .enquiry_modal [dir="rtl"] .country-option {
-        flex-direction: row-reverse;
-    }
-
-    /* Divider */
-    .enquiry_modal .divider {
-        display: flex;
-        align-items: center;
-        text-align: center;
-        margin: 1.75rem 0 0.5rem;
-    }
-
-    .enquiry_modal .divider::before,
-    .enquiry_modal .divider::after {
-        content: '';
-        flex: 1;
-        border-bottom: 1px solid var(--border-gray);
-    }
-
-    .enquiry_modal .divider span {
-        font-size: 0.65rem;
-        letter-spacing: 0.15em;
-        text-transform: uppercase;
-        color: var(--gold);
-        padding: 0 1rem;
-        font-weight: 500;
-    }
-
-    .enquiry_modal .section-hint {
-        text-align: center;
-        font-size: 0.8rem;
-        color: var(--light-gray);
-        margin: 0.25rem 0 1.25rem;
-    }
-
-    /* Checkbox Group - Elegant Chip Style with Visible Checkboxes */
-    .enquiry_modal .checkbox-group {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 0.5rem;
-    }
-
-    .enquiry_modal .checkbox-group.age-group {
-        grid-template-columns: repeat(3, 1fr);
-    }
-
-    .enquiry_modal .checkbox-item {
-        position: relative;
-    }
-
-    .enquiry_modal .checkbox-item input[type="checkbox"] {
-        position: absolute;
-        opacity: 0;
-        cursor: pointer;
-        height: 0;
-        width: 0;
-    }
-
-    .enquiry_modal .checkbox-item label {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 0.5rem;
-        width: 100%;
-        padding: 0.75rem 1rem;
-        background: var(--white);
-        border: 1.5px solid var(--border-gray);
-        border-radius: 8px;
-        cursor: pointer;
-        transition: all 0.2s ease;
-        font-size: 0.85rem;
-        font-weight: 400;
-        letter-spacing: 0.01em;
-        text-transform: none;
-        color: var(--charcoal);
-        margin-bottom: 0;
-    }
-
-    .enquiry_modal .checkbox-item label::before {
-        content: '';
-        width: 16px;
-        height: 16px;
-        border: 1.5px solid var(--border-gray);
-        border-radius: 3px;
-        background: var(--white);
-        flex-shrink: 0;
-        transition: all 0.2s ease;
-    }
-
-    .enquiry_modal .checkbox-item label:hover {
-        border-color: var(--gold);
-    }
-
-    .enquiry_modal .checkbox-item label:hover::before {
-        border-color: var(--gold);
-    }
-
-    .enquiry_modal .checkbox-item input[type="checkbox"]:checked+label {
-        background: var(--navy);
-        color: var(--white);
-        border-color: var(--navy);
-    }
-
-    .enquiry_modal .checkbox-item input[type="checkbox"]:checked+label::before {
-        background: var(--white);
-        border-color: var(--white);
-        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%231E1E2F'%3E%3Cpath d='M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z'/%3E%3C/svg%3E");
-        background-size: 11px;
-        background-position: center;
-        background-repeat: no-repeat;
-    }
-
-    .enquiry_modal .checkbox-item input[type="checkbox"]:disabled+label {
-        opacity: 0.4;
-        cursor: not-allowed;
-    }
-
-    .enquiry_modal .checkbox-item input[type="checkbox"]:disabled+label:hover {
-        border-color: var(--border-gray);
-    }
-
-    .enquiry_modal .checkbox-item input[type="checkbox"]:disabled+label:hover::before {
-        border-color: var(--border-gray);
-    }
-
-    .enquiry_modal .selection-count {
-        font-weight: 400;
-        font-size: 0.7rem;
-        color: var(--light-gray);
-        margin-left: 0.35rem;
-        text-transform: none;
-        letter-spacing: 0;
-    }
-
-    .enquiry_modal .selection-count.has-selection {
-        color: var(--gold);
-    }
-
-    /* Multi-Select Dropdown */
-    .enquiry_modal .multi-select {
-        position: relative;
-        z-index: 100;
-    }
-
-    .enquiry_modal .multi-select-trigger {
-        width: 100%;
-        padding: 0.9rem 1rem;
-        font-family: 'Jost', sans-serif;
-        font-size: 0.85rem;
-        color: var(--light-gray);
-        background: var(--white);
-        border: 1px solid var(--border-gray);
-        border-radius: 10px;
-        cursor: pointer;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        transition: all 0.2s ease;
-    }
-
-    .enquiry_modal .multi-select-trigger:hover {
-        border-color: var(--gold-light);
-    }
-
-    .enquiry_modal .multi-select-trigger.active {
-        border-color: var(--gold);
-        border-radius: 10px 10px 0 0;
-    }
-
-    .enquiry_modal .multi-select-trigger.disabled {
-        opacity: 0.4;
-        cursor: not-allowed;
-    }
-
-    .enquiry_modal .multi-select-trigger.disabled:hover {
-        border-color: var(--border-gray);
-    }
-
-    .enquiry_modal .multi-select-trigger .arrow {
-        font-size: 0.7rem;
-        color: var(--soft-gray);
-        transition: transform 0.2s ease;
-    }
-
-    .enquiry_modal .multi-select-trigger.active .arrow {
-        transform: rotate(180deg);
-    }
-
-    .enquiry_modal .multi-select-dropdown {
-        position: absolute;
-        top: 100%;
-        bottom: auto;
-        left: 0;
-        right: 0;
-        background: var(--white);
-        border: 1px solid var(--gold);
-        border-top: none;
-        border-radius: 0 0 10px 10px;
-        max-height: 220px;
-        overflow-y: auto;
-        z-index: 1000;
-        display: none;
-        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
-    }
-
-    .enquiry_modal .multi-select-dropdown.open {
-        display: block;
-    }
-
-    /* Mobile - dropdown goes up */
-    @media (max-width: 480px) {
-        .enquiry_modal .multi-select-dropdown {
-            top: auto;
-            bottom: 100%;
-            border-top: 1px solid var(--gold);
-            border-bottom: none;
-            border-radius: 10px 10px 0 0;
-            box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.1);
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Inquiry | Marhaba Fashion</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --navy: #1E1E2F;
+            --charcoal: #2D2D3A;
+            --gold: #C9A86C;
+            --gold-light: #D4B87A;
+            --cream: #FAF9F6;
+            --white: #FFFFFF;
+            --soft-gray: #6B6B7B;
+            --light-gray: #9B9BA8;
+            --border-gray: #E5E5E8;
+            --shadow: rgba(30, 30, 47, 0.08);
         }
 
-        .enquiry_modal .multi-select-trigger.active {
-            border-radius: 0 0 10px 10px;
+        /* Header */
+        header {
+            padding: 1.5rem 2rem;
+            text-align: center;
+            background: var(--white);
+            border-bottom: 1px solid var(--border-gray);
+        }
+        .logo {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-size: 1.75rem;
+            font-weight: 500;
+            color: var(--navy);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+        /* Footer */
+        footer {
+            padding: 1.5rem;
+            text-align: center;
+            color: var(--light-gray);
+            background: var(--white);
+            border-top: 1px solid var(--border-gray);
+        }
+        footer a {
+            color: var(--gold);
+            text-decoration: none;
         }
 
-        .enquiry_modal .multi-select-trigger .arrow {
-            transform: rotate(180deg);
+
+        .enquiry_modal {
+            /* background: var(--cream); */
+            color: var(--charcoal);
+            line-height: 1.6;
+        }
+        .enquiry_modal .modal-content {
+            border-radius: 30px;
+            background-color: transparent;
+            border: 1px transparent;
         }
 
-        .enquiry_modal .multi-select-trigger.active .arrow {
-            transform: rotate(0deg);
+        .enquiry_modal .language-selector {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 1rem;
         }
-    }
 
-    .enquiry_modal .multi-select-option {
-        padding: 0.7rem 1rem;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        gap: 0.6rem;
-        transition: background 0.15s ease;
-        font-size: 0.85rem;
-        user-select: none;
-        color: var(--charcoal);
-    }
+        .enquiry_modal .language-selector select {
+            padding: 0.4rem 0.75rem;
+            font-family: 'Jost', sans-serif;
+            font-size: 0.8rem;
+            color: var(--charcoal);
+            background: var(--cream);
+            border: 1px solid var(--border-gray);
+            border-radius: 6px;
+            cursor: pointer;
+            outline: none;
+            transition: all 0.2s ease;
+        }
 
-    .enquiry_modal .multi-select-option:hover {
-        background: var(--cream);
-    }
+        .enquiry_modal .language-selector select:hover {
+            border-color: var(--gold-light);
+        }
 
-    .enquiry_modal .multi-select-option .check {
-        width: 16px;
-        height: 16px;
-        border: 1.5px solid var(--border-gray);
-        border-radius: 4px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 0.65rem;
-        color: transparent;
-        transition: all 0.15s ease;
-        flex-shrink: 0;
-        background: var(--white);
-    }
+        .enquiry_modal .language-selector select:focus {
+            border-color: var(--gold);
+        }
 
-    .enquiry_modal .multi-select-option.selected .check {
-        background: var(--navy);
-        border-color: var(--navy);
-        color: var(--white);
-    }
+        .enquiry_modal [dir="rtl"] .language-selector {
+            justify-content: flex-start;
+        }
 
-    .enquiry_modal .multi-select-option.selected .check::after {
-        content: '✓';
-    }
-
-    .enquiry_modal .age-label {
-        font-size: 0.75em;
-        color: var(--light-gray);
-        font-weight: 400;
-    }
-
-    .enquiry_modal #productPlaceholder {
-        color: var(--light-gray);
-    }
-
-    .enquiry_modal .multi-select-trigger.has-selection #productPlaceholder {
-        color: var(--charcoal);
-    }
-
-    .enquiry_modal .multi-select-trigger.disabled #productPlaceholder {
-        color: #C0C0C0;
-    }
-
-    .enquiry_modal .form-group:has(.multi-select) {
-        margin-bottom: 2rem;
-    }
-
-    /* Optional Section */
-    .enquiry_modal .optional-section {
-        margin-top: 1rem;
-    }
-
-    .enquiry_modal .optional-section .multi-select-trigger {
-        padding: 0.65rem 0.85rem;
-        font-size: 0.8rem;
-        background: var(--cream);
-        border-color: var(--border-gray);
-    }
-
-    .enquiry_modal .optional-section .multi-select-trigger:hover {
-        border-color: var(--gold-light);
-    }
-
-    .enquiry_modal .optional-section .multi-select-dropdown {
-        max-height: 200px;
-    }
-
-    .enquiry_modal .optional-section .multi-select-option {
-        padding: 0.5rem 0.85rem;
-        font-size: 0.8rem;
-    }
-
-    .enquiry_modal .optional-section .multi-select-option .check {
-        width: 14px;
-        height: 14px;
-    }
-
-    .enquiry_modal .dropdown-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 0.5rem 0.85rem;
-        border-bottom: 1px solid var(--border-gray);
-        background: var(--cream);
-    }
-
-    .enquiry_modal .dropdown-header span {
-        font-size: 0.7rem;
-        color: var(--soft-gray);
-    }
-
-    .enquiry_modal .clear-all-btn {
-        font-size: 0.7rem;
-        color: var(--gold);
-        background: none;
-        border: none;
-        cursor: pointer;
-        padding: 0;
-        text-decoration: underline;
-    }
-
-    .enquiry_modal .clear-all-btn:hover {
-        color: var(--gold-light);
-    }
-
-    .enquiry_modal .dropdown-options {
-        max-height: 160px;
-        overflow-y: auto;
-    }
-
-    /* Submit Button */
-    .enquiry_modal .submit-btn {
-        width: 100%;
-        padding: 1rem;
-        background: var(--navy);
-        color: var(--white);
-        border: none;
-        border-radius: 8px;
-        font-family: 'Jost', sans-serif;
-        font-size: 0.9rem;
-        font-weight: 500;
-        letter-spacing: 0.05em;
-        cursor: pointer;
-        transition: all 0.2s ease;
-        margin-top: 0.5rem;
-    }
-
-    .enquiry_modal .submit-btn:hover {
-        background: var(--charcoal);
-        transform: translateY(-1px);
-        box-shadow: 0 4px 12px rgba(30, 30, 47, 0.2);
-    }
-
-    .enquiry_modal .submit-btn:active {
-        transform: translateY(0);
-    }
-
-    /* Success Message */
-    .enquiry_modal .success-message {
-        display: none;
-        text-align: center;
-        padding: 3rem 2rem;
-    }
-
-    .enquiry_modal .success-message.show {
-        display: block;
-    }
-
-    .enquiry_modal .success-icon {
-        width: 64px;
-        height: 64px;
-        background: var(--navy);
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin: 0 auto 1.5rem;
-        font-size: 1.75rem;
-        color: var(--white);
-    }
-
-    .enquiry_modal .success-message h2 {
-        font-family: 'Cormorant Garamond', serif;
-        font-size: 1.5rem;
-        color: var(--navy);
-        margin-bottom: 0.75rem;
-    }
-
-    .enquiry_modal .success-message p {
-        color: var(--soft-gray);
-        font-size: 0.9rem;
-        margin-bottom: 1.5rem;
-    }
-
-    .enquiry_modal .success-message a {
-        color: var(--gold);
-        text-decoration: none;
-    }
-
-    .enquiry_modal .success-message a:hover {
-        text-decoration: underline;
-    }
-
-    /* Footer */
-    .enquiry_modal footer {
-        padding: 1.5rem;
-        text-align: center;
-        font-size: 0.75rem;
-        color: var(--light-gray);
-        background: var(--white);
-        border-top: 1px solid var(--border-gray);
-    }
-
-    .enquiry_modal footer a {
-        color: var(--gold);
-        text-decoration: none;
-    }
-
-    /* RTL Support */
-    .enquiry_modal [dir="rtl"] .checkbox-group {
-        flex-direction: row-reverse;
-    }
-
-    .enquiry_modal [dir="rtl"] .checkbox-group.age-group {
-        direction: rtl;
-    }
-
-    .enquiry_modal [dir="rtl"] .multi-select-trigger {
-        flex-direction: row-reverse;
-    }
-
-    .enquiry_modal [dir="rtl"] .multi-select-option {
-        flex-direction: row-reverse;
-    }
-
-    .enquiry_modal [dir="rtl"] input[type="text"],
-    .enquiry_modal [dir="rtl"] input[type="tel"] {
-        text-align: right;
-    }
-
-    /* Responsive */
-    @media (max-width: 480px) {
+        /* Main Content */
         .enquiry_modal main {
-            padding: 1.5rem 1rem;
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2.5rem 1.5rem;
         }
 
         .enquiry_modal .form-container {
-            border-radius: 16px;
+            width: 100%;
+            max-width: 520px;
+            background: var(--white);
+            border-radius: 00px;
+            box-shadow: 0 4px 24px var(--shadow);
+            overflow: hidden;
+            margin: 20px auto;
         }
 
         .enquiry_modal .form-header {
-            padding: 1.75rem 1.5rem;
+            background: #452667;
+            padding: 2rem 2rem 1.75rem;
+            text-align: center;
+        }
+
+        .enquiry_modal .form-header h1 {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-size: 1.6rem;
+            font-weight: 500;
+            color: var(--white);
+            letter-spacing: 0.02em;
+        }
+
+        .enquiry_modal .form-header p {
+            color: var(--light-gray);
+            font-size: 0.85rem;
+            margin-top: 0.4rem;
+            font-weight: 300;
+        }
+
+        .enquiry_modal .form-header .bulk-notice {
+            font-size: 0.75rem;
+            color: var(--gold);
+            margin-top: 0.75rem;
+            letter-spacing: 0.03em;
+            font-weight: 400;
         }
 
         .enquiry_modal .form-body {
-            padding: 1.5rem;
+            padding: 2rem;
+            background-color: var(--cream);
         }
 
-        .checkbox-item label {
-            padding: 0.5rem 0.75rem;
+        /* Form Elements */
+        .enquiry_modal .form-group {
+            margin-bottom: 1.25rem;
+        }
+
+        .enquiry_modal label,
+        .enquiry_modal .group-label {
+            display: block;
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--soft-gray);
+            margin-bottom: 0.5rem;
+        }
+
+        .enquiry_modal .optional-label {
+            font-weight: 300;
+            text-transform: none;
+            letter-spacing: 0;
+            color: var(--light-gray);
+        }
+
+        .enquiry_modal input[type="text"],
+        .enquiry_modal input[type="tel"] {
+            width: 92%;
+            padding: 0.9rem 1rem;
+            font-family: 'Jost', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 400;
+            color: var(--charcoal);
+            background: var(--white);
+            border: 1px solid var(--border-gray);
+            border-radius: 10px;
+            transition: all 0.2s ease;
+        }
+
+        .enquiry_modal input[type="text"]:focus,
+        .enquiry_modal input[type="tel"]:focus {
+            outline: none;
+            border-color: var(--gold);
+            box-shadow: 0 0 0 3px rgba(201, 168, 108, 0.12);
+        }
+
+        .enquiry_modal input::placeholder {
+            color: #C0C0C0;
+            font-family: 'Jost', sans-serif;
+            font-weight: 400;
+        }
+
+        .enquiry_modal textarea {
+            width: 100%;
+            padding: 0.75rem 0.85rem;
+            font-family: 'Jost', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 400;
+            color: var(--charcoal);
+            background: var(--cream);
+            border: 1px solid var(--border-gray);
+            border-radius: 8px;
+            transition: all 0.2s ease;
+            resize: vertical;
+            min-height: 60px;
+        }
+
+        .enquiry_modal textarea:focus {
+            outline: none;
+            border-color: var(--gold);
+            box-shadow: 0 0 0 3px rgba(201, 168, 108, 0.12);
+        }
+
+        .enquiry_modal textarea::placeholder {
+            color: #C0C0C0;
+        }
+
+        /* Business Type Select */
+        .enquiry_modal select#businessType {
+            width: 100%;
+            padding: 0.9rem 0.85rem;
+            font-family: 'Jost', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 400;
+            color: var(--charcoal);
+            background: var(--white);
+            border: 1px solid var(--border-gray);
+            border-radius: 10px;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23888' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 0.85rem center;
+        }
+
+        .enquiry_modal select#businessType.placeholder {
+            color: #C0C0C0;
+        }
+
+        .enquiry_modal select#businessType:focus {
+            outline: none;
+            border-color: var(--gold);
+            box-shadow: 0 0 0 3px rgba(201, 168, 108, 0.12);
+        }
+
+        .enquiry_modal select#businessType option {
+            color: var(--charcoal);
+        }
+
+        .enquiry_modal select#businessType option[value=""] {
+            color: #C0C0C0;
+        }
+
+        /* Phone Input Group */
+        .enquiry_modal .phone-input-group {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .enquiry_modal .country-code-select {
+            position: relative;
+            flex-shrink: 0;
+        }
+
+        .enquiry_modal .country-code-select select {
+            display: none;
+        }
+
+        .enquiry_modal .country-picker {
+            position: relative;
+            min-width: 100px;
+        }
+
+        .enquiry_modal .country-picker-trigger {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.9rem 2rem 0.9rem 0.75rem;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-dark);
+            border: 2px solid var(--gold-light);
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: all 0.25s ease;
+            min-width: 100px;
+        }
+
+        /* .country-picker-trigger:hover {
+            background: var(--cream-warm);
+        } */
+
+        .enquiry_modal .country-picker-trigger.active {
+            background: var(--white);
+            border-color: var(--gold);
+            border-radius: var(--radius-md) var(--radius-md) 0 0;
+        }
+
+        .enquiry_modal .country-picker-trigger .flag {
+            font-size: 1.1rem;
+        }
+
+        .enquiry_modal .country-picker-trigger .code {
+            font-weight: 500;
+        }
+
+        .enquiry_modal .country-picker-trigger::after {
+            content: '▼';
+            position: absolute;
+            right: 0.75rem;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 0.6rem;
+            color: var(--text-light);
+            transition: transform 0.25s ease;
+        }
+
+        .enquiry_modal .country-picker-trigger.active::after {
+            transform: translateY(-50%) rotate(180deg);
+        }
+
+        .enquiry_modal .country-picker-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: var(--white);
+            border: 2px solid var(--gold);
+            border-top: none;
+            border-radius: 0 0 var(--radius-md) var(--radius-md);
+            max-height: 280px;
+            overflow: hidden;
+            z-index: 1000;
+            display: none;
+            box-shadow: var(--shadow-md);
+            min-width: 280px;
+        }
+
+        .enquiry_modal .country-picker-dropdown.open {
+            display: block;
+        }
+
+        .enquiry_modal .country-search-wrapper {
+            padding: 0.5rem;
+            border-bottom: 1px solid var(--border-light);
+            position: sticky;
+            top: 0;
+            background: var(--white);
+        }
+
+        .enquiry_modal .country-search {
+            width: 100%;
+            padding: 0.6rem 0.75rem;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.85rem;
+            color: var(--text-dark);
+            background: var(--cream);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            outline: none;
+        }
+
+        .enquiry_modal .country-search:focus {
+            border-color: var(--gold);
+            background: var(--white);
+        }
+
+        .country-search::placeholder {
+            color: var(--text-muted);
+        }
+
+        .enquiry_modal .country-list {
+            max-height: 220px;
+            overflow-y: auto;
+        }
+
+        .enquiry_modal .country-option {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 0.65rem 0.75rem;
+            cursor: pointer;
+            transition: background 0.15s ease;
+            font-size: 0.85rem;
+        }
+
+        .enquiry_modal .country-option:hover {
+            background: var(--cream);
+        }
+
+        .enquiry_modal .country-option.selected {
+            background: var(--gold-soft);
+        }
+
+        .enquiry_modal .country-option .flag {
+            font-size: 1.1rem;
+            width: 24px;
+            text-align: center;
+        }
+
+        .enquiry_modal .country-option .name {
+            flex: 1;
+            color: var(--text-medium);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .enquiry_modal .country-option .dial-code {
+            color: var(--text-dark);
+            font-weight: 500;
+        }
+
+        .enquiry_modal .country-list::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .enquiry_modal .country-list::-webkit-scrollbar-track {
+            background: var(--cream);
+        }
+
+        .enquiry_modal .country-list::-webkit-scrollbar-thumb {
+            background: var(--border);
+            border-radius: 3px;
+        }
+
+        .enquiry_modal .no-results {
+            padding: 1rem;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        .enquiry_modal [dir="rtl"] .country-picker-trigger {
+            padding: 0.9rem 0.75rem 0.9rem 2rem;
+        }
+
+        .enquiry_modal [dir="rtl"] .country-picker-trigger::after {
+            right: auto;
+            left: 0.75rem;
+        }
+
+        .enquiry_modal [dir="rtl"] .country-option {
+            flex-direction: row-reverse;
+        }
+
+        /* Divider */
+        .enquiry_modal .divider {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            margin: 1.75rem 0 0.5rem;
+        }
+
+        .enquiry_modal .divider::before,
+        .enquiry_modal .divider::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid var(--border-gray);
+        }
+
+        .enquiry_modal .divider span {
+            font-size: 0.65rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--gold);
+            padding: 0 1rem;
+            font-weight: 500;
+        }
+
+        .enquiry_modal .section-hint {
+            text-align: center;
+            font-size: 0.8rem;
+            color: var(--light-gray);
+            margin: 0.25rem 0 1.25rem;
+        }
+
+        /* Checkbox Group - Elegant Chip Style with Visible Checkboxes */
+        .enquiry_modal .checkbox-group {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.5rem;
+        }
+
+        .enquiry_modal .checkbox-group.age-group {
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        .enquiry_modal .checkbox-item {
+            position: relative;
+        }
+
+        .enquiry_modal .checkbox-item input[type="checkbox"] {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+            height: 0;
+            width: 0;
+        }
+
+        .enquiry_modal .checkbox-item label {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            /* width: 100%; */
+            padding: 0.75rem 1rem;
+            background: var(--white);
+            border: 1.5px solid var(--border-gray);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 0.85rem;
+            font-weight: 400;
+            letter-spacing: 0.01em;
+            text-transform: none;
+            color: var(--charcoal);
+            margin-bottom: 0;
+        }
+
+        .enquiry_modal .checkbox-item label::before {
+            content: '';
+            width: 16px;
+            height: 16px;
+            border: 1.5px solid var(--border-gray);
+            border-radius: 3px;
+            background: var(--white);
+            flex-shrink: 0;
+            transition: all 0.2s ease;
+        }
+
+        .enquiry_modal .checkbox-item label:hover {
+            border-color: var(--gold);
+        }
+
+        .enquiry_modal .checkbox-item label:hover::before {
+            border-color: var(--gold);
+        }
+
+        .enquiry_modal .checkbox-item input[type="checkbox"]:checked+label {
+            background: var(--navy);
+            color: var(--white);
+            border-color: var(--navy);
+        }
+
+        .enquiry_modal .checkbox-item input[type="checkbox"]:checked+label::before {
+            background: var(--white);
+            border-color: var(--white);
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%231E1E2F'%3E%3Cpath d='M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z'/%3E%3C/svg%3E");
+            background-size: 11px;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .enquiry_modal .checkbox-item input[type="checkbox"]:disabled+label {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
+        .enquiry_modal .checkbox-item input[type="checkbox"]:disabled+label:hover {
+            border-color: var(--border-gray);
+        }
+
+        .enquiry_modal .checkbox-item input[type="checkbox"]:disabled+label:hover::before {
+            border-color: var(--border-gray);
+        }
+
+        .enquiry_modal .selection-count {
+            font-weight: 400;
+            font-size: 0.7rem;
+            color: var(--light-gray);
+            margin-left: 0.35rem;
+            text-transform: none;
+            letter-spacing: 0;
+        }
+
+        .enquiry_modal .selection-count.has-selection {
+            color: var(--gold);
+        }
+
+        /* Multi-Select Dropdown */
+        .enquiry_modal .multi-select {
+            position: relative;
+            z-index: 100;
+        }
+
+        .enquiry_modal .multi-select-trigger {
+            width: 100%;
+            padding: 0.9rem 1rem;
+            font-family: 'Jost', sans-serif;
+            font-size: 0.85rem;
+            color: var(--light-gray);
+            background: var(--white);
+            border: 1px solid var(--border-gray);
+            border-radius: 10px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.2s ease;
+        }
+
+        .enquiry_modal .multi-select-trigger:hover {
+            border-color: var(--gold-light);
+        }
+
+        .enquiry_modal .multi-select-trigger.active {
+            border-color: var(--gold);
+            border-radius: 10px 10px 0 0;
+        }
+
+        .enquiry_modal .multi-select-trigger.disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
+        .enquiry_modal .multi-select-trigger.disabled:hover {
+            border-color: var(--border-gray);
+        }
+
+        .enquiry_modal .multi-select-trigger .arrow {
+            font-size: 0.7rem;
+            color: var(--soft-gray);
+            transition: transform 0.2s ease;
+        }
+
+        .enquiry_modal .multi-select-trigger.active .arrow {
+            transform: rotate(180deg);
+        }
+
+        .enquiry_modal .multi-select-dropdown {
+            position: absolute;
+            top: 100%;
+            bottom: auto;
+            left: 0;
+            right: 0;
+            background: var(--white);
+            border: 1px solid var(--gold);
+            border-top: none;
+            border-radius: 0 0 10px 10px;
+            max-height: 220px;
+            overflow-y: auto;
+            z-index: 1000;
+            display: none;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+        }
+
+        .enquiry_modal .multi-select-dropdown.open {
+            display: block;
+        }
+
+        /* Mobile - dropdown goes up */
+        @media (max-width: 480px) {
+            .enquiry_modal .multi-select-dropdown {
+                top: auto;
+                bottom: 100%;
+                border-top: 1px solid var(--gold);
+                border-bottom: none;
+                border-radius: 10px 10px 0 0;
+                box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.1);
+            }
+
+            .enquiry_modal .multi-select-trigger.active {
+                border-radius: 0 0 10px 10px;
+            }
+
+            .enquiry_modal .multi-select-trigger .arrow {
+                transform: rotate(180deg);
+            }
+
+            .enquiry_modal .multi-select-trigger.active .arrow {
+                transform: rotate(0deg);
+            }
+        }
+
+        .enquiry_modal .multi-select-option {
+            padding: 0.7rem 1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            transition: background 0.15s ease;
+            font-size: 0.85rem;
+            user-select: none;
+            color: var(--charcoal);
+        }
+
+        .enquiry_modal .multi-select-option:hover {
+            background: var(--cream);
+        }
+
+        .enquiry_modal .multi-select-option .check {
+            width: 16px;
+            height: 16px;
+            border: 1.5px solid var(--border-gray);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.65rem;
+            color: transparent;
+            transition: all 0.15s ease;
+            flex-shrink: 0;
+            background: var(--white);
+        }
+
+        .enquiry_modal .multi-select-option.selected .check {
+            background: var(--navy);
+            border-color: var(--navy);
+            color: var(--white);
+        }
+
+        .enquiry_modal .multi-select-option.selected .check::after {
+            content: '✓';
+        }
+
+        .enquiry_modal .age-label {
+            font-size: 0.75em;
+            color: var(--light-gray);
+            font-weight: 400;
+        }
+
+        .enquiry_modal #productPlaceholder {
+            color: var(--light-gray);
+        }
+
+        .enquiry_modal .multi-select-trigger.has-selection #productPlaceholder {
+            color: var(--charcoal);
+        }
+
+        .enquiry_modal .multi-select-trigger.disabled #productPlaceholder {
+            color: #C0C0C0;
+        }
+
+        .enquiry_modal .form-group:has(.multi-select) {
+            margin-bottom: 2rem;
+        }
+
+        /* Optional Section */
+        .enquiry_modal .optional-section {
+            margin-top: 1rem;
+        }
+
+        .enquiry_modal .optional-section .multi-select-trigger {
+            padding: 0.65rem 0.85rem;
+            font-size: 0.8rem;
+            background: var(--cream);
+            border-color: var(--border-gray);
+        }
+
+        .enquiry_modal .optional-section .multi-select-trigger:hover {
+            border-color: var(--gold-light);
+        }
+
+        .enquiry_modal .optional-section .multi-select-dropdown {
+            max-height: 200px;
+        }
+
+        .enquiry_modal .optional-section .multi-select-option {
+            padding: 0.5rem 0.85rem;
             font-size: 0.8rem;
         }
-    }
-</style>
-<!-- Modal -->
-{{-- <div class="modal fade enquiry_modal" id="enquiryModal" tabindex="-1" aria-labelledby="enquiryModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-    aria-labelledby="staticBackdropLabel"> --}}
 
-<div class="modal fade enquiry_modal" id="enquiryModal" tabindex="-1" aria-labelledby="enquiryModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-body enquiry_body">
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                <div class="form-container">
-                    <div class="form-header">
-                        <h1 id="formTitle">Product Inquiry</h1>
-                        <p id="formSubtitle">Share your requirements and our team will be in touch</p>
-                        <p class="bulk-notice" id="bulkNotice">For wholesale buyers only</p>
-                    </div>
+        .enquiry_modal .optional-section .multi-select-option .check {
+            width: 14px;
+            height: 14px;
+        }
 
-                    <div class="form-body">
-                        <form id="inquiryForm" method="POST" action="{{ route('store.product.inquiry') }}">
-                            @csrf
-                            <input type="hidden" name="selected_lang" id="selected_lang" value="">
-                            <div class="language-selector">
-                                <select id="languageSelect" name="selected_language" onchange="changeLanguage(this.value)">
-                                    <optgroup label="──────────">
-                                        <option value="en">English</option>
-                                    </optgroup>
-                                    <optgroup label="──────────">
-                                        <option value="ar">العربية</option>
-                                        <option value="fa">فارسی</option>
-                                        <option value="fr">Français</option>
-                                        <option value="ru">Русский</option>
-                                        <option value="sw">Kiswahili</option>
-                                    </optgroup>
-                                    <optgroup label="──────────">
-                                        <option value="af">Afrikaans</option>
-                                        <option value="sq">Shqip (Albanian)</option>
-                                        <option value="am">አማርኛ (Amharic)</option>
-                                        <option value="hy">Հայdelays (Armenian)</option>
-                                        <option value="az">Azərbaycan (Azerbaijani)</option>
-                                        <option value="es">Español (Spanish)</option>
-                                        <option value="gu">ગુજરાતી (Gujarati)</option>
-                                        <option value="ha">Hausa</option>
-                                        <option value="hi">हिन्दी (Hindi)</option>
-                                        <option value="kk">Қазақ (Kazakh)</option>
-                                        <option value="ku">Kurdî (Kurdish)</option>
-                                        <option value="mn">Монгол (Mongolian)</option>
-                                        <option value="ps">پښتو (Pashto)</option>
-                                        <option value="pt">Português (Portuguese)</option>
-                                        <option value="so">Soomaali (Somali)</option>
-                                        <option value="tr">Türkçe (Turkish)</option>
-                                        <option value="ur">اردو (Urdu)</option>
-                                        <option value="uz">Oʻzbek (Uzbek)</option>
-                                        <option value="yo">Yorùbá</option>
-                                        <option value="zu">isiZulu (Zulu)</option>
-                                    </optgroup>
-                                </select>
-                            </div>
+        .enquiry_modal .dropdown-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem 0.85rem;
+            border-bottom: 1px solid var(--border-gray);
+            background: var(--cream);
+        }
 
-                            <input type="hidden" id="messageContent" name="messageContent" value="">
+        .enquiry_modal .dropdown-header span {
+            font-size: 0.7rem;
+            color: var(--soft-gray);
+        }
 
-                            <div class="form-group">
-                                <label for="name">Name</label>
-                                <input type="text" id="name" name="name" required placeholder="Your name">
-                            </div>
+        .enquiry_modal .clear-all-btn {
+            font-size: 0.7rem;
+            color: var(--gold);
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+            text-decoration: underline;
+        }
 
-                            <div class="form-group">
-                                <label for="businessName">Business Name</label>
-                                <input type="text" id="businessName" name="businessName" required
-                                    placeholder="Your business name">
-                            </div>
+        .enquiry_modal .clear-all-btn:hover {
+            color: var(--gold-light);
+        }
 
-                            <div class="form-group">
-                                <label for="businessType">Business Type <span class="optional-label"
-                                        id="businessOptionalLabel">(Optional)</span></label>
-                                <select id="businessType" name="businessType">
-                                    <option value="">Select business type</option>
-                                    <option value="Regional Distributor">Regional Distributor</option>
-                                    <option value="Children's Clothing Store">Children's Clothing Store</option>
-                                    <option value="Department Store">Department Store</option>
-                                    <option value="Independent Retailer">Independent Retailer</option>
-                                    <option value="Online Seller">Online Seller</option>
-                                </select>
-                            </div>
+        .enquiry_modal .dropdown-options {
+            max-height: 160px;
+            overflow-y: auto;
+        }
 
-                            <div class="form-group">
-                                <label for="whatsapp">WhatsApp Number</label>
-                                <div class="phone-input-group">
-                                    <div class="country-code-select">
-                                        <div class="country-picker" id="countryPicker">
-                                            <div class="country-picker-trigger" id="countryPickerTrigger"
-                                                onclick="toggleCountryPicker()">
-                                                <span class="flag" id="selectedFlag">🇦🇪</span>
-                                                <span class="code" id="selectedCode">+971</span>
-                                            </div>
-                                            <div class="country-picker-dropdown" id="countryPickerDropdown">
-                                                <div class="country-search-wrapper">
-                                                    <input type="text" class="country-search" id="countrySearch"
-                                                        placeholder="Search country..."
-                                                        oninput="filterCountries(this.value)">
+        /* Submit Button */
+        .enquiry_modal .submit-btn {
+            width: 100%;
+            padding: 1rem;
+            background: var(--navy);
+            color: var(--white);
+            border: none;
+            border-radius: 8px;
+            font-family: 'Jost', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            margin-top: 0.5rem;
+        }
+
+        .enquiry_modal .submit-btn:hover {
+            background: var(--charcoal);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(30, 30, 47, 0.2);
+        }
+
+        .enquiry_modal .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        /* Success Message */
+        .enquiry_modal .success-message {
+            display: none;
+            text-align: center;
+            padding: 3rem 2rem;
+        }
+
+        .enquiry_modal .success-message.show {
+            display: block;
+        }
+
+        .enquiry_modal .success-icon {
+            width: 64px;
+            height: 64px;
+            background: var(--navy);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 1.75rem;
+            color: var(--white);
+        }
+
+        .enquiry_modal .success-message h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            color: var(--navy);
+            margin-bottom: 0.75rem;
+        }
+
+        .enquiry_modal .success-message p {
+            color: var(--soft-gray);
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .enquiry_modal .success-message a {
+            color: var(--gold);
+            text-decoration: none;
+        }
+
+        .enquiry_modal .success-message a:hover {
+            text-decoration: underline;
+        }
+
+        /* Footer */
+        .enquiry_modal footer {
+            padding: 1.5rem;
+            text-align: center;
+            color: var(--light-gray);
+            background: var(--white);
+            border-top: 1px solid var(--border-gray);
+        }
+
+        .enquiry_modal footer a {
+            color: var(--gold);
+            text-decoration: none;
+        }
+
+        /* RTL Support */
+        .enquiry_modal [dir="rtl"] .checkbox-group {
+            flex-direction: row-reverse;
+        }
+
+        .enquiry_modal [dir="rtl"] .checkbox-group.age-group {
+            direction: rtl;
+        }
+
+        .enquiry_modal [dir="rtl"] .multi-select-trigger {
+            flex-direction: row-reverse;
+        }
+
+        .enquiry_modal [dir="rtl"] .multi-select-option {
+            flex-direction: row-reverse;
+        }
+
+        .enquiry_modal [dir="rtl"] input[type="text"],
+        .enquiry_modal [dir="rtl"] input[type="tel"] {
+            text-align: right;
+        }
+
+        /* Responsive */
+        @media (max-width: 480px) {
+            .enquiry_modal main {
+                padding: 1.5rem 1rem;
+            }
+
+            .enquiry_modal .form-container {
+                border-radius: 16px;
+            }
+
+            .enquiry_modal .form-header {
+                padding: 1.75rem 1.5rem;
+            }
+
+            .enquiry_modal .form-body {
+                padding: 1.5rem;
+            }
+
+            .checkbox-item label {
+                padding: 0.5rem 0.75rem;
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+
+    <header>
+        <div class="logo">Marhaba</div>
+    </header>
+
+    <div class="modal fade enquiry_modal" id="enquiryModal" tabindex="-1" aria-labelledby="enquiryModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body enquiry_body">
+                  
+                    <div class="form-container">
+                        <div class="form-header">
+                            <h1 id="formTitle">Product Inquiry</h1>
+                            <p id="formSubtitle">Share your requirements and our team will be in touch</p>
+                            <p class="bulk-notice" id="bulkNotice">For wholesale buyers only</p>
+                        </div>
+
+                        <div class="form-body">
+                            <form id="inquiryForm" method="POST" action="{{ route('store.product.inquiry') }}">
+                                @csrf
+                                <input type="hidden" name="selected_lang" id="selected_lang" value="">
+                                <div class="language-selector">
+                                    <select id="languageSelect" name="selected_language" onchange="changeLanguage(this.value)">
+                                        <optgroup label="──────────">
+                                            <option value="en">English</option>
+                                        </optgroup>
+                                        <optgroup label="──────────">
+                                            <option value="ar">العربية</option>
+                                            <option value="fa">فارسی</option>
+                                            <option value="fr">Français</option>
+                                            <option value="ru">Русский</option>
+                                            <option value="sw">Kiswahili</option>
+                                        </optgroup>
+                                        <optgroup label="──────────">
+                                            <option value="af">Afrikaans</option>
+                                            <option value="sq">Shqip (Albanian)</option>
+                                            <option value="am">አማርኛ (Amharic)</option>
+                                            <option value="hy">Հայdelays (Armenian)</option>
+                                            <option value="az">Azərbaycan (Azerbaijani)</option>
+                                            <option value="es">Español (Spanish)</option>
+                                            <option value="gu">ગુજરાતી (Gujarati)</option>
+                                            <option value="ha">Hausa</option>
+                                            <option value="hi">हिन्दी (Hindi)</option>
+                                            <option value="kk">Қазақ (Kazakh)</option>
+                                            <option value="ku">Kurdî (Kurdish)</option>
+                                            <option value="mn">Монгол (Mongolian)</option>
+                                            <option value="ps">پښتو (Pashto)</option>
+                                            <option value="pt">Português (Portuguese)</option>
+                                            <option value="so">Soomaali (Somali)</option>
+                                            <option value="tr">Türkçe (Turkish)</option>
+                                            <option value="ur">اردو (Urdu)</option>
+                                            <option value="uz">Oʻzbek (Uzbek)</option>
+                                            <option value="yo">Yorùbá</option>
+                                            <option value="zu">isiZulu (Zulu)</option>
+                                        </optgroup>
+                                    </select>
+                                </div>
+
+                                <input type="hidden" id="messageContent" name="messageContent" value="">
+
+                                <div class="form-group">
+                                    <label for="name">Name</label>
+                                    <input type="text" id="name" name="name" required placeholder="Your name">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="businessName">Business Name</label>
+                                    <input type="text" id="businessName" name="businessName" required
+                                        placeholder="Your business name">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="businessType">Business Type <span class="optional-label"
+                                            id="businessOptionalLabel">(Optional)</span></label>
+                                    <select id="businessType" name="businessType">
+                                        <option value="">Select business type</option>
+                                        <option value="Regional Distributor">Regional Distributor</option>
+                                        <option value="Children's Clothing Store">Children's Clothing Store</option>
+                                        <option value="Department Store">Department Store</option>
+                                        <option value="Independent Retailer">Independent Retailer</option>
+                                        <option value="Online Seller">Online Seller</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="whatsapp">WhatsApp Number</label>
+                                    <div class="phone-input-group">
+                                        <div class="country-code-select">
+                                            <div class="country-picker" id="countryPicker">
+                                                <div class="country-picker-trigger" id="countryPickerTrigger"
+                                                    onclick="toggleCountryPicker()">
+                                                    <span class="flag" id="selectedFlag">🇦🇪</span>
+                                                    <span class="code" id="selectedCode">+971</span>
                                                 </div>
-                                                <div class="country-list" id="countryList"></div>
+                                                <div class="country-picker-dropdown" id="countryPickerDropdown">
+                                                    <div class="country-search-wrapper">
+                                                        <input type="text" class="country-search" id="countrySearch"
+                                                            placeholder="Search country..."
+                                                            oninput="filterCountries(this.value)">
+                                                    </div>
+                                                    <div class="country-list" id="countryList"></div>
+                                                </div>
+                                            </div>
+                                            <input type="hidden" id="countryCode" name="countryCode" value="+971">
+                                        </div>
+
+                                        <input type="tel" id="whatsapp" name="whatsapp" required placeholder="50 123 4567" inputmode="numeric" pattern="[0-9]*" onkeydown="if(!/[0-9]/.test(event.key) && !['Backspace','Delete','ArrowLeft','ArrowRight','Tab','Home','End'].includes(event.key)){event.preventDefault();}" oninput="this.value=this.value.replace(/[^0-9]/g,'');"
+                                            class="phone-number-input">
+                                        {{-- <input type="tel" id="whatsapp" name="whatsapp" required placeholder="50 123 4567" class="phone-number-input"> --}}
+                                    </div>
+                                </div>
+
+                                <div class="divider">
+                                    <span>Product Interest</span>
+                                </div>
+
+                                <p class="section-hint">Select all that apply</p>
+                                <input type="hidden" id="selected_gender" name="selected_gender" value="">
+                                <div class="form-group">
+                                    <span class="group-label">Gender <span class="selection-count"
+                                            id="genderCount"></span></span>
+                                    <div class="checkbox-group" id="genderGroup">
+                                        <div class="checkbox-item">
+                                            <input type="checkbox" id="gender-boy" name="gender" value="boy">
+                                            <label for="gender-boy">Boy</label>
+                                        </div>
+                                        <div class="checkbox-item">
+                                            <input type="checkbox" id="gender-girl" name="gender" value="girl">
+                                            <label for="gender-girl">Girl</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <input type="hidden" id="selected_age" name="selected_age" value="">
+                                <div class="form-group">
+                                    <span class="group-label">Age Range <span class="selection-count"
+                                            id="ageCount"></span></span>
+                                    <div class="checkbox-group age-group" id="ageGroup">
+                                        <div class="checkbox-item">
+                                            <input type="checkbox" id="age-baby" name="age" value="baby" disabled>
+                                            <label for="age-baby">0-3Y</label>
+                                        </div>
+                                        <div class="checkbox-item">
+                                            <input type="checkbox" id="age-toddlers" name="age" value="toddlers" disabled>
+                                            <label for="age-toddlers">2-6Y</label>
+                                        </div>
+                                        <div class="checkbox-item">
+                                            <input type="checkbox" id="age-kids" name="age" value="kids" disabled>
+                                            <label for="age-kids">6-14Y</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <input type="hidden" id="selected_product" name="selected_product" value="">
+                                <div class="optional-section">
+                                    <div class="form-group" style="margin-bottom: 0.75rem;">
+                                        <label class="field-label" id="productTypeLabel">Product Type <span
+                                                class="optional-label">(Optional)</span></label>
+                                        <div class="multi-select" id="productMultiSelect">
+                                            <div class="multi-select-trigger disabled" id="productTrigger"
+                                                onclick="toggleDropdown()">
+                                                <span id="productPlaceholder">Select gender and age first</span>
+                                                <span class="arrow"><svg xmlns="http://www.w3.org/2000/svg" width="16"
+                                                        height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                        <path d="M6 9l6 6 6-6" />
+                                                    </svg></span>
+                                            </div>
+                                            <div class="multi-select-dropdown" id="productDropdown">
                                             </div>
                                         </div>
-                                        <input type="hidden" id="countryCode" name="countryCode" value="+971">
                                     </div>
-
-                                    <input type="tel" id="whatsapp" name="whatsapp" required placeholder="50 123 4567" inputmode="numeric" pattern="[0-9]*" onkeydown="if(!/[0-9]/.test(event.key) && !['Backspace','Delete','ArrowLeft','ArrowRight','Tab','Home','End'].includes(event.key)){event.preventDefault();}" oninput="this.value=this.value.replace(/[^0-9]/g,'');"
-                                        class="phone-number-input">
-                                    {{-- <input type="tel" id="whatsapp" name="whatsapp" required placeholder="50 123 4567" class="phone-number-input"> --}}
-                                </div>
-                            </div>
-
-                            <div class="divider">
-                                <span>Product Interest</span>
-                            </div>
-
-                            <p class="section-hint">Select all that apply</p>
-                            <input type="hidden" id="selected_gender" name="selected_gender" value="">
-                            <div class="form-group">
-                                <span class="group-label">Gender <span class="selection-count"
-                                        id="genderCount"></span></span>
-                                <div class="checkbox-group" id="genderGroup">
-                                    <div class="checkbox-item">
-                                        <input type="checkbox" id="gender-boy" name="gender" value="boy">
-                                        <label for="gender-boy">Boy</label>
-                                    </div>
-                                    <div class="checkbox-item">
-                                        <input type="checkbox" id="gender-girl" name="gender" value="girl">
-                                        <label for="gender-girl">Girl</label>
+                                    <div class="form-group" style="margin-bottom: 1rem;">
+                                        <textarea id="message" name="message" rows="2"
+                                            placeholder="Any specific requirements? (Optional)"></textarea>
                                     </div>
                                 </div>
+
+                                <button type="submit" class="submit-btn" id="submitBtn">Send via WhatsApp</button>
+                            </form>
+
+                            <div class="success-message" id="successMessage">
+                                <div class="success-icon">✓</div>
+                                <h2>Opening WhatsApp</h2>
+                                <p>If WhatsApp doesn't open automatically,<br><a href="#" id="whatsappLink"
+                                        target="_blank">click here to send your inquiry</a></p>
                             </div>
-
-
-                            <input type="hidden" id="selected_age" name="selected_age" value="">
-                            <div class="form-group">
-                                <span class="group-label">Age Range <span class="selection-count"
-                                        id="ageCount"></span></span>
-                                <div class="checkbox-group age-group" id="ageGroup">
-                                    <div class="checkbox-item">
-                                        <input type="checkbox" id="age-baby" name="age" value="baby" disabled>
-                                        <label for="age-baby">0-3Y</label>
-                                    </div>
-                                    <div class="checkbox-item">
-                                        <input type="checkbox" id="age-toddlers" name="age" value="toddlers" disabled>
-                                        <label for="age-toddlers">2-6Y</label>
-                                    </div>
-                                    <div class="checkbox-item">
-                                        <input type="checkbox" id="age-kids" name="age" value="kids" disabled>
-                                        <label for="age-kids">6-14Y</label>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <input type="hidden" id="selected_product" name="selected_product" value="">
-                            <div class="optional-section">
-                                <div class="form-group" style="margin-bottom: 0.75rem;">
-                                    <label class="field-label" id="productTypeLabel">Product Type <span
-                                            class="optional-label">(Optional)</span></label>
-                                    <div class="multi-select" id="productMultiSelect">
-                                        <div class="multi-select-trigger disabled" id="productTrigger"
-                                            onclick="toggleDropdown()">
-                                            <span id="productPlaceholder">Select gender and age first</span>
-                                            <span class="arrow"><svg xmlns="http://www.w3.org/2000/svg" width="16"
-                                                    height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                                    <path d="M6 9l6 6 6-6" />
-                                                </svg></span>
-                                        </div>
-                                        <div class="multi-select-dropdown" id="productDropdown">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group" style="margin-bottom: 1rem;">
-                                    <textarea id="message" name="message" rows="2"
-                                        placeholder="Any specific requirements? (Optional)"></textarea>
-                                </div>
-                            </div>
-
-                            <button type="submit" class="submit-btn" id="submitBtn">Send via WhatsApp</button>
-                        </form>
-
-                        <div class="success-message" id="successMessage">
-                            <div class="success-icon">✓</div>
-                            <h2>Opening WhatsApp</h2>
-                            <p>If WhatsApp doesn't open automatically,<br><a href="#" id="whatsappLink"
-                                    target="_blank">click here to send your inquiry</a></p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+
+    <footer>
+        <p>© 2026 Marhaba Fashion · <a href="https://marhabafashion.com">marhabafashion.com</a></p>
+    </footer>
 
 <script>
     // Translations

@@ -43,6 +43,7 @@ Route::get('clear', function () {
 //Front route
 // Route::get('/', [dashboardController::class, 'index']);
 Route::get('/', [dashboardController::class, 'landing']);
+Route::get('product-inquiry', [dashboardController::class, 'productInquiry']);
 Route::get('/about-us', [dashboardController::class, 'about'])->name('about');
 Route::get('/contact-us', [dashboardController::class, 'contact'])->name('contact');
 Route::post('/post-contact-us', [dashboardController::class, 'postContact'])->name('post.contact');

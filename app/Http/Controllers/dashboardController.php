@@ -1135,6 +1135,10 @@ class dashboardController extends Controller
    
         return redirect()->away($whatsappUrl);
     }
+
+    public function productInquiry(Request $request){
+        return view('front.product_inquiry');
+    }
     
 }
     
