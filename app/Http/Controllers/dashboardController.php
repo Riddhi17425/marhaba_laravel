@@ -1128,9 +1128,10 @@ class dashboardController extends Controller
         }
 
         // Redirect to WhatsApp
-        $number = config('global_values.admin_whatsapp_number');
+        $adminNumber = config('global_values.admin_whatsapp_number');
+        $number = $request->number ?? null;
         $message = 'Inquiry from the website with Phone No. - '. $number.' and Message - '. $request->message;
-        $whatsappUrl = "https://api.whatsapp.com/send/?phone={$number}&text=" . urlencode($message);
+        $whatsappUrl = "https://api.whatsapp.com/send/?phone={$adminNumber}&text=" . urlencode($message);
    
         return redirect()->away($whatsappUrl);
     }
