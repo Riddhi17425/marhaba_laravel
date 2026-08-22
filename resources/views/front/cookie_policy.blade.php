@@ -89,7 +89,7 @@
             <div class="mt-2"><b>Company:</b> Najmuddin Trading Co. LLC</div>
             <div><b>Address:</b> Murshid Bazaar, Deira, Dubai, UAE</div>
             <div><b>Email:</b> <a href="mailto:info@marhabafashion.com">info@marhabafashion.com</a></div>
-            <div><b>WhatsApp:</b> <a href="https://wa.me/971569233052" target="_blank">+971 56 923 3052</a></div>
+            <div><b>WhatsApp:</b> <a href="https://wa.me/971502283252" target="_blank">+971 50 228 3252</a></div>
     </div>
 </section>
 

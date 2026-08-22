@@ -43,7 +43,7 @@
                 <!-- Description -->
                 <p class="detail_text scroll-subtext " data-animate-on-scroll>{!! $product->description !!}</p>
                 <!--<a href="" class="comman_btn2 border-0" data-bs-target="#enquiryform" data-bs-toggle="modal"><span>Enquire Now</span></a>-->
-                <a href="https://api.whatsapp.com/send?phone=971569233052&text=Hello,%20I%27m%20visiting%20your%20website%20and%20would%20like%20to%20know%20more%22" class="comman_btn2 border-0"><span>Enquire Now</span></a>
+                <a href="https://api.whatsapp.com/send?phone=971502283252&text=Hello,%20I%27m%20visiting%20your%20website%20and%20would%20like%20to%20know%20more%22" class="comman_btn2 border-0"><span>Enquire Now</span></a>
 
                 <!-- Sizes & Brands -->
                 <div class="mt-md-4 mt-3">

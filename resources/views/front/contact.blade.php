@@ -168,8 +168,11 @@
                         <img src="{{ asset('public/front/img/wp_icon.png') }}" alt="WhatsApp" class="img-fluid">
                         <span>WhatsApp:</span>
                     </div>
-                    <a href="tel:+971569233052">
+                    <!-- <a href="tel:+971569233052">
                         +971 5 692 33052
+                    </a> -->
+                    <a href="tel:+971502283252">
+                        +971 502283252
                     </a>
                 </div>
             </div>
